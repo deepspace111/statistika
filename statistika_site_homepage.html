@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>מבוא לסטטיסטיקה תיאורית</title>
+  <style>
+    :root {
+      --bg: #e5e5e5;
+      --panel: #f2f2f2;
+      --text: #111111;
+      --muted: #4a4a4a;
+      --line: #cfcfcf;
+      --shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+      --radius: 18px;
+      --max: 960px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wrap {
+      width: min(92%, var(--max));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(229, 229, 229, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+      z-index: 20;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 0;
+    }
+
+    .logo {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    nav {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    nav a:hover {
+      background: #dddddd;
+      color: var(--text);
+    }
+
+    .hero {
+      padding: 56px 0 28px;
+    }
+
+    .hero-box {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 34px;
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+      line-height: 1.25;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      margin-bottom: 14px;
+    }
+
+    .lead {
+      font-size: 1.08rem;
+      color: var(--muted);
+      max-width: 720px;
+      margin-bottom: 24px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: 12px;
+      border: 1px solid var(--text);
+      font-weight: 700;
+      transition: 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn.primary {
+      background: var(--text);
+      color: white;
+    }
+
+    .btn.secondary {
+      background: transparent;
+      color: var(--text);
+    }
+
+    section {
+      padding: 22px 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .card p {
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--text);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    footer {
+      padding: 32px 0 48px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 820px) {
+      .grid,
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-box {
+        padding: 24px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 520px) {
+      body {
+        line-height: 1.6;
+      }
+
+      nav {
+        gap: 8px;
+      }
+
+      nav a {
+        padding: 6px 10px;
+        font-size: 0.9rem;
+      }
+
+      .hero {
+        padding-top: 30px;
+      }
+
+      .hero-box,
+      .card {
+        padding: 18px;
+      }
+
+      .buttons {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap topbar">
+      <div class="logo">סטטיסטיקה בפשטות</div>
+      <nav>
+        <a href="#home">בית</a>
+        <a href="#topics">נושאים</a>
+        <a href="#how">איך לומדים כאן</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="wrap">
+        <div class="hero-box">
+          <h1>מבוא לסטטיסטיקה תיאורית, צעד אחר צעד</h1>
+          <p class="lead">
+            האתר הזה נבנה כדי להפוך חומר שנראה מסובך למשהו פשוט, מסודר וקריא.
+            בלי עומס, בלי רעש, ועם הסברים קצרים שאפשר להבין באמת.
+          </p>
+          <div class="buttons">
+            <a class="btn primary" href="#topics">להתחיל ללמוד</a>
+            <a class="btn secondary" href="#how">איך האתר עובד</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="topics">
+      <div class="wrap">
+        <h2>נושאים מרכזיים</h2>
+        <div class="grid">
+          <article class="card">
+            <h3>ממוצע</h3>
+            <p>מהו ממוצע, איך מחשבים אותו, ומתי הוא עוזר להבין את הנתונים.</p>
+          </article>
+          <article class="card">
+            <h3>חציון</h3>
+            <p>הערך האמצעי בקבוצת נתונים, ולמה לפעמים הוא חשוב יותר מהממוצע.</p>
+          </article>
+          <article class="card">
+            <h3>שכיח</h3>
+            <p>הערך שמופיע הכי הרבה פעמים, ואיך מזהים אותו בקלות.</p>
+          </article>
+          <article class="card">
+            <h3>טווח</h3>
+            <p>ההפרש בין הערך הגבוה לנמוך, ומה הוא מספר לנו על פיזור.</p>
+          </article>
+          <article class="card">
+            <h3>שונות וסטיית תקן</h3>
+            <p>מדדים שעוזרים להבין עד כמה הנתונים מפוזרים סביב הממוצע.</p>
+          </article>
+          <article class="card">
+            <h3>טבלאות וגרפים</h3>
+            <p>איך לקרוא נתונים בצורה חזותית ולזהות דפוסים במהירות.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="how">
+      <div class="wrap">
+        <h2>איך לומדים כאן</h2>
+        <div class="steps">
+          <article class="card">
+            <div class="step-number">1</div>
+            <h3>הסבר קצר וברור</h3>
+            <p>כל נושא מתחיל בהסבר פשוט בשפה יומיומית, בלי מילים מיותרות.</p>
+          </article>
+          <article class="card">
+            <div class="step-number">2</div>
+            <h3>דוגמה מספרית</h3>
+            <p>מיד אחרי ההסבר יש דוגמה אמיתית כדי לראות איך הרעיון עובד בפועל.</p>
+          </article>
+          <article class="card">
+            <div class="step-number">3</div>
+            <h3>תרגול הדרגתי</h3>
+            <p>עוברים מהקל אל הקצת יותר מאתגר, בלי לקפוץ מהר מדי.</p>
+          </article>
+          <article class="card">
+            <div class="step-number">4</div>
+            <h3>מראה נקי ונוח</h3>
+            <p>צבעים רגועים, טקסט שחור ברור, והתאמה גם למסך מחשב וגם לטלפון.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      נבנה בפשטות, כדי לאפשר למידה אמיתית.
+    </div>
+  </footer>
+</body>
+</html>
