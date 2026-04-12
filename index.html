@@ -23,14 +23,7 @@
     html {
       scroll-behavior: smooth;
     }
-<script>
-  window.addEventListener("load", function() {
-    if (window.location.hash) {
-      history.replaceState(null, null, window.location.pathname);
-    }
-    window.scrollTo(0, 0);
-  });
-</script>    body {
+   body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
       background: var(--bg);
@@ -339,5 +332,12 @@
       נבנה בפשטות, כדי לאפשר למידה אמיתית.
     </div>
   </footer>
-</body>
+  <script>
+  window.addEventListener("load", function() {
+    if (window.location.hash) {
+      history.replaceState(null, null, window.location.pathname);
+    }
+    window.scrollTo(0, 0);
+  });
+</script></body>
 </html>
