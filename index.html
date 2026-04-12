@@ -4,7 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>מבוא לסטטיסטיקה תיאורית</title>
-  <style>
+  <script>
+  if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+  }
+  if (window.location.hash) {
+    history.replaceState(null, "", window.location.pathname + window.location.search);
+  }
+  window.scrollTo(0, 0);
+</script>  <style>
     :root {
       --bg: #e5e5e5;
       --panel: #f2f2f2;
@@ -334,12 +342,8 @@
   </footer>
   <script>
   window.addEventListener("load", function() {
-    if (window.location.hash) {
-      history.replaceState(null, null, window.location.pathname);
-    }
-    setTimeout(function() {
-      window.scrollTo(0, 0);
-    }, 10);
+    window.scrollTo(0, 0);
   });
-</script>   </body>
+</script>    
+</body>
 </html>
