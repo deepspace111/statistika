@@ -334,9 +334,12 @@
   </footer>
   <script>
   window.addEventListener("load", function() {
+    if (window.location.hash) {
+      history.replaceState(null, null, window.location.pathname);
+    }
     setTimeout(function() {
       window.scrollTo(0, 0);
     }, 10);
   });
-</script>  </body>
+</script>   </body>
 </html>
