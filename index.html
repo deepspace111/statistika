@@ -1,18 +1,22 @@
+
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>מבוא לסטטיסטיקה תיאורית</title>
+
   <script>
-  if ("scrollRestoration" in history) {
-    history.scrollRestoration = "manual";
-  }
-  if (window.location.hash) {
-    history.replaceState(null, "", window.location.pathname + window.location.search);
-  }
-  window.scrollTo(0, 0);
-</script>  <style>
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+    }
+    if (window.location.hash) {
+      history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
+    window.scrollTo(0, 0);
+  </script>
+
+  <style>
     :root {
       --bg: #e5e5e5;
       --panel: #f2f2f2;
@@ -31,12 +35,14 @@
     html {
       scroll-behavior: smooth;
     }
-   body {
+
+    body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.7;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
     a {
@@ -56,6 +62,7 @@
       backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--line);
       z-index: 20;
+      transition: background 0.3s ease, border-color 0.3s ease;
     }
 
     .topbar {
@@ -83,6 +90,7 @@
       border-radius: 999px;
       color: var(--muted);
       font-size: 0.95rem;
+      transition: background 0.2s ease, color 0.2s ease;
     }
 
     nav a:hover {
@@ -100,6 +108,7 @@
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       padding: 34px;
+      transition: background 0.3s ease, border-color 0.3s ease;
     }
 
     h1, h2, h3 {
@@ -117,6 +126,7 @@
       color: var(--muted);
       max-width: 720px;
       margin-bottom: 24px;
+      transition: color 0.3s ease;
     }
 
     .buttons {
@@ -164,11 +174,13 @@
       border-radius: 16px;
       padding: 22px;
       box-shadow: var(--shadow);
+      transition: background 0.3s ease, border-color 0.3s ease;
     }
 
     .card p {
       margin-bottom: 0;
       color: var(--muted);
+      transition: color 0.3s ease;
     }
 
     .steps {
@@ -187,12 +199,84 @@
       border: 1px solid var(--text);
       font-weight: 700;
       margin-bottom: 12px;
+      transition: border-color 0.3s ease, color 0.3s ease;
+    }
+
+    .focus-wrap {
+      width: min(92%, var(--max));
+      margin: 0 auto 8px;
+      display: flex;
+      justify-content: center;
+    }
+
+    #focusBtn {
+      padding: 12px 20px;
+      border-radius: 12px;
+      border: 1px solid var(--text);
+      background: var(--text);
+      color: #ffffff;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.25s ease;
+      font-size: 1rem;
+    }
+
+    #focusBtn:hover {
+      transform: translateY(-1px);
+      opacity: 0.92;
     }
 
     footer {
       padding: 32px 0 48px;
       color: var(--muted);
       font-size: 0.95rem;
+      transition: color 0.3s ease;
+    }
+
+    /* מצב ריכוז */
+    body.focus-mode {
+      background: #111111;
+      color: #f2f2f2;
+    }
+
+    body.focus-mode header {
+      background: rgba(17, 17, 17, 0.92);
+      border-bottom-color: #333333;
+    }
+
+    body.focus-mode .hero-box,
+    body.focus-mode .card {
+      background: #1b1b1b;
+      border-color: #333333;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+
+    body.focus-mode .lead,
+    body.focus-mode .card p,
+    body.focus-mode footer,
+    body.focus-mode nav a {
+      color: #d3d3d3;
+    }
+
+    body.focus-mode nav a:hover {
+      background: #2a2a2a;
+      color: #ffffff;
+    }
+
+    body.focus-mode .btn,
+    body.focus-mode .step-number,
+    body.focus-mode #focusBtn {
+      border-color: #f2f2f2;
+    }
+
+    body.focus-mode .btn.primary,
+    body.focus-mode #focusBtn {
+      background: #f2f2f2;
+      color: #111111;
+    }
+
+    body.focus-mode .btn.secondary {
+      color: #f2f2f2;
     }
 
     @media (max-width: 820px) {
@@ -242,6 +326,10 @@
         width: 100%;
         text-align: center;
       }
+
+      #focusBtn {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -282,46 +370,35 @@
             <h3>ממוצע</h3>
             <p>מהו ממוצע, איך מחשבים אותו, ומתי הוא עוזר להבין את הנתונים.</p>
           </article>
-          <section>
-  <div class="wrap">
-    <h2>ממוצע (Mean)</h2>
 
-    <p><strong>הגדרה:</strong> סכום כל הערכים חלקי מספר הערכים.</p>
+          <article class="card">
+            <h3>ממוצע (Mean)</h3>
+            <p><strong>הגדרה:</strong> סכום כל הערכים חלקי מספר הערכים.</p>
+            <p><strong>נוסחה:</strong> ממוצע = סכום הערכים ÷ מספר הערכים</p>
+            <p><strong>דוגמה:</strong> 2, 4, 6 → הממוצע הוא 4</p>
+            <p><strong>תכונות:</strong> סכום הסטיות מהממוצע שווה ל־0, והממוצע רגיש לערכים קיצוניים.</p>
+          </article>
 
-    <p><strong>נוסחה:</strong></p>
-    <p>ממוצע = סכום הערכים ÷ מספר הערכים</p>
-
-    <h3>דוגמה</h3>
-    <p>נתונים: 2, 4, 6</p>
-    <p>סכום: 12</p>
-    <p>כמות: 3</p>
-    <p>ממוצע: 4</p>
-
-    <h3>תכונות חשובות</h3>
-    <ul>
-      <li>סכום הסטיות מהממוצע שווה ל־0</li>
-      <li>הממוצע רגיש לערכים קיצוניים</li>
-    </ul>
-
-    <h3>תרגול</h3>
-    <p>מה הממוצע של: 5, 7, 10?</p>
-  </div>
-</section>          <article class="card">
+          <article class="card">
             <h3>חציון</h3>
             <p>הערך האמצעי בקבוצת נתונים, ולמה לפעמים הוא חשוב יותר מהממוצע.</p>
           </article>
+
           <article class="card">
             <h3>שכיח</h3>
             <p>הערך שמופיע הכי הרבה פעמים, ואיך מזהים אותו בקלות.</p>
           </article>
+
           <article class="card">
             <h3>טווח</h3>
             <p>ההפרש בין הערך הגבוה לנמוך, ומה הוא מספר לנו על פיזור.</p>
           </article>
+
           <article class="card">
             <h3>שונות וסטיית תקן</h3>
             <p>מדדים שעוזרים להבין עד כמה הנתונים מפוזרים סביב הממוצע.</p>
           </article>
+
           <article class="card">
             <h3>טבלאות וגרפים</h3>
             <p>איך לקרוא נתונים בצורה חזותית ולזהות דפוסים במהירות.</p>
@@ -339,16 +416,19 @@
             <h3>הסבר קצר וברור</h3>
             <p>כל נושא מתחיל בהסבר פשוט בשפה יומיומית, בלי מילים מיותרות.</p>
           </article>
+
           <article class="card">
             <div class="step-number">2</div>
             <h3>דוגמה מספרית</h3>
             <p>מיד אחרי ההסבר יש דוגמה אמיתית כדי לראות איך הרעיון עובד בפועל.</p>
           </article>
+
           <article class="card">
             <div class="step-number">3</div>
             <h3>תרגול הדרגתי</h3>
             <p>עוברים מהקל אל הקצת יותר מאתגר, בלי לקפוץ מהר מדי.</p>
           </article>
+
           <article class="card">
             <div class="step-number">4</div>
             <h3>מראה נקי ונוח</h3>
@@ -358,54 +438,47 @@
       </div>
     </section>
   </main>
-  <button id="focusBtn">מצב ריכוז</button>
-<audio id="brownNoise" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b1c2c9b2.mp3?filename=brown-noise-110624.mp3" type="audio/mpeg">
-</audio>
-  
+
+  <div class="focus-wrap">
+    <button id="focusBtn">מצב ריכוז</button>
+  </div>
+
+  <audio id="brownNoise" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b1c2c9b2.mp3?filename=brown-noise-110624.mp3" type="audio/mpeg">
+  </audio>
+
   <footer>
     <div class="wrap">
       נבנה בפשטות, כדי לאפשר למידה אמיתית.
     </div>
   </footer>
+
   <script>
-  window.addEventListener("load", function() {
-    window.scrollTo(0, 0);
-  });
-</script>
-  <script>
-  window.addEventListener("load", function() {
-    window.scrollTo(0, 0);
-  });
-</script> 
-<script>
-  window.addEventListener("load", function() {
-    window.scrollTo(0, 0);
-  });
-</script>
+    window.addEventListener("load", function () {
+      window.scrollTo(0, 0);
+    });
 
-<script>
-  const btn = document.getElementById("focusBtn");
-  const audio = document.getElementById("brownNoise");
+    const btn = document.getElementById("focusBtn");
+    const audio = document.getElementById("brownNoise");
 
-  audio.volume = 0.3;
+    audio.volume = 0.3;
 
-  let isFocus = false;
+    let isFocus = false;
 
-  btn.addEventListener("click", () => {
-    isFocus = !isFocus;
+    btn.addEventListener("click", () => {
+      isFocus = !isFocus;
 
-    if (isFocus) {
-      document.body.classList.add("focus-mode");
-      audio.play();
-      btn.textContent = "יציאה ממצב ריכוז";
-    } else {
-      document.body.classList.remove("focus-mode");
-      audio.pause();
-      audio.currentTime = 0;
-      btn.textContent = "מצב ריכוז";
-    }
-  });
-</script>
-F</body>
+      if (isFocus) {
+        document.body.classList.add("focus-mode");
+        audio.play();
+        btn.textContent = "יציאה ממצב ריכוז";
+      } else {
+        document.body.classList.remove("focus-mode");
+        audio.pause();
+        audio.currentTime = 0;
+        btn.textContent = "מצב ריכוז";
+      }
+    });
+  </script>
+</body>
 </html>
