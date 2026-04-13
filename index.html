@@ -358,7 +358,11 @@
       </div>
     </section>
   </main>
-
+  <button id="focusBtn">מצב ריכוז</button>
+<audio id="brownNoise" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b1c2c9b2.mp3?filename=brown-noise-110624.mp3" type="audio/mpeg">
+</audio>
+  
   <footer>
     <div class="wrap">
       נבנה בפשטות, כדי לאפשר למידה אמיתית.
@@ -368,6 +372,40 @@
   window.addEventListener("load", function() {
     window.scrollTo(0, 0);
   });
-</script>    
-</body>
+</script>
+  <script>
+  window.addEventListener("load", function() {
+    window.scrollTo(0, 0);
+  });
+</script> 
+<script>
+  window.addEventListener("load", function() {
+    window.scrollTo(0, 0);
+  });
+</script>
+
+<script>
+  const btn = document.getElementById("focusBtn");
+  const audio = document.getElementById("brownNoise");
+
+  audio.volume = 0.3;
+
+  let isFocus = false;
+
+  btn.addEventListener("click", () => {
+    isFocus = !isFocus;
+
+    if (isFocus) {
+      document.body.classList.add("focus-mode");
+      audio.play();
+      btn.textContent = "יציאה ממצב ריכוז";
+    } else {
+      document.body.classList.remove("focus-mode");
+      audio.pause();
+      audio.currentTime = 0;
+      btn.textContent = "מצב ריכוז";
+    }
+  });
+</script>
+F</body>
 </html>
