@@ -307,8 +307,99 @@
         stopBrownNoise();
       }
     });
-  </script>
-</body>
+ <div id="chatBox">
+  <div id="messages"></div>
+  <input id="userInput" placeholder="שאל משהו..." />
+  <button onclick="sendMessage()">שלח</button>
+</div>
+
+<style>
+#chatBox {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 300px;
+  background: #f2f2f2;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: Arial;
+}
+
+#messages {
+  height: 180px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.user {
+  text-align: right;
+  margin: 5px;
+}
+
+.bot {
+  text-align: left;
+  margin: 5px;
+}
+
+#userInput {
+  width: 65%;
+  padding: 5px;
+}
+</style>
+
+<script>
+function sendMessage() {
+  const input = document.getElementById("userInput");
+  const messages = document.getElementById("messages");
+
+  const userText = input.value.toLowerCase();
+
+  if (!userText.trim()) return;
+
+  messages.innerHTML += "<div class='user'>🧑: " + userText + "</div>";
+
+  let reply = getSmartReply(userText);
+
+  messages.innerHTML += "<div class='bot'>🤖: " + reply + "</div>";
+
+  input.value = "";
+
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function getSmartReply(text) {
+
+  if (text.includes("ממוצע")) {
+    return "ממוצע הוא סכום כל הערכים חלקי מספרם 📊<br>רוצה דוגמה?";
+  }
+
+  if (text.includes("כן") || text.includes("דוגמה")) {
+    return "נניח: 2,4,6 → סכום: 12 → חלקי 3 = ממוצע 4";
+  }
+
+  if (text.includes("חציון")) {
+    return "חציון הוא הערך האמצעי 📈<br>רוצה לראות איך מחשבים?";
+  }
+
+  if (text.includes("סטיית תקן")) {
+    return "סטיית תקן מודדת פיזור של נתונים סביב הממוצע 📉";
+  }
+
+  if (text.includes("שלום") || text.includes("היי")) {
+    return "שלום 🙂 אפשר לשאול על ממוצע, חציון או סטיית תקן";
+  }
+
+  return "לא בטוחה שהבנתי 🤔 נסה לשאול על ממוצע או חציון";
+}
+
+// Enter שולח הודעה
+document.getElementById("userInput").addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    sendMessage();
+  }
+});
+</script></body>
 </html>
    
    
