@@ -149,6 +149,53 @@
       display: block;
     }
 
+    #chatBox {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 300px;
+      max-width: calc(100vw - 24px);
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 10px;
+      box-shadow: var(--shadow);
+      z-index: 999;
+    }
+
+    #messages {
+      height: 180px;
+      overflow-y: auto;
+      margin-bottom: 10px;
+      padding: 6px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.25);
+    }
+
+    .user {
+      text-align: right;
+      margin: 6px 0;
+    }
+
+    .bot {
+      text-align: left;
+      margin: 6px 0;
+    }
+
+    #chatControls {
+      display: flex;
+      gap: 8px;
+    }
+
+    #userInput {
+      flex: 1;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: #111;
+    }
+
     @media (max-width: 640px) {
       .container {
         width: min(100% - 18px, var(--max));
@@ -166,6 +213,13 @@
 
       .top-actions {
         flex-direction: column;
+      }
+
+      #chatBox {
+        left: 9px;
+        right: 9px;
+        width: auto;
+        bottom: 10px;
       }
     }
   </style>
@@ -224,6 +278,14 @@
     <footer>
       נבנה באהבה ללמידה פשוטה וברורה
     </footer>
+  </div>
+
+  <div id="chatBox">
+    <div id="messages"></div>
+    <div id="chatControls">
+      <input id="userInput" placeholder="שאל משהו..." />
+      <button onclick="sendMessage()">שלח</button>
+    </div>
   </div>
 
   <script>
@@ -307,108 +369,61 @@
         stopBrownNoise();
       }
     });
- <div id="chatBox">
-  <div id="messages"></div>
-  <input id="userInput" placeholder="שאל משהו..." />
-  <button onclick="sendMessage()">שלח</button>
-</div>
 
-<style>
-#chatBox {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  width: 300px;
-  background: #f2f2f2;
-  border-radius: 12px;
-  padding: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  font-family: Arial;
-}
+    function sendMessage() {
+      const input = document.getElementById("userInput");
+      const messages = document.getElementById("messages");
 
-#messages {
-  height: 180px;
-  overflow-y: auto;
-  margin-bottom: 10px;
-}
+      const userText = input.value.toLowerCase().trim();
+      if (!userText) return;
 
-.user {
-  text-align: right;
-  margin: 5px;
-}
+      messages.innerHTML += "<div class='user'>🧑: " + userText + "</div>";
 
-.bot {
-  text-align: left;
-  margin: 5px;
-}
+      let reply = getSmartReply(userText);
 
-#userInput {
-  width: 65%;
-  padding: 5px;
-}
-</style>
+      messages.innerHTML += "<div class='bot'>🤖: " + reply + "</div>";
 
-<script>
-function sendMessage() {
-  const input = document.getElementById("userInput");
-  const messages = document.getElementById("messages");
+      input.value = "";
+      messages.scrollTop = messages.scrollHeight;
+    }
 
-  const userText = input.value.toLowerCase();
+    function getSmartReply(text) {
+      if (text.includes("ממוצע")) {
+        return "ממוצע הוא סכום כל הערכים חלקי מספרם 📊 רוצה דוגמה?";
+      }
 
-  if (!userText.trim()) return;
+      if (text.includes("חציון")) {
+        return "חציון הוא הערך האמצעי אחרי שמסדרים את הנתונים מהקטן לגדול 📈";
+      }
 
-  messages.innerHTML += "<div class='user'>🧑: " + userText + "</div>";
+      if (text.includes("סטיית תקן")) {
+        return "סטיית תקן מודדת כמה הנתונים מפוזרים סביב הממוצע 📉";
+      }
 
-  let reply = getSmartReply(userText);
+      if (text.includes("שכיח")) {
+        return "השכיח הוא הערך שמופיע הכי הרבה פעמים.";
+      }
 
-  messages.innerHTML += "<div class='bot'>🤖: " + reply + "</div>";
+      if (text.includes("טווח")) {
+        return "הטווח הוא הערך הגדול פחות הערך הקטן.";
+      }
 
-  input.value = "";
+      if (text.includes("כן") || text.includes("דוגמה")) {
+        return "דוגמה לממוצע: 2, 4, 6 → סכום 12 → חלקי 3 = 4";
+      }
 
-  messages.scrollTop = messages.scrollHeight;
-}
+      if (text.includes("שלום") || text.includes("היי")) {
+        return "שלום 🙂 אפשר לשאול על ממוצע, חציון, שכיח, טווח או סטיית תקן";
+      }
 
-function getSmartReply(text) {
+      return "לא בטוחה שהבנתי 🤔 נסה לשאול על ממוצע, חציון, שכיח או טווח";
+    }
 
-  if (text.includes("ממוצע")) {
-    return "ממוצע הוא סכום כל הערכים חלקי מספרם 📊<br>רוצה דוגמה?";
-  }
-
-  if (text.includes("כן") || text.includes("דוגמה")) {
-    return "נניח: 2,4,6 → סכום: 12 → חלקי 3 = ממוצע 4";
-  }
-
-  if (text.includes("חציון")) {
-    return "חציון הוא הערך האמצעי 📈<br>רוצה לראות איך מחשבים?";
-  }
-
-  if (text.includes("סטיית תקן")) {
-    return "סטיית תקן מודדת פיזור של נתונים סביב הממוצע 📉";
-  }
-
-  if (text.includes("שלום") || text.includes("היי")) {
-    return "שלום 🙂 אפשר לשאול על ממוצע, חציון או סטיית תקן";
-  }
-
-  return "לא בטוחה שהבנתי 🤔 נסה לשאול על ממוצע או חציון";
-}
-
-// Enter שולח הודעה
-document.getElementById("userInput").addEventListener("keypress", function(event) {
-  if (event.key === "Enter") {
-    sendMessage();
-  }
-});
-</script></body>
-</html>
-   
-   
-  
-
-
-   
-    
-
-      
-
-
+    document.getElementById("userInput").addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        sendMessage();
+      }
+    });
+  </script>
+</body>
+</html>    
