@@ -24,10 +24,11 @@
     html, body {
       margin: 0;
       padding: 0;
+      min-height: 100%;
       background: var(--bg);
       color: var(--text);
       font-family: Arial, Helvetica, sans-serif;
-      min-height: 100%;
+      transition: background 0.35s ease, color 0.35s ease;
     }
 
     body {
@@ -52,7 +53,12 @@
       text-align: center;
       opacity: 1;
       transform: scale(1);
-      transition: opacity 0.4s ease, transform 0.4s ease;
+      transition:
+        opacity 0.4s ease,
+        transform 0.4s ease,
+        background 0.35s ease,
+        border-color 0.35s ease,
+        box-shadow 0.35s ease;
     }
 
     h1 {
@@ -73,6 +79,7 @@
       font-size: 1.08rem;
       line-height: 1.9;
       color: var(--muted);
+      transition: color 0.35s ease;
     }
 
     .guide,
@@ -80,10 +87,13 @@
       margin: 0 auto;
       max-width: 720px;
       text-align: right;
-      background: rgba(255,255,255,0.35);
+      background: rgba(255, 255, 255, 0.35);
       border: 1px solid var(--line);
       border-radius: 14px;
       padding: 24px 20px;
+      transition:
+        background 0.35s ease,
+        border-color 0.35s ease;
     }
 
     .guide p,
@@ -95,7 +105,8 @@
     }
 
     .guide p:last-child,
-    .card p:last-child {
+    .card p:last-child,
+    .card li:last-child {
       margin-bottom: 0;
     }
 
@@ -115,13 +126,18 @@
       border-radius: 12px;
       cursor: pointer;
       font-size: 1rem;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.35s ease,
+        color 0.35s ease,
+        border-color 0.35s ease;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
     }
 
     button:hover {
       transform: translateY(-1px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
       background: #fafafa;
     }
 
@@ -130,6 +146,7 @@
       text-align: center;
       color: var(--muted);
       font-size: 0.96rem;
+      transition: color 0.35s ease;
     }
 
     ul {
@@ -142,6 +159,38 @@
       font-weight: 700;
       text-align: center;
       margin-bottom: 16px;
+    }
+
+    .focus-mode {
+      background: #1d1b19;
+      color: #f3eee8;
+    }
+
+    .focus-mode .hero {
+      background: #2a2623;
+      border-color: #4a433d;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+    }
+
+    .focus-mode .subtitle,
+    .focus-mode .note {
+      color: #d1c7bc;
+    }
+
+    .focus-mode .guide,
+    .focus-mode .card {
+      background: rgba(255, 248, 240, 0.04);
+      border-color: #4a433d;
+    }
+
+    .focus-mode button {
+      background: #3a342f;
+      color: #f3eee8;
+      border-color: #5a5149;
+    }
+
+    .focus-mode button:hover {
+      background: #443d37;
     }
 
     @media (max-width: 640px) {
@@ -179,12 +228,13 @@
 </head>
 <body>
   <main class="wrapper">
-    <section class="hero" id="page-content">
-      <!-- התוכן ייכנס כאן דרך JavaScript -->
-    </section>
+    <section class="hero" id="page-content"></section>
   </main>
 
   <script>
+    let focusOn = false;
+    let brownNoise = null;
+
     const pages = {
       home: `
         <h1>ברוכים הבאים</h1>
@@ -215,6 +265,7 @@
 
         <div class="actions">
           <button onclick="goToPage('symbols')">מעבר לסימנים</button>
+          <button onclick="toggleFocusMode()">מצב ריכוז</button>
         </div>
 
         <p class="note">
@@ -231,28 +282,29 @@
         </p>
 
         <div class="card">
-          <div class="symbol">α</div>
+          <div class="symbol">&alpha;</div>
 
           <h2 style="text-align:center;">אלפא</h2>
 
           <p>
-            <strong>הסבר פשוט:</strong><br>
-            α הוא הסיכוי לטעות ולהגיד שיש אפקט, למרות שאין.
+            <strong>מה זה?</strong><br>
+            אלפא הוא הסיכוי לטעות ולהגיד שיש אפקט למרות שאין.
           </p>
 
           <p>
             <strong>במילים פשוטות:</strong><br>
-            אם α קטן, אנחנו זהירים יותר ולא ממהרים להגיד שיש אפקט.
+            אם אלפא קטן, אנחנו זהירים יותר ולא ממהרים להגיד שיש אפקט.
           </p>
 
           <p>
             <strong>משפט חשוב:</strong><br>
-            α קטן = אני זהיר ולא מתלהב סתם.
+            אלפא קטן = אני זהיר ולא מתלהב סתם.
           </p>
         </div>
 
         <div class="actions">
           <button onclick="goToPage('home')">חזרה לעמוד הבית</button>
+          <button onclick="toggleFocusMode()">מצב ריכוז</button>
         </div>
       `
     };
@@ -271,7 +323,23 @@
       }, 400);
     }
 
-    // טעינת עמוד הבית בהתחלה
+    function toggleFocusMode() {
+      focusOn = !focusOn;
+      document.body.classList.toggle('focus-mode', focusOn);
+
+      if (!brownNoise) {
+        brownNoise = new Audio('https://cdn.pixabay.com/download/audio/2022/03/15/audio_115b9b0f3c.mp3?filename=brown-noise-ambient-110624.mp3');
+        brownNoise.loop = true;
+        brownNoise.volume = 0.35;
+      }
+
+      if (focusOn) {
+        brownNoise.play().catch(() => {});
+      } else {
+        brownNoise.pause();
+      }
+    }
+
     document.getElementById('page-content').innerHTML = pages.home;
   </script>
 </body>
