@@ -328,9 +328,10 @@
       document.body.classList.toggle('focus-mode', focusOn);
 
       if (!brownNoise) {
-        brownNoise = new Audio('brown-noise.mp3');        brownNoise.loop = true;
-        brownNoise.volume = 0.35;
-      }
+  brownNoise = new Audio('brown-noise.mp3');
+  brownNoise.loop = true;
+  brownNoise.volume = 0.35;
+}
 
       if (focusOn) {
         brownNoise.play().catch(() => {});
