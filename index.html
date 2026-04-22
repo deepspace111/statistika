@@ -149,11 +149,6 @@
       transition: color 0.35s ease;
     }
 
-    ul {
-      margin: 0;
-      padding-right: 20px;
-    }
-
     .symbol {
       font-size: 2rem;
       font-weight: 700;
@@ -236,142 +231,142 @@
     let brownNoise = null;
 
     const pages = {
-  home: `
-    <h1>ברוכים הבאים</h1>
+      home: `
+        <h1>ברוכים הבאים</h1>
 
-    <p class="subtitle">
-      האתר נבנה כדי לעזור להבין סטטיסטיקה בצורה פשוטה, רגועה ובהירה —
-      מהשפה הבסיסית ועד להבנה עמוקה של המושגים.
-    </p>
+        <p class="subtitle">
+          האתר נבנה כדי לעזור להבין סטטיסטיקה בצורה פשוטה, רגועה ובהירה —
+          מהשפה הבסיסית ועד להבנה עמוקה של המושגים.
+        </p>
 
-    <div class="guide">
-      <h2 style="text-align:center;">איך ללמוד כאן?</h2>
+        <div class="guide">
+          <h2 style="text-align:center;">איך ללמוד כאן?</h2>
 
-      <p>
-        מומלץ להתחיל בהבנה כללית של למה בכלל צריך סטטיסטיקה תיאורית,
-        אחר כך לעבור לסימנים, לאותיות ולמשמעויות שלהם,
-        ורק בהמשך להגיע לנוסחאות, חישובים ותרגילים.
-      </p>
+          <p>
+            מומלץ להתחיל בהבנה כללית של למה בכלל צריך סטטיסטיקה תיאורית,
+            אחר כך לעבור לסימנים, לאותיות ולמשמעויות שלהם,
+            ורק בהמשך להגיע לנוסחאות, חישובים ותרגילים.
+          </p>
 
-      <p>
-        המטרה היא לא רק לפתור שאלות, אלא להבין באמת מה אומרים לך,
-        מה כל סימן מייצג, ואיך השפה הסטטיסטית מתחברת למציאות.
-      </p>
+          <p>
+            המטרה היא לא רק לפתור שאלות, אלא להבין באמת מה אומרים לך,
+            מה כל סימן מייצג, ואיך השפה הסטטיסטית מתחברת למציאות.
+          </p>
 
-      <p>
-        כדאי ללמוד לאט, צעד אחר צעד — כמו פיקסלים קטנים שמרכיבים תמונה שלמה.
-        כשמבינים את הבסיס היטב, כל ההמשך נעשה הרבה יותר פשוט.
-      </p>
-    </div>
+          <p>
+            כדאי ללמוד לאט, צעד אחר צעד — כמו פיקסלים קטנים שמרכיבים תמונה שלמה.
+            כשמבינים את הבסיס היטב, כל ההמשך נעשה הרבה יותר פשוט.
+          </p>
+        </div>
 
-    <div class="actions">
-      <button onclick="goToPage('intro')">למה צריך סטטיסטיקה תיאורית?</button>
-      <button onclick="toggleFocusMode()">מצב ריכוז</button>
-    </div>
+        <div class="actions">
+          <button onclick="goToPage('intro')">למה צריך סטטיסטיקה תיאורית?</button>
+          <button onclick="toggleFocusMode()">מצב ריכוז</button>
+        </div>
 
-    <p class="note">
-      זהו עמוד הבית. בהמשך יתווספו נושאים נוספים.
-    </p>
-  `,
+        <p class="note">
+          זהו עמוד הבית. בהמשך יתווספו נושאים נוספים.
+        </p>
+      `,
 
-  intro: `
-    <h1>למה צריך סטטיסטיקה תיאורית?</h1>
+      intro: `
+        <h1>למה צריך סטטיסטיקה תיאורית?</h1>
 
-    <p class="subtitle">
-      סטטיסטיקה תיאורית עוזרת לנו להבין נתונים בצורה מסודרת, פשוטה וברורה.
-    </p>
+        <p class="subtitle">
+          סטטיסטיקה תיאורית עוזרת לנו להבין נתונים בצורה מסודרת, פשוטה וברורה.
+        </p>
 
-    <div class="card">
-      <p>
-        בחיים אנחנו כל הזמן מוקפים במספרים:
-        ציונים, מחירים, משכורות, זמני נסיעה, תוצאות של מבחנים ונתונים מעבודה.
-      </p>
+        <div class="card">
+          <p>
+            בחיים אנחנו כל הזמן מוקפים במספרים:
+            ציונים, מחירים, משכורות, זמני נסיעה, תוצאות של מבחנים ונתונים מעבודה.
+          </p>
 
-      <p>
-        כשמסתכלים רק על רשימה ארוכה של מספרים, קשה להבין מה באמת קורה.
-        סטטיסטיקה תיאורית עוזרת לנו לסכם את הנתונים ולראות את התמונה הכללית.
-      </p>
+          <p>
+            כשמסתכלים רק על רשימה ארוכה של מספרים, קשה להבין מה באמת קורה.
+            סטטיסטיקה תיאורית עוזרת לנו לסכם את הנתונים ולראות את התמונה הכללית.
+          </p>
 
-      <p>
-        במקום לטבוע בתוך הרבה מספרים, אנחנו לומדים לשאול:
-        מה טיפוסי? מה חריג? מה גבוה? מה נמוך? ומה קורה בדרך כלל?
-      </p>
-    </div>
+          <p>
+            במקום לטבוע בתוך הרבה מספרים, אנחנו לומדים לשאול:
+            מה טיפוסי? מה חריג? מה גבוה? מה נמוך? ומה קורה בדרך כלל?
+          </p>
+        </div>
 
-    <div class="card" style="margin-top:20px;">
-      <h2 style="text-align:center;">דוגמאות פשוטות</h2>
+        <div class="card" style="margin-top:20px;">
+          <h2 style="text-align:center;">דוגמאות פשוטות</h2>
 
-      <p>
-        📊 <strong>ציונים בכיתה</strong><br>
-        במקום להסתכל על עשרות ציונים בנפרד, אפשר להבין מה הרמה הכללית של הכיתה.
-      </p>
+          <p>
+            📊 <strong>ציונים בכיתה</strong><br>
+            במקום להסתכל על עשרות ציונים בנפרד, אפשר להבין מה הרמה הכללית של הכיתה.
+          </p>
 
-      <p>
-        💰 <strong>משכורות</strong><br>
-        אפשר לבדוק מה שכר רגיל, ומה נחשב חריג או יוצא דופן.
-      </p>
+          <p>
+            💰 <strong>משכורות</strong><br>
+            אפשר לבדוק מה שכר רגיל, ומה נחשב חריג או יוצא דופן.
+          </p>
 
-      <p>
-        🚗 <strong>זמני נסיעה</strong><br>
-        אפשר להבין כמה זמן לוקח בדרך כלל להגיע לעבודה, ולא רק במקרה חד־פעמי.
-      </p>
-    </div>
+          <p>
+            🚗 <strong>זמני נסיעה</strong><br>
+            אפשר להבין כמה זמן לוקח בדרך כלל להגיע לעבודה, ולא רק במקרה חד־פעמי.
+          </p>
+        </div>
 
-    <div class="card" style="margin-top:20px;">
-      <p>
-        המטרה של סטטיסטיקה תיאורית היא לא רק לחשב,
-        אלא להבין נתונים ולהפוך בלגן למשהו ברור.
-      </p>
+        <div class="card" style="margin-top:20px;">
+          <p>
+            המטרה של סטטיסטיקה תיאורית היא לא רק לחשב,
+            אלא להבין נתונים ולהפוך בלגן למשהו ברור.
+          </p>
 
-      <p>
-        לכן לפני הכל נתחיל מהשפה עצמה:
-        סימנים, אותיות ומשמעויות.
-      </p>
-    </div>
+          <p>
+            לכן לפני הכל נתחיל מהשפה עצמה:
+            סימנים, אותיות ומשמעויות.
+          </p>
+        </div>
 
-    <div class="actions">
-      <button onclick="goToPage('symbols')">מעבר לסימנים</button>
-      <button onclick="goToPage('home')">חזרה לעמוד הבית</button>
-      <button onclick="toggleFocusMode()">מצב ריכוז</button>
-    </div>
-  `,
+        <div class="actions">
+          <button onclick="goToPage('symbols')">מעבר לסימנים</button>
+          <button onclick="goToPage('home')">חזרה לעמוד הבית</button>
+          <button onclick="toggleFocusMode()">מצב ריכוז</button>
+        </div>
+      `,
 
-  symbols: `
-    <h1>סימנים בסיסיים בסטטיסטיקה</h1>
+      symbols: `
+        <h1>סימנים בסיסיים בסטטיסטיקה</h1>
 
-    <p class="subtitle">
-      לפני שניגשים לחישובים, חשוב להבין את השפה עצמה:
-      מה מסמל כל סימן, ואיך קוראים אותו.
-    </p>
+        <p class="subtitle">
+          לפני שניגשים לחישובים, חשוב להבין את השפה עצמה:
+          מה מסמל כל סימן, ואיך קוראים אותו.
+        </p>
 
-    <div class="card">
-      <div class="symbol">&alpha;</div>
+        <div class="card">
+          <div class="symbol">&alpha;</div>
 
-      <h2 style="text-align:center;">אלפא</h2>
+          <h2 style="text-align:center;">אלפא</h2>
 
-      <p>
-        <strong>מה זה?</strong><br>
-        אלפא הוא הסיכוי לטעות ולהגיד שיש אפקט למרות שאין.
-      </p>
+          <p>
+            <strong>מה זה?</strong><br>
+            אלפא הוא הסיכוי לטעות ולהגיד שיש אפקט למרות שאין.
+          </p>
 
-      <p>
-        <strong>במילים פשוטות:</strong><br>
-        אם אלפא קטן, אנחנו זהירים יותר ולא ממהרים להגיד שיש אפקט.
-      </p>
+          <p>
+            <strong>במילים פשוטות:</strong><br>
+            אם אלפא קטן, אנחנו זהירים יותר ולא ממהרים להגיד שיש אפקט.
+          </p>
 
-      <p>
-        <strong>משפט חשוב:</strong><br>
-        אלפא קטן = אני זהירה ולא מתלהבת סתם.
-      </p>
-    </div>
+          <p>
+            <strong>משפט חשוב:</strong><br>
+            אלפא קטן = אני זהירה ולא מתלהבת סתם.
+          </p>
+        </div>
 
-    <div class="actions">
-      <button onclick="goToPage('intro')">חזרה ללמה צריך סטטיסטיקה</button>
-      <button onclick="goToPage('home')">חזרה לעמוד הבית</button>
-      <button onclick="toggleFocusMode()">מצב ריכוז</button>
-    </div>
-  `
-};
+        <div class="actions">
+          <button onclick="goToPage('intro')">חזרה ללמה צריך סטטיסטיקה</button>
+          <button onclick="goToPage('home')">חזרה לעמוד הבית</button>
+          <button onclick="toggleFocusMode()">מצב ריכוז</button>
+        </div>
+      `
+    };
 
     function goToPage(pageName) {
       const main = document.getElementById('page-content');
@@ -392,10 +387,10 @@
       document.body.classList.toggle('focus-mode', focusOn);
 
       if (!brownNoise) {
-  brownNoise = new Audio('https://www.soundjay.com/misc/sounds/brown-noise-01.mp3');
-  brownNoise.loop = true;
-  brownNoise.volume = 0.35;
-}
+        brownNoise = new Audio('https://www.soundjay.com/misc/sounds/brown-noise-01.mp3');
+        brownNoise.loop = true;
+        brownNoise.volume = 0.35;
+      }
 
       if (focusOn) {
         brownNoise.play().catch(() => {});
