@@ -10,450 +10,155 @@
       --bg: #e5e5e5;
       --panel: #f2f2f2;
       --text: #111111;
-      --muted: #4a4a4a;
+      --muted: #555555;
       --line: #cfcfcf;
       --shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
       --radius: 18px;
-      --max: 960px;
+      --max: 900px;
     }
 
     * {
       box-sizing: border-box;
     }
 
-    html {
-      scroll-behavior: smooth;
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
     }
 
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.7;
-      transition: background 0.35s ease, color 0.35s ease;
-    }
-
-    body.focus-mode {
-      --bg: #111111;
-      --panel: #1c1c1c;
-      --text: #f2f2f2;
-      --muted: #c9c9c9;
-      --line: #333333;
-      --shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
-    }
-
-    .container {
-      width: min(100% - 24px, var(--max));
-      margin: 0 auto;
-      padding: 20px 0 48px;
-    }
-
-    header {
-      padding: 18px 0 8px;
-      text-align: center;
-    }
-
-    h1 {
-      margin: 0 0 10px;
-      font-size: clamp(28px, 5vw, 42px);
-      font-weight: 700;
-    }
-
-    .subtitle {
-      color: var(--muted);
-      font-size: 16px;
-      margin-bottom: 20px;
-    }
-
-    .top-actions {
+      min-height: 100vh;
       display: flex;
+      align-items: center;
       justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 22px;
+      padding: 24px;
     }
 
-    button,
-    .nav-link {
-      border: 1px solid var(--line);
-      background: var(--panel);
-      color: var(--text);
-      border-radius: 999px;
-      padding: 12px 18px;
-      cursor: pointer;
-      font-size: 15px;
-      text-decoration: none;
-      box-shadow: var(--shadow);
-      transition: transform 0.15s ease, background 0.25s ease, color 0.25s ease;
+    .wrapper {
+      width: 100%;
+      max-width: var(--max);
     }
 
-    button:hover,
-    .nav-link:hover {
-      transform: translateY(-1px);
-    }
-
-    .card {
+    .hero {
       background: var(--panel);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding: 20px;
-      margin-bottom: 18px;
-      transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease;
-    }
-
-    h2 {
-      margin-top: 0;
-      font-size: 24px;
-    }
-
-    h3 {
-      margin-bottom: 8px;
-      font-size: 18px;
-    }
-
-    p {
-      margin: 0 0 12px;
-    }
-
-    ul {
-      margin: 0;
-      padding-right: 20px;
-    }
-
-    li {
-      margin-bottom: 8px;
-    }
-
-    .muted {
-      color: var(--muted);
-    }
-
-    footer {
+      padding: 48px 28px;
       text-align: center;
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .subtitle {
+      margin: 0 auto 34px;
+      max-width: 680px;
+      font-size: 1.08rem;
+      line-height: 1.9;
       color: var(--muted);
-      font-size: 14px;
-      padding-top: 12px;
     }
 
-    .focus-indicator {
-      display: none;
-      text-align: center;
-      margin-bottom: 16px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    body.focus-mode .focus-indicator {
-      display: block;
-    }
-
-    #chatBox {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      width: 300px;
-      max-width: calc(100vw - 24px);
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 10px;
-      box-shadow: var(--shadow);
-      z-index: 999;
-    }
-
-    #messages {
-      height: 180px;
-      overflow-y: auto;
-      margin-bottom: 10px;
-      padding: 6px;
-      border-radius: 10px;
-      background: rgba(255,255,255,0.25);
-    }
-
-    .user {
+    .guide {
+      margin: 0 auto;
+      max-width: 720px;
       text-align: right;
-      margin: 6px 0;
-    }
-
-    .bot {
-      text-align: left;
-      margin: 6px 0;
-    }
-
-    #chatControls {
-      display: flex;
-      gap: 8px;
-    }
-
-    #userInput {
-      flex: 1;
-      padding: 10px;
-      border-radius: 10px;
+      background: rgba(255,255,255,0.35);
       border: 1px solid var(--line);
-      background: #fff;
-      color: #111;
+      border-radius: 14px;
+      padding: 24px 20px;
+    }
+
+    .guide h2 {
+      margin: 0 0 16px;
+      font-size: 1.35rem;
+      text-align: center;
+    }
+
+    .guide p {
+      margin: 0 0 14px;
+      line-height: 1.95;
+      font-size: 1.02rem;
+    }
+
+    .guide p:last-child {
+      margin-bottom: 0;
+    }
+
+    .note {
+      margin-top: 28px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.96rem;
     }
 
     @media (max-width: 640px) {
-      .container {
-        width: min(100% - 18px, var(--max));
-      }
-
-      .card {
+      body {
         padding: 16px;
+        align-items: flex-start;
       }
 
-      button,
-      .nav-link {
-        width: 100%;
-        text-align: center;
+      .hero {
+        padding: 34px 18px;
+        margin-top: 18px;
       }
 
-      .top-actions {
-        flex-direction: column;
+      h1 {
+        font-size: 2rem;
+        line-height: 1.3;
       }
 
-      #chatBox {
-        left: 9px;
-        right: 9px;
-        width: auto;
-        bottom: 10px;
+      .subtitle,
+      .guide p {
+        font-size: 1rem;
+      }
+
+      .guide h2 {
+        font-size: 1.2rem;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>מבוא לסטטיסטיקה תיאורית</h1>
-      <div class="subtitle">אתר לימוד פשוט, נקי ונוח לקריאה</div>
+  <main class="wrapper">
+    <section class="hero">
+      <h1>ברוכים הבאים</h1>
 
-      <div class="top-actions">
-        <button id="focusToggle">מצב ריכוז</button>
-        <a class="nav-link" href="#topics">לנושאים</a>
+      <p class="subtitle">
+        האתר נבנה כדי לעזור להבין סטטיסטיקה בצורה פשוטה, רגועה ובהירה —
+        מהשפה הבסיסית ועד להבנה עמוקה של המושגים.
+      </p>
+
+      <div class="guide">
+        <h2>איך ללמוד כאן?</h2>
+
+        <p>
+          מומלץ להתחיל מהסימנים, האותיות והמשמעויות שלהם, ורק אחר כך לעבור
+          לנוסחאות, חישובים ותרגילים.
+        </p>
+
+        <p>
+          המטרה היא לא רק לפתור שאלות, אלא להבין באמת מה אומרים לך,
+          מה כל סימן מייצג, ואיך השפה הסטטיסטית מתחברת למציאות.
+        </p>
+
+        <p>
+          כדאי ללמוד לאט, צעד אחר צעד, כמו פיקסלים קטנים שמרכיבים תמונה שלמה.
+          כשמבינים את הבסיס היטב, כל ההמשך נעשה הרבה יותר פשוט.
+        </p>
       </div>
 
-      <div class="focus-indicator" id="focusIndicator">
-        מצב ריכוז פעיל + רעש חום
-      </div>
-    </header>
-
-    <section class="card">
-      <h2>ברוכים הבאים</h2>
-      <p>
-        זהו אתר ללימוד מבוא לסטטיסטיקה תיאורית בצורה בהירה, מסודרת ולא עמוסה.
-      </p>
-      <p class="muted">
-        אפשר ללחוץ על "מצב ריכוז" כדי להפוך את הצבעים ולהפעיל רעש חום ברקע.
+      <p class="note">
+        זהו עמוד הבית. בהמשך יתווספו נושאים, הסברים ותרגולים.
       </p>
     </section>
-
-    <section class="card" id="topics">
-      <h2>נושאים</h2>
-
-      <h3>1. ממוצע</h3>
-      <p>הממוצע הוא סכום כל הערכים חלקי מספר הערכים.</p>
-
-      <h3>2. חציון</h3>
-      <p>החציון הוא הערך האמצעי אחרי שמסדרים את הנתונים מהקטן לגדול.</p>
-
-      <h3>3. שכיח</h3>
-      <p>השכיח הוא הערך שמופיע הכי הרבה פעמים.</p>
-
-      <h3>4. טווח</h3>
-      <p>הטווח הוא ההפרש בין הערך הגדול ביותר לבין הערך הקטן ביותר.</p>
-    </section>
-
-    <section class="card">
-      <h2>הערות לימוד</h2>
-      <ul>
-        <li>לקרוא כל פעם קטע קצר.</li>
-        <li>לתרגל שאלה אחת או שתיים מכל נושא.</li>
-        <li>לחזור על החומר בקביעות.</li>
-      </ul>
-    </section>
-
-    <footer>
-      נבנה באהבה ללמידה פשוטה וברורה
-    </footer>
-  </div>
-
-  <div id="chatBox">
-    <div id="messages"></div>
-    <div id="chatControls">
-      <input id="userInput" placeholder="שאל משהו..." />
-      <button onclick="sendMessage()">שלח</button>
-    </div>
-  </div>
-
-  <script>
-    const focusBtn = document.getElementById("focusToggle");
-    const focusIndicator = document.getElementById("focusIndicator");
-
-    let audioCtx = null;
-    let brownNoiseNode = null;
-    let brownNoiseGain = null;
-    let isFocusOn = false;
-
-    function createBrownNoise(context) {
-      const bufferSize = 4096;
-      const node = context.createScriptProcessor(bufferSize, 1, 1);
-      let lastOut = 0.0;
-
-      node.onaudioprocess = function(e) {
-        const output = e.outputBuffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) {
-          const white = Math.random() * 2 - 1;
-          lastOut = (lastOut + (0.02 * white)) / 1.02;
-          output[i] = lastOut * 3.5;
-        }
-      };
-
-      return node;
-    }
-
-    async function startBrownNoise() {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
-
-      if (audioCtx.state === "suspended") {
-        await audioCtx.resume();
-      }
-
-      if (!brownNoiseNode) {
-        brownNoiseNode = createBrownNoise(audioCtx);
-        brownNoiseGain = audioCtx.createGain();
-        brownNoiseGain.gain.value = 0.03;
-
-        brownNoiseNode.connect(brownNoiseGain);
-        brownNoiseGain.connect(audioCtx.destination);
-      }
-    }
-
-    function stopBrownNoise() {
-      if (brownNoiseNode) {
-        try {
-          brownNoiseNode.disconnect();
-        } catch (e) {}
-        brownNoiseNode = null;
-      }
-
-      if (brownNoiseGain) {
-        try {
-          brownNoiseGain.disconnect();
-        } catch (e) {}
-        brownNoiseGain = null;
-      }
-    }
-
-    focusBtn.addEventListener("click", async function() {
-      isFocusOn = !isFocusOn;
-
-      if (isFocusOn) {
-        document.body.classList.add("focus-mode");
-        focusBtn.textContent = "כיבוי מצב ריכוז";
-        focusIndicator.style.display = "block";
-
-        try {
-          await startBrownNoise();
-        } catch (err) {
-          console.error("Audio start failed:", err);
-        }
-      } else {
-        document.body.classList.remove("focus-mode");
-        focusBtn.textContent = "מצב ריכוז";
-        focusIndicator.style.display = "none";
-        stopBrownNoise();
-      }
-    });
-
-    function sendMessage() {
-      const input = document.getElementById("userInput");
-      const messages = document.getElementById("messages");
-
-      const userText = input.value.toLowerCase().trim();
-      if (!userText) return;
-
-      messages.innerHTML += "<div class='user'>🧑: " + userText + "</div>";
-
-      let reply = getSmartReply(userText);
-
-      messages.innerHTML += "<div class='bot'>🤖: " + reply + "</div>";
-
-      input.value = "";
-      messages.scrollTop = messages.scrollHeight;
-    }
-
-    function getSmartReply(text) {
-      if (text.includes("ממוצע")) {
-        return "ממוצע הוא סכום כל הערכים חלקי מספרם 📊 רוצה דוגמה?";
-      }
-
-      if (text.includes("חציון")) {
-        return "חציון הוא הערך האמצעי אחרי שמסדרים את הנתונים מהקטן לגדול 📈";
-      }
-
-      if (text.includes("סטיית תקן")) {
-        return "סטיית תקן מודדת כמה הנתונים מפוזרים סביב הממוצע 📉";
-      }
-
-      if (text.includes("שכיח")) {
-        return "השכיח הוא הערך שמופיע הכי הרבה פעמים.";
-      }
-
-      if (text.includes("טווח")) {
-        return "הטווח הוא הערך הגדול פחות הערך הקטן.";
-      }
-
-      if (text.includes("כן") || text.includes("דוגמה")) {
-        return "דוגמה לממוצע: 2, 4, 6 → סכום 12 → חלקי 3 = 4";
-      }
-
-      if (text.includes("שלום") || text.includes("היי")) {
-        return "שלום 🙂 אפשר לשאול על ממוצע, חציון, שכיח, טווח או סטיית תקן";
-      }
-
-      return "לא בטוחה שהבנתי 🤔 נסה לשאול על ממוצע, חציון, שכיח או טווח";
-    }
-
-    document.getElementById("userInput").addEventListener("keypress", function(event) {
-      if (event.key === "Enter") {
-        sendMessage();
-      }
-    });
-  </script>
-  <section>
-  <h2>α (אלפא)</h2>
-
-  <p><strong>מה זה?</strong></p>
-  <p>
-    α הוא הסיכוי לטעות ולהגיד שיש אפקט למרות שאין.
-  </p>
-
-  <hr>
-
-  <p><strong>הסבר פשוט:</strong></p>
-  <p>
-    לפעמים משהו נראה אמיתי, אבל הוא סתם מקרי.
-    α קובע כמה פעמים אנחנו מוכנים לטעות ולהאמין שיש משהו אמיתי.
-  </p>
-
-  <hr>
-
-  <p><strong>דוגמה:</strong></p>
-  <p>
-    אזעקה שמופעלת כשאין פריצה היא טעות.
-    α קובע כמה פעמים אנחנו מוכנים לקבל אזעקות שווא.
-  </p>
-
-  <hr>
-
-  <p><strong>משפט חשוב:</strong></p>
-  <p>
-    α קטן = אני זהיר ולא אומר "יש אפקט" סתם.
-  </p>
-</section></body>
-</html>    
+  </main>
+</body>
+</html>
