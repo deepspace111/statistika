@@ -127,7 +127,23 @@
   </style>
 </head>
 <body>
-  <main class="wrapper">
+  <script>
+function goToPage(content) {
+  const main = document.querySelector('.hero');
+
+  // פירוק (fade + scale)
+  main.style.transition = "all 0.4s ease";
+  main.style.opacity = "0";
+  main.style.transform = "scale(0.95)";
+
+  setTimeout(() => {
+    main.innerHTML = content;
+
+    // בנייה מחדש
+    main.style.opacity = "1";
+    main.style.transform = "scale(1)";
+  }, 400);
+}  <main class="wrapper">
     <section class="hero">
       <h1>מבוא לסטטיסטיקה תיאורית
       </h1>
