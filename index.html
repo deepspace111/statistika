@@ -27,6 +27,7 @@
       background: var(--bg);
       color: var(--text);
       font-family: Arial, Helvetica, sans-serif;
+      min-height: 100%;
     }
 
     body {
@@ -49,6 +50,9 @@
       box-shadow: var(--shadow);
       padding: 48px 28px;
       text-align: center;
+      opacity: 1;
+      transform: scale(1);
+      transition: opacity 0.4s ease, transform 0.4s ease;
     }
 
     h1 {
@@ -56,6 +60,11 @@
       font-size: 2.4rem;
       font-weight: 700;
       letter-spacing: 0.3px;
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      font-size: 1.35rem;
     }
 
     .subtitle {
@@ -66,7 +75,8 @@
       color: var(--muted);
     }
 
-    .guide {
+    .guide,
+    .card {
       margin: 0 auto;
       max-width: 720px;
       text-align: right;
@@ -76,20 +86,43 @@
       padding: 24px 20px;
     }
 
-    .guide h2 {
-      margin: 0 0 16px;
-      font-size: 1.35rem;
-      text-align: center;
-    }
-
-    .guide p {
+    .guide p,
+    .card p,
+    .card li {
       margin: 0 0 14px;
       line-height: 1.95;
       font-size: 1.02rem;
     }
 
-    .guide p:last-child {
+    .guide p:last-child,
+    .card p:last-child {
       margin-bottom: 0;
+    }
+
+    .actions {
+      margin-top: 28px;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: 1px solid var(--line);
+      background: #ffffff;
+      color: var(--text);
+      padding: 12px 22px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      background: #fafafa;
     }
 
     .note {
@@ -97,6 +130,18 @@
       text-align: center;
       color: var(--muted);
       font-size: 0.96rem;
+    }
+
+    ul {
+      margin: 0;
+      padding-right: 20px;
+    }
+
+    .symbol {
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 16px;
     }
 
     @media (max-width: 640px) {
@@ -116,66 +161,118 @@
       }
 
       .subtitle,
-      .guide p {
+      .guide p,
+      .card p,
+      .card li {
         font-size: 1rem;
       }
 
-      .guide h2 {
+      h2 {
         font-size: 1.2rem;
+      }
+
+      button {
+        width: 100%;
       }
     }
   </style>
 </head>
 <body>
-  <script>
-function goToPage(content) {
-  const main = document.querySelector('.hero');
-
-  // פירוק (fade + scale)
-  main.style.transition = "all 0.4s ease";
-  main.style.opacity = "0";
-  main.style.transform = "scale(0.95)";
-
-  setTimeout(() => {
-    main.innerHTML = content;
-
-    // בנייה מחדש
-    main.style.opacity = "1";
-    main.style.transform = "scale(1)";
-  }, 400);
-}  <main class="wrapper">
-    <section class="hero">
-      <h1>מבוא לסטטיסטיקה תיאורית
-      </h1>
-
-      <p class="subtitle">
-        האתר נבנה כדי לעזור להבין סטטיסטיקה בצורה פשוטה, רגועה ובהירה —
-        מהשפה הבסיסית ועד להבנה עמוקה של המושגים.
-      </p>
-
-      <div class="guide">
-        <h2>איך ללמוד כאן?</h2>
-
-        <p>
-          מומלץ להתחיל מהסימנים, האותיות והמשמעויות שלהם, ורק אחר כך לעבור
-          לנוסחאות, חישובים ותרגילים.
-        </p>
-
-        <p>
-          המטרה היא לא רק לפתור שאלות, אלא להבין באמת מה אומרים לך,
-          מה כל סימן מייצג, ואיך השפה הסטטיסטית מתחברת למציאות.
-        </p>
-
-        <p>
-          כדאי ללמוד לאט, צעד אחר צעד, כמו פיקסלים קטנים שמרכיבים תמונה שלמה.
-          כשמבינים את הבסיס היטב, כל ההמשך נעשה הרבה יותר פשוט.
-        </p>
-      </div>
-
-      <p class="note">
-        זהו עמוד הבית. בהמשך יתווספו נושאים, הסברים ותרגולים.
-      </p>
+  <main class="wrapper">
+    <section class="hero" id="page-content">
+      <!-- התוכן ייכנס כאן דרך JavaScript -->
     </section>
   </main>
+
+  <script>
+    const pages = {
+      home: `
+        <h1>ברוכים הבאים</h1>
+
+        <p class="subtitle">
+          האתר נבנה כדי לעזור להבין סטטיסטיקה בצורה פשוטה, רגועה ובהירה —
+          מהשפה הבסיסית ועד להבנה עמוקה של המושגים.
+        </p>
+
+        <div class="guide">
+          <h2 style="text-align:center;">איך ללמוד כאן?</h2>
+
+          <p>
+            מומלץ להתחיל מהסימנים, האותיות והמשמעויות שלהם, ורק אחר כך לעבור
+            לנוסחאות, חישובים ותרגילים.
+          </p>
+
+          <p>
+            המטרה היא לא רק לפתור שאלות, אלא להבין באמת מה אומרים לך,
+            מה כל סימן מייצג, ואיך השפה הסטטיסטית מתחברת למציאות.
+          </p>
+
+          <p>
+            כדאי ללמוד לאט, צעד אחר צעד — כמו פיקסלים קטנים שמרכיבים תמונה שלמה.
+            כשמבינים את הבסיס היטב, כל ההמשך נעשה הרבה יותר פשוט.
+          </p>
+        </div>
+
+        <div class="actions">
+          <button onclick="goToPage('symbols')">מעבר לסימנים</button>
+        </div>
+
+        <p class="note">
+          זהו עמוד הבית. בהמשך יתווספו נושאים נוספים.
+        </p>
+      `,
+
+      symbols: `
+        <h1>סימנים בסיסיים בסטטיסטיקה</h1>
+
+        <p class="subtitle">
+          לפני שניגשים לחישובים, חשוב להבין את השפה עצמה:
+          מה מסמל כל סימן, ואיך קוראים אותו.
+        </p>
+
+        <div class="card">
+          <div class="symbol">α</div>
+
+          <h2 style="text-align:center;">אלפא</h2>
+
+          <p>
+            <strong>הסבר פשוט:</strong><br>
+            α הוא הסיכוי לטעות ולהגיד שיש אפקט, למרות שאין.
+          </p>
+
+          <p>
+            <strong>במילים פשוטות:</strong><br>
+            אם α קטן, אנחנו זהירים יותר ולא ממהרים להגיד שיש אפקט.
+          </p>
+
+          <p>
+            <strong>משפט חשוב:</strong><br>
+            α קטן = אני זהיר ולא מתלהב סתם.
+          </p>
+        </div>
+
+        <div class="actions">
+          <button onclick="goToPage('home')">חזרה לעמוד הבית</button>
+        </div>
+      `
+    };
+
+    function goToPage(pageName) {
+      const main = document.getElementById('page-content');
+
+      main.style.opacity = '0';
+      main.style.transform = 'scale(0.96)';
+
+      setTimeout(() => {
+        main.innerHTML = pages[pageName];
+        main.style.opacity = '1';
+        main.style.transform = 'scale(1)';
+        window.scrollTo(0, 0);
+      }, 400);
+    }
+
+    // טעינת עמוד הבית בהתחלה
+    document.getElementById('page-content').innerHTML = pages.home;
+  </script>
 </body>
 </html>
