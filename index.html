@@ -3,96 +3,285 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>מבוא לסטטיסטיקה תיאורית</title>
-
+  <title>ゴ הדרך הנעימה לסטטיסטיקה תיאורית</title>
   <style>
+    :root {
+      --bg: #e8e8e8;
+      --panel: #f5f5f5;
+      --text: #111111;
+      --muted: #555555;
+      --line: #d0d0d0;
+      --shadow: 0 8px 24px rgba(0,0,0,0.06);
+      --radius: 18px;
+      --max: 920px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      font-family: Arial;
-      background: #e5e5e5;
-      color: #111;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
     }
 
-    .box {
-      background: #fff;
-      padding: 30px;
-      border-radius: 15px;
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 24px 16px 60px;
+    }
+
+    .hero {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 28px 22px;
+      margin-bottom: 22px;
       text-align: center;
-      max-width: 500px;
-      width: 90%;
     }
 
-    button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      cursor: pointer;
+    h1 {
+      margin: 0 0 10px;
+      font-size: 2rem;
     }
 
-    .focus {
-      background: #1d1b19;
-      color: white;
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px 20px;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: 14px;
+      font-size: 1.45rem;
+    }
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    p {
+      margin: 0 0 12px;
+    }
+
+    ul {
+      margin: 10px 0 14px;
+      padding-right: 22px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    .symbol-box {
+      background: #ededed;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+      margin: 16px 0;
+    }
+
+    .big-symbol {
+      font-size: 2.3rem;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .meaning {
+      font-size: 1.05rem;
+      color: var(--muted);
+    }
+
+    .note {
+      background: #f0f0f0;
+      border-right: 4px solid #999;
+      padding: 12px 14px;
+      border-radius: 10px;
+      margin-top: 12px;
+    }
+
+    .footer-space {
+      height: 20px;
+    }
+
+    @media (max-width: 640px) {
+      h1 {
+        font-size: 1.6rem;
+      }
+
+      h2 {
+        font-size: 1.25rem;
+      }
+
+      .hero,
+      .card {
+        padding: 20px 16px;
+      }
+
+      .big-symbol {
+        font-size: 2rem;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="wrap">
 
-<div class="box" id="app"></div>
+    <section class="hero">
+      <h1>ゴ הדרך הנעימה לסטטיסטיקה תיאורית</h1>
+      <p class="subtitle">לפני תרגילים ולפני נוסחאות — קודם נבין את השפה</p>
+    </section>
 
-<script>
-let focus = false;
-let audio;
+    <section class="card">
+      <h2>למה בכלל צריך סטטיסטיקה?</h2>
 
-const pages = {
-  home: `
-    <h1>ברוכים הבאים</h1>
-    <p>נלמד סטטיסטיקה בצורה פשוטה</p>
-    <button onclick="go('intro')">למה צריך סטטיסטיקה</button>
-    <button onclick="toggle()">מצב ריכוז</button>
-  `,
+      <p>
+        בעולם האמיתי כמעט אף פעם אין לנו תמונה מלאה.
+      </p>
 
-  intro: `
-    <h1>למה צריך סטטיסטיקה?</h1>
-    <p>כדי להבין נתונים בצורה פשוטה.</p>
-    <p>לדוגמה: ציונים, משכורות, זמני נסיעה.</p>
-    <button onclick="go('symbols')">לסימנים</button>
-    <button onclick="go('home')">חזרה</button>
-    <button onclick="toggle()">מצב ריכוז</button>
-  `,
+      <p>
+        יש לנו הרבה נתונים, אבל לא תמיד ברור מה הם אומרים.
+      </p>
 
-  symbols: `
-    <h1>אלפא</h1>
-    <p>סיכוי לטעות ולהגיד שיש כשאין</p>
-    <button onclick="go('home')">חזרה</button>
-    <button onclick="toggle()">מצב ריכוז</button>
-  `
-};
+      <p>
+        לפעמים יש בלבול, לפעמים יש רעש, ולפעמים יש תחושה שהמספרים פשוט "זורקים" אותנו ממקום למקום.
+      </p>
 
-function go(p){
-  document.getElementById("app").innerHTML = pages[p];
-}
+      <p>
+        סטטיסטיקה באה לעשות סדר.
+      </p>
 
-function toggle(){
-  focus = !focus;
-  document.body.classList.toggle("focus");
+      <ul>
+        <li>לעזור לנו להבין נתונים</li>
+        <li>לסכם מידע מורכב בצורה פשוטה</li>
+        <li>להשוות בין מצבים שונים</li>
+        <li>לקבל החלטות בצורה חכמה יותר</li>
+        <li>להעריך מה סביר ומה פחות סביר</li>
+      </ul>
 
-  if(!audio){
-    audio = new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_115b9b0f3c.mp3?filename=brown-noise-ambient-110624.mp3");
-    audio.loop = true;
-  }
+      <p>
+        במילים פשוטות:
+      </p>
 
-  if(focus){
-    audio.play().catch(()=>{});
-  } else {
-    audio.pause();
-  }
-}
+      <p>
+        סטטיסטיקה היא שפה שעוזרת לנו להבין את המציאות דרך נתונים.
+      </p>
 
-go("home");
-</script>
+      <div class="note">
+        המטרה כאן היא לא רק לפתור תרגילים — אלא להבין באמת מה אומרים לנו.
+      </div>
+    </section>
 
+    <section class="card">
+      <h2>לפני שמתחילים לחשב — צריך להבין את השפה</h2>
+
+      <p>
+        הרבה פעמים הקושי בסטטיסטיקה בכלל לא מתחיל בחישוב.
+      </p>
+
+      <p>
+        הוא מתחיל בזה שלא ברור מה הסימנים אומרים.
+      </p>
+
+      <p>
+        פתאום רואים אות יוונית, סימן מוזר, או קיצור לא מוכר — ומאבדים את החוט.
+      </p>
+
+      <p>
+        לכן לפני ממוצע, שכיח, חציון ונוסחאות,
+        נבין קודם את הסימנים עצמם.
+      </p>
+
+      <div class="note">
+        כשמבינים את השפה — כל היתר נעשה הרבה יותר נעים, ברור ועמוק.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>הסימן הראשון: α — אלפא</h2>
+
+      <div class="symbol-box">
+        <div class="big-symbol">α</div>
+        <div class="meaning">אלפא היא אות יוונית</div>
+      </div>
+
+      <p>
+        בסטטיסטיקה, הסימן α מייצג בדרך כלל את <strong>רמת המובהקות</strong>.
+      </p>
+
+      <p>
+        זהו בעצם הגבול שאנחנו קובעים מראש לשאלה:
+      </p>
+
+      <p>
+        <strong>כמה אנחנו מוכנים להסתכן בטעות?</strong>
+      </p>
+
+      <h3>דוגמה פשוטה</h3>
+
+      <ul>
+        <li><strong>α = 0.05</strong> פירושו 5% סיכוי לטעות</li>
+        <li><strong>α = 0.01</strong> פירושו 1% סיכוי לטעות</li>
+      </ul>
+
+      <p>
+        כלומר, לפני שבודקים משהו, אנחנו מחליטים מראש כמה חוסר ודאות אנחנו מוכנים לקבל.
+      </p>
+
+      <h3>הרעיון העמוק</h3>
+
+      <p>
+        אלפא אומרת:
+        אנחנו לא טוענים משהו סתם כך.
+      </p>
+
+      <p>
+        אנחנו רוצים רמה מסוימת של ביטחון לפני שנכריע.
+      </p>
+
+      <div class="note">
+        אלפא לא אומרת "אין טעות".  
+        היא אומרת: קבענו מראש כמה טעות אנחנו מוכנים לסבול.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>לסיכום</h2>
+
+      <p>
+        סטטיסטיקה לא מתחילה רק במספרים.
+      </p>
+
+      <p>
+        היא מתחילה בהבנת השפה.
+      </p>
+
+      <p>
+        וכשאנחנו מבינים מה הסימנים אומרים — אנחנו כבר לא מרגישים אבודים מול החומר.
+      </p>
+
+      <p>
+        אנחנו מתחילים לראות היגיון.
+      </p>
+    </section>
+
+    <div class="footer-space"></div>
+  </div>
 </body>
 </html>
