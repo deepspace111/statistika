@@ -13,33 +13,10 @@
       color: #111;
       line-height: 1.8;
     }
-    .focus-mode {
-  background: #111;
-  color: #eee;
-}
 
-.focus-mode .card {
-  background: #222;
-  color: #eee;
-}
-
-.focus-mode .focus-btn {
-  background: #333;
-  color: #eee;
-}    <!DOCTYPE html>
-<html lang="he" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>道 דרך סטטיסטיקה תיאורית</title>
-
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial;
-      background: #e8e8e8;
-      color: #111;
-      line-height: 1.8;
+    body.focus-mode {
+      background: #111;
+      color: #eee;
     }
 
     .wrap {
@@ -55,211 +32,87 @@
       border-radius: 15px;
     }
 
-    h1 {
-      text-align: center;
-    }
-    .focus-mode {
-  background: #111;
-  color: #eee;
-}
-
-.focus-mode .card {
-  background: #222;
-}    .focus-btn {
-  display: block;
-  margin: 0 auto 20px;
-  padding: 10px 20px;
-  font-size: 1rem;
-  background: #ddd;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-.focus-btn:hover {
-  background: #ccc;
-}    .japanese {
-  font-size: 1rem;
-  color: #aaa;
-  margin-right: 8px;
-  position: relative;
-  top: -5px;
-  font-weight: 300;
-}  </style>
-</head>
-
-<body>
-
-<div class="wrap">
-
- <h1 class="main-title">
-  <span class="japanese">道</span>
-   דרך סטטיסטיקה תיאורית
-</h1>
-<button class="focus-btn" onclick="toggleFocus()">
-  כשמבינים — רואים
-</button>  <!-- מבוא -->
-  <section class="card">
-    <h2>מה זה "מבוא לסטטיסטיקה תיאורית"?</h2>
-
-    <p>מבוא הוא שלב הכניסה לנושא.</p>
-
-    <p>
-      לפני שמתחילים חישובים — צריך להבין מה לומדים.
-    </p>
-
-    <p>
-      סטטיסטיקה תיאורית היא הדרך שלנו לקחת נתונים
-      ולתאר אותם בצורה ברורה ופשוטה.
-    </p>
-
-    <p>
-      אנחנו לא מנבאים — אנחנו מתארים.
-    </p>
-  </section>
-
-  <!-- למה צריך -->
-  <section class="card">
-    <h2>למה בכלל צריך סטטיסטיקה?</h2>
-
-    <p>
-      בעולם האמיתי יש הרבה נתונים,
-      אבל לא תמיד ברור מה הם אומרים.
-    </p>
-
-    <p>
-      סטטיסטיקה עושה סדר בתוך הבלגן.
-    </p>
-  </section>
-
-  <!-- שפה -->
-  <section class="card">
-    <h2>לפני שמתחילים — צריך להבין את השפה</h2>
-
-    <p>
-      סטטיסטיקה היא שפה.
-    </p>
-
-    <p>
-      אם לא מבינים את הסימנים — הולכים לאיבוד.
-    </p>
-  </section>
-
-  <!-- אלפא -->
-  <section class="card">
-    <h2>α — אלפא</h2>
-
-    <p>
-      אלפא מייצגת את רמת הסיכון שאנחנו מוכנים לקחת.
-    </p>
-
-    <p>
-      לדוגמה:
-    </p>
-
-    <ul>
-      <li>0.05 = 5% סיכוי לטעות</li>
-      <li>0.01 = 1% סיכוי לטעות</li>
-    </ul>
-  </section>
-
-</div>
-
-</body>
-</html>
-    .wrap {
-      max-width: 900px;
-      margin: auto;
-      padding: 20px;
-    }
-
-    .card {
-      background: #f5f5f5;
-      padding: 20px;
-      margin-bottom: 15px;
-      border-radius: 15px;
+    .focus-mode .card {
+      background: #222;
+      color: #eee;
     }
 
     h1 {
       text-align: center;
     }
+
     .japanese {
-  font-size: 1rem;
-  color: #aaa;
-  margin-right: 8px;
-  position: relative;
-  top: -5px;
-  font-weight: 300;
-}  </style>
+      font-size: 1rem;
+      color: #aaa;
+      margin-right: 8px;
+      position: relative;
+      top: -5px;
+      font-weight: 300;
+    }
+
+    .focus-btn {
+      display: block;
+      margin: 0 auto 20px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      background: #ddd;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    .focus-btn:hover {
+      background: #ccc;
+    }
+
+    .focus-mode .focus-btn {
+      background: #333;
+      color: #eee;
+    }
+  </style>
 </head>
 
 <body>
 
 <div class="wrap">
 
- <h1 class="main-title">
-  <span class="japanese">道</span>
-   דרך סטטיסטיקה תיאורית
-</h1>
-  <p class="tagline">כשמבינים — רואים</p>  <!-- מבוא -->
+  <h1 class="main-title">
+    <span class="japanese">道</span>
+    דרך סטטיסטיקה תיאורית
+  </h1>
+
+  <button class="focus-btn" onclick="toggleFocus()">
+    כשמבינים — רואים
+  </button>
+
+  <audio id="brownNoise" loop>
+    <source src="brown-noise.mp3" type="audio/mpeg">
+  </audio>
+
   <section class="card">
     <h2>מה זה "מבוא לסטטיסטיקה תיאורית"?</h2>
-
     <p>מבוא הוא שלב הכניסה לנושא.</p>
-
-    <p>
-      לפני שמתחילים חישובים — צריך להבין מה לומדים.
-    </p>
-
-    <p>
-      סטטיסטיקה תיאורית היא הדרך שלנו לקחת נתונים
-      ולתאר אותם בצורה ברורה ופשוטה.
-    </p>
-
-    <p>
-      אנחנו לא מנבאים — אנחנו מתארים.
-    </p>
+    <p>לפני שמתחילים חישובים — צריך להבין מה לומדים.</p>
+    <p>סטטיסטיקה תיאורית היא הדרך שלנו לקחת נתונים ולתאר אותם בצורה ברורה ופשוטה.</p>
+    <p>אנחנו לא מנבאים — אנחנו מתארים.</p>
   </section>
 
-  <!-- למה צריך -->
   <section class="card">
     <h2>למה בכלל צריך סטטיסטיקה?</h2>
-
-    <p>
-      בעולם האמיתי יש הרבה נתונים,
-      אבל לא תמיד ברור מה הם אומרים.
-    </p>
-
-    <p>
-      סטטיסטיקה עושה סדר בתוך הבלגן.
-    </p>
+    <p>בעולם האמיתי יש הרבה נתונים, אבל לא תמיד ברור מה הם אומרים.</p>
+    <p>סטטיסטיקה עושה סדר בתוך הבלגן.</p>
   </section>
 
-  <!-- שפה -->
   <section class="card">
     <h2>לפני שמתחילים — צריך להבין את השפה</h2>
-
-    <p>
-      סטטיסטיקה היא שפה.
-    </p>
-
-    <p>
-      אם לא מבינים את הסימנים — הולכים לאיבוד.
-    </p>
+    <p>סטטיסטיקה היא שפה.</p>
+    <p>כשמבינים — רואים.</p>
   </section>
 
-  <!-- אלפא -->
   <section class="card">
     <h2>α — אלפא</h2>
-
-    <p>
-      אלפא מייצגת את רמת הסיכון שאנחנו מוכנים לקחת.
-    </p>
-
-    <p>
-      לדוגמה:
-    </p>
-
+    <p>אלפא מייצגת את רמת הסיכון שאנחנו מוכנים לקחת.</p>
+    <p>לדוגמה:</p>
     <ul>
       <li>0.05 = 5% סיכוי לטעות</li>
       <li>0.01 = 1% סיכוי לטעות</li>
@@ -267,10 +120,19 @@
   </section>
 
 </div>
+
 <script>
 function toggleFocus() {
+  const audio = document.getElementById("brownNoise");
   document.body.classList.toggle("focus-mode");
+
+  if (document.body.classList.contains("focus-mode")) {
+    audio.play();
+  } else {
+    audio.pause();
+  }
 }
 </script>
+
 </body>
 </html>
