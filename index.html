@@ -45,7 +45,27 @@
     h1 {
       text-align: center;
     }
-    .japanese {
+    .focus-mode {
+  background: #111;
+  color: #eee;
+}
+
+.focus-mode .card {
+  background: #222;
+}    .focus-btn {
+  display: block;
+  margin: 0 auto 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  background: #ddd;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.focus-btn:hover {
+  background: #ccc;
+}    .japanese {
   font-size: 1rem;
   color: #aaa;
   margin-right: 8px;
@@ -63,7 +83,9 @@
   <span class="japanese">道</span>
    דרך סטטיסטיקה תיאורית
 </h1>
-  <p class="tagline">כשמבינים — רואים</p>  <!-- מבוא -->
+<button class="focus-btn" onclick="toggleFocus()">
+  כשמבינים — רואים
+</button>  <!-- מבוא -->
   <section class="card">
     <h2>מה זה "מבוא לסטטיסטיקה תיאורית"?</h2>
 
