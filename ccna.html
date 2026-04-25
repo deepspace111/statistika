@@ -3,14 +3,26 @@
 <p>עמוד זה בבניה</p>
 <a href="index.html" id="homeBtn">道</a>
 <style>
-  body  #homeBtn {
+  body {
+  margin: 0;
+  font-family: Arial;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  text-align: center;
+}
+
+#homeBtn {
   position: fixed;
   top: 20px;
   left: 20px;
 
   width: 32px;
   height: 32px;
-    font-size: 14px;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -34,17 +46,7 @@
 body.focus-mode #homeBtn {
   background: #e8e8e8;
   color: #111;
-}{
-  margin: 0;
-  font-family: Arial;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-
-  text-align: center;
-}  
+}
    </style>
  
 }  </body>
