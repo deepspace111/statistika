@@ -121,12 +121,14 @@
 
   document.body.classList.toggle("focus-mode");
 
-  if (brownNoise.paused) {
-    brownNoise.play();
-  } else {
-    brownNoise.pause();
-  }
-});
+if (brownNoise.paused) {
+  brownNoise.play();
+  localStorage.setItem("soundOn", "true");
+} else {
+  brownNoise.pause();
+  localStorage.setItem("soundOn", "false");
+}
+);
 </script>
 
 </body>
