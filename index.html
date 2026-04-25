@@ -94,9 +94,9 @@
 
 <div class="container">
 
-  <a href="index.html" class="title-btn">
-    כשרואים מבינים <span>道</span>
-  </a>
+  <a href="#" id="focusBtn" class="title-btn">
+  כשרואים מבינים <span>道</span>
+</a>
 
   <button id="focusBtn" class="subtitle-btn">
     כשמבינים רואים
@@ -113,17 +113,17 @@
   const focusBtn = document.getElementById("focusBtn");
   const brownNoise = document.getElementById("brownNoise");
 
-  focusBtn.addEventListener("click", function () {
-    document.body.classList.toggle("focus-mode");
+  focusBtn.addEventListener("click", function (e) {
+  e.preventDefault(); // מונע רענון
 
-    if (brownNoise.paused) {
-      brownNoise.play();
-      focusBtn.textContent = "מצב ריכוז פעיל";
-    } else {
-      brownNoise.pause();
-      focusBtn.textContent = "כשמבינים רואים";
-    }
-  });
+  document.body.classList.toggle("focus-mode");
+
+  if (brownNoise.paused) {
+    brownNoise.play();
+  } else {
+    brownNoise.pause();
+  }
+});
 </script>
 
 </body>
