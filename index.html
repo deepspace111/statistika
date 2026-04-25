@@ -113,31 +113,25 @@
 </div>
 
 <script>
+  <script>
   const focusBtn = document.getElementById("focusBtn");
   const brownNoise = document.getElementById("brownNoise");
 
   focusBtn.addEventListener("click", function (e) {
-  e.preventDefault(); // מונע רענון
+    e.preventDefault();
 
-  document.body.classList.toggle("focus-mode");
+    document.body.classList.toggle("focus-mode");
 
-if (brownNoise.paused) {
-  brownNoise.play();
-  localStorage.setItem("soundOn", "true");
-} else {
-  brownNoise.pause();
-  localStorage.setItem("soundOn", "false");
-}
-)};
-בזה:
-  });
-ואז הסוף ייראה כך:
+    if (brownNoise.paused) {
+      brownNoise.play();
+      localStorage.setItem("soundOn", "true");
     } else {
       brownNoise.pause();
       localStorage.setItem("soundOn", "false");
     }
   });
 </script>
+
 
 
 </body>
