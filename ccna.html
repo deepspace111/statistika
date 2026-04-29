@@ -62,6 +62,87 @@ body.focus-mode #homeBtn {
 }
    </style>
   <audio id="brownNoise" src="brown-noise.mp3" loop></audio>
- 
-  </body>
+ <style>
+/* רקע אחיד */
+body {
+  background: #111 !important;
+  color: #eee;
+}
+
+/* כפתור בית גדול */
+.home-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 9999;
+  background: #1a1a1a;
+  color: white;
+  text-decoration: none;
+  padding: 14px 18px;
+  border-radius: 18px;
+  font-size: 24px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.4);
+}
+
+/* כפתור תודעת למידה */
+.focus-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  background: #222;
+  color: white;
+  padding: 14px 18px;
+  border-radius: 18px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0,0,0,.4);
+}
+
+/* מצב פוקוס */
+.focus-mode {
+  background: #000 !important;
+  color: #ddd !important;
+}
+
+/* אפקט מעבר */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: black;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .4s;
+  z-index: 9998;
+}
+
+.overlay.active {
+  opacity: 1;
+}
+</style>
+
+<!-- כפתור בית -->
+<a href="index.html" class="home-btn" onclick="goHome(event)">⌂</a>
+
+<!-- כפתור תודעת למידה -->
+<div class="focus-btn" onclick="toggleFocus()">תודעת למידה</div>
+
+<!-- overlay -->
+<div id="overlay" class="overlay"></div>
+
+<script>
+function goHome(e) {
+  e.preventDefault();
+  const o = document.getElementById("overlay");
+  o.classList.add("active");
+  setTimeout(() => {
+    window.location.href = "index.html";
+  }, 400);
+}
+
+/* פוקוס מוד */
+function toggleFocus() {
+  document.body.classList.toggle("focus-mode");
+}
+</script>  </body>
 </html>
