@@ -275,6 +275,55 @@
 </script>
 
 
+<style>
+body {
+  background: #111 !important;
+  color: #eee;
+}
 
-</body>
+/* כפתור בית */
+.home-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 9999;
+  background: #1a1a1a;
+  color: white;
+  text-decoration: none;
+  padding: 14px 18px;
+  border-radius: 18px;
+  font-size: 24px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.4);
+}
+
+/* אפקט מעבר */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: black;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .4s;
+  z-index: 9998;
+}
+
+.overlay.active {
+  opacity: 1;
+}
+</style>
+
+<a href="index.html" class="home-btn">⌂</a>
+
+<div id="overlay" class="overlay"></div>
+
+<script>
+function goHome(e) {
+  e.preventDefault();
+  const o = document.getElementById("overlay");
+  o.classList.add("active");
+  setTimeout(() => {
+    window.location.href = "index.html";
+  }, 400);
+}
+</script></body>
 </html>
