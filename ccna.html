@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -11,7 +10,6 @@ body {
   font-family: Arial;
   background: #111;
   color: #f2f2f2;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -56,20 +54,22 @@ body {
   position: fixed;
   bottom: 20px;
   right: 20px;
+  z-index: 9999;
   background: #222;
   color: white;
   padding: 14px 18px;
   border-radius: 18px;
+  font-size: 16px;
   cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0,0,0,.4);
 }
 
 /* מצב פוקוס */
-.focus-mode {
+body.focus-mode {
   background: #000 !important;
   color: #ddd !important;
 }
 </style>
-
 </head>
 
 <body>
@@ -87,6 +87,14 @@ body {
 <script>
 function toggleFocus() {
   document.body.classList.toggle("focus-mode");
+
+  const audio = document.getElementById("brownNoise");
+
+  if (document.body.classList.contains("focus-mode")) {
+    audio.play();
+  } else {
+    audio.pause();
+  }
 }
 </script>
 
