@@ -3,26 +3,214 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>מבוא לרשתות תקשורת</title>
+
+<title>CCNA - נושאים</title>
 
 <style>
 body {
   margin: 0;
-  font-family: Arial;
+  font-family: Arial, sans-serif;
   background: #111;
   color: #f2f2f2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   text-align: center;
+}
+
+/* כפתור דו - חזרה לבית */
+#homeBtn {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  background: #222;
+  color: #fff;
+
+  text-decoration: none;
+  font-size: 23px;
+  font-weight: bold;
+
+  box-shadow: 0 0 10px rgba(255,255,255,0.15);
+  z-index: 10;
+}
+
+/* כפתור תודעת לימוד */
+#focusBtn {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+
+  padding: 8px 12px;
+  border-radius: 18px;
+  border: 1px solid #555;
+
+  background: #222;
+  color: #f2f2f2;
+
+  font-size: 13px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.container {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 90px 22px 40px;
+}
+
+h1 {
+  font-size: 34px;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: #aaa;
+  margin-bottom: 35px;
+  font-size: 17px;
+}
+
+.topic-list {
+  display: grid;
+  gap: 14px;
+}
+
+.topic {
+  display: block;
+  padding: 18px;
+  border-radius: 18px;
+
+  background: #1c1c1c;
+  color: #f2f2f2;
+
+  text-decoration: none;
+  font-size: 19px;
+
+  border: 1px solid #333;
+}
+
+.topic small {
+  display: block;
+  margin-top: 6px;
+  color: #aaa;
+  font-size: 14px;
+}
+
+.topic:hover {
+  background: #292929;
+}
+
+/* מצב תודעת לימוד */
+body.focus-mode {
+  background: #050505;
+}
+
+body.focus-mode .topic {
+  background: #151515;
+  border-color: #555;
+}
+
+@media (max-width: 600px) {
+  #homeBtn {
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+  }
+
+  #focusBtn {
+    font-size: 12px;
+    padding: 7px 10px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  .topic {
+    font-size: 17px;
+    padding: 16px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<h1>מבוא לרשתות תקשורת</h1>
+<a href="index.html" id="homeBtn">道</a>
+<button id="focusBtn">תודעת לימוד</button>
+
+<div class="container">
+  <h1>דרך CCNA</h1>
+  <div class="subtitle">כשמבינים גבולות — רואים את המערכת</div>
+
+  <div class="topic-list">
+
+    <a class="topic" href="#">
+      מבוא לרשתות תקשורת
+      <small>מה זו רשת, למה מחשבים צריכים לדבר, ומה זה אינטרנט</small>
+    </a>
+
+    <a class="topic" href="#">
+      ARP
+      <small>איך מוצאים כתובת MAC לפי כתובת IP בתוך הרשת המקומית</small>
+    </a>
+
+    <a class="topic" href="#">
+      Gateway
+      <small>כשיעד מחוץ לרשת — שולחים לשער</small>
+    </a>
+
+    <a class="topic" href="#">
+      DNS
+      <small>תרגום שם כמו google.com לכתובת IP</small>
+    </a>
+
+    <a class="topic" href="#">
+      ICMP / Ping
+      <small>בדיקת תקשורת: Echo Request ו־Echo Reply</small>
+    </a>
+
+    <a class="topic" href="#">
+      TCP ו־UDP
+      <small>איך מידע עובר בין מחשבים ותהליכים</small>
+    </a>
+
+    <a class="topic" href="#">
+      Ports
+      <small>איך המחשב יודע לאיזו תוכנה להעביר את המידע</small>
+    </a>
+
+    <a class="topic" href="#">
+      NAT
+      <small>איך כמה מכשירים בבית יוצאים לאינטרנט דרך כתובת אחת</small>
+    </a>
+
+  </div>
+</div>
+
+<script>
+const focusBtn = document.getElementById("focusBtn");
+
+if (localStorage.getItem("focusMode") === "on") {
+  document.body.classList.add("focus-mode");
+}
+
+focusBtn.addEventListener("click", function() {
+  document.body.classList.toggle("focus-mode");
+
+  if (document.body.classList.contains("focus-mode")) {
+    localStorage.setItem("focusMode", "on");
+  } else {
+    localStorage.setItem("focusMode", "off");
+  }
+});
+</script>
 
 </body>
 </html>
