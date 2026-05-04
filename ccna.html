@@ -3,177 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CCNA - התחלה</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap" rel="stylesheet">
+<title>CCNA - התחלה</title>
 
 <style>
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #e8e8e8;
-  color: #111;
+  font-family: Arial;
+  background: #111;
+  color: #f2f2f2;
+
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  text-align: center;
-  transition: 0.4s ease;
 }
 
-body.focus-mode {
-  background: #111;
-  color: #e8e8e8;
-}
-
-h1 {
+/* הכותרת שהיא כפתור */
+.title-btn {
   font-size: 36px;
-}
-
-/* כפתור בית דו */
-#homeBtn {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  width: 62px;
-  height: 62px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
   text-decoration: none;
-  background: rgba(255,255,255,0.18);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-  z-index: 1000;
-  transition: 0.3s ease;
-}
-
-#homeBtn:hover {
-  transform: scale(1.08);
-}
-
-#homeBtn span {
-  font-family: 'Yuji Mai', cursive;
-  font-size: 38px;
-  color: #111;
-  opacity: 0;
-  transform: scale(0.9);
-  animation: inkAppear 1.6s ease-out forwards;
-}
-
-body.focus-mode #homeBtn {
-  background: rgba(255,255,255,0.08);
-}
-
-body.focus-mode #homeBtn span {
-  color: #fff;
-}
-
-@keyframes inkAppear {
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* כפתור תודעת למידה */
-.focus-btn {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 9999;
-  background: linear-gradient(135deg, #111, #333);
-  color: white;
-  padding: 18px 30px;
-  border-radius: 999px;
-  font-size: 20px;
+  color: #f2f2f2;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
-  user-select: none;
-  transition: 0.25s ease;
 }
 
-.focus-btn:hover {
-  transform: translateY(-3px);
-}
-
-body.focus-mode .focus-btn {
-  background: linear-gradient(135deg, #e8e8e8, #ffffff);
-  color: #111;
-}
-
-/* מובייל */
-@media (max-width: 600px) {
-  #homeBtn {
-    width: 72px;
-    height: 72px;
-    top: 15px;
-    left: 15px;
-  }
-
-  #homeBtn span {
-    font-size: 42px;
-  }
-
-  .focus-btn {
-    font-size: 20px;
-    padding: 20px 32px;
-    bottom: 20px;
-    right: 50%;
-    transform: translateX(50%);
-  }
-
-  .focus-btn:hover {
-    transform: translateX(50%);
-  }
-
-  h1 {
-    font-size: 32px;
-  }
+.title-btn:hover {
+  opacity: 0.7;
 }
 </style>
 </head>
 
 <body>
 
-<a href="index.html" id="homeBtn" title="חזרה לעמוד הבית">
-  <span>道</span>
+<a href="intro.html" class="title-btn">
+  CCNA - התחלה
 </a>
-
-<h1>CCNA - התחלה</h1>
-
-<div class="focus-btn" onclick="toggleFocus()">תודעת למידה</div>
-
-<audio id="brownNoise" src="brown-noise.mp3" loop></audio>
-
-<script>
-const audio = document.getElementById("brownNoise");
-
-window.addEventListener("load", function () {
-  const soundOn = localStorage.getItem("soundOn");
-
-  if (soundOn === "true") {
-    document.body.classList.add("focus-mode");
-
-    audio.play().catch(function () {
-      console.log("הדפדפן חסם הפעלה אוטומטית עד לחיצה");
-    });
-  }
-});
-
-function toggleFocus() {
-  document.body.classList.toggle("focus-mode");
-
-  if (document.body.classList.contains("focus-mode")) {
-    localStorage.setItem("soundOn", "true");
-    audio.play();
-  } else {
-    localStorage.setItem("soundOn", "false");
-    audio.pause();
-  }
-}
-</script>
 
 </body>
 </html>
