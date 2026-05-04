@@ -6,10 +6,12 @@
 
 <title>CCNA - התחלה</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap" rel="stylesheet">
+
 <style>
 body {
   margin: 0;
-  font-family: Arial;
+  font-family: Arial, sans-serif;
   background: #111;
   color: #f2f2f2;
 
@@ -17,6 +19,55 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  text-align: center;
+  transition: 0.4s ease;
+}
+
+/* 道 — אותו פונט קליגרפי כמו בעמוד הבית, רק קטן יותר */
+#homeBtn {
+  position: fixed;
+  top: 12px;
+  left: 14px;
+
+  font-family: 'Yuji Mai', cursive;
+  font-size: 34px;
+  color: #f2f2f2;
+  text-decoration: none;
+
+  line-height: 1;
+  opacity: 0.95;
+
+  animation: inkAppear 2s ease-out forwards;
+}
+
+@keyframes inkAppear {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+    transform: translateY(8px) scale(0.96);
+  }
+  to {
+    opacity: 0.95;
+    filter: blur(0);
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* תודעת לימוד — קטן יותר */
+#focusBtn {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+
+  padding: 5px 9px;
+  border-radius: 999px;
+  border: 1px solid #555;
+
+  background: #1d1d1d;
+  color: #f2f2f2;
+
+  font-size: 11px;
+  cursor: pointer;
 }
 
 /* הכותרת שהיא כפתור */
@@ -25,20 +76,63 @@ body {
   text-decoration: none;
   color: #f2f2f2;
   font-weight: bold;
-  cursor: pointer;
 }
 
 .title-btn:hover {
-  opacity: 0.7;
+  opacity: 0.75;
+}
+
+body.focus-mode {
+  background: #050505;
+  color: #e8e8e8;
+}
+
+@media (max-width: 600px) {
+  #homeBtn {
+    font-size: 30px;
+    top: 10px;
+    left: 12px;
+  }
+
+  #focusBtn {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+
+  .title-btn {
+    font-size: 30px;
+  }
 }
 </style>
 </head>
 
 <body>
 
+<a href="index.html" id="homeBtn">道</a>
+
+<button id="focusBtn">תודעת לימוד</button>
+
 <a href="intro.html" class="title-btn">
   CCNA - התחלה
 </a>
+
+<script>
+const focusBtn = document.getElementById("focusBtn");
+
+if (localStorage.getItem("focusMode") === "on") {
+  document.body.classList.add("focus-mode");
+}
+
+focusBtn.addEventListener("click", function () {
+  document.body.classList.toggle("focus-mode");
+
+  if (document.body.classList.contains("focus-mode")) {
+    localStorage.setItem("focusMode", "on");
+  } else {
+    localStorage.setItem("focusMode", "off");
+  }
+});
+</script>
 
 </body>
 </html>
