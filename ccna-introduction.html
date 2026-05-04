@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>מבוא ללמידה</title>
+<title>מבוא לאינטרנט</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap" rel="stylesheet">
 
@@ -27,22 +27,7 @@ body {
   font-size: 34px;
   color: #111;
   text-decoration: none;
-  line-height: 1;
   opacity: 0.95;
-  animation: inkAppear 2s ease-out forwards;
-}
-
-@keyframes inkAppear {
-  from {
-    opacity: 0;
-    filter: blur(4px);
-    transform: translateY(8px) scale(0.96);
-  }
-  to {
-    opacity: 0.95;
-    filter: blur(0);
-    transform: translateY(0) scale(1);
-  }
 }
 
 #focusBtn {
@@ -59,25 +44,48 @@ body {
 }
 
 .container {
-  max-width: 680px;
+  max-width: 760px;
   margin: 0 auto;
-  padding: 95px 24px 40px;
+  padding: 90px 24px 50px;
 }
 
 h1 {
-  font-size: 32px;
-  margin-bottom: 26px;
+  font-size: 34px;
+  margin-bottom: 30px;
+}
+
+h2 {
+  font-size: 24px;
+  margin-top: 38px;
+  margin-bottom: 14px;
 }
 
 p {
   font-size: 19px;
   line-height: 1.8;
-  margin-bottom: 24px;
+  margin-bottom: 18px;
+}
+
+/* 🔥 הקווים */
+.section {
+  margin-bottom: 30px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.key-sentence {
+  margin: 35px auto;
+  padding: 18px;
+  border-radius: 18px;
+  background: #fff;
+  font-size: 21px;
+  font-weight: bold;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.12);
 }
 
 .next-btn {
   display: inline-block;
-  margin-top: 22px;
+  margin-top: 30px;
   padding: 13px 32px;
   border-radius: 999px;
   background: linear-gradient(135deg, #111, #333);
@@ -103,30 +111,19 @@ body.focus-mode #focusBtn {
   border-color: #666;
 }
 
+/* 🔥 קווים במצב פוקוס */
+body.focus-mode .section {
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+
+body.focus-mode .key-sentence {
+  background: #1d1d1d;
+  color: #e8e8e8;
+}
+
 body.focus-mode .next-btn {
   background: linear-gradient(135deg, #e8e8e8, #ffffff);
   color: #111;
-}
-
-@media (max-width: 600px) {
-  #homeBtn {
-    font-size: 30px;
-    top: 10px;
-    left: 12px;
-  }
-
-  #focusBtn {
-    font-size: 10px;
-    padding: 4px 8px;
-  }
-
-  h1 {
-    font-size: 28px;
-  }
-
-  p {
-    font-size: 18px;
-  }
 }
 </style>
 </head>
@@ -134,34 +131,96 @@ body.focus-mode .next-btn {
 <body>
 
 <a href="index.html" id="homeBtn">道</a>
-
 <button id="focusBtn">תודעת לימוד</button>
 
 <div class="container">
 
-  <h1>לפני שנכנסים לעולם הרשתות</h1>
+<div class="section">
+  <h1>מבוא לאינטרנט</h1>
 
   <p>
-    המטרה כאן היא לא לרוץ מהר.
+    אנחנו משתמשים באינטרנט כל הזמן.<br>
+    שולחים הודעות, גולשים, צופים, עובדים.
   </p>
 
   <p>
-    המטרה היא להתחיל לראות.
+    אבל רגע אחד לעצור ולשאול:<br>
+    איך כל זה בכלל התחיל?
   </p>
+</div>
+
+<div class="section">
+  <h2>איך הכל התחיל</h2>
+  <p>
+    בהתחלה, מחשבים היו לבד.<br>
+    כל מחשב עבד לעצמו.
+  </p>
+  <p>
+    לא הייתה דרך פשוטה לשלוח מידע ממחשב אחד לאחר.
+  </p>
+</div>
+
+<div class="section">
+  <h2>הצורך שהוביל לשינוי</h2>
+  <p>
+    האינטרנט לא נולד סתם.<br>
+    הוא נולד מתוך צורך אמיתי.
+  </p>
+  <p>
+    הייתה בעיה:<br>
+    כל מקום עבד לבד.<br>
+    מידע לא עבר בקלות.<br>
+    משאבים היו יקרים.
+  </p>
+  <p>
+    הצבאות היו צריכים תקשורת שתמשיך לעבוד<br>
+    גם אם חלק מהמערכת נפגע.
+  </p>
+</div>
+
+<div class="section">
+  <h2>הרעיון ששינה הכל</h2>
+  <p>
+    במקום לשלוח מידע כיחידה אחת גדולה,<br>
+    לפרק אותו לחלקים קטנים.
+  </p>
+</div>
+
+<div class="section">
+  <h2>למה לפרק?</h2>
+  <p>
+    אם חלק אחד נאבד — לא הכל הולך לאיבוד.<br>
+    קל יותר לשלוח חלקים קטנים.<br>
+    לא צריך לשלוח הכל מחדש.
+  </p>
+</div>
+
+<div class="section">
+  <h2>שפה משותפת</h2>
+
+  <div class="key-sentence">
+    פרוטוקול = הסכמה איך לדבר
+  </div>
 
   <p>
-    להבין איך דברים עוברים ממקום למקום,<br>
-    איך מחשבים מוצאים אחד את השני,<br>
-    ואיך מערכת שלמה נראית כשמפרקים אותה לחלקים קטנים.
+    מחשבים צריכים שפה משותפת.<br>
+    חוקים פשוטים שמאפשרים להם להבין אחד את השני.
   </p>
+</div>
 
+<div class="section">
+  <h2>אז מה זה אינטרנט?</h2>
   <p>
-    בלי לחץ.<br>
-    בלי עומס.<br>
-    פיקסל אחד בכל פעם.
+    האינטרנט הוא רשת של רשתות.<br>
+    מחשבים שמדברים ביניהם.
   </p>
+</div>
 
-  <a href="intro.html" class="next-btn">להמשיך</a>
+<div class="key-sentence">
+  כשמבינים גבולות — רואים את המערכת
+</div>
+
+<a href="intro.html" class="next-btn">להמשיך</a>
 
 </div>
 
