@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>מבוא ללמידה</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #e8e8e8;
+  color: #111;
+  min-height: 100vh;
+  text-align: center;
+  transition: 0.4s ease;
+}
+
+#homeBtn {
+  position: fixed;
+  top: 12px;
+  left: 14px;
+  font-family: 'Yuji Mai', cursive;
+  font-size: 34px;
+  color: #111;
+  text-decoration: none;
+  opacity: 0.95;
+}
+
+#focusBtn {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  border: 1px solid #999;
+  background: #fff;
+  color: #111;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 95px 24px 40px;
+}
+
+h1 {
+  font-size: 32px;
+  margin-bottom: 26px;
+}
+
+p {
+  font-size: 19px;
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+
+.next-btn {
+  display: inline-block;
+  margin-top: 22px;
+  padding: 13px 32px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #111, #333);
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.25);
+}
+
+body.focus-mode {
+  background: #111;
+  color: #e8e8e8;
+}
+
+body.focus-mode #homeBtn {
+  color: #e8e8e8;
+}
+
+body.focus-mode #focusBtn {
+  background: #111;
+  color: #e8e8e8;
+  border-color: #666;
+}
+
+body.focus-mode .next-btn {
+  background: linear-gradient(135deg, #e8e8e8, #ffffff);
+  color: #111;
+}
+</style>
+</head>
+
+<body>
+
+<a href="index.html" id="homeBtn">道</a>
+<button id="focusBtn">תודעת לימוד</button>
+
+<div class="container">
+
+  <h1>לפני שנכנסים לעולם הרשתות</h1>
+
+  <p>
+    המטרה כאן היא לא לרוץ מהר.
+  </p>
+
+  <p>
+    המטרה היא להתחיל לראות.
+  </p>
+
+  <p>
+    להבין איך דברים עוברים ממקום למקום,<br>
+    איך מחשבים מוצאים אחד את השני,<br>
+    ואיך מערכת שלמה נראית כשמפרקים אותה לחלקים קטנים.
+  </p>
+
+  <p>
+    בלי לחץ.<br>
+    בלי עומס.<br>
+    פיקסל אחד בכל פעם.
+  </p>
+
+  <a href="intro.html" class="next-btn">להמשיך</a>
+
+</div>
+
+<script>
+const focusBtn = document.getElementById("focusBtn");
+
+if (localStorage.getItem("focusMode") === "on") {
+  document.body.classList.add("focus-mode");
+}
+
+focusBtn.addEventListener("click", function () {
+  document.body.classList.toggle("focus-mode");
+
+  if (document.body.classList.contains("focus-mode")) {
+    localStorage.setItem("focusMode", "on");
+  } else {
+    localStorage.setItem("focusMode", "off");
+  }
+});
+</script>
+
+</body>
+</html>
