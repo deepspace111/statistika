@@ -12,9 +12,8 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #111;
-  color: #f2f2f2;
-
+  background: #e8e8e8;
+  color: #111;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,20 +22,16 @@ body {
   transition: 0.4s ease;
 }
 
-/* 道 — אותו פונט קליגרפי כמו בעמוד הבית, רק קטן יותר */
 #homeBtn {
   position: fixed;
   top: 12px;
   left: 14px;
-
   font-family: 'Yuji Mai', cursive;
   font-size: 34px;
-  color: #f2f2f2;
+  color: #111;
   text-decoration: none;
-
   line-height: 1;
   opacity: 0.95;
-
   animation: inkAppear 2s ease-out forwards;
 }
 
@@ -53,28 +48,23 @@ body {
   }
 }
 
-/* תודעת לימוד — קטן יותר */
 #focusBtn {
   position: fixed;
   top: 14px;
   right: 14px;
-
   padding: 5px 9px;
   border-radius: 999px;
-  border: 1px solid #555;
-
-  background: #1d1d1d;
-  color: #f2f2f2;
-
+  border: 1px solid #999;
+  background: #fff;
+  color: #111;
   font-size: 11px;
   cursor: pointer;
 }
 
-/* הכותרת שהיא כפתור */
 .title-btn {
   font-size: 36px;
   text-decoration: none;
-  color: #f2f2f2;
+  color: #111;
   font-weight: bold;
 }
 
@@ -83,8 +73,19 @@ body {
 }
 
 body.focus-mode {
-  background: #050505;
+  background: #111;
   color: #e8e8e8;
+}
+
+body.focus-mode #homeBtn,
+body.focus-mode .title-btn {
+  color: #e8e8e8;
+}
+
+body.focus-mode #focusBtn {
+  background: #111;
+  color: #e8e8e8;
+  border-color: #666;
 }
 
 @media (max-width: 600px) {
@@ -112,7 +113,7 @@ body.focus-mode {
 
 <button id="focusBtn">תודעת לימוד</button>
 
-<a href="intro.html" class="title-btn">
+<a href="ccna-introduction.html" class="title-btn">
   CCNA - התחלה
 </a>
 
