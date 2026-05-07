@@ -1,260 +1,548 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>אחר כך רואים 🌐</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap" rel="stylesheet">
+
 <style>
+
 body {
+
   margin: 0;
+
   font-family: Arial, sans-serif;
+
   background: #111;
+
   color: #f2f2f2;
+
   min-height: 100vh;
+
   overflow: hidden;
+
   text-align: center;
+
+  transition: 0.5s ease;
+}
+
+/* תודעת לימוד */
+body.learning-mode {
+
+  background: #f7f7f7;
+
+  color: #111;
+}
+
+/* דו */
+#homeBtn {
+
+  position: fixed;
+
+  top: 14px;
+  left: 14px;
+
+  text-decoration: none;
+
+  font-family: 'Yuji Mai', serif;
+
+  font-size: 23px;
+
+  color: rgba(255,255,255,0.42);
+
+  z-index: 20;
+
+  opacity: 0;
+
+  animation: fadeInHome 3s ease forwards;
+}
+
+body.learning-mode #homeBtn {
+
+  color: rgba(50,50,50,0.42);
+}
+
+@keyframes fadeInHome {
+
+  from {
+
+    opacity: 0;
+
+    transform: translateY(8px);
+  }
+
+  to {
+
+    opacity: 0.72;
+
+    transform: translateY(0);
+  }
+}
+
+/* תודעת לימוד */
+#focusBtn {
+
+  position: fixed;
+
+  top: 14px;
+  right: 14px;
+
+  border: 1px solid rgba(255,255,255,0.18);
+
+  background: rgba(255,255,255,0.04);
+
+  color: rgba(240,240,240,0.75);
+
+  padding: 7px 12px;
+
+  border-radius: 18px;
+
+  font-size: 13px;
+
+  cursor: pointer;
+
+  z-index: 20;
+}
+
+body.learning-mode #focusBtn {
+
+  border: 1px solid rgba(0,0,0,0.18);
+
+  background: rgba(0,0,0,0.04);
+
+  color: rgba(20,20,20,0.75);
 }
 
 .container {
+
   position: relative;
+
   width: 100vw;
+
   height: 100vh;
 }
 
 h1 {
+
   margin: 35px 0 5px;
+
   font-weight: 300;
+
   font-size: 38px;
 }
 
 .subtitle {
+
   color: #aaa;
+
   font-size: 18px;
 }
 
+body.learning-mode .subtitle {
+
+  color: #555;
+}
+
 .stage {
+
   position: relative;
+
   width: 100%;
+
   height: 70vh;
+
   margin-top: 30px;
 }
 
-.computer, .friend {
+/* מחשבים */
+.computer,
+.friend {
+
   position: absolute;
+
   top: 130px;
+
   width: 190px;
+
   height: 130px;
+
   border: 1px solid #666;
+
   border-radius: 18px;
+
   background: #1a1a1a;
+
   box-shadow: 0 0 25px rgba(255,255,255,0.06);
 }
 
+body.learning-mode .computer,
+body.learning-mode .friend {
+
+  background: #eaeaea;
+
+  border: 1px solid #999;
+}
+
 .computer {
+
   right: 8%;
 }
 
 .friend {
+
   left: 8%;
 }
 
 .screen-title {
+
   position: absolute;
+
   top: 10px;
+
   right: 15px;
+
   font-size: 12px;
+
   color: #777;
 }
 
 .file {
+
   position: absolute;
+
   top: 48px;
+
   right: 45px;
+
   width: 100px;
+
   height: 55px;
+
   border-radius: 10px;
+
   background: #555;
+
   display: flex;
+
   align-items: center;
+
   justify-content: center;
+
   color: #ddd;
+
   font-size: 15px;
 }
 
+/* שלח */
 .send-btn {
+
   position: absolute;
+
   top: 285px;
+
   right: 10%;
+
   border: 1px solid #555;
+
   border-radius: 20px;
+
   padding: 8px 18px;
+
   color: #ccc;
+
   background: #191919;
 }
 
+body.learning-mode .send-btn {
+
+  background: #eaeaea;
+
+  color: #222;
+}
+
+/* ראוטר */
 .router {
+
   position: absolute;
+
   top: 155px;
+
   left: 50%;
+
   transform: translateX(-50%);
+
   width: 150px;
+
   height: 75px;
+
   border: 1px solid #666;
+
   border-radius: 18px;
+
   background: #1c1c1c;
+}
+
+body.learning-mode .router {
+
+  background: #ececec;
 }
 
 .router::before,
 .router::after {
+
   content: "";
+
   position: absolute;
+
   top: -35px;
+
   width: 2px;
+
   height: 35px;
+
   background: #777;
 }
 
 .router::before {
+
   right: 42px;
 }
 
 .router::after {
+
   left: 42px;
 }
 
 .router-label {
+
   position: absolute;
+
   bottom: 10px;
+
   width: 100%;
+
   font-size: 11px;
+
   letter-spacing: 4px;
+
   color: #777;
 }
 
 .router-text {
+
   position: absolute;
+
   top: 245px;
+
   left: 50%;
+
   transform: translateX(-50%);
+
   color: #aaa;
+
   font-size: 15px;
 }
 
+body.learning-mode .router-text {
+
+  color: #555;
+}
+
+/* נתיבים */
 .path {
+
   position: absolute;
+
   height: 2px;
+
   background: #444;
+
   transform-origin: right center;
 }
 
+body.learning-mode .path {
+
+  background: #999;
+}
+
 .path.one {
+
   top: 180px;
+
   right: 25%;
+
   width: 25%;
 }
 
 .path.two {
+
   top: 145px;
+
   right: 25%;
+
   width: 25%;
+
   transform: rotate(-9deg);
 }
 
 .path.three {
+
   top: 215px;
+
   right: 25%;
+
   width: 25%;
+
   transform: rotate(9deg);
 }
 
 .path.out1 {
+
   top: 180px;
+
   left: 25%;
+
   width: 25%;
 }
 
 .path.out2 {
+
   top: 145px;
+
   left: 25%;
+
   width: 25%;
+
   transform: rotate(9deg);
 }
 
 .path.out3 {
+
   top: 215px;
+
   left: 25%;
+
   width: 25%;
+
   transform: rotate(-9deg);
 }
 
+/* אוקטטות */
 .octet {
+
   position: absolute;
+
   font-size: 15px;
+
   letter-spacing: 3px;
+
   color: #ccc;
+
   white-space: nowrap;
+
   opacity: 0;
 }
 
+body.learning-mode .octet {
+
+  color: #444;
+}
+
 .o1 {
+
   top: 172px;
+
   right: 28%;
+
   animation: moveToRouter 5s linear infinite;
 }
 
 .o2 {
+
   top: 137px;
+
   right: 28%;
-  color: #888;
+
   animation: moveToRouter 6s linear infinite;
+
   animation-delay: 0.8s;
 }
 
 .o3 {
+
   top: 207px;
+
   right: 28%;
-  color: #aaa;
+
   animation: moveToRouter 5.5s linear infinite;
+
   animation-delay: 1.4s;
 }
 
 .o4 {
+
   top: 172px;
+
   left: 50%;
+
   animation: moveToFriend 6s linear infinite;
+
   animation-delay: 2s;
 }
 
 .o5 {
+
   top: 137px;
+
   left: 50%;
-  color: #888;
+
   animation: moveToFriend 7s linear infinite;
+
   animation-delay: 2.8s;
 }
 
 .o6 {
+
   top: 207px;
+
   left: 50%;
-  color: #aaa;
+
   animation: moveToFriend 6.5s linear infinite;
+
   animation-delay: 3.5s;
 }
 
+/* אפסים ואחדות */
 .bit-cloud {
+
   position: absolute;
+
   top: 95px;
+
   right: 22%;
+
   display: flex;
+
   gap: 6px;
 }
 
 .bit {
+
   font-size: 18px;
+
   color: #aaa;
+
   animation: bounce 1.6s ease-in-out infinite;
+}
+
+body.learning-mode .bit {
+
+  color: #444;
 }
 
 .bit:nth-child(2) { animation-delay: 0.1s; }
@@ -266,176 +554,344 @@ h1 {
 .bit:nth-child(8) { animation-delay: 0.7s; }
 
 .rebuild {
+
   position: absolute;
+
   top: 285px;
+
   left: 9%;
+
   color: #aaa;
+
   font-size: 15px;
 }
 
+body.learning-mode .rebuild {
+
+  color: #444;
+}
+
+/* שורה תחתונה */
 .footer {
+
   position: absolute;
-  bottom: 30px;
+
+  bottom: 95px;
+
   width: 100%;
+
   color: #aaa;
+
   font-size: 18px;
 }
 
+body.learning-mode .footer {
+
+  color: #444;
+}
+
 @keyframes moveToRouter {
+
   0% {
+
     transform: translateX(0);
+
     opacity: 0;
   }
+
   15% {
+
     opacity: 1;
   }
+
   85% {
+
     opacity: 1;
   }
+
   100% {
+
     transform: translateX(-330px);
+
     opacity: 0;
   }
 }
 
 @keyframes moveToFriend {
+
   0% {
+
     transform: translateX(0);
+
     opacity: 0;
   }
+
   15% {
+
     opacity: 1;
   }
+
   85% {
+
     opacity: 1;
   }
+
   100% {
+
     transform: translateX(-330px);
+
     opacity: 0;
   }
 }
 
 @keyframes bounce {
-  0%, 100% {
+
+  0%,100% {
+
     transform: translateY(0);
+
     opacity: 0.5;
   }
+
   50% {
+
     transform: translateY(-8px);
+
     opacity: 1;
   }
 }
 
 @media (max-width: 700px) {
+
   h1 {
+
     font-size: 30px;
   }
 
-  .computer, .friend {
+  .computer,
+  .friend {
+
     width: 135px;
+
     height: 100px;
   }
 
   .computer {
+
     right: 4%;
   }
 
   .friend {
+
     left: 4%;
   }
 
   .file {
+
     width: 75px;
+
     height: 42px;
+
     right: 30px;
+
     font-size: 12px;
   }
 
   .router {
+
     width: 110px;
+
     height: 60px;
   }
 
   .send-btn {
+
     right: 5%;
+
     top: 255px;
+
     font-size: 13px;
   }
 
   .router-text {
+
     top: 225px;
+
     font-size: 13px;
   }
 
   .octet {
+
     font-size: 12px;
+
     letter-spacing: 1px;
   }
 }
+
 </style>
+
 </head>
 
 <body>
 
+<a href="index.html" id="homeBtn">道</a>
+
+<button id="focusBtn">תודעת לימוד</button>
+
+<audio id="brownNoise" loop>
+  <source src="brown-noise.mp3" type="audio/mpeg">
+</audio>
+
 <div class="container">
 
-  <h1>דרך הרשת 🌐</h1>
-  <div class="subtitle">קודם מבינים — אחר כך רואים</div>
+<h1>דרך הרשת 🌐</h1>
 
-  <div class="stage">
+<div class="subtitle">
+קודם מבינים — אחר כך רואים
+</div>
 
-    <div class="computer">
-      <div class="screen-title">movie.mp4</div>
-      <div class="file">▶ סרטון</div>
-    </div>
+<div class="stage">
 
-    <div class="send-btn">שלח במייל</div>
+<div class="computer">
 
-    <div class="bit-cloud">
-      <span class="bit">0</span>
-      <span class="bit">1</span>
-      <span class="bit">0</span>
-      <span class="bit">1</span>
-      <span class="bit">1</span>
-      <span class="bit">0</span>
-      <span class="bit">0</span>
-      <span class="bit">1</span>
-    </div>
+<div class="screen-title">
+movie.mp4
+</div>
 
-    <div class="router">
-      <div class="router-label">ROUTER</div>
-    </div>
-
-    <div class="router-text">הנתב מכוון את הדרך 道</div>
-
-    <div class="friend">
-      <div class="screen-title">mail inbox</div>
-      <div class="file">תמונה</div>
-    </div>
-
-    <div class="rebuild">המידע מתגבש מחדש ביעד</div>
-
-    <div class="path one"></div>
-    <div class="path two"></div>
-    <div class="path three"></div>
-
-    <div class="path out1"></div>
-    <div class="path out2"></div>
-    <div class="path out3"></div>
-
-    <div class="octet o1">01010101</div>
-    <div class="octet o2">10110010</div>
-    <div class="octet o3">00101101</div>
-
-    <div class="octet o4">01010101</div>
-    <div class="octet o5">10110010</div>
-    <div class="octet o6">00101101</div>
-
-  </div>
-
-  <div class="footer">המידע לא נעלם — הוא עובר, מתפצל, ומתגבש מחדש 🌱</div>
+<div class="file">
+▶ movie.mp4
+</div>
 
 </div>
+
+<div class="send-btn">
+שלח במייל
+</div>
+
+<div class="bit-cloud">
+
+<span class="bit">0</span>
+<span class="bit">1</span>
+<span class="bit">0</span>
+<span class="bit">1</span>
+<span class="bit">1</span>
+<span class="bit">0</span>
+<span class="bit">0</span>
+<span class="bit">1</span>
+
+</div>
+
+<div class="router">
+
+<div class="router-label">
+ROUTER
+</div>
+
+</div>
+
+<div class="router-text">
+הנתב מכוון את הדרך 道
+</div>
+
+<div class="friend">
+
+<div class="screen-title">
+movie.mp4
+</div>
+
+<div class="file">
+▶ movie.mp4
+</div>
+
+</div>
+
+<div class="rebuild">
+המידע מתגבש מחדש ביעד
+</div>
+
+<div class="path one"></div>
+<div class="path two"></div>
+<div class="path three"></div>
+
+<div class="path out1"></div>
+<div class="path out2"></div>
+<div class="path out3"></div>
+
+<div class="octet o1">
+01010101
+</div>
+
+<div class="octet o2">
+10110010
+</div>
+
+<div class="octet o3">
+00101101
+</div>
+
+<div class="octet o4">
+01010101
+</div>
+
+<div class="octet o5">
+10110010
+</div>
+
+<div class="octet o6">
+00101101
+</div>
+
+</div>
+
+<div class="footer">
+המידע לא נעלם — הוא עובר, מתפצל, ומתגבש מחדש 🌱
+</div>
+
+</div>
+
+<script>
+
+const focusBtn = document.getElementById("focusBtn");
+const brownNoise = document.getElementById("brownNoise");
+
+function turnLearningOn() {
+
+  document.body.classList.add("learning-mode");
+
+  localStorage.setItem("learningMode", "on");
+
+  brownNoise.volume = 0.18;
+
+  brownNoise.play().catch(() => {});
+}
+
+function turnLearningOff() {
+
+  document.body.classList.remove("learning-mode");
+
+  localStorage.setItem("learningMode", "off");
+
+  brownNoise.pause();
+}
+
+if (localStorage.getItem("learningMode") === "on") {
+
+  document.body.classList.add("learning-mode");
+}
+
+focusBtn.addEventListener("click", () => {
+
+  if (document.body.classList.contains("learning-mode")) {
+
+    turnLearningOff();
+
+  } else {
+
+    turnLearningOn();
+  }
+});
+
+</script>
 
 </body>
 </html>
