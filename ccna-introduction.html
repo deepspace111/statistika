@@ -21,23 +21,8 @@ body {
   overflow-x: hidden;
   position: relative;
   transition: 0.5s ease;
-}
 
-/* תודעת לימוד */
-body.learning-mode {
-  background: #111;
-  color: #f2f2f2;
-}
-
-/* קווים עדינים - לא גריד */
-body::before {
-
-  content: "";
-
-  position: fixed;
-
-  inset: 0;
-
+  /* הקווים עצמם */
   background-image:
     linear-gradient(
       to bottom,
@@ -46,14 +31,14 @@ body::before {
     );
 
   background-size: 100% 140px;
-
-  opacity: 0.55;
-
-  pointer-events: none;
 }
 
-/* קווים במצב כהה */
-body.learning-mode::before {
+/* מצב תודעת לימוד */
+body.learning-mode {
+
+  background-color: #111;
+
+  color: #f2f2f2;
 
   background-image:
     linear-gradient(
@@ -127,10 +112,6 @@ body.learning-mode #focusBtn {
   margin: 0 auto;
 
   padding: 80px 24px 60px;
-
-  position: relative;
-
-  z-index: 2;
 }
 
 h1 {
@@ -182,10 +163,6 @@ p {
   animation-delay: 1.5s;
 
   display: inline-block;
-
-  position: relative;
-
-  top: -1px;
 }
 
 body.learning-mode .do-mark {
@@ -255,8 +232,6 @@ body.learning-mode .do-mark {
 
 <h1>דרך הרשת 🌐</h1>
 
-<div class="section">
-
 <p>
 בבית שלך כבר קיימת רשת אמיתית.
 </p>
@@ -291,62 +266,29 @@ LAN = Local Area Network
 אפשר גם לשנות. 🌱
 </p>
 
-</div>
-
-<div class="section">
-
-<p>
-אנחנו משתמשים באינטרנט כל הזמן.<br>
-שולחים הודעות, גולשים, צופים, עובדים.
-</p>
-
-<p>
-אבל רגע אחד לעצור ולשאול:<br>
-מה זה אומר בכלל אינטרנט?
-</p>
-
-</div>
-
 <h2>בואו נבין את המילה</h2>
 
-<div class="section">
-
 <p>
-המילה אינטרנט מורכבת משני חלקים:
+Inter = בין<br>
+Net / Network = רשת
 </p>
 
 <p>
-<span class="term">Inter = בין</span><br>
-<span class="term">Net / Network = רשת</span>
+אינטרנט = חיבור בין רשתות
 </p>
-
-<p>
-<span class="term">אינטרנט = חיבור בין רשתות</span><br>
-כמה רשתות שמחוברות יחד<br>
-לרשת אחת גדולה.
-</p>
-
-</div>
 
 <h2>ומה לגבי הדרך עצמה?</h2>
-
-<div class="section">
 
 <p class="term">
 Route = דרך / נתיב
 </p>
 
 <p>
-<span class="term">
 Router = המכשיר שמכוון את הדרך
-</span><br>
-של המידע בין רשתות.
 </p>
 
 <p>
-<span class="term">
 הנתב מכוון את הדרך
-</span>
 </p>
 
 <div class="do-mark">道</div>
@@ -355,8 +297,6 @@ Router = המכשיר שמכוון את הדרך
 אפשר לחשוב על הנתב<br>
 גם כעל שער יציאה — GateWay
 </p>
-
-</div>
 
 <p class="final-line">
 כשמבינים גבולות — רואים את המערכת 🌱
