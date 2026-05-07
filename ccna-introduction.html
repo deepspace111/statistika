@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap" rel="stylesheet">
 
 <style>
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -26,155 +27,262 @@ body.learning-mode {
   color: #f2f2f2;
 }
 
+/* דו בפינה */
 #homeBtn {
+
   position: fixed;
+
   top: 14px;
   left: 14px;
+
   text-decoration: none;
+
   font-family: 'Yuji Mai', serif;
-  font-size: 18px;
-  color: rgba(50,50,50,0.45);
+
+  font-size: 23px;
+
+  color: rgba(50,50,50,0.42);
+
   z-index: 10;
+
   opacity: 0;
+
   animation: fadeInHome 3s ease forwards;
 }
 
 body.learning-mode #homeBtn {
-  color: rgba(220,220,220,0.42);
+  color: rgba(220,220,220,0.40);
 }
 
 @keyframes fadeInHome {
+
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(8px);
   }
+
   to {
-    opacity: 0.75;
+    opacity: 0.72;
     transform: translateY(0);
   }
 }
 
+/* תודעת לימוד */
 #focusBtn {
+
   position: fixed;
+
   top: 14px;
   right: 14px;
+
   border: 1px solid rgba(0,0,0,0.16);
+
   background: rgba(0,0,0,0.04);
+
   color: rgba(20,20,20,0.75);
+
   padding: 7px 12px;
+
   border-radius: 18px;
+
   font-size: 13px;
+
   cursor: pointer;
+
   z-index: 10;
 }
 
 body.learning-mode #focusBtn {
+
   border: 1px solid rgba(255,255,255,0.18);
+
   background: rgba(255,255,255,0.04);
+
   color: rgba(240,240,240,0.75);
 }
 
 .container {
+
   max-width: 760px;
+
   margin: 0 auto;
+
   padding: 80px 24px 70px;
 }
 
 h1 {
+
   font-size: 42px;
+
   margin-bottom: 55px;
+
   font-weight: 300;
 }
 
 h2 {
+
   font-size: 25px;
+
   margin: 50px 0 18px;
+
   font-weight: 500;
 }
 
 p {
+
   font-size: 20px;
+
   margin: 14px 0;
 }
 
+/* קווי הפרדה */
 .section {
+
   margin-bottom: 48px;
+
   padding-top: 34px;
-  border-top: 1px solid rgba(0,0,0,0.16);
+
+  border-top: 1px solid rgba(0,0,0,0.14);
 }
 
 .section:first-of-type {
+
   border-top: none;
+
   padding-top: 0;
 }
 
 body.learning-mode .section {
-  border-top: 1px solid rgba(255,255,255,0.16);
+
+  border-top: 1px solid rgba(255,255,255,0.14);
 }
 
 .term {
   font-weight: bold;
 }
 
+/* דו בתוך הטקסט */
 .do-mark {
+
   font-family: 'Yuji Mai', serif;
-  font-size: 18px;
-  color: rgba(80,80,80,0.42);
+
+  font-size: 26px;
+
+  color: rgba(80,80,80,0.40);
+
   opacity: 0;
+
   animation: fadeInDo 4s ease forwards;
+
   animation-delay: 1.5s;
+
   display: block;
-  margin-top: 6px;
+
+  margin-top: 8px;
 }
 
 body.learning-mode .do-mark {
-  color: rgba(220,220,220,0.40);
+  color: rgba(220,220,220,0.38);
 }
 
 @keyframes fadeInDo {
+
   from {
     opacity: 0;
     transform: translateY(8px);
   }
+
   to {
-    opacity: 0.62;
+    opacity: 0.72;
     transform: translateY(0);
   }
 }
 
 .final-line {
+
   margin-top: 65px;
+
   font-size: 23px;
+
   font-weight: bold;
 }
 
+/* כפתור המשך */
 .next-btn {
+
   display: inline-block;
+
   margin-top: 34px;
+
   padding: 9px 28px;
+
   border-radius: 22px;
+
   border: 1px solid rgba(0,0,0,0.22);
+
   color: #111;
+
   text-decoration: none;
+
   font-size: 18px;
+
   background: rgba(0,0,0,0.035);
+
   transition: 0.3s ease;
 }
 
+.next-btn:hover {
+
+  background: rgba(0,0,0,0.08);
+}
+
 body.learning-mode .next-btn {
+
   border: 1px solid rgba(255,255,255,0.25);
+
   color: #f2f2f2;
+
   background: rgba(255,255,255,0.04);
 }
 
-@media (max-width: 600px) {
-  h1 { font-size: 34px; }
-  h2 { font-size: 22px; }
-  p { font-size: 18px; }
-  #homeBtn { font-size: 17px; }
-  #focusBtn { font-size: 12px; padding: 6px 10px; }
-  .next-btn { font-size: 17px; padding: 8px 24px; }
+body.learning-mode .next-btn:hover {
+
+  background: rgba(255,255,255,0.09);
 }
+
+@media (max-width: 600px) {
+
+  h1 {
+    font-size: 34px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  p {
+    font-size: 18px;
+  }
+
+  #homeBtn {
+    font-size: 22px;
+  }
+
+  .do-mark {
+    font-size: 24px;
+  }
+
+  #focusBtn {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .next-btn {
+    font-size: 17px;
+    padding: 8px 24px;
+  }
+}
+
 </style>
 </head>
 
@@ -194,7 +302,9 @@ body.learning-mode .next-btn {
 
 <div class="section">
 
-<p>בבית שלך כבר קיימת רשת אמיתית.</p>
+<p>
+בבית שלך כבר קיימת רשת אמיתית.
+</p>
 
 <p>
 הטלפון, המחשב, הטלוויזיה החכמה והראוטר<br>
@@ -513,6 +623,16 @@ Router = המכשיר שמכוון את הדרך
 <p>
 בנוסף, הנתב גם עוזר<br>
 לנהל את הרשת המקומית בבית.
+</p>
+
+<p>
+לפעמים גם בתוך בית, משרד או ארגון<br>
+יכולות להיות כמה רשתות שונות.
+</p>
+
+<p>
+גם שם — הנתב עוזר להעביר מידע<br>
+בין הרשתות השונות.
 </p>
 
 <p>
