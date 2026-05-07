@@ -1,0 +1,122 @@
+// seeing.html
+
+export default function NetworkFlowDemoPrototype() {
+  return (
+    <div className="min-h-screen bg-[#111] text-gray-200 overflow-hidden flex flex-col items-center justify-center relative">
+      {/* soft lines */}
+      <div className="absolute inset-0 opacity-10">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <div
+            key={i}
+            className="absolute left-0 w-full border-t border-white"
+            style={{ top: `${(i + 1) * 12}%` }}
+          />
+        ))}
+      </div>
+
+      <div className="text-center mb-10 z-10">
+        <h1 className="text-4xl font-light tracking-wide">דרך הרשת 🌐</h1>
+        <p className="text-gray-400 mt-3">קודם מבינים — אחר כך רואים</p>
+      </div>
+
+      <div className="relative w-full max-w-6xl h-[420px] flex items-center justify-between px-10 z-10">
+        {/* left computer */}
+        <div className="flex flex-col items-center gap-4 relative">
+          <div className="w-48 h-32 rounded-2xl border border-gray-600 bg-[#1a1a1a] shadow-2xl flex items-center justify-center relative overflow-hidden">
+            <div className="absolute top-3 right-3 text-xs text-gray-500">movie.mp4</div>
+
+            <div className="w-24 h-14 rounded-lg bg-gray-700 flex items-center justify-center text-sm text-gray-300 animate-pulse">
+              ▶ סרטון
+            </div>
+          </div>
+
+          <div className="px-4 py-2 rounded-full border border-gray-700 text-sm text-gray-300 bg-[#191919]">
+            שלח במייל
+          </div>
+
+          {/* transforming bits */}
+          <div className="absolute top-10 left-52 flex gap-1">
+            {['0', '1', '0', '1', '1', '0', '0', '1'].map((b, i) => (
+              <div
+                key={i}
+                className="text-gray-400 text-lg animate-bounce"
+                style={{ animationDelay: `${i * 0.1}s` }}
+              >
+                {b}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* router */}
+        <div className="relative flex flex-col items-center">
+          <div className="w-40 h-20 rounded-2xl bg-[#1c1c1c] border border-gray-600 shadow-2xl relative">
+            <div className="absolute -top-8 left-10 w-[2px] h-8 bg-gray-500" />
+            <div className="absolute -top-8 right-10 w-[2px] h-8 bg-gray-500" />
+
+            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 text-xs text-gray-500 tracking-[0.3em]">
+              ROUTER
+            </div>
+          </div>
+
+          <div className="mt-4 text-sm text-gray-500">הנתב מכוון את הדרך 道</div>
+
+          {/* paths */}
+          <div className="absolute top-24 left-24 w-72 h-[2px] bg-gray-700" />
+          <div className="absolute top-16 left-24 w-72 h-[2px] bg-gray-800 rotate-[-10deg] origin-left" />
+          <div className="absolute top-32 left-24 w-72 h-[2px] bg-gray-800 rotate-[10deg] origin-left" />
+
+          {/* moving octets */}
+          <div className="absolute top-[58px] left-36 animate-[moveRight_6s_linear_infinite] text-gray-300 text-sm tracking-widest">
+            01010101
+          </div>
+
+          <div className="absolute top-[95px] left-32 animate-[moveRight_8s_linear_infinite] text-gray-500 text-sm tracking-widest">
+            10110010
+          </div>
+
+          <div className="absolute top-[132px] left-40 animate-[moveRight_7s_linear_infinite] text-gray-400 text-sm tracking-widest">
+            00101101
+          </div>
+        </div>
+
+        {/* destination */}
+        <div className="flex flex-col items-center gap-4 relative">
+          <div className="w-48 h-32 rounded-2xl border border-gray-600 bg-[#1a1a1a] shadow-2xl flex items-center justify-center relative overflow-hidden">
+            <div className="absolute top-3 right-3 text-xs text-gray-500">mail inbox</div>
+
+            <div className="w-24 h-14 rounded-lg bg-gray-700 flex items-center justify-center text-sm text-gray-300 animate-pulse">
+              תמונה
+            </div>
+          </div>
+
+          <div className="text-sm text-gray-400">
+            המידע מתגבש מחדש ביעד
+          </div>
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes moveRight {
+          0% {
+            transform: translateX(0);
+            opacity: 0;
+          }
+
+          10% {
+            opacity: 1;
+          }
+
+          90% {
+            opacity: 1;
+          }
+
+          100% {
+            transform: translateX(420px);
+            opacity: 0;
+          }
+        }
+      `}</style>
+    </div>
+  );
+}
