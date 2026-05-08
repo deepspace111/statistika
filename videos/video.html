@@ -1,69 +1,34 @@
-<!DOCTYPE html>
-<html lang="he" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+#homeBtn {
 
-<title>דרך הרשת</title>
+  position: fixed;
 
-<style>
+  top: 14px;
+  left: 14px;
 
-body{
-  margin:0;
-  background:#111;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-  overflow:hidden;
+  text-decoration: none;
+
+  font-family: 'Yuji Mai', serif;
+
+  font-size: 23px;
+
+  color: rgba(220,220,220,0.40);
+
+  z-index: 100;
+
+  opacity: 0;
+
+  animation: fadeInHome 3s ease forwards;
 }
 
-img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-}
+@keyframes fadeInHome {
 
-</style>
-</head>
-
-<body>
-
-<img id="slide" src="1.jpg.png">
-
-<script>
-
-const images = [
-"1.jpg.png",
-"2.jpg.png",
-"3.jpg.png",
-"4.jpg.png",
-"5.jpg.png",
-"6.jpg.png",
-"7.jpg.png",
-"8.jpg.png",
-"9.jpg.png",
-"10.jpg.png",
-"11.jpg.png",
-"12.jpg.png",
-"13.jpg.png"
-];
-
-let index = 0;
-
-setInterval(() => {
-
-  index++;
-
-  if(index >= images.length){
-    index = 0;
+  from {
+    opacity: 0;
+    transform: translateY(8px);
   }
 
-  document.getElementById("slide").src = images[index];
-
-}, 2500);
-
-</script>
-
-</body>
-</html>
+  to {
+    opacity: 0.72;
+    transform: translateY(0);
+  }
+}
