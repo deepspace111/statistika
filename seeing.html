@@ -11,127 +11,217 @@ body{
   font-family:Arial,sans-serif;
   background:#111;
   color:#eee;
-  min-height:100vh;
   overflow:hidden;
 }
 
-.scene{
-  height:100vh;
+.wrapper{
+  min-height:100vh;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  text-align:center;
-  gap:25px;
+  gap:18px;
 }
 
 .stage{
-  width:90%;
-  max-width:900px;
-  height:420px;
-  border:1px solid #333;
-  border-radius:24px;
+  width:92vw;
+  max-width:950px;
+  height:520px;
   background:#181818;
+  border:1px solid #333;
+  border-radius:28px;
   position:relative;
   overflow:hidden;
-  box-shadow:0 0 40px #000;
+  box-shadow:0 0 50px #000;
+}
+
+.panel{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  transform:scale(.96);
+  transition:1s ease;
+}
+
+.panel.active{
+  opacity:1;
+  transform:scale(1);
+}
+
+.room{
+  width:80%;
+  height:70%;
+  border-radius:24px;
+  background:linear-gradient(#242424,#151515);
+  border:1px solid #444;
+  position:relative;
 }
 
 .person{
   position:absolute;
-  bottom:40px;
-  font-size:70px;
-}
-
-.boy{ right:70px; }
-.girl{ left:70px; }
-
-.computer{
-  position:absolute;
+  font-size:82px;
   bottom:55px;
-  right:190px;
-  width:170px;
-  height:110px;
-  border-radius:14px;
-  background:#2b2b2b;
-  border:2px solid #555;
 }
 
-.message{
+.boy{ right:110px; }
+.girl{ left:110px; }
+
+.laptop{
   position:absolute;
-  top:45px;
-  right:40px;
-  left:40px;
-  height:90px;
-  border-radius:20px;
+  right:240px;
+  bottom:70px;
+  width:160px;
+  height:95px;
+  border-radius:14px;
+  background:#333;
+  border:2px solid #666;
+}
+
+.mail{
+  position:absolute;
+  right:260px;
+  bottom:185px;
+  width:120px;
+  height:75px;
+  border-radius:18px;
   background:#eee;
   color:#111;
-  font-size:55px;
   display:flex;
   align-items:center;
   justify-content:center;
-  transition:1s;
+  font-size:45px;
+}
+
+.bigFlower{
+  font-size:120px;
+  animation:pulse 1.4s infinite alternate;
+}
+
+@keyframes pulse{
+  from{transform:scale(1)}
+  to{transform:scale(1.12)}
+}
+
+.pixelGrid{
+  display:grid;
+  grid-template-columns:repeat(8,26px);
+  gap:8px;
+}
+
+.pixelGrid span{
+  width:26px;
+  height:26px;
+  background:#ddd;
+  border-radius:5px;
+  animation:pop 1s infinite alternate;
+}
+
+.pixelGrid span:nth-child(odd){ background:#777; }
+.pixelGrid span:nth-child(3n){ background:#bbb; }
+
+@keyframes pop{
+  from{ opacity:.35; transform:scale(.7); }
+  to{ opacity:1; transform:scale(1.1); }
+}
+
+.bits{
+  font-size:28px;
+  color:#7fd7ff;
+  letter-spacing:8px;
+  white-space:nowrap;
+  animation:moveBits 2.5s linear infinite;
+}
+
+@keyframes moveBits{
+  from{ transform:translateX(520px); opacity:.2; }
+  50%{ opacity:1; }
+  to{ transform:translateX(-520px); opacity:.2; }
+}
+
+.network{
+  position:relative;
+  width:80%;
+  height:70%;
+}
+
+.node{
+  position:absolute;
+  width:26px;
+  height:26px;
+  border-radius:50%;
+  background:#ddd;
+  box-shadow:0 0 18px #aaa;
+}
+
+.n1{right:8%;top:50%}
+.n2{right:30%;top:25%}
+.n3{right:48%;top:62%}
+.n4{right:66%;top:32%}
+.n5{left:8%;top:50%}
+
+.line{
+  position:absolute;
+  height:2px;
+  background:#777;
+  transform-origin:right center;
+}
+
+.l1{right:10%;top:53%;width:220px;transform:rotate(-28deg)}
+.l2{right:31%;top:31%;width:210px;transform:rotate(34deg)}
+.l3{right:50%;top:64%;width:200px;transform:rotate(-31deg)}
+.l4{left:10%;top:53%;width:210px;transform:rotate(28deg)}
+
+.packet{
+  position:absolute;
+  font-size:34px;
+  animation:packetMove 4s linear infinite;
+}
+
+@keyframes packetMove{
+  0%{ right:8%; top:48%; opacity:0; }
+  15%{ opacity:1; }
+  30%{ right:30%; top:24%; }
+  55%{ right:48%; top:62%; }
+  78%{ right:66%; top:32%; }
+  100%{ right:86%; top:48%; opacity:0; }
+}
+
+.angry{
+  animation:angry .55s infinite alternate;
+}
+
+@keyframes angry{
+  from{transform:translateY(0) rotate(-2deg)}
+  to{transform:translateY(-10px) rotate(2deg)}
+}
+
+.caption{
+  font-size:25px;
+  min-height:32px;
+  color:#ddd;
+  text-align:center;
 }
 
 button{
-  padding:14px 30px;
   border:0;
   border-radius:999px;
+  padding:14px 34px;
   font-size:22px;
   cursor:pointer;
   background:#eee;
   color:#111;
 }
 
-.caption{
-  font-size:24px;
-  opacity:.9;
-  min-height:34px;
-}
-
-.bits{
-  position:absolute;
-  inset:0;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  font-size:26px;
-  color:#6fd0ff;
-  letter-spacing:7px;
-  animation:flow 2s linear infinite;
-  white-space:nowrap;
-}
-
-@keyframes flow{
-  from{ transform:translateX(450px); opacity:.2; }
-  50%{ opacity:1; }
-  to{ transform:translateX(-450px); opacity:.2; }
-}
-
-.pixel{
-  animation:pixelate 1.5s forwards;
-}
-
-@keyframes pixelate{
-  0%{ filter:none; transform:scale(1); }
-  40%{ filter:blur(2px); transform:scale(1.1); }
-  100%{ filter:blur(8px); opacity:0; transform:scale(.4); }
-}
-
-.received{
-  right:auto;
-  left:150px;
-  top:80px;
-  font-size:55px;
-}
-
-.angry{
-  animation:angry .8s infinite alternate;
-}
-
-@keyframes angry{
-  from{ transform:translateY(0); }
-  to{ transform:translateY(-8px); }
+.footer{
+  position:fixed;
+  bottom:22px;
+  width:100%;
+  text-align:center;
+  color:#aaa;
+  font-size:21px;
 }
 
 .home{
@@ -140,17 +230,18 @@ button{
   left:18px;
   color:#eee;
   text-decoration:none;
-  font-size:28px;
-  opacity:.7;
+  font-size:30px;
+  opacity:.75;
 }
 
-.footer{
-  position:fixed;
-  bottom:25px;
-  width:100%;
-  text-align:center;
-  font-size:22px;
-  color:#aaa;
+@media(max-width:700px){
+  .stage{height:470px}
+  .person{font-size:62px}
+  .boy{right:45px}
+  .girl{left:45px}
+  .laptop{right:130px;width:120px}
+  .mail{right:145px}
+  .footer{font-size:17px}
 }
 </style>
 </head>
@@ -159,21 +250,66 @@ button{
 
 <a class="home" href="index.html">道</a>
 
-<div class="scene">
+<div class="wrapper">
+
   <div class="stage">
-    <div class="message" id="message">🌺</div>
 
-    <div class="person boy">😊</div>
-    <div class="computer"></div>
-    <div class="person girl" id="girl">🙂</div>
-
-    <div class="bits" id="bits">
-      01001000 10110100 00101101 11100010 01010101 00011101
+    <div class="panel active" id="p1">
+      <div class="room">
+        <div class="person boy">😊</div>
+        <div class="laptop"></div>
+        <div class="mail">🌺</div>
+      </div>
     </div>
+
+    <div class="panel" id="p2">
+      <div class="bigFlower">🌺</div>
+    </div>
+
+    <div class="panel" id="p3">
+      <div class="pixelGrid">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <div class="panel" id="p4">
+      <div class="bits">01001000 11100010 00110101 10101010 00011101</div>
+    </div>
+
+    <div class="panel" id="p5">
+      <div class="network">
+        <div class="line l1"></div>
+        <div class="line l2"></div>
+        <div class="line l3"></div>
+        <div class="line l4"></div>
+
+        <div class="node n1"></div>
+        <div class="node n2"></div>
+        <div class="node n3"></div>
+        <div class="node n4"></div>
+        <div class="node n5"></div>
+
+        <div class="packet">🌺</div>
+      </div>
+    </div>
+
+    <div class="panel" id="p6">
+      <div class="room">
+        <div class="person girl angry">😠</div>
+        <div class="mail" style="left:240px;right:auto;">🌺</div>
+      </div>
+    </div>
+
   </div>
 
-  <button onclick="startAnimation()">שלח במייל</button>
-  <div class="caption" id="caption">הבחור שמח. ההודעה מוכנה.</div>
+  <button onclick="startMovie()">שלח במייל</button>
+  <div class="caption" id="caption">ההודעה מוכנה. הפרח נראה נכון בצד השולח.</div>
+
 </div>
 
 <div class="footer">
@@ -181,39 +317,28 @@ button{
 </div>
 
 <script>
-function startAnimation(){
-  const msg = document.getElementById("message");
-  const bits = document.getElementById("bits");
-  const caption = document.getElementById("caption");
-  const girl = document.getElementById("girl");
+const captions = [
+  "ההודעה מוכנה. הפרח נראה נכון בצד השולח.",
+  "הפרח יוצא לדרך...",
+  "המידע מתפקסל.",
+  "הפרח הופך ל־0 ו־1.",
+  "המידע עובר דרך הרשת.",
+  "בצד השני — אותה הודעה, אבל חוויה אחרת."
+];
 
-  caption.textContent = "ההודעה מתפקסלת...";
-  msg.classList.add("pixel");
+function showPanel(num){
+  document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
+  document.getElementById("p"+num).classList.add("active");
+  document.getElementById("caption").textContent = captions[num-1];
+}
 
-  setTimeout(()=>{
-    bits.style.display = "flex";
-    caption.textContent = "הפרח הופך לאחדות ואפסים...";
-  },1400);
-
-  setTimeout(()=>{
-    caption.textContent = "המידע עובר דרך הרשת...";
-  },3000);
-
-  setTimeout(()=>{
-    bits.style.display = "none";
-    msg.classList.remove("pixel");
-    msg.classList.add("received");
-    msg.style.opacity = "1";
-    msg.style.filter = "none";
-    msg.style.transform = "scale(1)";
-    caption.textContent = "ההודעה מתקבלת אצל רעות.";
-  },5000);
-
-  setTimeout(()=>{
-    girl.textContent = "😠";
-    girl.classList.add("angry");
-    caption.textContent = "רעות: למה שלחת לי את הפרח הזה?!";
-  },6500);
+function startMovie(){
+  showPanel(1);
+  setTimeout(()=>showPanel(2),900);
+  setTimeout(()=>showPanel(3),2200);
+  setTimeout(()=>showPanel(4),3600);
+  setTimeout(()=>showPanel(5),5200);
+  setTimeout(()=>showPanel(6),7600);
 }
 </script>
 
