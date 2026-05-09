@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>דרך הרשת</title>
@@ -12,43 +9,30 @@
 <link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap" rel="stylesheet">
 
 <style>
-
-body{
-  margin:0;
-  background:#111;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-  overflow:hidden;
+body {
+  margin: 0;
+  background: #111;
+  color: #f2f2f2;
+  font-family: Arial, sans-serif;
+  height: 100vh;
+  overflow: hidden;
 }
 
 /* דו */
-
 #homeBtn {
-
   position: fixed;
-
   top: 14px;
   left: 14px;
-
   text-decoration: none;
-
   font-family: 'Yuji Mai', serif;
-
   font-size: 23px;
-
   color: rgba(220,220,220,0.40);
-
   z-index: 100;
-
   opacity: 0;
-
   animation: fadeInHome 3s ease forwards;
 }
 
 @keyframes fadeInHome {
-
   from {
     opacity: 0;
     transform: translateY(8px);
@@ -60,72 +44,127 @@ body{
   }
 }
 
-/* תמונות */
-
-img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-
-  opacity:1;
-
-  transition:opacity 1s ease;
+/* עטיפת הסרטון */
+.stage {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-</style>
+/* תמונות */
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 1;
+  transition: opacity 2.2s ease;
+}
 
+/* משפט תחתון */
+.caption {
+  position: fixed;
+  bottom: 72px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  text-align: center;
+  font-size: 20px;
+  color: rgba(245,245,245,0.78);
+  letter-spacing: 0.5px;
+  z-index: 50;
+}
+
+/* כפתור המשך */
+.nextBtn {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 26px;
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,0.24);
+  color: rgba(245,245,245,0.82);
+  text-decoration: none;
+  font-size: 17px;
+  background: rgba(255,255,255,0.05);
+  z-index: 60;
+  transition: 0.3s ease;
+}
+
+.nextBtn:hover {
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+}
+
+@media (max-width: 600px) {
+  .caption {
+    font-size: 17px;
+    bottom: 68px;
+  }
+
+  .nextBtn {
+    font-size: 16px;
+    padding: 7px 22px;
+  }
+}
+</style>
 </head>
 
 <body>
 
 <a href="../index.html" id="homeBtn">道</a>
 
-<img id="slide" src="1.jpg.png">
+<div class="stage">
+  <img id="slide" src="1.jpg.png" alt="דרך הרשת">
+</div>
+
+<div class="caption">אותו המידע — חוויה שונה</div>
+
+<a href="../intro.html" class="nextBtn">המשך לנושאים</a>
 
 <script>
-
 const images = [
-
-"1.jpg.png",
-"2.jpg.png",
-"3.jpg.png",
-"4.jpg.png",
-"5.jpg.png",
-"6.jpg.png",
-"7.jpg.png",
-"8.jpg.png",
-"9.jpg.png",
-"10.jpg.png",
-"11.jpg.png",
-"12.jpg.png",
-"13.jpg.png"
-
+  "1.jpg.png",
+  "2.jpg.png",
+  "3.jpg.png",
+  "4.jpg.png",
+  "5.jpg.png",
+  "6.jpg.png",
+  "7.jpg.png",
+  "8.jpg.png",
+  "9.jpg.png",
+  "10.jpg.png",
+  "11.jpg.png",
+  "12.jpg.png",
+  "13.jpg.png"
 ];
 
 let index = 0;
-
 const slide = document.getElementById("slide");
 
-setInterval(() => {
+/*
+  קצב רגוע:
+  כל תמונה נשארת 5.5 שניות,
+  והמעבר עצמו נמשך 2.2 שניות.
+*/
 
+setInterval(() => {
   slide.style.opacity = 0;
 
   setTimeout(() => {
-
     index++;
 
-    if(index >= images.length){
+    if (index >= images.length) {
       index = 0;
     }
 
     slide.src = images[index];
-
     slide.style.opacity = 1;
+  }, 2200);
 
-  }, 1000);
-
-}, 2500);
-
+}, 5500);
 </script>
 
 </body>
