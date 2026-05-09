@@ -9,30 +9,70 @@
 <link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap" rel="stylesheet">
 
 <style>
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #e8e8e8;
-  color: #111;
+  background: #050505;
+  color: #e8e8e8;
+  height: 100vh;
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   text-align: center;
-  transition: 0.4s ease;
 }
 
+/* גשם בינארי */
+#matrixRain {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  opacity: 0.22;
+}
+
+/* הבהוב מסך עדין */
+.screenFlicker {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      rgba(255,255,255,0.025) 50%,
+      rgba(0,0,0,0.025) 50%
+    );
+  background-size: 100% 4px;
+  opacity: 0.16;
+  animation: flicker 5s infinite;
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 0.12; }
+  45% { opacity: 0.18; }
+  47% { opacity: 0.08; }
+  49% { opacity: 0.20; }
+  52% { opacity: 0.13; }
+}
+
+/* כפתור דו */
 #homeBtn {
   position: fixed;
   top: 12px;
   left: 14px;
   font-family: 'Yuji Mai', cursive;
   font-size: 34px;
-  color: #111;
+  color: rgba(232,232,232,0.55);
   text-decoration: none;
   line-height: 1;
-  opacity: 0.95;
-  animation: inkAppear 2s ease-out forwards;
+  z-index: 10;
+  opacity: 0;
+  animation: inkAppear 2.5s ease-out forwards;
 }
 
 @keyframes inkAppear {
@@ -42,50 +82,58 @@ body {
     transform: translateY(8px) scale(0.96);
   }
   to {
-    opacity: 0.95;
+    opacity: 0.85;
     filter: blur(0);
     transform: translateY(0) scale(1);
   }
 }
 
-#focusBtn {
-  position: fixed;
-  top: 14px;
-  right: 14px;
-  padding: 5px 9px;
-  border-radius: 999px;
-  border: 1px solid #999;
-  background: #fff;
-  color: #111;
-  font-size: 11px;
-  cursor: pointer;
+.center {
+  position: relative;
+  z-index: 5;
+  padding: 20px;
 }
 
 .title-btn {
-  font-size: 36px;
+  font-size: 38px;
   text-decoration: none;
-  color: #111;
+  color: #f2f2f2;
   font-weight: bold;
+  letter-spacing: 0.5px;
+  text-shadow:
+    0 0 12px rgba(141,252,255,0.20),
+    0 0 28px rgba(141,252,255,0.10);
+  animation: titleAppear 3s ease forwards;
 }
 
 .title-btn:hover {
-  opacity: 0.75;
+  opacity: 0.78;
 }
 
-body.focus-mode {
-  background: #111;
-  color: #e8e8e8;
+@keyframes titleAppear {
+  from {
+    opacity: 0;
+    filter: blur(5px);
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
 }
 
-body.focus-mode #homeBtn,
-body.focus-mode .title-btn {
-  color: #e8e8e8;
+.subtitle {
+  margin-top: 18px;
+  font-size: 16px;
+  color: rgba(232,232,232,0.48);
+  letter-spacing: 1px;
+  animation: subtitleAppear 4s ease forwards;
 }
 
-body.focus-mode #focusBtn {
-  background: #111;
-  color: #e8e8e8;
-  border-color: #666;
+@keyframes subtitleAppear {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @media (max-width: 600px) {
@@ -95,13 +143,12 @@ body.focus-mode #focusBtn {
     left: 12px;
   }
 
-  #focusBtn {
-    font-size: 10px;
-    padding: 4px 8px;
-  }
-
   .title-btn {
     font-size: 30px;
+  }
+
+  .subtitle {
+    font-size: 14px;
   }
 }
 </style>
@@ -109,30 +156,79 @@ body.focus-mode #focusBtn {
 
 <body>
 
+<canvas id="matrixRain"></canvas>
+<div class="screenFlicker"></div>
+
 <a href="index.html" id="homeBtn">道</a>
 
-<button id="focusBtn">תודעת לימוד</button>
+<audio id="brownNoise" src="brown-noise.mp3" loop></audio>
 
-<a href="ccna-introduction.html" class="title-btn">
-  CCNA - התחלה
-</a>
+<div class="center">
+  <a href="ccna-introduction.html" class="title-btn">
+    CCNA - התחלה
+  </a>
+
+  <div class="subtitle">
+    לפני שמתחילים להבין — נכנסים לרשת
+  </div>
+</div>
 
 <script>
-const focusBtn = document.getElementById("focusBtn");
+const brownNoise = document.getElementById("brownNoise");
+brownNoise.volume = 0.16;
 
-if (localStorage.getItem("focusMode") === "on") {
-  document.body.classList.add("focus-mode");
+function startBrownNoise() {
+  brownNoise.play().catch(() => {});
 }
 
-focusBtn.addEventListener("click", function () {
-  document.body.classList.toggle("focus-mode");
+startBrownNoise();
 
-  if (document.body.classList.contains("focus-mode")) {
-    localStorage.setItem("focusMode", "on");
-  } else {
-    localStorage.setItem("focusMode", "off");
+document.addEventListener("click", startBrownNoise, { once: true });
+document.addEventListener("touchstart", startBrownNoise, { once: true });
+
+const canvas = document.getElementById("matrixRain");
+const ctx = canvas.getContext("2d");
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+const chars = "01";
+const fontSize = 18;
+let columns = Math.floor(canvas.width / fontSize);
+let drops = Array(columns).fill(1);
+
+function resetDrops() {
+  columns = Math.floor(canvas.width / fontSize);
+  drops = Array(columns).fill(1);
+}
+
+window.addEventListener("resize", resetDrops);
+
+function drawMatrixRain() {
+  ctx.fillStyle = "rgba(5, 5, 5, 0.08)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.fillStyle = "rgba(141, 252, 255, 0.45)";
+  ctx.font = fontSize + "px monospace";
+
+  for (let i = 0; i < drops.length; i++) {
+    const text = chars[Math.floor(Math.random() * chars.length)];
+    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+    if (drops[i] * fontSize > canvas.height && Math.random() > 0.985) {
+      drops[i] = 0;
+    }
+
+    drops[i]++;
   }
-});
+}
+
+setInterval(drawMatrixRain, 55);
 </script>
 
 </body>
