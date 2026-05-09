@@ -16,14 +16,21 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #050505;
-  color: #e8e8e8;
   height: 100vh;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  background: #e8e8e8;
+  color: #111;
+  transition: background 1.2s ease, color 1.2s ease;
+}
+
+/* מצב אחרי לחיצה ראשונה */
+body.awake {
+  background: #050505;
+  color: #e8e8e8;
 }
 
 /* גשם בינארי */
@@ -33,15 +40,21 @@ body {
   width: 100vw;
   height: 100vh;
   z-index: 0;
+  opacity: 0;
+  transition: opacity 1.4s ease;
+}
+
+body.awake #matrixRain {
   opacity: 0.22;
 }
 
-/* הבהוב מסך עדין */
+/* הבהוב מסך */
 .screenFlicker {
   position: fixed;
   inset: 0;
   z-index: 1;
   pointer-events: none;
+  opacity: 0;
   background:
     linear-gradient(
       rgba(255,255,255,0.028) 50%,
@@ -49,6 +62,11 @@ body {
     );
   background-size: 100% 4px;
   animation: screenBlink 3.8s infinite;
+  transition: opacity 1.4s ease;
+}
+
+body.awake .screenFlicker {
+  opacity: 1;
 }
 
 @keyframes screenBlink {
@@ -67,12 +85,17 @@ body {
   left: 14px;
   font-family: 'Yuji Mai', cursive;
   font-size: 34px;
-  color: rgba(232,232,232,0.55);
+  color: rgba(20,20,20,0.55);
   text-decoration: none;
   line-height: 1;
   z-index: 10;
   opacity: 0;
   animation: inkAppear 2.5s ease-out forwards;
+  transition: color 1.2s ease;
+}
+
+body.awake #homeBtn {
+  color: rgba(232,232,232,0.55);
 }
 
 @keyframes inkAppear {
@@ -94,22 +117,32 @@ body {
   padding: 20px;
 }
 
-.title-btn {
+/* הכותרת */
+#startBtn {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
   font-size: 38px;
-  text-decoration: none;
-  color: #f2f2f2;
+  color: #111;
   font-weight: bold;
   letter-spacing: 0.5px;
+  font-family: Arial, sans-serif;
+  transition: color 1.2s ease, text-shadow 1.2s ease, opacity 0.3s ease;
+  animation: titleAppear 2.8s ease forwards;
+}
+
+#startBtn:hover {
+  opacity: 0.75;
+}
+
+body.awake #startBtn {
+  color: #f2f2f2;
   text-shadow:
     0 0 12px rgba(141,252,255,0.24),
     0 0 30px rgba(141,252,255,0.12);
   animation:
     titleAppear 2.8s ease forwards,
     titleBlink 3.6s infinite;
-}
-
-.title-btn:hover {
-  opacity: 0.78;
 }
 
 @keyframes titleAppear {
@@ -132,10 +165,6 @@ body {
     text-shadow:
       0 0 10px rgba(141,252,255,0.18),
       0 0 24px rgba(141,252,255,0.08);
-  }
-
-  43% {
-    opacity: 0.95;
   }
 
   45% {
@@ -164,9 +193,14 @@ body {
 .subtitle {
   margin-top: 18px;
   font-size: 16px;
-  color: rgba(232,232,232,0.48);
+  color: rgba(20,20,20,0.48);
   letter-spacing: 1px;
+  transition: color 1.2s ease;
   animation: subtitleAppear 4s ease forwards;
+}
+
+body.awake .subtitle {
+  color: rgba(232,232,232,0.48);
 }
 
 @keyframes subtitleAppear {
@@ -181,7 +215,7 @@ body {
     left: 12px;
   }
 
-  .title-btn {
+  #startBtn {
     font-size: 30px;
   }
 
@@ -199,27 +233,36 @@ body {
 
 <a href="index.html" id="homeBtn">道</a>
 
-<audio id="brownNoise" src="brown-noise.mp3" loop autoplay></audio>
+<audio id="brownNoise" src="brown-noise.mp3" loop></audio>
 
 <div class="center">
-  <a href="ccna-introduction.html" class="title-btn">
+  <button id="startBtn">
     CCNA - התחלה
-  </a>
+  </button>
 
-  <div class="subtitle">
-    לפני שמתחילים להבין — נכנסים לרשת
+  <div class="subtitle" id="subtitle">
+    לחץ כדי להיכנס לתודעת הרשת
   </div>
 </div>
 
 <script>
-/* רעש חום אוטומטי */
+const startBtn = document.getElementById("startBtn");
+const subtitle = document.getElementById("subtitle");
 const brownNoise = document.getElementById("brownNoise");
+
+let isAwake = false;
+
 brownNoise.volume = 0.18;
 
-window.addEventListener("load", () => {
-  brownNoise.play().catch(() => {
-    console.log("Autoplay blocked by browser");
-  });
+startBtn.addEventListener("click", () => {
+  if (!isAwake) {
+    document.body.classList.add("awake");
+    subtitle.textContent = "המערכת התעוררה — לחץ שוב כדי להתחיל";
+    brownNoise.play().catch(() => {});
+    isAwake = true;
+  } else {
+    window.location.href = "ccna-introduction.html";
+  }
 });
 
 /* גשם בינארי */
