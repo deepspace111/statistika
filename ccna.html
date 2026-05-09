@@ -9,256 +9,199 @@
 <link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap" rel="stylesheet">
 
 <style>
-
-*{
-  box-sizing:border-box;
+* {
+  box-sizing: border-box;
 }
 
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#050505;
-  color:#e8e8e8;
-  height:100vh;
-  overflow:hidden;
-
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #050505;
+  color: #e8e8e8;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 /* גשם בינארי */
-
-#matrixRain{
-  position:fixed;
-  inset:0;
-  width:100vw;
-  height:100vh;
-  z-index:0;
-  opacity:0.22;
+#matrixRain {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  opacity: 0.22;
 }
 
-/* הבהוב מסך */
-
-.screenFlicker{
-  position:fixed;
-  inset:0;
-  z-index:1;
-  pointer-events:none;
-
+/* הבהוב מסך עדין */
+.screenFlicker {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
   background:
-  linear-gradient(
-    rgba(255,255,255,0.025) 50%,
-    rgba(0,0,0,0.025) 50%
-  );
-
-  background-size:100% 4px;
-
-  opacity:0.16;
-
-  animation:flicker 5s infinite;
+    linear-gradient(
+      rgba(255,255,255,0.028) 50%,
+      rgba(0,0,0,0.028) 50%
+    );
+  background-size: 100% 4px;
+  animation: screenBlink 3.8s infinite;
 }
 
-@keyframes flicker{
-
-  0%,100%{
-    opacity:0.12;
-  }
-
-  45%{
-    opacity:0.18;
-  }
-
-  47%{
-    opacity:0.08;
-  }
-
-  49%{
-    opacity:0.20;
-  }
-
-  52%{
-    opacity:0.13;
-  }
+@keyframes screenBlink {
+  0%, 100% { opacity: 0.10; }
+  40% { opacity: 0.16; }
+  42% { opacity: 0.03; }
+  44% { opacity: 0.22; }
+  46% { opacity: 0.06; }
+  70% { opacity: 0.13; }
 }
 
 /* דו */
-
-#homeBtn{
-  position:fixed;
-
-  top:12px;
-  left:14px;
-
-  font-family:'Yuji Mai',cursive;
-
-  font-size:34px;
-
-  color:rgba(232,232,232,0.55);
-
-  text-decoration:none;
-
-  line-height:1;
-
-  z-index:10;
-
-  opacity:0;
-
-  animation:inkAppear 2.5s ease-out forwards;
+#homeBtn {
+  position: fixed;
+  top: 12px;
+  left: 14px;
+  font-family: 'Yuji Mai', cursive;
+  font-size: 34px;
+  color: rgba(232,232,232,0.55);
+  text-decoration: none;
+  line-height: 1;
+  z-index: 10;
+  opacity: 0;
+  animation: inkAppear 2.5s ease-out forwards;
 }
 
-@keyframes inkAppear{
-
-  from{
-    opacity:0;
-    filter:blur(4px);
-    transform:translateY(8px) scale(0.96);
+@keyframes inkAppear {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+    transform: translateY(8px) scale(0.96);
   }
-
-  to{
-    opacity:0.85;
-    filter:blur(0);
-    transform:translateY(0) scale(1);
+  to {
+    opacity: 0.85;
+    filter: blur(0);
+    transform: translateY(0) scale(1);
   }
 }
 
-.center{
-  position:relative;
-  z-index:5;
-  padding:20px;
+.center {
+  position: relative;
+  z-index: 5;
+  padding: 20px;
 }
 
-/* כותרת */
-
-.title-btn{
-
-  font-size:38px;
-
-  text-decoration:none;
-
-  color:#f2f2f2;
-
-  font-weight:bold;
-
-  letter-spacing:0.5px;
-
+.title-btn {
+  font-size: 38px;
+  text-decoration: none;
+  color: #f2f2f2;
+  font-weight: bold;
+  letter-spacing: 0.5px;
   text-shadow:
-    0 0 12px rgba(141,252,255,0.20),
-    0 0 28px rgba(141,252,255,0.10);
-
+    0 0 12px rgba(141,252,255,0.24),
+    0 0 30px rgba(141,252,255,0.12);
   animation:
-    titleAppear 3s ease forwards,
-    pulseGlow 4.5s ease-in-out infinite;
+    titleAppear 2.8s ease forwards,
+    titleBlink 3.6s infinite;
 }
 
-.title-btn:hover{
-  opacity:0.78;
+.title-btn:hover {
+  opacity: 0.78;
 }
 
-@keyframes titleAppear{
-
-  from{
-    opacity:0;
-    filter:blur(5px);
-    transform:translateY(10px);
+@keyframes titleAppear {
+  from {
+    opacity: 0;
+    filter: blur(5px);
+    transform: translateY(10px);
   }
-
-  to{
-    opacity:1;
-    filter:blur(0);
-    transform:translateY(0);
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
   }
 }
 
 /* הבהוב עדין לכותרת */
-
-@keyframes pulseGlow{
-
-  0%{
-
-    opacity:0.82;
-
+@keyframes titleBlink {
+  0%, 100% {
+    opacity: 0.95;
     text-shadow:
-      0 0 8px rgba(141,252,255,0.12),
-      0 0 18px rgba(141,252,255,0.06);
+      0 0 10px rgba(141,252,255,0.18),
+      0 0 24px rgba(141,252,255,0.08);
   }
 
-  50%{
+  43% {
+    opacity: 0.95;
+  }
 
-    opacity:1;
-
+  45% {
+    opacity: 0.42;
     text-shadow:
-      0 0 16px rgba(141,252,255,0.28),
-      0 0 34px rgba(141,252,255,0.14);
+      0 0 4px rgba(141,252,255,0.08),
+      0 0 10px rgba(141,252,255,0.04);
   }
 
-  100%{
-
-    opacity:0.82;
-
+  47% {
+    opacity: 1;
     text-shadow:
-      0 0 8px rgba(141,252,255,0.12),
-      0 0 18px rgba(141,252,255,0.06);
+      0 0 18px rgba(141,252,255,0.34),
+      0 0 42px rgba(141,252,255,0.18);
+  }
+
+  49% {
+    opacity: 0.62;
+  }
+
+  52% {
+    opacity: 1;
   }
 }
 
-.subtitle{
-
-  margin-top:18px;
-
-  font-size:16px;
-
-  color:rgba(232,232,232,0.48);
-
-  letter-spacing:1px;
-
-  animation:subtitleAppear 4s ease forwards;
+.subtitle {
+  margin-top: 18px;
+  font-size: 16px;
+  color: rgba(232,232,232,0.48);
+  letter-spacing: 1px;
+  animation: subtitleAppear 4s ease forwards;
 }
 
-@keyframes subtitleAppear{
-
-  from{
-    opacity:0;
-  }
-
-  to{
-    opacity:1;
-  }
+@keyframes subtitleAppear {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-@media (max-width:600px){
-
-  #homeBtn{
-    font-size:30px;
-    top:10px;
-    left:12px;
+@media (max-width: 600px) {
+  #homeBtn {
+    font-size: 30px;
+    top: 10px;
+    left: 12px;
   }
 
-  .title-btn{
-    font-size:30px;
+  .title-btn {
+    font-size: 30px;
   }
 
-  .subtitle{
-    font-size:14px;
+  .subtitle {
+    font-size: 14px;
   }
 }
-
 </style>
 </head>
 
 <body>
 
 <canvas id="matrixRain"></canvas>
-
 <div class="screenFlicker"></div>
 
 <a href="index.html" id="homeBtn">道</a>
 
-<audio id="brownNoise" src="brown-noise.mp3" loop></audio>
+<audio id="brownNoise" src="brown-noise.mp3" loop autoplay></audio>
 
 <div class="center">
-
   <a href="ccna-introduction.html" class="title-btn">
     CCNA - התחלה
   </a>
@@ -266,80 +209,56 @@ body{
   <div class="subtitle">
     לפני שמתחילים להבין — נכנסים לרשת
   </div>
-
 </div>
 
 <script>
-
-/* רעש חום */
-
+/* רעש חום אוטומטי */
 const brownNoise = document.getElementById("brownNoise");
+brownNoise.volume = 0.18;
 
-brownNoise.volume = 0.16;
-
-function startBrownNoise(){
-
-  brownNoise.play().catch(() => {});
-}
-
-startBrownNoise();
-
-document.addEventListener("click", startBrownNoise, { once:true });
-
-document.addEventListener("touchstart", startBrownNoise, { once:true });
+window.addEventListener("load", () => {
+  brownNoise.play().catch(() => {
+    console.log("Autoplay blocked by browser");
+  });
+});
 
 /* גשם בינארי */
-
 const canvas = document.getElementById("matrixRain");
-
 const ctx = canvas.getContext("2d");
 
-function resizeCanvas(){
-
+function resizeCanvas() {
   canvas.width = window.innerWidth;
-
   canvas.height = window.innerHeight;
 }
 
 resizeCanvas();
-
 window.addEventListener("resize", resizeCanvas);
 
 const chars = "01";
-
 const fontSize = 18;
 
 let columns = Math.floor(canvas.width / fontSize);
-
 let drops = Array(columns).fill(1);
 
-function resetDrops(){
-
+function resetDrops() {
   columns = Math.floor(canvas.width / fontSize);
-
   drops = Array(columns).fill(1);
 }
 
 window.addEventListener("resize", resetDrops);
 
-function drawMatrixRain(){
-
+function drawMatrixRain() {
   ctx.fillStyle = "rgba(5,5,5,0.08)";
-
   ctx.fillRect(0,0,canvas.width,canvas.height);
 
   ctx.fillStyle = "rgba(141,252,255,0.45)";
-
   ctx.font = fontSize + "px monospace";
 
-  for(let i = 0; i < drops.length; i++){
-
+  for (let i = 0; i < drops.length; i++) {
     const text = chars[Math.floor(Math.random() * chars.length)];
-
     ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-    if(drops[i] * fontSize > canvas.height && Math.random() > 0.985){
-
+    if (drops[i] * fontSize > canvas.height && Math.random() > 0.985) {
       drops[i] = 0;
     }
 
@@ -348,7 +267,6 @@ function drawMatrixRain(){
 }
 
 setInterval(drawMatrixRain, 55);
-
 </script>
 
 </body>
