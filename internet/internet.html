@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>דרך הרשת</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:'Heebo',sans-serif;
+  background:#0d0d0d;
+  color:#f2f2f2;
+  line-height:1.9;
+}
+
+/* פתיח */
+
+.hero{
+  position:relative;
+  height:100vh;
+  overflow:hidden;
+}
+
+.hero img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:brightness(0.45);
+}
+
+.overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0.82));
+}
+
+.hero-content{
+  position:absolute;
+  bottom:12%;
+  right:8%;
+  max-width:720px;
+}
+
+.hero h1{
+  margin:0 0 20px;
+  font-size:64px;
+  font-weight:700;
+}
+
+.hero h2{
+  margin:0;
+  font-size:34px;
+  font-weight:300;
+  opacity:0.95;
+}
+
+/* תוכן */
+
+.content{
+  max-width:950px;
+  margin:auto;
+  padding:80px 24px 120px;
+}
+
+.section{
+  margin-bottom:90px;
+}
+
+.section h3{
+  font-size:38px;
+  margin-bottom:28px;
+  border-right:4px solid #666;
+  padding-right:14px;
+}
+
+.section p{
+  font-size:24px;
+  color:#e0e0e0;
+  margin-bottom:24px;
+}
+
+.highlight{
+  font-size:32px;
+  color:white;
+  margin:50px 0;
+  font-weight:bold;
+}
+
+.image-block{
+  margin:45px 0;
+  text-align:center;
+}
+
+.image-block img{
+  width:100%;
+  border-radius:18px;
+  border:1px solid #333;
+}
+
+.caption{
+  margin-top:14px;
+  color:#999;
+  font-size:16px;
+}
+
+.footer-line{
+  text-align:center;
+  font-size:34px;
+  margin-top:120px;
+  color:white;
+}
+
+/* מובייל */
+
+@media (max-width:768px){
+
+  .hero{
+    height:85vh;
+  }
+
+  .hero-content{
+    right:7%;
+    left:7%;
+    bottom:10%;
+  }
+
+  .hero h1{
+    font-size:42px;
+  }
+
+  .hero h2{
+    font-size:24px;
+  }
+
+  .section h3{
+    font-size:30px;
+  }
+
+  .section p{
+    font-size:21px;
+  }
+
+  .highlight{
+    font-size:27px;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<!-- פתיח -->
+
+<section class="hero">
+
+  <img src="spider-network.png" alt="Spider Network">
+
+  <div class="overlay"></div>
+
+  <div class="hero-content">
+    <h1>דרך הרשת 🌐</h1>
+    <h2>איך מחשבה הופכת לתנועה?</h2>
+  </div>
+
+</section>
+
+<div class="content">
+
+  <!-- פתיחה -->
+
+  <div class="section">
+
+    <p>
+      אדם אחד יושב מול מחשב.<br>
+      אדם אחר נמצא בקצה אחר של העולם.
+    </p>
+
+    <p>
+      מילה אחת נשלחת.
+    </p>
+
+    <div class="highlight">
+      “היי”
+    </div>
+
+    <p>
+      איך היא מגיעה?
+    </p>
+
+    <p>
+      איך מחשבה הופכת לתנועה?<br>
+      איך רעיון הופך לאותות חשמליים,<br>
+      לאור בתוך סיבים אופטיים,<br>
+      לגלים באוויר —<br>
+      ואז מתגבש מחדש אצל אדם אחר?
+    </p>
+
+    <div class="highlight">
+      מחשבה אחת קטנה מתחילה לנוע בעולם.
+    </div>
+
+  </div>
+
+  <!-- רשת -->
+
+  <div class="section">
+
+    <h3>רשת</h3>
+
+    <p>
+      האינטרנט מזכיר רשת קוּרי עכביש עצומה.
+    </p>
+
+    <p>
+      אבל בניגוד לקוּרי עכביש —<br>
+      אין לה מרכז אחד.
+    </p>
+
+    <p>
+      המידע נע בין אינספור חיבורים,<br>
+      ומחפש את דרכו.
+    </p>
+
+    <p>
+      הטבע כבר המציא רשתות לפני המחשבים.
+    </p>
+
+    <p>
+      אבל כדי להבין רשת…<br>
+      לא נתחיל מהעולם כולו.
+    </p>
+
+    <div class="highlight">
+      נעשה זום־אין לקוּר אחד.<br>
+      לכבל אחד.
+    </div>
+
+  </div>
+
+  <!-- הכבל -->
+
+  <div class="section">
+
+    <h3>הכבל</h3>
+
+    <div class="image-block">
+      <img src="exposed.jpg" alt="Exposed Ethernet Cable">
+      <div class="caption">
+        הגידים הפנימיים של כבל הרשת
+      </div>
+    </div>
+
+    <div class="image-block">
+      <img src="sliced.jpg" alt="Sliced Ethernet Cable">
+      <div class="caption">
+        ארבעת הזוגות השזורים בתוך הכבל
+      </div>
+    </div>
+
+    <p>
+      כבל רשת הוא כבל שמעביר אותות בין מכשירים.
+    </p>
+
+    <p>
+      בתוך הכבל יש גידים דקים מנחושת,<br>
+      העובדים בזוגות שזורים.
+    </p>
+
+    <p>
+      הפיתול עוזר לשמור<br>
+      על האות החשמלי<br>
+      יציב ונקי יותר.
+    </p>
+
+    <p>
+      יש ארבעה זוגות,<br>
+      כדי לאפשר העברת מידע<br>
+      מהירה יותר.
+    </p>
+
+    <div class="highlight">
+      האותות החשמליים שעוברים בכבל<br>
+      מייצגים מידע:<br><br>
+      0 ו־1
+    </div>
+
+  </div>
+
+  <!-- RJ45 -->
+
+  <div class="section">
+
+    <h3>RJ45</h3>
+
+    <div class="image-block">
+      <img src="connected.jpg" alt="Connected RJ45">
+      <div class="caption">
+        כבל רשת מחובר למכשיר
+      </div>
+    </div>
+
+    <div class="image-block">
+      <img src="rj45.jpg" alt="RJ45 Connector">
+      <div class="caption">
+        מחבר RJ45
+      </div>
+    </div>
+
+    <p>
+      בקצה הכבל נמצא מחבר בשם RJ45.
+    </p>
+
+    <p>
+      Registered — תקן מוסכם<br>
+      Jack — מחבר / שקע<br>
+      45 — מספר התקן
+    </p>
+
+    <p>
+      זהו החיבור הפיזי<br>
+      של כבל הרשת.
+    </p>
+
+  </div>
+
+  <!-- כרטיס רשת -->
+
+  <div class="section">
+
+    <h3>כרטיס רשת ו־Ethernet</h3>
+
+    <div class="image-block">
+      <img src="nic.jpg" alt="Network Interface Card">
+      <div class="caption">
+        כרטיס רשת / Network Interface Card
+      </div>
+    </div>
+
+    <p>
+      כאשר הכבל מתחבר למכשיר,<br>
+      האותות מגיעים אל כרטיס הרשת.
+    </p>
+
+    <p>
+      כרטיס הרשת:<br><br>
+      • מקבל אותות<br>
+      • שולח אותות<br>
+      • ויודע להבין את שפת הרשת
+    </p>
+
+    <div class="highlight">
+      Ethernet היא שפת התקשורת<br>
+      של כרטיסי הרשת<br>
+      בתוך רשת מקומית.
+    </div>
+
+    <p>
+      הכבל מעביר אותות.
+    </p>
+
+    <p>
+      Ethernet נותנת לאותות משמעות.
+    </p>
+
+    <p>
+      והפרוטוקולים הם החוקים<br>
+      של השפה הזאת.
+    </p>
+
+    <p>
+      כך מכשירים מצליחים<br>
+      להבין אחד את השני.
+    </p>
+
+  </div>
+
+  <!-- סיום -->
+
+  <div class="footer-line">
+    וכשמבינים את הדרך שבה מידע נע —<br>
+    מתחילים לראות את המערכת. 🌌
+  </div>
+
+</div>
+
+</body>
+</html>
