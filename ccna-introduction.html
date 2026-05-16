@@ -69,7 +69,31 @@ body.learning-mode #focusBtn {
   color: rgba(240,240,240,0.75);
 }
 
+.learning-symbol {
+  position: fixed;
+  left: -170px;
+  bottom: -130px;
+  width: 430px;
+  height: 430px;
+  background-image: url("yin-yang-learning.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.45;
+  pointer-events: none;
+  z-index: 1;
+  filter: grayscale(100%) contrast(0.85);
+  transition: 0.6s ease;
+}
+
+body.learning-mode .learning-symbol {
+  opacity: 0.18;
+  filter: grayscale(100%) contrast(0.75) brightness(0.85);
+}
+
 .container {
+  position: relative;
+  z-index: 2;
   max-width: 760px;
   margin: 0 auto;
   padding: 80px 24px 70px;
@@ -172,6 +196,14 @@ body.learning-mode .next-btn:hover {
   .do-mark { font-size: 24px; }
   #focusBtn { font-size: 12px; padding: 6px 10px; }
   .next-btn { font-size: 17px; padding: 8px 24px; }
+
+  .learning-symbol {
+    width: 300px;
+    height: 300px;
+    left: -125px;
+    bottom: -95px;
+    opacity: 0.11;
+  }
 }
 
 </style>
@@ -181,6 +213,8 @@ body.learning-mode .next-btn:hover {
 
 <a href="index.html" id="homeBtn">道</a>
 <button id="focusBtn">תודעת לימוד</button>
+
+<div class="learning-symbol"></div>
 
 <audio id="brownNoise" loop>
   <source src="brown-noise.mp3" type="audio/mpeg">
@@ -281,7 +315,7 @@ body.learning-mode .next-btn:hover {
 <h2>ומה לגבי הדרך עצמה?</h2>
 <p class="term">Route = דרך / נתיב</p>
 <p><span class="term">Router = המכשיר שמכוון את הדרך</span><br>של המידע בין רשתות.</p>
-<p><span class="term">הנתב מכוון את הדרך</span></p>
+<p><span class="term">הנתב מכוון הדרך</span></p>
 <span class="do-mark">道</span>
 <p>הנתב (Router)<br>מחבר בין הרשת המקומית בבית<br>לבין רשת האינטרנט הגדולה.</p>
 <p>הוא עוזר למידע<br>לצאת מהרשת המקומית<br>ולהגיע לרשתות אחרות בעולם.</p>
