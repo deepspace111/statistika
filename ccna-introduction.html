@@ -69,28 +69,6 @@ body.learning-mode #focusBtn {
   color: rgba(240,240,240,0.75);
 }
 
-.learning-symbol {
-  position: fixed;
-  left: -170px;
-  bottom: -130px;
-  width: 430px;
-  height: 430px;
-  background-image: url("yin-yang-learning.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  opacity: 0.13;
-  pointer-events: none;
-  z-index: 1;
-  filter: grayscale(100%) contrast(0.85);
-  transition: 0.6s ease;
-}
-
-body.learning-mode .learning-symbol {
-  opacity: 0.18;
-  filter: grayscale(100%) contrast(0.75) brightness(0.85);
-}
-
 .container {
   position: relative;
   z-index: 2;
@@ -133,6 +111,31 @@ body.learning-mode .section {
 
 .term {
   font-weight: bold;
+}
+
+.protocol-line {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin: 18px 0;
+  flex-wrap: nowrap;
+}
+
+.protocol-icon {
+  width: 52px;
+  height: auto;
+  opacity: 0.95;
+  flex: 0 0 auto;
+  transition: 0.6s ease;
+}
+
+body.learning-mode .protocol-icon {
+  filter: invert(1) grayscale(100%) contrast(0.95);
+}
+
+.protocol-line .term {
+  margin: 0;
 }
 
 .do-mark {
@@ -197,12 +200,12 @@ body.learning-mode .next-btn:hover {
   #focusBtn { font-size: 12px; padding: 6px 10px; }
   .next-btn { font-size: 17px; padding: 8px 24px; }
 
-  .learning-symbol {
-    width: 300px;
-    height: 300px;
-    left: -125px;
-    bottom: -95px;
-    opacity: 0.11;
+  .protocol-line {
+    gap: 9px;
+  }
+
+  .protocol-icon {
+    width: 42px;
   }
 }
 
@@ -213,8 +216,6 @@ body.learning-mode .next-btn:hover {
 
 <a href="index.html" id="homeBtn">道</a>
 <button id="focusBtn">תודעת לימוד</button>
-
-<div class="learning-symbol"></div>
 
 <audio id="brownNoise" loop>
   <source src="brown-noise.mp3" type="audio/mpeg">
@@ -307,71 +308,4 @@ body.learning-mode .next-btn:hover {
 <p>שכבה אחת יכולה לעזור להבין<br>מאיפה המידע הגיע ולאן הוא צריך להגיע.</p>
 <p>שכבה אחרת יכולה לעזור להבין<br>איך לחלק את המידע ואיך להרכיב אותו מחדש.</p>
 <p>ושכבה נוספת יכולה לעזור להעביר אותו<br>בתוך הרשת המקומית.</p>
-<p>אפשר לחשוב על זה כך:<br>המידע עצמו הוא התוכן —<br>והפרוטוקולים הם העטיפות שעוזרות לו לעבור בין מערכות.</p>
-<p class="term">עטוף בפרוטוקולים — כדי שהמידע יוכל לנוע.</p>
-</div>
-
-<div class="section">
-<h2>ומה לגבי הדרך עצמה?</h2>
-<p class="term">Route = דרך / נתיב</p>
-<p><span class="term">Router = המכשיר שמכוון את הדרך</span><br>של המידע בין רשתות.</p>
-<p><span class="term">הנתב מכוון הדרך</span></p>
-<span class="do-mark">道</span>
-<p>הנתב (Router)<br>מחבר בין הרשת המקומית בבית<br>לבין רשת האינטרנט הגדולה.</p>
-<p>הוא עוזר למידע<br>לצאת מהרשת המקומית<br>ולהגיע לרשתות אחרות בעולם.</p>
-<p>בנוסף, הנתב גם עוזר<br>לנהל את הרשת המקומית בבית.</p>
-<p>לפעמים גם בתוך בית, משרד או ארגון<br>יכולות להיות כמה רשתות שונות.</p>
-<p>גם שם — הנתב עוזר להעביר מידע<br>בין הרשתות השונות.</p>
-<p>הוא מאפשר למכשירים שונים<br>לתקשר אחד עם השני<br>ולהתחבר לאינטרנט.</p>
-<p>אפשר לחשוב על הנתב<br>גם כעל שער יציאה — GateWay</p>
-<p>כאשר מידע צריך לצאת<br>מהרשת המקומית בבית<br>אל רשתות אחרות באינטרנט,</p>
-<p>הוא עובר דרך הנתב.</p>
-</div>
-
-<div class="section">
-<h2>אז מה זה אינטרנט?</h2>
-<p>האינטרנט הוא רשת של רשתות<br>שמחוברות יחד.</p>
-<p>הרשתות האלה מדברות אחת עם השנייה<br>בעזרת חוקים משותפים.</p>
-<p>והמידע שעובר ביניהן<br>נארז, מתפצל, נשלח, מנותב<br>ונבנה מחדש בצד השני.</p>
-</div>
-
-<p class="final-line">כשמבינים גבולות — רואים את המערכת 🌱</p>
-
-<a href="videos/video.html" class="next-btn">המשך</a>
-
-</div>
-
-<script>
-
-const focusBtn = document.getElementById("focusBtn");
-const brownNoise = document.getElementById("brownNoise");
-
-function turnLearningOn() {
-  document.body.classList.add("learning-mode");
-  localStorage.setItem("learningMode", "on");
-  brownNoise.volume = 0.18;
-  brownNoise.play().catch(() => {});
-}
-
-function turnLearningOff() {
-  document.body.classList.remove("learning-mode");
-  localStorage.setItem("learningMode", "off");
-  brownNoise.pause();
-}
-
-if (localStorage.getItem("learningMode") === "on") {
-  document.body.classList.add("learning-mode");
-}
-
-focusBtn.addEventListener("click", () => {
-  if (document.body.classList.contains("learning-mode")) {
-    turnLearningOff();
-  } else {
-    turnLearningOn();
-  }
-});
-
-</script>
-
-</body>
-</html>
+<p>אפשר לחשוב על זה
