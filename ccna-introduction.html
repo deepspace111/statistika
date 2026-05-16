@@ -115,13 +115,13 @@ body.learning-mode .section {
   display:flex;
   justify-content:center;
   align-items:center;
-  gap:12px;
+  gap:42px;
   margin-top:10px;
-  flex-direction:row-reverse;
+  flex-direction:row;
 }
 
 .protocol-icon{
-  width:52px;
+  width:180px;
   height:auto;
   opacity:0.92;
   transition:0.6s ease;
@@ -194,7 +194,11 @@ body.learning-mode .next-btn:hover {
   .next-btn { font-size: 17px; padding: 8px 24px; }
 
   .protocol-icon{
-    width:40px;
+    width:120px;
+  }
+
+  .protocol-line{
+    gap:24px;
   }
 }
 
@@ -204,6 +208,7 @@ body.learning-mode .next-btn:hover {
 <body>
 
 <a href="index.html" id="homeBtn">道</a>
+
 <button id="focusBtn">תודעת לימוד</button>
 
 <audio id="brownNoise" loop>
@@ -215,62 +220,96 @@ body.learning-mode .next-btn:hover {
 <h1>דרך הרשת 🌐</h1>
 
 <div class="section">
+
 <p>בבית שלך כבר קיימת רשת אמיתית.</p>
-<p>הטלפון, המחשב, הטלוויזיה החכמה והראוטר<br>כבר מחוברים יחד ופועלים כל הזמן.</p>
-<p>הרשת בבית שלך<br>היא רשת מקומית קטנה.</p>
+
+<p>
+הטלפון, המחשב, הטלוויזיה החכמה והראוטר<br>
+כבר מחוברים יחד ופועלים כל הזמן.
+</p>
+
+<p>
+הרשת בבית שלך<br>
+היא רשת מקומית קטנה.
+</p>
+
 <p class="term">LAN = Local Area Network</p>
-<p>כלומר:<br>רשת שפועלת באזור קטן ומקומי<br>כמו בית, משרד או בית ספר.</p>
-<p>כשמבינים איך זה עובד —<br>פתאום מתחילים לראות דברים חדשים.</p>
-<p>ואחרי שרואים —<br>אפשר גם לשנות. 🌱</p>
+
+<p>
+כלומר:<br>
+רשת שפועלת באזור קטן ומקומי<br>
+כמו בית, משרד או בית ספר.
+</p>
+
+<p>
+כשמבינים איך זה עובד —<br>
+פתאום מתחילים לראות דברים חדשים.
+</p>
+
+<p>
+ואחרי שרואים —<br>
+אפשר גם לשנות. 🌱
+</p>
+
 </div>
 
 <div class="section">
-<p>אנחנו משתמשים באינטרנט כל הזמן.<br>שולחים הודעות, גולשים, צופים, עובדים.</p>
-<p>אבל רגע אחד לעצור ולשאול:<br>מה זה אומר בכלל אינטרנט?</p>
-</div>
 
-<div class="section">
-<h2>בואו נבין את המילה</h2>
-<p>המילה אינטרנט מורכבת משני חלקים:</p>
-<p><span class="term">Inter = בין</span><br><span class="term">Net / Network = רשת</span></p>
-<p><span class="term">אינטרנט = חיבור בין רשתות</span><br>כמה רשתות שמחוברות יחד<br>לרשת אחת גדולה.</p>
-</div>
-
-<div class="section">
 <h2>איך מחשבים מבינים אחד את השני?</h2>
 
 <p class="term">פרוטוקול = הסכמה איך לדבר</p>
 
-<p>מחשבים צריכים שפה משותפת<br>וחוקים ברורים לתקשורת.</p>
+<p>
+מחשבים צריכים שפה משותפת<br>
+וחוקים ברורים לתקשורת.
+</p>
 
-<p>כאשר מידע עובר ברשת<br>הוא לא נע “חשוף”.</p>
+<p>
+כאשר מידע עובר ברשת<br>
+הוא לא נע “חשוף”.
+</p>
 
-<p>כדי שמערכות שונות יוכלו להבין,<br>לכוון ולהעביר אותו —</p>
+<p>
+כדי שמערכות שונות יוכלו להבין,<br>
+לכוון ולהעביר אותו —
+</p>
 
 <p class="term">המידע נעטף בפרוטוקולים.</p>
 
 <div class="protocol-line">
+
   <img src="yin-yang-learning.png" class="protocol-icon">
-  <p class="term">עטוף בפרוטוקולים — כדי שהמידע יוכל לנוע.</p>
+
+  <p class="term">
+    עטוף בפרוטוקולים — כדי שהמידע יוכל לנוע.
+  </p>
+
 </div>
 
 </div>
 
 <div class="section">
+
 <h2>ומה לגבי הדרך עצמה?</h2>
 
 <p class="term">Route = דרך / נתיב</p>
 
-<p><span class="term">Router = המכשיר שמכוון את הדרך</span><br>
-של המידע בין רשתות.</p>
+<p>
+<span class="term">Router = המכשיר שמכוון את הדרך</span><br>
+של המידע בין רשתות.
+</p>
 
-<p><span class="term">הנתב מכוון הדרך</span></p>
+<p>
+<span class="term">הנתב מכוון הדרך</span>
+</p>
 
 <span class="do-mark">道</span>
 
 </div>
 
-<p class="final-line">כשמבינים גבולות — רואים את המערכת 🌱</p>
+<p class="final-line">
+כשמבינים גבולות — רואים את המערכת 🌱
+</p>
 
 <a href="videos/video.html" class="next-btn">המשך</a>
 
@@ -299,11 +338,13 @@ if (localStorage.getItem("learningMode") === "on") {
 }
 
 focusBtn.addEventListener("click", () => {
+
   if (document.body.classList.contains("learning-mode")) {
     turnLearningOff();
   } else {
     turnLearningOn();
   }
+
 });
 
 </script>
