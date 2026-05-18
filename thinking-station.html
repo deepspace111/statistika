@@ -1,166 +1,349 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>תחנת חשיבה</title>
 
+  <link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap" rel="stylesheet">
+
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #050505;
-      color: #e8e8e8;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 28px;
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
     }
 
-    .page {
-      max-width: 980px;
-      width: 100%;
-      text-align: center;
-      animation: fadeIn 2s ease forwards;
+    body{
+      overflow:hidden;
+      background:#04070d;
+      font-family:Arial,sans-serif;
+      height:100vh;
+      width:100vw;
+      color:white;
     }
 
-    .home {
-      position: fixed;
-      top: 18px;
-      left: 22px;
-      color: rgba(255,255,255,0.45);
-      text-decoration: none;
-      font-size: 28px;
-      letter-spacing: 2px;
+    /* רקע */
+
+    .background{
+      position:fixed;
+      inset:0;
+      background:#04070d;
+      z-index:1;
     }
 
-    h1 {
-      font-size: 34px;
-      font-weight: 400;
-      margin-bottom: 10px;
+    /* התמונה */
+
+    .thinking-image{
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      width:96vw;
+      max-width:1700px;
+      height:auto;
+
+      opacity:0;
+      animation:fadeIn 2.5s ease forwards;
+
+      filter:
+      drop-shadow(0 0 40px rgba(130,170,255,0.10))
+      brightness(1.02);
+
+      z-index:2;
     }
 
-    .subtitle {
-      color: #aaa;
-      font-size: 18px;
-      margin-bottom: 34px;
+    /* שכבת חושך עדינה */
+
+    .overlay{
+      position:fixed;
+      inset:0;
+      background:
+      radial-gradient(circle at center,
+      rgba(0,0,0,0.05),
+      rgba(0,0,0,0.35));
+
+      z-index:3;
+      pointer-events:none;
     }
 
-    .image-box {
-      background: #090909;
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 18px;
-      padding: 14px;
-      box-shadow: 0 0 45px rgba(120,180,255,0.12);
+    /* גשם */
+
+    .rain{
+      position:fixed;
+      inset:0;
+      z-index:4;
+      pointer-events:none;
+      overflow:hidden;
     }
 
-    img {
-      width: 100%;
-      max-width: 850px;
-      border-radius: 12px;
-      display: block;
-      margin: 0 auto;
+    .drop{
+      position:absolute;
+      top:-120px;
+      width:1px;
+      height:120px;
+
+      background:linear-gradient(
+      to bottom,
+      rgba(255,255,255,0),
+      rgba(130,170,255,0.18),
+      rgba(255,255,255,0));
+
+      animation:rain linear infinite;
     }
 
-    .thought {
-      margin-top: 32px;
-      font-size: 22px;
-      line-height: 1.8;
-      color: #f0f0f0;
+    /* דו */
+
+    .do-symbol{
+      position:fixed;
+      top:20px;
+      left:24px;
+
+      font-family:'Yuji Mai',serif;
+      font-size:42px;
+
+      color:rgba(255,255,255,0.75);
+
+      text-decoration:none;
+
+      z-index:10;
+
+      transition:0.4s ease;
     }
 
-    .small {
-      margin-top: 18px;
-      color: #8f8f8f;
-      font-size: 15px;
-      line-height: 1.7;
+    .do-symbol:hover{
+      color:white;
+      transform:scale(1.08);
     }
 
-    .continue {
-      display: inline-block;
-      margin-top: 36px;
-      padding: 12px 26px;
-      border: 1px solid rgba(255,255,255,0.22);
-      border-radius: 999px;
-      color: #ddd;
-      text-decoration: none;
-      font-size: 16px;
-      transition: 0.3s ease;
+    /* תודעת חשיבה */
+
+    .mind-btn{
+      position:fixed;
+      top:24px;
+      right:24px;
+
+      padding:12px 22px;
+
+      border:1px solid rgba(255,255,255,0.18);
+      border-radius:999px;
+
+      background:rgba(0,0,0,0.25);
+
+      backdrop-filter:blur(10px);
+
+      color:#e8e8e8;
+
+      font-size:15px;
+
+      cursor:pointer;
+
+      z-index:10;
+
+      transition:0.4s ease;
     }
 
-    .continue:hover {
-      background: rgba(255,255,255,0.08);
-      color: white;
+    .mind-btn:hover{
+      background:rgba(255,255,255,0.08);
+      border-color:rgba(255,255,255,0.28);
     }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(12px);
+    /* משפט */
+
+    .quote{
+      position:fixed;
+
+      bottom:38px;
+      left:50%;
+
+      transform:translateX(-50%);
+
+      font-size:20px;
+      letter-spacing:1px;
+
+      color:rgba(255,255,255,0.82);
+
+      z-index:10;
+
+      text-align:center;
+
+      animation:fadeText 4s ease forwards;
+    }
+
+    .quote small{
+      display:block;
+      margin-top:10px;
+      font-size:14px;
+      color:rgba(255,255,255,0.45);
+    }
+
+    /* מצב תודעת חשיבה */
+
+    body.deep-mode .overlay{
+      background:
+      radial-gradient(circle at center,
+      rgba(0,0,0,0.20),
+      rgba(0,0,0,0.62));
+    }
+
+    body.deep-mode .thinking-image{
+      filter:
+      drop-shadow(0 0 55px rgba(130,170,255,0.16))
+      brightness(1.06);
+    }
+
+    /* אנימציות */
+
+    @keyframes fadeIn{
+      from{
+        opacity:0;
+        transform:translate(-50%,-50%) scale(1.02);
       }
-      to {
-        opacity: 1;
-        transform: translateY(0);
+
+      to{
+        opacity:1;
+        transform:translate(-50%,-50%) scale(1);
       }
     }
 
-    @media (max-width: 600px) {
-      body {
-        padding: 18px;
-        align-items: flex-start;
+    @keyframes fadeText{
+      from{
+        opacity:0;
+        transform:translateX(-50%) translateY(12px);
       }
 
-      h1 {
-        font-size: 28px;
-        margin-top: 56px;
-      }
-
-      .subtitle {
-        font-size: 16px;
-      }
-
-      .thought {
-        font-size: 19px;
-      }
-
-      .home {
-        font-size: 24px;
+      to{
+        opacity:1;
+        transform:translateX(-50%) translateY(0);
       }
     }
+
+    @keyframes rain{
+      from{
+        transform:translateY(-120px);
+      }
+
+      to{
+        transform:translateY(120vh);
+      }
+    }
+
+    /* מובייל */
+
+    @media(max-width:768px){
+
+      .thinking-image{
+        width:125vw;
+      }
+
+      .quote{
+        width:90%;
+        font-size:18px;
+        bottom:26px;
+      }
+
+      .mind-btn{
+        font-size:13px;
+        padding:10px 16px;
+      }
+
+      .do-symbol{
+        font-size:34px;
+      }
+    }
+
   </style>
 </head>
 
 <body>
 
-  <a class="home" href="index.html">道</a>
+  <div class="background"></div>
 
-  <main class="page">
+  <!-- התמונה שלך -->
+  <img class="thinking-image"
+  src="thinking-station.png"
+  alt="המידע מתעטף בשכבות פרוטוקולים">
 
-    <h1>תחנת חשיבה</h1>
+  <div class="overlay"></div>
 
-    <div class="subtitle">
-      התקדמות תוך עצירה
-    </div>
+  <!-- גשם -->
+  <div class="rain" id="rain"></div>
 
-    <div class="image-box">
-      <img src="thinking-station.png" alt="המידע מתעטף בשכבות פרוטוקולים">
-    </div>
+  <!-- דו -->
+  <a href="index.html" class="do-symbol">道</a>
 
-    <div class="thought">
-      לפני שממשיכים — עוצרים רגע לראות.<br>
-      המידע אינו פשוט “נשלח”.<br>
-      הוא מתעטף בשכבות פרוטוקולים כדי שיוכל לנוע בין מערכות.
-    </div>
+  <!-- תודעת חשיבה -->
+  <button class="mind-btn" id="mindBtn">
+    תודעת חשיבה
+  </button>
 
-    <div class="small">
-      כאן לא משננים הגדרה.  
-      כאן נותנים למערכת להתגלות.
-    </div>
+  <!-- משפט -->
+  <div class="quote">
+    המידע מתעטף בשכבות פרוטוקולים
 
-    <a class="continue" href="ccna-introduction.html">המשך</a>
+    <small>
+      כשמבינים רואים
+    </small>
+  </div>
 
-  </main>
+  <!-- רעש חום -->
+  <audio id="brownNoise" loop>
+    <source src="brown-noise.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+
+    /* יצירת גשם */
+
+    const rain = document.getElementById("rain");
+
+    for(let i=0;i<120;i++){
+
+      const drop = document.createElement("div");
+
+      drop.classList.add("drop");
+
+      drop.style.left = Math.random()*100+"vw";
+
+      drop.style.animationDuration =
+      (3 + Math.random()*5)+"s";
+
+      drop.style.opacity =
+      0.15 + Math.random()*0.25;
+
+      rain.appendChild(drop);
+    }
+
+    /* תודעת חשיבה */
+
+    const btn = document.getElementById("mindBtn");
+    const audio = document.getElementById("brownNoise");
+
+    let active = false;
+
+    btn.addEventListener("click",()=>{
+
+      active = !active;
+
+      document.body.classList.toggle("deep-mode");
+
+      if(active){
+
+        audio.volume = 0.45;
+
+        audio.play().catch(()=>{});
+
+      }else{
+
+        audio.pause();
+      }
+
+    });
+
+  </script>
 
 </body>
 </html>
