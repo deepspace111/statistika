@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>תחנת חשיבה</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #050505;
+      color: #e8e8e8;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 28px;
+    }
+
+    .page {
+      max-width: 980px;
+      width: 100%;
+      text-align: center;
+      animation: fadeIn 2s ease forwards;
+    }
+
+    .home {
+      position: fixed;
+      top: 18px;
+      left: 22px;
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      font-size: 28px;
+      letter-spacing: 2px;
+    }
+
+    h1 {
+      font-size: 34px;
+      font-weight: 400;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: #aaa;
+      font-size: 18px;
+      margin-bottom: 34px;
+    }
+
+    .image-box {
+      background: #090909;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
+      padding: 14px;
+      box-shadow: 0 0 45px rgba(120,180,255,0.12);
+    }
+
+    img {
+      width: 100%;
+      max-width: 850px;
+      border-radius: 12px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .thought {
+      margin-top: 32px;
+      font-size: 22px;
+      line-height: 1.8;
+      color: #f0f0f0;
+    }
+
+    .small {
+      margin-top: 18px;
+      color: #8f8f8f;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .continue {
+      display: inline-block;
+      margin-top: 36px;
+      padding: 12px 26px;
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 999px;
+      color: #ddd;
+      text-decoration: none;
+      font-size: 16px;
+      transition: 0.3s ease;
+    }
+
+    .continue:hover {
+      background: rgba(255,255,255,0.08);
+      color: white;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 18px;
+        align-items: flex-start;
+      }
+
+      h1 {
+        font-size: 28px;
+        margin-top: 56px;
+      }
+
+      .subtitle {
+        font-size: 16px;
+      }
+
+      .thought {
+        font-size: 19px;
+      }
+
+      .home {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <a class="home" href="index.html">道</a>
+
+  <main class="page">
+
+    <h1>תחנת חשיבה</h1>
+
+    <div class="subtitle">
+      התקדמות תוך עצירה
+    </div>
+
+    <div class="image-box">
+      <img src="thinking-station.png" alt="המידע מתעטף בשכבות פרוטוקולים">
+    </div>
+
+    <div class="thought">
+      לפני שממשיכים — עוצרים רגע לראות.<br>
+      המידע אינו פשוט “נשלח”.<br>
+      הוא מתעטף בשכבות פרוטוקולים כדי שיוכל לנוע בין מערכות.
+    </div>
+
+    <div class="small">
+      כאן לא משננים הגדרה.  
+      כאן נותנים למערכת להתגלות.
+    </div>
+
+    <a class="continue" href="ccna-introduction.html">המשך</a>
+
+  </main>
+
+</body>
+</html>
