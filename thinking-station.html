@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap" rel="stylesheet">
 
   <style>
+
     *{
       margin:0;
       padding:0;
@@ -19,93 +20,128 @@
     html,
     body{
       overflow:hidden;
-      background:#04070d;
+      background:#000;
       font-family:Arial,sans-serif;
       height:100%;
       width:100%;
       color:white;
+
       overscroll-behavior:none;
       touch-action:manipulation;
     }
 
+    /* רקע */
+
     .background{
       position:fixed;
       inset:0;
-      background:#04070d;
+
+      background:
+      radial-gradient(circle at center,
+      #020305 0%,
+      #000 60%,
+      #000 100%);
+
       z-index:1;
     }
 
-    /* מעטפת התמונה - אחראית רק על מיקום */
+    /* מעטפת התמונה */
+
     .image-holder{
       position:fixed;
+
       top:50%;
       left:50%;
+
       transform:translate(-50%,-50%);
 
       width:82vw;
       max-width:1350px;
-      height:auto;
 
       opacity:0;
+
       animation:fadeIn 2.5s ease forwards;
 
       z-index:2;
     }
 
-    /* התמונה עצמה - אחראית רק על נשימה וגודל */
+    /* התמונה */
+
     .thinking-image{
       display:block;
+
       width:100%;
       height:auto;
 
       animation:breathing 12s ease-in-out infinite;
 
       filter:
-      drop-shadow(0 0 40px rgba(130,170,255,0.10))
+      drop-shadow(0 0 40px rgba(130,170,255,0.08))
       brightness(1.02);
     }
+
+    /* שכבת עומק */
 
     .overlay{
       position:fixed;
       inset:0;
+
       background:
       radial-gradient(circle at center,
-      rgba(0,0,0,0.05),
-      rgba(0,0,0,0.35));
+      rgba(0,0,0,0.02),
+      rgba(0,0,0,0.58));
+
       z-index:3;
+
       pointer-events:none;
     }
+
+    /* גשם */
 
     .rain{
       position:fixed;
       inset:0;
+
       z-index:4;
+
       pointer-events:none;
       overflow:hidden;
     }
 
     .drop{
       position:absolute;
+
       top:-120px;
+
       width:1px;
       height:120px;
+
       background:linear-gradient(
       to bottom,
       rgba(255,255,255,0),
-      rgba(130,170,255,0.18),
+      rgba(130,170,255,0.16),
       rgba(255,255,255,0));
+
       animation:rain linear infinite;
     }
 
+    /* דו */
+
     .do-symbol{
       position:fixed;
+
       top:20px;
       left:24px;
+
       font-family:'Yuji Mai',serif;
       font-size:42px;
-      color:rgba(255,255,255,0.75);
+
+      color:rgba(255,255,255,0.72);
+
       text-decoration:none;
+
       z-index:10;
+
       transition:0.4s ease;
     }
 
@@ -114,66 +150,109 @@
       transform:scale(1.08);
     }
 
+    /* תודעת חשיבה */
+
     .mind-btn{
       position:fixed;
-      top:24px;
-      right:24px;
-      padding:12px 22px;
-      border:1px solid rgba(255,255,255,0.18);
+
+      top:50%;
+      right:14px;
+
+      transform:translateY(-50%);
+
+      writing-mode:vertical-rl;
+      text-orientation:mixed;
+
+      padding:18px 10px;
+
+      border:1px solid rgba(255,255,255,0.14);
       border-radius:999px;
-      background:rgba(0,0,0,0.25);
+
+      background:rgba(0,0,0,0.22);
+
       backdrop-filter:blur(10px);
+
       color:#e8e8e8;
-      font-size:15px;
+
+      font-size:13px;
+      letter-spacing:2px;
+
       cursor:pointer;
+
       z-index:10;
+
       transition:0.4s ease;
     }
 
     .mind-btn:hover{
-      background:rgba(255,255,255,0.08);
-      border-color:rgba(255,255,255,0.28);
+      background:rgba(255,255,255,0.06);
+
+      border-color:
+      rgba(255,255,255,0.22);
     }
+
+    /* משפט */
 
     .quote{
       position:fixed;
+
       bottom:38px;
       left:50%;
+
       transform:translateX(-50%);
+
       font-size:20px;
       letter-spacing:1px;
+
       color:rgba(255,255,255,0.82);
+
       z-index:10;
+
       text-align:center;
+
       animation:fadeText 4s ease forwards;
     }
 
     .quote small{
       display:block;
+
       margin-top:10px;
+
       font-size:14px;
+
       color:rgba(255,255,255,0.45);
     }
+
+    /* מצב תודעת חשיבה */
 
     body.deep-mode .overlay{
       background:
       radial-gradient(circle at center,
-      rgba(0,0,0,0.20),
-      rgba(0,0,0,0.62));
+      rgba(0,0,0,0.18),
+      rgba(0,0,0,0.72));
     }
 
     body.deep-mode .thinking-image{
       filter:
-      drop-shadow(0 0 55px rgba(130,170,255,0.16))
+      drop-shadow(0 0 55px rgba(130,170,255,0.14))
       brightness(1.06);
     }
 
+    /* אנימציות */
+
     @keyframes fadeIn{
-      from{ opacity:0; }
-      to{ opacity:1; }
+
+      from{
+        opacity:0;
+      }
+
+      to{
+        opacity:1;
+      }
     }
 
     @keyframes fadeText{
+
       from{
         opacity:0;
         transform:translateX(-50%) translateY(12px);
@@ -186,6 +265,7 @@
     }
 
     @keyframes rain{
+
       from{
         transform:translateY(-120px);
       }
@@ -196,6 +276,7 @@
     }
 
     @keyframes breathing{
+
       0%{
         transform:scale(1);
       }
@@ -209,35 +290,49 @@
       }
     }
 
+    /* מובייל */
+
     @media(max-width:768px){
 
       .image-holder{
+
         width:auto;
         height:100svh;
+
         max-width:none;
-        max-height:none;
       }
 
       .thinking-image{
+
         width:auto;
         height:100%;
       }
 
       .quote{
-        width:90%;
-        font-size:17px;
-        bottom:22px;
-      }
 
-      .mind-btn{
-        font-size:13px;
-        padding:10px 16px;
+        width:88%;
+
+        font-size:16px;
+
+        bottom:20px;
       }
 
       .do-symbol{
         font-size:34px;
       }
+
+      .mind-btn{
+
+        right:8px;
+
+        font-size:11px;
+
+        padding:16px 8px;
+
+        letter-spacing:1px;
+      }
     }
+
   </style>
 </head>
 
@@ -245,62 +340,105 @@
 
   <div class="background"></div>
 
+  <!-- התמונה -->
+
   <div class="image-holder">
+
     <img class="thinking-image"
-    src="thinking-station.png?v=4"
+    src="thinking-station.png?v=5"
     alt="המידע מתעטף בשכבות פרוטוקולים">
+
   </div>
+
+  <!-- עומק -->
 
   <div class="overlay"></div>
 
+  <!-- גשם -->
+
   <div class="rain" id="rain"></div>
 
+  <!-- דו -->
+
   <a href="index.html" class="do-symbol">道</a>
+
+  <!-- תודעת חשיבה -->
 
   <button class="mind-btn" id="mindBtn">
     תודעת חשיבה
   </button>
 
+  <!-- משפט -->
+
   <div class="quote">
+
     המידע מתעטף בשכבות פרוטוקולים
 
     <small>
       כשמבינים רואים
     </small>
+
   </div>
+
+  <!-- רעש חום -->
 
   <audio id="brownNoise" loop>
     <source src="brown-noise.mp3" type="audio/mpeg">
   </audio>
 
   <script>
+
+    /* גשם */
+
     const rain = document.getElementById("rain");
 
     for(let i=0;i<120;i++){
+
       const drop = document.createElement("div");
+
       drop.classList.add("drop");
-      drop.style.left = Math.random()*100+"vw";
-      drop.style.animationDuration = (3 + Math.random()*5)+"s";
-      drop.style.opacity = 0.15 + Math.random()*0.25;
+
+      drop.style.left =
+      Math.random()*100+"vw";
+
+      drop.style.animationDuration =
+      (3 + Math.random()*5)+"s";
+
+      drop.style.opacity =
+      0.15 + Math.random()*0.22;
+
       rain.appendChild(drop);
     }
 
-    const btn = document.getElementById("mindBtn");
-    const audio = document.getElementById("brownNoise");
+    /* תודעת חשיבה */
+
+    const btn =
+    document.getElementById("mindBtn");
+
+    const audio =
+    document.getElementById("brownNoise");
 
     let active = false;
 
     btn.addEventListener("click",()=>{
+
       active = !active;
+
       document.body.classList.toggle("deep-mode");
 
       if(active){
+
         audio.volume = 0.45;
+
         audio.play().catch(()=>{});
+
       }else{
+
         audio.pause();
       }
+
     });
+
   </script>
 
 </body>
