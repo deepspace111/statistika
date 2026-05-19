@@ -53,14 +53,15 @@
       inset:0;
 
       background-image:
-      url("thinking-station.png?v=8");
+      url("thinking-station.png?v=9");
 
       background-repeat:no-repeat;
 
       background-position:center center;
 
-      background-size:
-      calc(100vw - 12px) auto;
+      /* המפתח האמיתי */
+
+      background-size:100% auto;
 
       background-color:#000;
 
@@ -72,7 +73,7 @@
 
       z-index:1;
 
-      animation:bgFade 2.2s ease forwards;
+      animation:bgFade 2s ease forwards;
     }
 
     /* שכבת עומק */
@@ -85,8 +86,8 @@
 
       background:
       radial-gradient(circle at center,
-      rgba(0,0,0,0.03),
-      rgba(0,0,0,0.78));
+      rgba(0,0,0,0.02),
+      rgba(0,0,0,0.80));
 
       z-index:2;
 
@@ -121,7 +122,7 @@
       linear-gradient(
       to bottom,
       rgba(255,255,255,0),
-      rgba(130,170,255,0.13),
+      rgba(130,170,255,0.12),
       rgba(255,255,255,0));
 
       animation:rain linear infinite;
@@ -133,12 +134,12 @@
 
       position:fixed;
 
-      top:18px;
-      left:22px;
+      top:16px;
+      left:18px;
 
       font-family:'Yuji Mai',serif;
 
-      font-size:38px;
+      font-size:34px;
 
       color:
       rgba(255,255,255,0.72);
@@ -165,13 +166,16 @@
 
       left:50%;
 
-      bottom:max(26px, env(safe-area-inset-bottom));
+      bottom:
+      max(16px,
+      env(safe-area-inset-bottom));
 
-      transform:translateX(-50%);
+      transform:
+      translateX(-50%);
 
-      width:min(88vw, 760px);
+      width:min(92vw,760px);
 
-      padding:14px 22px;
+      padding:12px 18px;
 
       border-radius:22px;
 
@@ -186,16 +190,17 @@
 
       z-index:10;
 
-      animation:fadeText 4s ease forwards;
+      animation:
+      fadeText 4s ease forwards;
     }
 
     .quote-main{
 
-      font-size:18px;
+      font-size:15px;
+
+      line-height:1.6;
 
       letter-spacing:1px;
-
-      line-height:1.7;
 
       color:
       rgba(255,255,255,0.88);
@@ -205,19 +210,12 @@
 
       display:block;
 
-      margin-top:10px;
+      margin-top:8px;
 
-      font-size:13px;
+      font-size:12px;
 
       color:
-      rgba(255,255,255,0.46);
-    }
-
-    /* מצב עמוק תמיד */
-
-    body{
-
-      background:#000;
+      rgba(255,255,255,0.44);
     }
 
     /* אנימציות */
@@ -237,6 +235,7 @@
 
       from{
         opacity:0;
+
         transform:
         translateX(-50%)
         translateY(12px);
@@ -244,6 +243,7 @@
 
       to{
         opacity:1;
+
         transform:
         translateX(-50%)
         translateY(0);
@@ -269,42 +269,33 @@
 
       .thinking-bg{
 
-        background-size:
-        calc(100vw - 4px) auto;
+        /* רוחב קבוע */
+        background-size:100% auto;
 
-        background-position:
-        center center;
+        /* לא לתת לגובה להשתלט */
+        background-position:center top;
       }
 
       .quote{
 
         width:92vw;
 
-        padding:12px 16px;
-
-        bottom:
-        max(16px,
-        env(safe-area-inset-bottom));
+        padding:10px 14px;
       }
 
       .quote-main{
 
-        font-size:15px;
-
-        line-height:1.6;
+        font-size:14px;
       }
 
       .quote small{
 
-        font-size:12px;
+        font-size:11px;
       }
 
       .do-symbol{
 
-        font-size:32px;
-
-        top:14px;
-        left:18px;
+        font-size:30px;
       }
     }
 
