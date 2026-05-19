@@ -35,27 +35,34 @@
       z-index:1;
     }
 
-    .thinking-image{
-      position:fixed !important;
-      top:50% !important;
-      left:50% !important;
-      transform:translate(-50%,-50%) !important;
+    /* מעטפת התמונה - אחראית רק על מיקום */
+    .image-holder{
+      position:fixed;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
 
       width:82vw;
       max-width:1350px;
       height:auto;
 
       opacity:0;
+      animation:fadeIn 2.5s ease forwards;
 
-      animation:
-      fadeIn 2.5s ease forwards,
-      breathing 12s ease-in-out infinite;
+      z-index:2;
+    }
+
+    /* התמונה עצמה - אחראית רק על נשימה וגודל */
+    .thinking-image{
+      display:block;
+      width:100%;
+      height:auto;
+
+      animation:breathing 12s ease-in-out infinite;
 
       filter:
       drop-shadow(0 0 40px rgba(130,170,255,0.10))
       brightness(1.02);
-
-      z-index:2;
     }
 
     .overlay{
@@ -162,15 +169,8 @@
     }
 
     @keyframes fadeIn{
-      from{
-        opacity:0;
-        transform:translate(-50%,-50%) scale(1.02);
-      }
-
-      to{
-        opacity:1;
-        transform:translate(-50%,-50%) scale(1);
-      }
+      from{ opacity:0; }
+      to{ opacity:1; }
     }
 
     @keyframes fadeText{
@@ -197,31 +197,30 @@
 
     @keyframes breathing{
       0%{
-        transform:translate(-50%,-50%) scale(1);
+        transform:scale(1);
       }
 
       50%{
-        transform:translate(-50%,-50%) scale(1.015);
+        transform:scale(1.015);
       }
 
       100%{
-        transform:translate(-50%,-50%) scale(1);
+        transform:scale(1);
       }
     }
 
     @media(max-width:768px){
 
+      .image-holder{
+        width:auto;
+        height:100svh;
+        max-width:none;
+        max-height:none;
+      }
+
       .thinking-image{
-        position:fixed !important;
-        top:50% !important;
-        left:50% !important;
-        transform:translate(-50%,-50%) !important;
-
-        height:100svh !important;
-        width:auto !important;
-
-        max-width:none !important;
-        max-height:none !important;
+        width:auto;
+        height:100%;
       }
 
       .quote{
@@ -246,9 +245,11 @@
 
   <div class="background"></div>
 
-  <img class="thinking-image"
-  src="thinking-station.png?v=3"
-  alt="המידע מתעטף בשכבות פרוטוקולים">
+  <div class="image-holder">
+    <img class="thinking-image"
+    src="thinking-station.png?v=4"
+    alt="המידע מתעטף בשכבות פרוטוקולים">
+  </div>
 
   <div class="overlay"></div>
 
@@ -264,7 +265,7 @@
     המידע מתעטף בשכבות פרוטוקולים
 
     <small>
-       TEST כשמבינים רואים
+      כשמבינים רואים
     </small>
   </div>
 
