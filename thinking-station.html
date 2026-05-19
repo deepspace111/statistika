@@ -3,26 +3,26 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
   <title>תחנת חשיבה</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap" rel="stylesheet">
 
   <style>
-
     *{
       margin:0;
       padding:0;
       box-sizing:border-box;
     }
 
+    html,
     body{
       overflow:hidden;
       background:#04070d;
       font-family:Arial,sans-serif;
-      height:100vh;
-      width:100vw;
+      height:100%;
+      width:100%;
       color:white;
       overscroll-behavior:none;
       touch-action:manipulation;
@@ -36,10 +36,10 @@
     }
 
     .thinking-image{
-      position:fixed;
-      top:50%;
-      left:50%;
-      transform:translate(-50%,-50%);
+      position:fixed !important;
+      top:50% !important;
+      left:50% !important;
+      transform:translate(-50%,-50%) !important;
 
       width:82vw;
       max-width:1350px;
@@ -191,7 +191,7 @@
       }
 
       to{
-        transform:translateY(120vh);
+        transform:translateY(120svh);
       }
     }
 
@@ -212,11 +212,16 @@
     @media(max-width:768px){
 
       .thinking-image{
-        position:fixed;
-        height:100vh;
-        width:auto;
-        max-width:none;
-        max-height:none;
+        position:fixed !important;
+        top:50% !important;
+        left:50% !important;
+        transform:translate(-50%,-50%) !important;
+
+        height:100svh !important;
+        width:auto !important;
+
+        max-width:none !important;
+        max-height:none !important;
       }
 
       .quote{
@@ -234,7 +239,6 @@
         font-size:34px;
       }
     }
-
   </style>
 </head>
 
@@ -243,7 +247,7 @@
   <div class="background"></div>
 
   <img class="thinking-image"
-  src="thinking-station.png"
+  src="thinking-station.png?v=3"
   alt="המידע מתעטף בשכבות פרוטוקולים">
 
   <div class="overlay"></div>
@@ -269,23 +273,14 @@
   </audio>
 
   <script>
-
     const rain = document.getElementById("rain");
 
     for(let i=0;i<120;i++){
-
       const drop = document.createElement("div");
-
       drop.classList.add("drop");
-
       drop.style.left = Math.random()*100+"vw";
-
-      drop.style.animationDuration =
-      (3 + Math.random()*5)+"s";
-
-      drop.style.opacity =
-      0.15 + Math.random()*0.25;
-
+      drop.style.animationDuration = (3 + Math.random()*5)+"s";
+      drop.style.opacity = 0.15 + Math.random()*0.25;
       rain.appendChild(drop);
     }
 
@@ -295,24 +290,16 @@
     let active = false;
 
     btn.addEventListener("click",()=>{
-
       active = !active;
-
       document.body.classList.toggle("deep-mode");
 
       if(active){
-
         audio.volume = 0.45;
-
         audio.play().catch(()=>{});
-
       }else{
-
         audio.pause();
       }
-
     });
-
   </script>
 
 </body>
