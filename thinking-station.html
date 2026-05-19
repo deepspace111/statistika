@@ -53,15 +53,15 @@
       inset:0;
 
       background-image:
-      url("thinking-station.png?v=9");
+      url("thinking-station.png?v=11");
 
       background-repeat:no-repeat;
 
       background-position:center center;
 
-      /* המפתח האמיתי */
+      /* מחשב - כמו שהיה */
 
-      background-size:100% auto;
+      background-size:contain;
 
       background-color:#000;
 
@@ -69,7 +69,11 @@
 
       -webkit-transform:translateZ(0);
 
-      will-change:transform;
+      backface-visibility:hidden;
+
+      -webkit-backface-visibility:hidden;
+
+      will-change:auto;
 
       z-index:1;
 
@@ -87,7 +91,7 @@
       background:
       radial-gradient(circle at center,
       rgba(0,0,0,0.02),
-      rgba(0,0,0,0.80));
+      rgba(0,0,0,0.82));
 
       z-index:2;
 
@@ -263,17 +267,17 @@
       }
     }
 
-    /* מובייל */
+    /* מובייל בלבד */
 
     @media(max-width:768px){
 
       .thinking-bg{
 
-        /* רוחב קבוע */
-        background-size:100% auto;
+        /* רק בטלפון */
 
-        /* לא לתת לגובה להשתלט */
-        background-position:center top;
+        background-size:auto 75%;
+
+        background-position:center center;
       }
 
       .quote{
