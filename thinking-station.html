@@ -37,6 +37,7 @@
       color:white;
 
       overscroll-behavior:none;
+
       touch-action:none;
     }
 
@@ -44,40 +45,59 @@
       position:relative;
     }
 
-    /* רקע */
+    /* חלון צפייה */
 
-    .thinking-bg{
+    .viewport{
 
       position:fixed;
 
       inset:0;
 
-      background-image:
-      url("thinking-station.png?v=11");
+      overflow:hidden;
 
-      background-repeat:no-repeat;
+      z-index:1;
 
-      background-position:center center;
+      cursor:grab;
 
-      /* מחשב - כמו שהיה */
+      touch-action:none;
+    }
 
-      background-size:contain;
+    .viewport:active{
+      cursor:grabbing;
+    }
 
-      background-color:#000;
+    /* התמונה */
 
-      transform:translateZ(0);
+    .thinking-bg{
 
-      -webkit-transform:translateZ(0);
+      position:absolute;
+
+      top:50%;
+      left:50%;
+
+      transform:
+      translate(-50%,-50%);
+
+      height:78vh;
+
+      width:auto;
+
+      user-select:none;
+
+      -webkit-user-drag:none;
+
+      pointer-events:none;
+
+      opacity:0;
+
+      animation:
+      bgFade 2s ease forwards;
+
+      will-change:transform;
 
       backface-visibility:hidden;
 
       -webkit-backface-visibility:hidden;
-
-      will-change:auto;
-
-      z-index:1;
-
-      animation:bgFade 2s ease forwards;
     }
 
     /* שכבת עומק */
@@ -267,17 +287,13 @@
       }
     }
 
-    /* מובייל בלבד */
+    /* מובייל */
 
     @media(max-width:768px){
 
       .thinking-bg{
 
-        /* רק בטלפון */
-
-        background-size:auto 75%;
-
-        background-position:center center;
+        height:74vh;
       }
 
       .quote{
@@ -308,9 +324,17 @@
 
 <body>
 
-  <!-- רקע -->
+  <!-- חלון צפייה -->
 
-  <div class="thinking-bg"></div>
+  <div class="viewport"
+  id="viewport">
+
+    <img
+    src="thinking-station.png?v=12"
+    class="thinking-bg"
+    id="thinkingImage">
+
+  </div>
 
   <!-- שכבת עומק -->
 
@@ -389,6 +413,56 @@
     audio.volume = 0.45;
 
     audio.play().catch(()=>{});
+
+    /* גרירת התמונה */
+
+    const viewport =
+    document.getElementById("viewport");
+
+    const image =
+    document.getElementById("thinkingImage");
+
+    let startX = 0;
+
+    let currentX = 0;
+
+    let isDragging = false;
+
+    viewport.addEventListener(
+    "touchstart",
+    (e)=>{
+
+      isDragging = true;
+
+      startX =
+      e.touches[0].clientX;
+    });
+
+    viewport.addEventListener(
+    "touchmove",
+    (e)=>{
+
+      if(!isDragging) return;
+
+      let delta =
+      e.touches[0].clientX
+      - startX;
+
+      currentX += delta * 0.7;
+
+      image.style.transform =
+      `translate(calc(-50% + ${currentX}px), -50%)`;
+
+      startX =
+      e.touches[0].clientX;
+    });
+
+    viewport.addEventListener(
+    "touchend",
+    ()=>{
+
+      isDragging = false;
+    });
 
   </script>
 
