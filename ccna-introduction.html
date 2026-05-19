@@ -1,470 +1,542 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
-
 <head>
-  <meta charset="UTF-8" />
-
-  <meta name="viewport"
-  content="width=device-width,
-  initial-scale=1.0,
-  viewport-fit=cover" />
-
-  <title>תחנת חשיבה</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap"
-  rel="stylesheet">
-
-  <style>
-
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-    }
-
-    html,
-    body{
-
-      width:100%;
-      height:100%;
-
-      overflow:hidden;
-
-      background:#000;
-
-      font-family:Arial,sans-serif;
-
-      color:white;
-
-      overscroll-behavior:none;
-
-      touch-action:none;
-    }
-
-    body{
-      position:relative;
-    }
-
-    /* חלון צפייה */
-
-    .viewport{
-
-      position:fixed;
-
-      inset:0;
-
-      overflow:hidden;
-
-      z-index:1;
-
-      cursor:grab;
-
-      touch-action:none;
-    }
-
-    .viewport:active{
-      cursor:grabbing;
-    }
-
-    /* התמונה */
-
-    .thinking-bg{
-
-      position:absolute;
-
-      top:50%;
-      left:50%;
-
-      transform:
-      translate(-50%,-50%);
-
-      height:78vh;
-
-      width:auto;
-
-      user-select:none;
-
-      -webkit-user-drag:none;
-
-      pointer-events:none;
-
-      opacity:0;
-
-      animation:
-      bgFade 2s ease forwards;
-
-      will-change:transform;
-
-      backface-visibility:hidden;
-
-      -webkit-backface-visibility:hidden;
-    }
-
-    /* שכבת עומק */
-
-    .overlay{
-
-      position:fixed;
-
-      inset:0;
-
-      background:
-      radial-gradient(circle at center,
-      rgba(0,0,0,0.02),
-      rgba(0,0,0,0.82));
-
-      z-index:2;
-
-      pointer-events:none;
-    }
-
-    /* גשם */
-
-    .rain{
-
-      position:fixed;
-
-      inset:0;
-
-      overflow:hidden;
-
-      pointer-events:none;
-
-      z-index:3;
-    }
-
-    .drop{
-
-      position:absolute;
-
-      top:-120px;
-
-      width:1px;
-      height:120px;
-
-      background:
-      linear-gradient(
-      to bottom,
-      rgba(255,255,255,0),
-      rgba(130,170,255,0.12),
-      rgba(255,255,255,0));
-
-      animation:rain linear infinite;
-    }
-
-    /* דו */
-
-    .do-symbol{
-
-      position:fixed;
-
-      top:16px;
-      left:18px;
-
-      font-family:'Yuji Mai',serif;
-
-      font-size:34px;
-
-      color:
-      rgba(255,255,255,0.72);
-
-      text-decoration:none;
-
-      z-index:10;
-
-      transition:0.4s ease;
-    }
-
-    .do-symbol:hover{
-
-      color:white;
-
-      transform:scale(1.08);
-    }
-
-    /* משפט */
-
-    .quote{
-
-      position:fixed;
-
-      left:50%;
-
-      bottom:
-      max(16px,
-      env(safe-area-inset-bottom));
-
-      transform:
-      translateX(-50%);
-
-      width:min(92vw,760px);
-
-      padding:12px 18px;
-
-      border-radius:22px;
-
-      background:
-      rgba(0,0,0,0.34);
-
-      backdrop-filter:blur(10px);
-
-      -webkit-backdrop-filter:blur(10px);
-
-      text-align:center;
-
-      z-index:10;
-
-      animation:
-      fadeText 4s ease forwards;
-    }
-
-    .quote-main{
-
-      font-size:15px;
-
-      line-height:1.6;
-
-      letter-spacing:1px;
-
-      color:
-      rgba(255,255,255,0.88);
-    }
-
-    .quote small{
-
-      display:block;
-
-      margin-top:8px;
-
-      font-size:12px;
-
-      color:
-      rgba(255,255,255,0.44);
-    }
-
-    /* אנימציות */
-
-    @keyframes bgFade{
-
-      from{
-        opacity:0;
-      }
-
-      to{
-        opacity:1;
-      }
-    }
-
-    @keyframes fadeText{
-
-      from{
-        opacity:0;
-
-        transform:
-        translateX(-50%)
-        translateY(12px);
-      }
-
-      to{
-        opacity:1;
-
-        transform:
-        translateX(-50%)
-        translateY(0);
-      }
-    }
-
-    @keyframes rain{
-
-      from{
-        transform:
-        translateY(-120px);
-      }
-
-      to{
-        transform:
-        translateY(120svh);
-      }
-    }
-
-    /* מובייל */
-
-    @media(max-width:768px){
-
-      .thinking-bg{
-
-        height:74vh;
-      }
-
-      .quote{
-
-        width:92vw;
-
-        padding:10px 14px;
-      }
-
-      .quote-main{
-
-        font-size:14px;
-      }
-
-      .quote small{
-
-        font-size:11px;
-      }
-
-      .do-symbol{
-
-        font-size:30px;
-      }
-    }
-
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>דרך הרשת 🌐</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap" rel="stylesheet">
+
+<style>
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f7f7f7;
+  color: #111;
+  min-height: 100vh;
+  text-align: center;
+  line-height: 1.9;
+  overflow-x: hidden;
+  transition: 0.5s ease;
+}
+
+body.learning-mode {
+  background: #111;
+  color: #f2f2f2;
+}
+
+body.soft-entering {
+  animation: softPageFade 1.4s ease forwards;
+}
+
+/* גשם */
+
+.rain {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.drop {
+  position: absolute;
+  top: -120px;
+  width: 1px;
+  height: 120px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0),
+    rgba(70,90,120,0.12),
+    rgba(255,255,255,0)
+  );
+  animation: rain linear infinite;
+}
+
+body.learning-mode .drop {
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0),
+    rgba(130,170,255,0.16),
+    rgba(255,255,255,0)
+  );
+}
+
+@keyframes rain {
+  from { transform: translateY(-120px); }
+  to { transform: translateY(120vh); }
+}
+
+#homeBtn {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  text-decoration: none;
+  font-family: 'Yuji Mai', serif;
+  font-size: 23px;
+  color: rgba(50,50,50,0.42);
+  z-index: 20;
+  opacity: 0;
+  animation: fadeInHome 3s ease forwards;
+}
+
+body.learning-mode #homeBtn {
+  color: rgba(220,220,220,0.40);
+}
+
+@keyframes fadeInHome {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 0.72; transform: translateY(0); }
+}
+
+#focusBtn {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  border: 1px solid rgba(0,0,0,0.16);
+  background: rgba(0,0,0,0.04);
+  color: rgba(20,20,20,0.75);
+  padding: 7px 12px;
+  border-radius: 18px;
+  font-size: 13px;
+  cursor: pointer;
+  z-index: 20;
+}
+
+body.learning-mode #focusBtn {
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.04);
+  color: rgba(240,240,240,0.75);
+}
+
+.container {
+  position: relative;
+  z-index: 5;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 80px 24px 70px;
+}
+
+h1 {
+  font-size: 42px;
+  margin-bottom: 55px;
+  font-weight: 300;
+}
+
+h2 {
+  font-size: 25px;
+  margin: 50px 0 18px;
+  font-weight: 500;
+}
+
+p {
+  font-size: 20px;
+  margin: 14px 0;
+}
+
+.section {
+  position: relative;
+  margin-bottom: 48px;
+  padding-top: 34px;
+  border-top: 1px solid rgba(0,0,0,0.14);
+}
+
+.section:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+body.learning-mode .section {
+  border-top: 1px solid rgba(255,255,255,0.14);
+}
+
+.term {
+  font-weight: bold;
+}
+
+/* תחנת מחשבה / עטוף בפרוטוקולים */
+
+.protocol-station {
+  position: relative;
+  margin: 14px 0;
+  min-height: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.protocol-symbol-link {
+  position: absolute;
+  right: -155px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 180px;
+  height: auto;
+  display: block;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.protocol-symbol {
+  width: 180px;
+  height: auto;
+  opacity: 0.88;
+  pointer-events: none;
+  transition: 0.7s ease;
+  animation: quietBreath 5.5s ease-in-out infinite;
+}
+
+.protocol-symbol-link:hover .protocol-symbol {
+  transform: scale(1.045);
+  opacity: 1;
+  filter: drop-shadow(0 0 16px rgba(0,0,0,0.22));
+}
+
+body.learning-mode .protocol-symbol {
+  filter: invert(1) grayscale(100%);
+  opacity: 0.78;
+}
+
+body.learning-mode .protocol-symbol-link:hover .protocol-symbol {
+  filter: invert(1) grayscale(100%) drop-shadow(0 0 18px rgba(255,255,255,0.28));
+  opacity: 0.96;
+}
+
+body.soft-entering .protocol-symbol {
+  animation: symbolSoftExit 1.4s ease forwards;
+}
+
+.do-mark {
+  font-family: 'Yuji Mai', serif;
+  font-size: 26px;
+  color: rgba(80,80,80,0.40);
+  opacity: 0;
+  animation: fadeInDo 4s ease forwards;
+  animation-delay: 1.5s;
+  display: block;
+  margin-top: 8px;
+}
+
+body.learning-mode .do-mark {
+  color: rgba(220,220,220,0.38);
+}
+
+@keyframes fadeInDo {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 0.72; transform: translateY(0); }
+}
+
+.final-line {
+  margin-top: 65px;
+  font-size: 23px;
+  font-weight: bold;
+}
+
+.next-btn {
+  display: inline-block;
+  margin-top: 34px;
+  padding: 9px 28px;
+  border-radius: 22px;
+  border: 1px solid rgba(0,0,0,0.22);
+  color: #111;
+  text-decoration: none;
+  font-size: 18px;
+  background: rgba(0,0,0,0.035);
+  transition: 0.3s ease;
+}
+
+.next-btn:hover {
+  background: rgba(0,0,0,0.08);
+}
+
+body.learning-mode .next-btn {
+  border: 1px solid rgba(255,255,255,0.25);
+  color: #f2f2f2;
+  background: rgba(255,255,255,0.04);
+}
+
+body.learning-mode .next-btn:hover {
+  background: rgba(255,255,255,0.09);
+}
+
+/* כניסה שקטה לתחנת חשיבה */
+
+.soft-fade {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 999;
+}
+
+body.soft-entering .soft-fade {
+  animation: softFade 1.4s ease forwards;
+}
+
+@keyframes quietBreath {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.025); }
+  100% { transform: scale(1); }
+}
+
+@keyframes symbolSoftExit {
+  0% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: scale(1.08);
+    opacity: 0.18;
+  }
+}
+
+@keyframes softFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes softPageFade {
+  from { filter: none; }
+  to { filter: brightness(0.35); }
+}
+
+/* מובייל בלבד */
+
+@media (max-width: 600px) {
+  h1 { font-size: 34px; }
+  h2 { font-size: 22px; }
+  p { font-size: 18px; }
+  #homeBtn { font-size: 22px; }
+  .do-mark { font-size: 24px; }
+  #focusBtn { font-size: 12px; padding: 6px 10px; }
+  .next-btn { font-size: 17px; padding: 8px 24px; }
+
+  .protocol-station {
+    display: block;
+    min-height: auto;
+    margin: 14px 0;
+  }
+
+  .protocol-symbol-link {
+    position: static;
+    transform: none;
+    display: block;
+    width: 180px;
+    margin: 22px auto 0;
+  }
+
+  .protocol-symbol {
+    width: 180px;
+    opacity: 0.78;
+  }
+}
+
+</style>
 </head>
 
 <body>
 
-  <!-- חלון צפייה -->
+<div class="rain" id="rain"></div>
 
-  <div class="viewport"
-  id="viewport">
+<a href="index.html" id="homeBtn">道</a>
+<button id="focusBtn">תודעת לימוד</button>
 
-    <img
-    src="thinking-station.png?v=12"
-    class="thinking-bg"
-    id="thinkingImage">
+<audio id="brownNoise" loop>
+  <source src="brown-noise.mp3" type="audio/mpeg">
+</audio>
 
-  </div>
+<div class="soft-fade"></div>
 
-  <!-- שכבת עומק -->
+<div class="container">
 
-  <div class="overlay"></div>
+<h1>דרך הרשת 🌐</h1>
 
-  <!-- גשם -->
+<div class="section">
+<p>הרשת לא מתחילה במקום רחוק.</p>
+<p>היא מתחילה כאן —<br>במרחב שלך.</p>
+<p>בטלפון, במחשב, בטלוויזיה החכמה,<br>ובראוטר שמחבר ביניהם.</p>
+<p>כל המכשירים האלה<br>כבר מדברים אחד עם השני כל הזמן.</p>
+<p>זה לא רק “אינטרנט”.</p>
+<p>לפני האינטרנט הגדול —<br>יש רשת קטנה, קרובה, מקומית.</p>
+<p class="term">LAN = Local Area Network</p>
+<p>כלומר:<br>רשת שפועלת באזור מקומי<br>כמו בית, משרד או בית ספר.</p>
+<p>וכשמבינים שהרשת מתחילה כאן —<br>במרחב שלך —<br>מתחילים לראות אותה.</p>
+</div>
 
-  <div class="rain"
-  id="rain"></div>
+<div class="section">
+<p>אנחנו משתמשים באינטרנט כל הזמן.<br>שולחים הודעות, גולשים, צופים, עובדים.</p>
+<p>אבל רגע אחד לעצור ולשאול:<br>מה זה אומר בכלל אינטרנט?</p>
+</div>
 
-  <!-- דו -->
+<div class="section">
+<h2>בואו נבין את המילה</h2>
+<p>המילה אינטרנט מורכבת משני חלקים:</p>
+<p><span class="term">Inter = בין</span><br><span class="term">Net / Network = רשת</span></p>
+<p><span class="term">אינטרנט = חיבור בין רשתות</span><br>כמה רשתות שמחוברות יחד<br>לרשת אחת גדולה.</p>
+</div>
 
-  <a href="index.html"
-  class="do-symbol">道</a>
+<div class="section">
+<h2>למה בכלל צריך אינטרנט?</h2>
+<p>פעם, רוב המחשבים עבדו לבד<br>בלי קשר למחשבים אחרים.</p>
+<p>אבל אנשים רצו להעביר מידע,<br>לשתף ולעבוד יחד.</p>
+<p>האתגר היה למצוא דרך<br>להעביר מידע בצורה נוחה ואמינה.</p>
+<p>ובמקרים מסוימים זה היה חשוב במיוחד —<br>למשל אצל צבאות וארגונים גדולים.</p>
+</div>
 
-  <!-- משפט -->
+<div class="section">
+<p>עלה רעיון פשוט —<br>להעביר מידע ממחשב אחד למחשב אחר.</p>
+<p>אבל לפני שמידע זז ברשת,<br>צריך להבין ממה הוא בנוי.</p>
+</div>
 
-  <div class="quote">
+<div class="section">
+<h2>ממה מידע בנוי?</h2>
+<p>בעולם הדיגיטלי<br>מידע מיוצג באמצעות 0 ו־1.</p>
+<p>גם 0 הוא מידע.<br>הוא לא “כלום”.</p>
+<p>0 ו־1 הם מצבים שונים<br>שבעזרתם מחשבים מייצגים מידע.</p>
+<p>במחשבים ובמערכות אלקטרוניות<br>המצבים האלה מיוצגים בדרך כלל באמצעות חשמל:</p>
+<p class="term">יש זרם / אין זרם</p>
+<p>כל 0 או 1 כזה<br>נקרא ביט (Bit).</p>
+<p>ביט הוא יחידת המידע הקטנה ביותר בעולם הדיגיטלי.</p>
+<p><span class="term">Bit = Binary Digit</span><br>כלומר: ספרה בינארית.</p>
+<p>אנחנו רגילים לספירה עשרונית (Decimal)<br>שמבוססת על עשר ספרות:<br>0 עד 9.</p>
+<p>מחשבים עובדים בצורה אחרת.</p>
+<p>הם משתמשים בספירה בינארית (Binary)<br>שמבוססת על שני מצבים בלבד:<br>0 ו־1.</p>
+<p class="term">8 ביטים מרכיבים בייט אחד.</p>
+<p>בייטים הם יחידות המידע<br>שמחשבים משתמשים בהן כדי לשמור, לשלוח ולקבל מידע.</p>
+<p>כל מידע דיגיטלי —<br>תמונה, סרטון, מוזיקה, טקסט או משחק —</p>
+<p>בסופו של דבר<br>מיוצג באמצעות ביטים<br>של 0 ו־1.</p>
+</div>
 
-    <div class="quote-main">
+<div class="section">
+<h2>איך המידע עובר?</h2>
+<p>אם היו מנסים להעביר<br>את כל המידע בבת אחת,</p>
+<p>כל תקלה קטנה בדרך<br>הייתה יכולה להרוס את הכל.</p>
+<p>בנוסף, רשת האינטרנט עמוסה מאוד<br>והמון מידע עובר בה כל הזמן.</p>
+<p>לכן נולד רעיון חכם:</p>
+<p class="term">במקום לשלוח הכל יחד —<br>המידע מתפרק לחלקים קטנים</p>
+<p class="term">כל חלק נעטף בפרוטוקולים שכבה אחר שכבה,<br>והמידע מתפרק ונבנה בו זמנית<br>בתהליך אחדות ניגודים —<br>כדי שיוכל לנוע בין מערכות.</p>
+<p>והחלקים האלה יכולים לעבור<br>בדרכים שונות בתוך רשת האינטרנט.</p>
+<p>לפעמים חלק אחד מגיע קודם,<br>וחלק אחר מגיע מאוחר יותר.</p>
+<p>אבל בסוף —<br>כל החלקים מתחברים<br>והמידע מתגבש מחדש ביעד.</p>
+<p>כל זה קורה במהירות עצומה —<br>קרוב למהירות האור.</p>
+<p>אם חלק אחד נאבד —<br>לא הכל נהרס.</p>
+<p>כך אפשר לשלוח מחדש<br>רק את החלק שחסר.</p>
+<p>וגם אם חלק מסוים ברשת נופל<br>או שדרך מסוימת מפסיקה לעבוד,</p>
+<p>עדיין אפשר להעביר מידע<br>בדרכים אחרות.</p>
+<p>זאת אחת הסיבות<br>שהאינטרנט בנוי כרשת גדולה ומבוזרת —<br>ללא מרכז אחד שמנהל את הכל.</p>
+</div>
 
-      המידע מתעטף בשכבות פרוטוקולים
+<div class="section">
+<h2>איך מחשבים מבינים אחד את השני?</h2>
+<p class="term">פרוטוקול = הסכמה איך לדבר</p>
+<p>מחשבים צריכים שפה משותפת<br>וחוקים ברורים לתקשורת.</p>
+<p>כאשר מידע עובר ברשת<br>הוא לא נע “חשוף”.</p>
+<p>כדי שמערכות שונות יוכלו להבין,<br>לכוון ולהעביר אותו —</p>
+<p class="term">המידע נעטף בפרוטוקולים.</p>
+<p>כל שכבה מוסיפה מידע קטן נוסף<br>שעוזר למידע לנוע בדרך הנכונה.</p>
+<p>שכבה אחת יכולה לעזור להבין<br>מאיפה המידע הגיע ולאן הוא צריך להגיע.</p>
+<p>שכבה אחרת יכולה לעזור להבין<br>איך לחלק את המידע ואיך להרכיב אותו מחדש.</p>
+<p>ושכבה נוספת יכולה לעזור להעביר אותו<br>בתוך הרשת המקומית.</p>
+<p>אפשר לחשוב על זה כך:<br>המידע עצמו הוא התוכן —<br>והפרוטוקולים הם העטיפות שעוזרות לו לעבור בין מערכות.</p>
 
-    </div>
+<div class="protocol-station">
+  <p class="term">עטוף בפרוטוקולים — כדי שהמידע יוכל לנוע.</p>
 
-    <small>
+  <a href="thinking-station.html" class="protocol-symbol-link" id="stationBtn" aria-label="כניסה לתחנת חשיבה">
+    <img src="yin-yang-learning.png" class="protocol-symbol" alt="">
+  </a>
+</div>
 
-      כשמבינים רואים
+</div>
 
-    </small>
+<div class="section">
+<h2>ומה לגבי הדרך עצמה?</h2>
+<p class="term">Route = דרך / נתיב</p>
+<p><span class="term">Router = המכשיר שמכוון את הדרך</span><br>של המידע בין רשתות.</p>
+<p><span class="term">הנתב מכוון הדרך</span></p>
+<span class="do-mark">道</span>
+<p>הנתב (Router)<br>מחבר בין הרשת המקומית בבית<br>לבין רשת האינטרנט הגדולה.</p>
+<p>הוא עוזר למידע<br>לצאת מהרשת המקומית<br>ולהגיע לרשתות אחרות בעולם.</p>
+<p>בנוסף, הנתב גם עוזר<br>לנהל את הרשת המקומית בבית.</p>
+<p>לפעמים גם בתוך בית, משרד או ארגון<br>יכולות להיות כמה רשתות שונות.</p>
+<p>גם שם — הנתב עוזר להעביר מידע<br>בין הרשתות השונות.</p>
+<p>הוא מאפשר למכשירים שונים<br>לתקשר אחד עם השני<br>ולהתחבר לאינטרנט.</p>
+<p>אפשר לחשוב על הנתב<br>גם כעל שער יציאה — GateWay</p>
+<p>כאשר מידע צריך לצאת<br>מהרשת המקומית בבית<br>אל רשתות אחרות באינטרנט,</p>
+<p>הוא עובר דרך הנתב.</p>
+</div>
 
-  </div>
+<div class="section">
+<h2>אז מה זה אינטרנט?</h2>
+<p>האינטרנט הוא רשת של רשתות<br>שמחוברות יחד.</p>
+<p>הרשתות האלה מדברות אחת עם השנייה<br>בעזרת חוקים משותפים.</p>
+<p>והמידע שעובר ביניהן<br>מתפצל, נארז, נשלח, מנותב<br>ונבנה מחדש בצד השני.</p>
+</div>
 
-  <!-- רעש חום -->
+<p class="final-line">כשמבינים גבולות — רואים את המערכת 🌱</p>
 
-  <audio id="brownNoise"
-  loop autoplay>
+<a href="videos/video.html" class="next-btn">המשך</a>
 
-    <source
-    src="brown-noise.mp3"
-    type="audio/mpeg">
+</div>
 
-  </audio>
+<script>
 
-  <script>
+const rain = document.getElementById("rain");
 
-    /* גשם */
+for(let i=0;i<90;i++){
+  const drop = document.createElement("div");
+  drop.classList.add("drop");
+  drop.style.left = Math.random()*100+"vw";
+  drop.style.animationDuration = (4 + Math.random()*7)+"s";
+  drop.style.opacity = 0.10 + Math.random()*0.20;
+  rain.appendChild(drop);
+}
 
-    const rain =
-    document.getElementById("rain");
+const focusBtn = document.getElementById("focusBtn");
+const brownNoise = document.getElementById("brownNoise");
 
-    for(let i=0;i<120;i++){
+function turnLearningOn() {
+  document.body.classList.add("learning-mode");
+  localStorage.setItem("learningMode", "on");
+  brownNoise.volume = 0.18;
+  brownNoise.play().catch(() => {});
+}
 
-      const drop =
-      document.createElement("div");
+function turnLearningOff() {
+  document.body.classList.remove("learning-mode");
+  localStorage.setItem("learningMode", "off");
+  brownNoise.pause();
+}
 
-      drop.classList.add("drop");
+if (localStorage.getItem("learningMode") === "on") {
+  document.body.classList.add("learning-mode");
+}
 
-      drop.style.left =
-      Math.random()*100+"vw";
+focusBtn.addEventListener("click", () => {
+  if (document.body.classList.contains("learning-mode")) {
+    turnLearningOff();
+  } else {
+    turnLearningOn();
+  }
+});
 
-      drop.style.animationDuration =
-      (3 + Math.random()*5)+"s";
+const stationBtn = document.getElementById("stationBtn");
 
-      drop.style.opacity =
-      0.15 + Math.random()*0.22;
+stationBtn.addEventListener("click", function(event) {
+  event.preventDefault();
 
-      rain.appendChild(drop);
-    }
+  document.body.classList.add("soft-entering");
 
-    /* רעש חום */
+  setTimeout(() => {
+    window.location.href = "thinking-station.html";
+  }, 1400);
+});
 
-    const audio =
-    document.getElementById("brownNoise");
-
-    audio.volume = 0.45;
-
-    audio.play().catch(()=>{});
-
-    /* גרירת התמונה */
-
-    const viewport =
-    document.getElementById("viewport");
-
-    const image =
-    document.getElementById("thinkingImage");
-
-    let startX = 0;
-
-    let currentX = 0;
-
-    let isDragging = false;
-
-    viewport.addEventListener(
-    "touchstart",
-    (e)=>{
-
-      isDragging = true;
-
-      startX =
-      e.touches[0].clientX;
-    });
-
-    viewport.addEventListener(
-    "touchmove",
-    (e)=>{
-
-      if(!isDragging) return;
-
-      let delta =
-      e.touches[0].clientX
-      - startX;
-
-      currentX += delta * 0.7;
-
-      image.style.transform =
-      `translate(calc(-50% + ${currentX}px), -50%)`;
-
-      startX =
-      e.touches[0].clientX;
-    });
-
-    viewport.addEventListener(
-    "touchend",
-    ()=>{
-
-      isDragging = false;
-    });
-
-  </script>
+</script>
 
 </body>
 </html>
