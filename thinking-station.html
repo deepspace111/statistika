@@ -38,7 +38,7 @@
 
       overscroll-behavior:none;
 
-      touch-action:none;
+      touch-action:pan-x;
     }
 
     body{
@@ -59,7 +59,7 @@
 
       cursor:grab;
 
-      touch-action:none;
+      touch-action:pan-x;
     }
 
     .viewport:active{
@@ -330,7 +330,7 @@
   id="viewport">
 
     <img
-    src="thinking-station.png?v=12"
+    src="thinking-station.png?v=13"
     class="thinking-bg"
     id="thinkingImage">
 
@@ -414,7 +414,7 @@
 
     audio.play().catch(()=>{});
 
-    /* גרירת התמונה */
+    /* תנועה זורמת */
 
     const viewport =
     document.getElementById("viewport");
@@ -426,13 +426,44 @@
 
     let currentX = 0;
 
+    let velocity = 0;
+
     let isDragging = false;
+
+    let animationFrame;
+
+    function updateImage(){
+
+      image.style.transform =
+      `translate(calc(-50% + ${currentX}px), -50%)`;
+    }
+
+    function momentum(){
+
+      currentX += velocity;
+
+      velocity *= 0.95;
+
+      if(Math.abs(velocity) < 0.1){
+
+        cancelAnimationFrame(animationFrame);
+
+        return;
+      }
+
+      updateImage();
+
+      animationFrame =
+      requestAnimationFrame(momentum);
+    }
 
     viewport.addEventListener(
     "touchstart",
     (e)=>{
 
       isDragging = true;
+
+      cancelAnimationFrame(animationFrame);
 
       startX =
       e.touches[0].clientX;
@@ -444,17 +475,19 @@
 
       if(!isDragging) return;
 
-      let delta =
-      e.touches[0].clientX
-      - startX;
-
-      currentX += delta * 0.7;
-
-      image.style.transform =
-      `translate(calc(-50% + ${currentX}px), -50%)`;
-
-      startX =
+      let x =
       e.touches[0].clientX;
+
+      let delta =
+      x - startX;
+
+      currentX += delta;
+
+      velocity = delta;
+
+      updateImage();
+
+      startX = x;
     });
 
     viewport.addEventListener(
@@ -462,6 +495,9 @@
     ()=>{
 
       isDragging = false;
+
+      animationFrame =
+      requestAnimationFrame(momentum);
     });
 
   </script>
