@@ -3,12 +3,16 @@
 
 <head>
   <meta charset="UTF-8" />
+
   <meta name="viewport"
-  content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  content="width=device-width,
+  initial-scale=1.0,
+  viewport-fit=cover" />
 
   <title>תחנת חשיבה</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap"
+  rel="stylesheet">
 
   <style>
 
@@ -26,9 +30,9 @@
 
       overflow:hidden;
 
-      font-family:Arial,sans-serif;
-
       background:#000;
+
+      font-family:Arial,sans-serif;
 
       color:white;
 
@@ -40,7 +44,7 @@
       position:relative;
     }
 
-    /* התמונה כרקע קבוע */
+    /* רקע */
 
     .thinking-bg{
 
@@ -49,19 +53,26 @@
       inset:0;
 
       background-image:
-      url("thinking-station.png?v=6");
+      url("thinking-station.png?v=8");
 
       background-repeat:no-repeat;
 
       background-position:center center;
 
-      background-size:contain;
+      background-size:
+      calc(100vw - 12px) auto;
 
       background-color:#000;
 
+      transform:translateZ(0);
+
+      -webkit-transform:translateZ(0);
+
+      will-change:transform;
+
       z-index:1;
 
-      animation:bgFade 2.5s ease forwards;
+      animation:bgFade 2.2s ease forwards;
     }
 
     /* שכבת עומק */
@@ -74,8 +85,8 @@
 
       background:
       radial-gradient(circle at center,
-      rgba(0,0,0,0.04),
-      rgba(0,0,0,0.72));
+      rgba(0,0,0,0.03),
+      rgba(0,0,0,0.78));
 
       z-index:2;
 
@@ -106,10 +117,11 @@
       width:1px;
       height:120px;
 
-      background:linear-gradient(
+      background:
+      linear-gradient(
       to bottom,
       rgba(255,255,255,0),
-      rgba(130,170,255,0.14),
+      rgba(130,170,255,0.13),
       rgba(255,255,255,0));
 
       animation:rain linear infinite;
@@ -121,14 +133,15 @@
 
       position:fixed;
 
-      top:20px;
-      left:24px;
+      top:18px;
+      left:22px;
 
       font-family:'Yuji Mai',serif;
 
-      font-size:42px;
+      font-size:38px;
 
-      color:rgba(255,255,255,0.72);
+      color:
+      rgba(255,255,255,0.72);
 
       text-decoration:none;
 
@@ -144,76 +157,48 @@
       transform:scale(1.08);
     }
 
-    /* תודעת חשיבה */
-
-    .mind-btn{
-
-      position:fixed;
-
-      top:50%;
-      right:12px;
-
-      transform:translateY(-50%);
-
-      writing-mode:vertical-rl;
-
-      text-orientation:mixed;
-
-      padding:18px 9px;
-
-      border:1px solid rgba(255,255,255,0.14);
-
-      border-radius:999px;
-
-      background:rgba(0,0,0,0.22);
-
-      backdrop-filter:blur(10px);
-
-      color:#e8e8e8;
-
-      font-size:12px;
-
-      letter-spacing:2px;
-
-      cursor:pointer;
-
-      z-index:10;
-
-      transition:0.4s ease;
-    }
-
-    .mind-btn:hover{
-
-      background:
-      rgba(255,255,255,0.05);
-
-      border-color:
-      rgba(255,255,255,0.22);
-    }
-
     /* משפט */
 
     .quote{
 
       position:fixed;
 
-      bottom:34px;
-
       left:50%;
+
+      bottom:max(26px, env(safe-area-inset-bottom));
 
       transform:translateX(-50%);
 
+      width:min(88vw, 760px);
+
+      padding:14px 22px;
+
+      border-radius:22px;
+
+      background:
+      rgba(0,0,0,0.34);
+
+      backdrop-filter:blur(10px);
+
+      -webkit-backdrop-filter:blur(10px);
+
       text-align:center;
-
-      font-size:20px;
-
-      letter-spacing:1px;
-
-      color:rgba(255,255,255,0.82);
 
       z-index:10;
 
       animation:fadeText 4s ease forwards;
+    }
+
+    .quote-main{
+
+      font-size:18px;
+
+      letter-spacing:1px;
+
+      line-height:1.7;
+
+      color:
+      rgba(255,255,255,0.88);
     }
 
     .quote small{
@@ -222,19 +207,17 @@
 
       margin-top:10px;
 
-      font-size:14px;
+      font-size:13px;
 
-      color:rgba(255,255,255,0.42);
+      color:
+      rgba(255,255,255,0.46);
     }
 
-    /* מצב תודעת חשיבה */
+    /* מצב עמוק תמיד */
 
-    body.deep-mode .overlay{
+    body{
 
-      background:
-      radial-gradient(circle at center,
-      rgba(0,0,0,0.18),
-      rgba(0,0,0,0.82));
+      background:#000;
     }
 
     /* אנימציות */
@@ -270,11 +253,13 @@
     @keyframes rain{
 
       from{
-        transform:translateY(-120px);
+        transform:
+        translateY(-120px);
       }
 
       to{
-        transform:translateY(120svh);
+        transform:
+        translateY(120svh);
       }
     }
 
@@ -284,32 +269,42 @@
 
       .thinking-bg{
 
-        background-size:contain;
+        background-size:
+        calc(100vw - 4px) auto;
+
+        background-position:
+        center center;
       }
 
       .quote{
 
-        width:88%;
+        width:92vw;
 
-        font-size:16px;
+        padding:12px 16px;
 
-        bottom:20px;
+        bottom:
+        max(16px,
+        env(safe-area-inset-bottom));
+      }
+
+      .quote-main{
+
+        font-size:15px;
+
+        line-height:1.6;
+      }
+
+      .quote small{
+
+        font-size:12px;
       }
 
       .do-symbol{
 
-        font-size:34px;
-      }
+        font-size:32px;
 
-      .mind-btn{
-
-        right:7px;
-
-        font-size:11px;
-
-        padding:15px 8px;
-
-        letter-spacing:1px;
+        top:14px;
+        left:18px;
       }
     }
 
@@ -328,27 +323,23 @@
 
   <!-- גשם -->
 
-  <div class="rain" id="rain"></div>
+  <div class="rain"
+  id="rain"></div>
 
   <!-- דו -->
 
   <a href="index.html"
   class="do-symbol">道</a>
 
-  <!-- תודעת חשיבה -->
-
-  <button class="mind-btn"
-  id="mindBtn">
-
-    תודעת חשיבה
-
-  </button>
-
   <!-- משפט -->
 
   <div class="quote">
 
-    המידע מתעטף בשכבות פרוטוקולים
+    <div class="quote-main">
+
+      המידע מתעטף בשכבות פרוטוקולים
+
+    </div>
 
     <small>
 
@@ -360,9 +351,11 @@
 
   <!-- רעש חום -->
 
-  <audio id="brownNoise" loop>
+  <audio id="brownNoise"
+  loop autoplay>
 
-    <source src="brown-noise.mp3"
+    <source
+    src="brown-noise.mp3"
     type="audio/mpeg">
 
   </audio>
@@ -393,34 +386,14 @@
       rain.appendChild(drop);
     }
 
-    /* תודעת חשיבה */
-
-    const btn =
-    document.getElementById("mindBtn");
+    /* רעש חום */
 
     const audio =
     document.getElementById("brownNoise");
 
-    let active = false;
+    audio.volume = 0.45;
 
-    btn.addEventListener("click",()=>{
-
-      active = !active;
-
-      document.body.classList.toggle("deep-mode");
-
-      if(active){
-
-        audio.volume = 0.45;
-
-        audio.play().catch(()=>{});
-
-      }else{
-
-        audio.pause();
-      }
-
-    });
+    audio.play().catch(()=>{});
 
   </script>
 
