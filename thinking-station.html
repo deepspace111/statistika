@@ -3,7 +3,8 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
   <title>תחנת חשיבה</title>
 
@@ -19,79 +20,64 @@
 
     html,
     body{
-      overflow:hidden;
-      background:#000;
-      font-family:Arial,sans-serif;
-      height:100%;
+
       width:100%;
+      height:100%;
+
+      overflow:hidden;
+
+      font-family:Arial,sans-serif;
+
+      background:#000;
+
       color:white;
 
       overscroll-behavior:none;
-      touch-action:manipulation;
+      touch-action:none;
     }
 
-    /* רקע */
+    body{
+      position:relative;
+    }
 
-    .background{
+    /* התמונה כרקע קבוע */
+
+    .thinking-bg{
+
       position:fixed;
+
       inset:0;
 
-      background:
-      radial-gradient(circle at center,
-      #020305 0%,
-      #000 60%,
-      #000 100%);
+      background-image:
+      url("thinking-station.png?v=6");
+
+      background-repeat:no-repeat;
+
+      background-position:center center;
+
+      background-size:contain;
+
+      background-color:#000;
 
       z-index:1;
-    }
 
-    /* מעטפת התמונה */
-
-    .image-holder{
-      position:fixed;
-
-      top:50%;
-      left:50%;
-
-      transform:translate(-50%,-50%);
-
-      width:82vw;
-      max-width:1350px;
-
-      opacity:0;
-
-      animation:fadeIn 2.5s ease forwards;
-
-      z-index:2;
-    }
-
-    /* התמונה */
-
-    .thinking-image{
-      display:block;
-
-      width:100%;
-      height:auto;
-
-      animation:breathing 12s ease-in-out infinite;
-
-      filter:
-      drop-shadow(0 0 40px rgba(130,170,255,0.08))
-      brightness(1.02);
+      animation:bgFade 2.5s ease forwards;
     }
 
     /* שכבת עומק */
 
     .overlay{
+
       position:fixed;
+
       inset:0;
 
       background:
       radial-gradient(circle at center,
-      rgba(0,0,0,0.02),
-      rgba(0,0,0,0.58));
+      rgba(0,0,0,0.04),
+      rgba(0,0,0,0.72));
 
-      z-index:3;
+      z-index:2;
 
       pointer-events:none;
     }
@@ -99,16 +85,20 @@
     /* גשם */
 
     .rain{
+
       position:fixed;
+
       inset:0;
 
-      z-index:4;
+      overflow:hidden;
 
       pointer-events:none;
-      overflow:hidden;
+
+      z-index:3;
     }
 
     .drop{
+
       position:absolute;
 
       top:-120px;
@@ -119,7 +109,7 @@
       background:linear-gradient(
       to bottom,
       rgba(255,255,255,0),
-      rgba(130,170,255,0.16),
+      rgba(130,170,255,0.14),
       rgba(255,255,255,0));
 
       animation:rain linear infinite;
@@ -128,12 +118,14 @@
     /* דו */
 
     .do-symbol{
+
       position:fixed;
 
       top:20px;
       left:24px;
 
       font-family:'Yuji Mai',serif;
+
       font-size:42px;
 
       color:rgba(255,255,255,0.72);
@@ -146,26 +138,31 @@
     }
 
     .do-symbol:hover{
+
       color:white;
+
       transform:scale(1.08);
     }
 
     /* תודעת חשיבה */
 
     .mind-btn{
+
       position:fixed;
 
       top:50%;
-      right:14px;
+      right:12px;
 
       transform:translateY(-50%);
 
       writing-mode:vertical-rl;
+
       text-orientation:mixed;
 
-      padding:18px 10px;
+      padding:18px 9px;
 
       border:1px solid rgba(255,255,255,0.14);
+
       border-radius:999px;
 
       background:rgba(0,0,0,0.22);
@@ -174,7 +171,8 @@
 
       color:#e8e8e8;
 
-      font-size:13px;
+      font-size:12px;
+
       letter-spacing:2px;
 
       cursor:pointer;
@@ -185,7 +183,9 @@
     }
 
     .mind-btn:hover{
-      background:rgba(255,255,255,0.06);
+
+      background:
+      rgba(255,255,255,0.05);
 
       border-color:
       rgba(255,255,255,0.22);
@@ -194,53 +194,52 @@
     /* משפט */
 
     .quote{
+
       position:fixed;
 
-      bottom:38px;
+      bottom:34px;
+
       left:50%;
 
       transform:translateX(-50%);
 
+      text-align:center;
+
       font-size:20px;
+
       letter-spacing:1px;
 
       color:rgba(255,255,255,0.82);
 
       z-index:10;
 
-      text-align:center;
-
       animation:fadeText 4s ease forwards;
     }
 
     .quote small{
+
       display:block;
 
       margin-top:10px;
 
       font-size:14px;
 
-      color:rgba(255,255,255,0.45);
+      color:rgba(255,255,255,0.42);
     }
 
     /* מצב תודעת חשיבה */
 
     body.deep-mode .overlay{
+
       background:
       radial-gradient(circle at center,
       rgba(0,0,0,0.18),
-      rgba(0,0,0,0.72));
-    }
-
-    body.deep-mode .thinking-image{
-      filter:
-      drop-shadow(0 0 55px rgba(130,170,255,0.14))
-      brightness(1.06);
+      rgba(0,0,0,0.82));
     }
 
     /* אנימציות */
 
-    @keyframes fadeIn{
+    @keyframes bgFade{
 
       from{
         opacity:0;
@@ -255,12 +254,16 @@
 
       from{
         opacity:0;
-        transform:translateX(-50%) translateY(12px);
+        transform:
+        translateX(-50%)
+        translateY(12px);
       }
 
       to{
         opacity:1;
-        transform:translateX(-50%) translateY(0);
+        transform:
+        translateX(-50%)
+        translateY(0);
       }
     }
 
@@ -275,37 +278,13 @@
       }
     }
 
-    @keyframes breathing{
-
-      0%{
-        transform:scale(1);
-      }
-
-      50%{
-        transform:scale(1.015);
-      }
-
-      100%{
-        transform:scale(1);
-      }
-    }
-
     /* מובייל */
 
     @media(max-width:768px){
 
-      .image-holder{
+      .thinking-bg{
 
-        width:auto;
-        height:100svh;
-
-        max-width:none;
-      }
-
-      .thinking-image{
-
-        width:auto;
-        height:100%;
+        background-size:contain;
       }
 
       .quote{
@@ -318,16 +297,17 @@
       }
 
       .do-symbol{
+
         font-size:34px;
       }
 
       .mind-btn{
 
-        right:8px;
+        right:7px;
 
         font-size:11px;
 
-        padding:16px 8px;
+        padding:15px 8px;
 
         letter-spacing:1px;
       }
@@ -338,19 +318,11 @@
 
 <body>
 
-  <div class="background"></div>
+  <!-- רקע -->
 
-  <!-- התמונה -->
+  <div class="thinking-bg"></div>
 
-  <div class="image-holder">
-
-    <img class="thinking-image"
-    src="thinking-station.png?v=5"
-    alt="המידע מתעטף בשכבות פרוטוקולים">
-
-  </div>
-
-  <!-- עומק -->
+  <!-- שכבת עומק -->
 
   <div class="overlay"></div>
 
@@ -360,12 +332,16 @@
 
   <!-- דו -->
 
-  <a href="index.html" class="do-symbol">道</a>
+  <a href="index.html"
+  class="do-symbol">道</a>
 
   <!-- תודעת חשיבה -->
 
-  <button class="mind-btn" id="mindBtn">
+  <button class="mind-btn"
+  id="mindBtn">
+
     תודעת חשיבה
+
   </button>
 
   <!-- משפט -->
@@ -375,7 +351,9 @@
     המידע מתעטף בשכבות פרוטוקולים
 
     <small>
+
       כשמבינים רואים
+
     </small>
 
   </div>
@@ -383,18 +361,23 @@
   <!-- רעש חום -->
 
   <audio id="brownNoise" loop>
-    <source src="brown-noise.mp3" type="audio/mpeg">
+
+    <source src="brown-noise.mp3"
+    type="audio/mpeg">
+
   </audio>
 
   <script>
 
     /* גשם */
 
-    const rain = document.getElementById("rain");
+    const rain =
+    document.getElementById("rain");
 
     for(let i=0;i<120;i++){
 
-      const drop = document.createElement("div");
+      const drop =
+      document.createElement("div");
 
       drop.classList.add("drop");
 
