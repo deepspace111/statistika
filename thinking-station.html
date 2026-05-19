@@ -42,12 +42,16 @@
       top:50%;
       left:50%;
       transform:translate(-50%,-50%);
-     width:82vw;
+
+      width:82vw;
       max-width:1350px;
       height:auto;
 
       opacity:0;
-      animation:fadeIn 2.5s ease forwards;
+
+      animation:
+      fadeIn 2.5s ease forwards,
+      breathing 12s ease-in-out infinite;
 
       filter:
       drop-shadow(0 0 40px rgba(130,170,255,0.10))
@@ -56,11 +60,12 @@
       z-index:2;
     }
 
-    /* שכבת חושך עדינה */
+    /* שכבת חושך */
 
     .overlay{
       position:fixed;
       inset:0;
+
       background:
       radial-gradient(circle at center,
       rgba(0,0,0,0.05),
@@ -83,6 +88,7 @@
     .drop{
       position:absolute;
       top:-120px;
+
       width:1px;
       height:120px;
 
@@ -231,18 +237,41 @@
       }
     }
 
+    @keyframes breathing{
+      0%{
+        transform:translate(-50%,-50%) scale(1);
+      }
+
+      50%{
+        transform:translate(-50%,-50%) scale(1.015);
+      }
+
+      100%{
+        transform:translate(-50%,-50%) scale(1);
+      }
+    }
+
     /* מובייל */
 
     @media(max-width:768px){
 
+      body{
+        overflow:hidden;
+      }
+
       .thinking-image{
-        width:125vw;
+
+        height:100vh;
+        width:auto;
+
+        max-width:none;
+        max-height:none;
       }
 
       .quote{
         width:90%;
-        font-size:18px;
-        bottom:26px;
+        font-size:17px;
+        bottom:22px;
       }
 
       .mind-btn{
@@ -262,7 +291,7 @@
 
   <div class="background"></div>
 
-  <!-- התמונה שלך -->
+  <!-- התמונה -->
   <img class="thinking-image"
   src="thinking-station.png"
   alt="המידע מתעטף בשכבות פרוטוקולים">
