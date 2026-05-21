@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>דרך הרשת</title>
+<title>השכבה הפיזית</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap" rel="stylesheet">
 
 <style>
 
@@ -15,9 +17,82 @@ body{
   margin:0;
   font-family:Arial, sans-serif;
   background:#0d0d0d;
-  color:#f2f2f2;
+  color:rgba(185,185,185,0.72);
   text-align:center;
   line-height:2.1;
+  overflow-x:hidden;
+}
+
+/* גשם */
+
+.rain{
+  position:fixed;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  overflow:hidden;
+}
+
+.drop{
+  position:absolute;
+  top:-120px;
+  width:1px;
+  height:120px;
+  background:linear-gradient(
+    to bottom,
+    rgba(255,255,255,0),
+    rgba(160,170,190,0.13),
+    rgba(255,255,255,0)
+  );
+  animation:rain linear infinite;
+}
+
+@keyframes rain{
+  from{ transform:translateY(-120px); }
+  to{ transform:translateY(120vh); }
+}
+
+/* כפתורים עליונים */
+
+#homeBtn{
+  position:fixed;
+  top:14px;
+  left:14px;
+  text-decoration:none;
+  font-family:'Yuji Mai', serif;
+  font-size:28px;
+  color:rgba(210,210,210,0.42);
+  z-index:20;
+  opacity:0.72;
+}
+
+#focusBtn{
+  position:fixed;
+  top:14px;
+  right:14px;
+  border:1px solid rgba(255,255,255,0.16);
+  background:rgba(255,255,255,0.035);
+  color:rgba(220,220,220,0.66);
+  padding:7px 12px;
+  border-radius:18px;
+  font-size:13px;
+  cursor:pointer;
+  z-index:20;
+  transition:0.4s ease;
+}
+
+#focusBtn.scrolling{
+  opacity:0.18;
+}
+
+/* מצב תודעת לימוד */
+
+body.learning-mode{
+  background:#050505;
+}
+
+body.learning-mode p{
+  color:rgba(205,205,205,0.74);
 }
 
 /* פתיח */
@@ -37,23 +112,22 @@ body{
   width:100%;
   height:100%;
   object-fit:cover;
-  filter:brightness(0.38);
+  filter:brightness(0.34);
 }
 
 .overlay{
   position:absolute;
   inset:0;
-  background:
-  linear-gradient(
-  to bottom,
-  rgba(0,0,0,0.2),
-  rgba(0,0,0,0.82)
+  background:linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.18),
+    rgba(0,0,0,0.86)
   );
 }
 
 .hero-content{
   position:relative;
-  z-index:2;
+  z-index:5;
   max-width:760px;
   padding:80px 24px;
 }
@@ -64,37 +138,53 @@ h1{
   font-size:58px;
   margin:0 0 40px;
   font-weight:normal;
+  color:rgba(215,215,215,0.78);
 }
 
 h3{
   font-size:32px;
   margin:100px 0 40px;
   font-weight:normal;
+  color:rgba(210,210,210,0.72);
 }
 
 p{
   font-size:24px;
-  color:#e0e0e0;
+  color:rgba(185,185,185,0.72);
   margin:0 0 34px;
 }
 
 .highlight{
   font-size:30px;
-  color:white;
+  color:rgba(205,205,205,0.76);
   margin:80px 0;
 }
 
 /* תוכן */
 
 .content{
+  position:relative;
+  z-index:5;
   max-width:900px;
   margin:auto;
   padding:80px 24px 140px;
 }
 
+.image-block{
+  margin:80px auto 90px;
+  max-width:900px;
+}
+
+.image-block img{
+  width:100%;
+  border-radius:18px;
+  opacity:0.86;
+  filter:brightness(0.82) contrast(1.04);
+}
+
 .thinking-symbol{
   text-decoration:none;
-  color:white;
+  color:rgba(210,210,210,0.72);
   display:inline-block;
   margin-top:34px;
   font-size:46px;
@@ -109,7 +199,7 @@ p{
 .footer-line{
   font-size:30px;
   margin-top:140px;
-  color:white;
+  color:rgba(205,205,205,0.76);
 }
 
 /* מובייל */
@@ -139,12 +229,30 @@ p{
   .footer-line{
     font-size:26px;
   }
+
+  #homeBtn{
+    font-size:26px;
+  }
+
+  #focusBtn{
+    font-size:12px;
+    padding:6px 10px;
+  }
 }
 
 </style>
 </head>
 
 <body>
+
+<div class="rain" id="rain"></div>
+
+<a href="index.html" id="homeBtn">道</a>
+<button id="focusBtn">תודעת לימוד</button>
+
+<audio id="brownNoise" loop>
+  <source src="brown-noise.mp3" type="audio/mpeg">
+</audio>
 
 <!-- פתיח -->
 
@@ -156,7 +264,7 @@ p{
 
   <div class="hero-content">
 
-    <h1>דרך הרשת 🌐</h1>
+    <h1>דרך הרשת</h1>
 
     <p>
       איך מחשבה הופכת לתנועת מידע?
@@ -194,6 +302,15 @@ p{
   <h3>רשת</h3>
 
   <p>
+    יש הרבה רשתות בעולם.
+  </p>
+
+  <p>
+    יש רשתות שתופסות.<br>
+    ויש רשתות שמחברות בין נקודות.
+  </p>
+
+  <p>
     המידע נע בין אינספור חיבורים,<br>
     ומחפש את דרכו.
   </p>
@@ -203,17 +320,18 @@ p{
   </div>
 
   <div class="highlight">
-
     כדי להבין רשת<br>
-    נעצור רגע<br>
-    ונראה מה יש שם בפנים.
+    נעצור.
 
     <br><br>
 
     <a href="thinking-station.html" class="thinking-symbol">
       ☯
     </a>
+  </div>
 
+  <div class="image-block">
+    <img src="cable.jpg" alt="Physical Network Cable">
   </div>
 
   <h3>הכבל</h3>
@@ -307,6 +425,51 @@ p{
   </div>
 
 </div>
+
+<script>
+
+const rain = document.getElementById("rain");
+
+for(let i = 0; i < 70; i++){
+  const drop = document.createElement("div");
+  drop.classList.add("drop");
+  drop.style.left = Math.random() * 100 + "vw";
+  drop.style.animationDuration = (7 + Math.random() * 9) + "s";
+  drop.style.opacity = 0.08 + Math.random() * 0.12;
+  rain.appendChild(drop);
+}
+
+const focusBtn = document.getElementById("focusBtn");
+const brownNoise = document.getElementById("brownNoise");
+
+focusBtn.addEventListener("click", function(){
+  document.body.classList.toggle("learning-mode");
+
+  if(brownNoise.paused){
+    brownNoise.volume = 0.16;
+    brownNoise.play().catch(() => {});
+  } else {
+    brownNoise.pause();
+  }
+});
+
+/* במובייל — הכפתור נהיה שקוף בזמן גלילה */
+
+let scrollTimer;
+
+window.addEventListener("scroll", function(){
+  if(window.innerWidth <= 768){
+    focusBtn.classList.add("scrolling");
+
+    clearTimeout(scrollTimer);
+
+    scrollTimer = setTimeout(function(){
+      focusBtn.classList.remove("scrolling");
+    }, 650);
+  }
+});
+
+</script>
 
 </body>
 </html>
