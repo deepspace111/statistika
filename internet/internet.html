@@ -16,8 +16,8 @@ body{
   font-family:Arial, sans-serif;
   background:#0d0d0d;
   color:#f2f2f2;
-  line-height:1.9;
   text-align:center;
+  line-height:2.1;
 }
 
 /* פתיח */
@@ -46,7 +46,7 @@ body{
   background:
   linear-gradient(
   to bottom,
-  rgba(0,0,0,0.25),
+  rgba(0,0,0,0.2),
   rgba(0,0,0,0.82)
   );
 }
@@ -58,42 +58,46 @@ body{
   padding:80px 24px;
 }
 
+/* טיפוגרפיה */
+
 h1{
-  font-size:64px;
-  margin:0 0 35px;
+  font-size:58px;
+  margin:0 0 40px;
+  font-weight:normal;
 }
 
 h3{
-  font-size:38px;
-  margin:90px 0 35px;
+  font-size:32px;
+  margin:100px 0 40px;
+  font-weight:normal;
 }
 
 p{
-  font-size:25px;
+  font-size:24px;
   color:#e0e0e0;
-  margin:0 0 30px;
+  margin:0 0 34px;
 }
+
+.highlight{
+  font-size:30px;
+  color:white;
+  margin:80px 0;
+}
+
+/* תוכן */
 
 .content{
   max-width:900px;
   margin:auto;
-  padding:80px 24px 120px;
-}
-
-.highlight{
-  font-size:34px;
-  font-weight:bold;
-  color:white;
-  margin:70px 0;
-  line-height:1.7;
+  padding:80px 24px 140px;
 }
 
 .thinking-symbol{
   text-decoration:none;
   color:white;
   display:inline-block;
-  margin-top:30px;
-  font-size:48px;
+  margin-top:34px;
+  font-size:46px;
   transition:0.4s;
 }
 
@@ -103,27 +107,33 @@ p{
 }
 
 .footer-line{
-  font-size:34px;
-  margin-top:130px;
+  font-size:30px;
+  margin-top:140px;
   color:white;
 }
 
+/* מובייל */
+
 @media (max-width:768px){
 
+  body{
+    line-height:2;
+  }
+
   h1{
-    font-size:44px;
+    font-size:42px;
   }
 
   h3{
-    font-size:31px;
+    font-size:28px;
   }
 
   p{
-    font-size:22px;
+    font-size:21px;
   }
 
   .highlight{
-    font-size:28px;
+    font-size:27px;
   }
 
   .footer-line{
