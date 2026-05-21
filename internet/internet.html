@@ -8,10 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap" rel="stylesheet">
 
 <style>
-
-*{
-  box-sizing:border-box;
-}
+*{ box-sizing:border-box; }
 
 body{
   margin:0;
@@ -28,31 +25,31 @@ body{
 .rain{
   position:fixed;
   inset:0;
-  z-index:1;
+  z-index:2;
   pointer-events:none;
   overflow:hidden;
 }
 
 .drop{
   position:absolute;
-  top:-120px;
+  top:-140px;
   width:1px;
-  height:120px;
+  height:150px;
   background:linear-gradient(
     to bottom,
     rgba(255,255,255,0),
-    rgba(160,170,190,0.13),
+    rgba(170,190,220,0.34),
     rgba(255,255,255,0)
   );
   animation:rain linear infinite;
 }
 
 @keyframes rain{
-  from{ transform:translateY(-120px); }
+  from{ transform:translateY(-150px); }
   to{ transform:translateY(120vh); }
 }
 
-/* כפתורים עליונים */
+/* כפתורים */
 
 #homeBtn{
   position:fixed;
@@ -63,7 +60,6 @@ body{
   font-size:28px;
   color:rgba(210,210,210,0.42);
   z-index:20;
-  opacity:0.72;
 }
 
 #focusBtn{
@@ -83,16 +79,6 @@ body{
 
 #focusBtn.scrolling{
   opacity:0.18;
-}
-
-/* מצב תודעת לימוד */
-
-body.learning-mode{
-  background:#050505;
-}
-
-body.learning-mode p{
-  color:rgba(205,205,205,0.74);
 }
 
 /* פתיח */
@@ -170,16 +156,26 @@ p{
   padding:80px 24px 140px;
 }
 
-.image-block{
-  margin:80px auto 90px;
-  max-width:900px;
+.cable-reveal{
+  margin:90px auto 100px;
+  max-width:1000px;
+  opacity:0;
+  transform:translateY(40px);
+  filter:blur(6px);
+  transition:1.8s ease;
 }
 
-.image-block img{
+.cable-reveal.visible{
+  opacity:1;
+  transform:translateY(0);
+  filter:blur(0);
+}
+
+.cable-reveal img{
   width:100%;
   border-radius:18px;
-  opacity:0.86;
-  filter:brightness(0.82) contrast(1.04);
+  display:block;
+  filter:brightness(0.96) contrast(1.08);
 }
 
 .thinking-symbol{
@@ -206,40 +202,22 @@ p{
 
 @media (max-width:768px){
 
-  body{
-    line-height:2;
-  }
+  body{ line-height:2; }
 
-  h1{
-    font-size:42px;
-  }
+  h1{ font-size:42px; }
+  h3{ font-size:28px; }
+  p{ font-size:21px; }
 
-  h3{
-    font-size:28px;
-  }
+  .highlight{ font-size:27px; }
+  .footer-line{ font-size:26px; }
 
-  p{
-    font-size:21px;
-  }
-
-  .highlight{
-    font-size:27px;
-  }
-
-  .footer-line{
-    font-size:26px;
-  }
-
-  #homeBtn{
-    font-size:26px;
-  }
+  #homeBtn{ font-size:26px; }
 
   #focusBtn{
     font-size:12px;
     padding:6px 10px;
   }
 }
-
 </style>
 </head>
 
@@ -254,8 +232,6 @@ p{
   <source src="brown-noise.mp3" type="audio/mpeg">
 </audio>
 
-<!-- פתיח -->
-
 <section class="hero">
 
   <img src="spider-network.png" alt="Spider Network">
@@ -266,9 +242,7 @@ p{
 
     <h1>דרך הרשת</h1>
 
-    <p>
-      איך מחשבה הופכת לתנועת מידע?
-    </p>
+    <p>איך מחשבה הופכת לתנועת מידע?</p>
 
     <p>
       מסר נשלח<br>
@@ -295,15 +269,11 @@ p{
 
 </section>
 
-<!-- תוכן -->
-
 <div class="content">
 
   <h3>רשת</h3>
 
-  <p>
-    יש הרבה רשתות בעולם.
-  </p>
+  <p>יש הרבה רשתות בעולם.</p>
 
   <p>
     יש רשתות שתופסות.<br>
@@ -325,13 +295,11 @@ p{
 
     <br><br>
 
-    <a href="thinking-station.html" class="thinking-symbol">
-      ☯
-    </a>
+    <a href="thinking-station.html" class="thinking-symbol">☯</a>
   </div>
 
-  <div class="image-block">
-    <img src="cable.jpg" alt="Physical Network Cable">
+  <div class="cable-reveal" id="cableReveal">
+    <img src="cable.jpg" alt="כבל רשת בשכבה הפיזית">
   </div>
 
   <h3>הכבל</h3>
@@ -366,9 +334,7 @@ p{
 
   <h3>RJ45</h3>
 
-  <p>
-    בקצה הכבל נמצא מחבר בשם RJ45.
-  </p>
+  <p>בקצה הכבל נמצא מחבר בשם RJ45.</p>
 
   <p>
     Registered — תקן מוסכם<br>
@@ -401,13 +367,9 @@ p{
     בתוך רשת מקומית.
   </div>
 
-  <p>
-    הכבל מעביר אותות.
-  </p>
+  <p>הכבל מעביר אותות.</p>
 
-  <p>
-    Ethernet נותנת לאותות משמעות.
-  </p>
+  <p>Ethernet נותנת לאותות משמעות.</p>
 
   <p>
     והפרוטוקולים הם החוקים<br>
@@ -430,12 +392,12 @@ p{
 
 const rain = document.getElementById("rain");
 
-for(let i = 0; i < 70; i++){
+for(let i = 0; i < 115; i++){
   const drop = document.createElement("div");
   drop.classList.add("drop");
   drop.style.left = Math.random() * 100 + "vw";
-  drop.style.animationDuration = (7 + Math.random() * 9) + "s";
-  drop.style.opacity = 0.08 + Math.random() * 0.12;
+  drop.style.animationDuration = (5 + Math.random() * 8) + "s";
+  drop.style.opacity = 0.18 + Math.random() * 0.22;
   rain.appendChild(drop);
 }
 
@@ -453,8 +415,6 @@ focusBtn.addEventListener("click", function(){
   }
 });
 
-/* במובייל — הכפתור נהיה שקוף בזמן גלילה */
-
 let scrollTimer;
 
 window.addEventListener("scroll", function(){
@@ -468,6 +428,18 @@ window.addEventListener("scroll", function(){
     }, 650);
   }
 });
+
+const cableReveal = document.getElementById("cableReveal");
+
+const observer = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if(entry.isIntersecting){
+      cableReveal.classList.add("visible");
+    }
+  });
+},{ threshold:0.25 });
+
+observer.observe(cableReveal);
 
 </script>
 
