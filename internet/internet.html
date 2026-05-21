@@ -8,19 +8,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap" rel="stylesheet">
 
 <style>
-*{ box-sizing:border-box; }
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
   font-family:Arial, sans-serif;
-  background:#0d0d0d;
+  background:#000;
   color:rgba(185,185,185,0.72);
   text-align:center;
   line-height:2.1;
   overflow-x:hidden;
 }
 
-/* גשם */
+/* גשם עדין */
 
 .rain{
   position:fixed;
@@ -38,7 +40,7 @@ body{
   background:linear-gradient(
     to bottom,
     rgba(255,255,255,0),
-    rgba(170,190,220,0.34),
+    rgba(140,160,190,0.16),
     rgba(255,255,255,0)
   );
   animation:rain linear infinite;
@@ -106,8 +108,8 @@ body{
   inset:0;
   background:linear-gradient(
     to bottom,
-    rgba(0,0,0,0.18),
-    rgba(0,0,0,0.86)
+    rgba(0,0,0,0.35),
+    rgba(0,0,0,0.96)
   );
 }
 
@@ -156,9 +158,11 @@ p{
   padding:80px 24px 140px;
 }
 
+/* תמונת הכבל */
+
 .cable-reveal{
+  width:min(96vw, 1400px);
   margin:90px auto 100px;
-  max-width:1000px;
   opacity:0;
   transform:translateY(40px);
   filter:blur(6px);
@@ -173,9 +177,10 @@ p{
 
 .cable-reveal img{
   width:100%;
-  border-radius:18px;
+  max-width:100%;
   display:block;
-  filter:brightness(0.96) contrast(1.08);
+  border-radius:18px;
+  filter:brightness(0.98) contrast(1.08);
 }
 
 .thinking-symbol{
@@ -202,20 +207,46 @@ p{
 
 @media (max-width:768px){
 
-  body{ line-height:2; }
+  body{
+    line-height:2;
+  }
 
-  h1{ font-size:42px; }
-  h3{ font-size:28px; }
-  p{ font-size:21px; }
+  h1{
+    font-size:42px;
+  }
 
-  .highlight{ font-size:27px; }
-  .footer-line{ font-size:26px; }
+  h3{
+    font-size:28px;
+  }
 
-  #homeBtn{ font-size:26px; }
+  p{
+    font-size:21px;
+  }
+
+  .highlight{
+    font-size:27px;
+  }
+
+  .footer-line{
+    font-size:26px;
+  }
+
+  #homeBtn{
+    font-size:26px;
+  }
 
   #focusBtn{
     font-size:12px;
     padding:6px 10px;
+  }
+
+  .cable-reveal{
+    width:94vw;
+    margin:70px auto 80px;
+  }
+
+  .cable-reveal img{
+    border-radius:14px;
   }
 }
 </style>
@@ -392,12 +423,12 @@ p{
 
 const rain = document.getElementById("rain");
 
-for(let i = 0; i < 115; i++){
+for(let i = 0; i < 75; i++){
   const drop = document.createElement("div");
   drop.classList.add("drop");
   drop.style.left = Math.random() * 100 + "vw";
-  drop.style.animationDuration = (5 + Math.random() * 8) + "s";
-  drop.style.opacity = 0.18 + Math.random() * 0.22;
+  drop.style.animationDuration = (7 + Math.random() * 9) + "s";
+  drop.style.opacity = 0.06 + Math.random() * 0.10;
   rain.appendChild(drop);
 }
 
