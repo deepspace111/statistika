@@ -22,30 +22,36 @@
       line-height: 1.9;
     }
 
-    .rain {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 4;
-      overflow: hidden;
-    }
+ .rain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  overflow: hidden;
+  opacity: 0.28;
+}
 
-    .drop {
-      position: absolute;
-      width: 1px;
-      height: 120px;
-      background: linear-gradient(
-        to bottom,
-        rgba(255,255,255,0),
-        rgba(255,255,255,0.55)
-      );
-      animation: rain linear infinite;
-    }
+.drop {
+  position: absolute;
+  width: 1px;
+  height: 55px;
+  background: linear-gradient(
+    to bottom,
+    rgba(120, 255, 190, 0),
+    rgba(120, 255, 190, 0.22)
+  );
+  animation: rain linear infinite;
+}
 
-    @keyframes rain {
-      from { transform: translateY(-140px); }
-      to { transform: translateY(120vh); }
-    }
+@keyframes rain {
+  from {
+    transform: translateY(-160vh);
+  }
+
+  to {
+    transform: translateY(120vh);
+  }
+}
 
     .study-btn {
       position: fixed;
@@ -240,20 +246,21 @@
   </section>
 
   <script>
-    const rain = document.getElementById("rain");
+   const rain = document.getElementById("rain");
 
-    for (let i = 0; i < 230; i++) {
-      const drop = document.createElement("div");
-      drop.classList.add("drop");
+for (let i = 0; i < 120; i++) {
+  const drop = document.createElement("div");
+  drop.classList.add("drop");
 
-      drop.style.left = Math.random() * 100 + "vw";
-      drop.style.animationDuration = (0.55 + Math.random() * 0.8) + "s";
-      drop.style.opacity = 0.25 + Math.random() * 0.55;
-      drop.style.height = 60 + Math.random() * 140 + "px";
-      drop.style.animationDelay = Math.random() * 2 + "s";
+  drop.style.left = Math.random() * 100 + "vw";
+  drop.style.top = Math.random() * -120 + "vh";
+  drop.style.animationDuration = (1.8 + Math.random() * 2.8) + "s";
+  drop.style.opacity = 0.08 + Math.random() * 0.22;
+  drop.style.height = 30 + Math.random() * 70 + "px";
+  drop.style.animationDelay = Math.random() * -5 + "s";
 
-      rain.appendChild(drop);
-    }
+  rain.appendChild(drop);
+}
   </script>
 
 </body>
