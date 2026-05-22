@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>CCNA - נושאים</title>
-
 <style>
 
 body {
@@ -15,67 +14,148 @@ body {
   color: #f2f2f2;
   min-height: 100vh;
   text-align: center;
-  transition: 0.4s;
+  transition: 0.8s;
+  overflow-x: hidden;
+}
+
+/* גשם */
+
+#rain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: 1.5s;
+}
+
+body.focus-mode #rain {
+  opacity: 0.22;
+}
+
+.drop {
+  position: absolute;
+  width: 1px;
+  height: 90px;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(120,170,255,0),
+    rgba(120,170,255,0.7)
+  );
+
+  animation: rain linear infinite;
+}
+
+@keyframes rain {
+
+  from {
+    transform: translateY(-120px);
+  }
+
+  to {
+    transform: translateY(120vh);
+  }
 }
 
 /* כפתור דו */
 
 #homeBtn {
   position: fixed;
-  top: 16px;
-  left: 16px;
+  top: 18px;
+  left: 18px;
 
-  width: 42px;
-  height: 42px;
+  width: 48px;
+  height: 48px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   border-radius: 50%;
-  background: #222;
-  color: #fff;
+
+  background: rgba(255,255,255,0.04);
+
+  color: #f2f2f2;
 
   text-decoration: none;
-  font-size: 23px;
-  font-weight: bold;
 
-  box-shadow: 0 0 10px rgba(255,255,255,0.15);
-  z-index: 10;
+  font-size: 30px;
 
-  transition: 0.3s;
+  box-shadow:
+  0 0 12px rgba(255,255,255,0.08);
+
+  backdrop-filter: blur(4px);
+
+  z-index: 20;
+
+  transition: 0.5s;
 }
 
 #homeBtn:hover {
+
   transform: scale(1.08);
+
+  box-shadow:
+  0 0 18px rgba(120,170,255,0.35);
 }
 
 /* כפתור תודעת לימוד */
 
 #focusBtn {
   position: fixed;
-  top: 16px;
-  right: 16px;
+  top: 18px;
+  right: 18px;
 
-  padding: 8px 12px;
-  border-radius: 18px;
+  padding: 9px 14px;
+
+  border-radius: 20px;
+
   border: 1px solid #555;
 
-  background: #222;
+  background: rgba(255,255,255,0.04);
+
   color: #f2f2f2;
 
   font-size: 13px;
-  cursor: pointer;
-  z-index: 10;
 
-  transition: 0.3s;
+  cursor: pointer;
+
+  z-index: 20;
+
+  transition: 0.5s;
 }
 
 #focusBtn:hover {
   transform: scale(1.05);
 }
 
+/* החלפת צבעים אמיתית */
+
+body.focus-mode #focusBtn {
+
+  background: #dfe8ff;
+
+  color: #111;
+
+  border-color: #dfe8ff;
+
+  box-shadow:
+  0 0 15px rgba(120,170,255,0.35);
+}
+
+/* מצב תודעת לימוד */
+
+body.focus-mode {
+  background: #05070b;
+}
+
+/* תוכן */
+
 .container {
+  position: relative;
+  z-index: 2;
+
   max-width: 760px;
   margin: 0 auto;
   padding: 90px 22px 40px;
@@ -87,7 +167,7 @@ h1 {
 }
 
 .subtitle {
-  color: #aaa;
+  color: #9aa4b5;
   margin-bottom: 35px;
   font-size: 17px;
 }
@@ -99,46 +179,46 @@ h1 {
 
 .topic {
   display: block;
+
   padding: 18px;
+
   border-radius: 18px;
 
-  background: #1c1c1c;
+  background: rgba(255,255,255,0.04);
+
   color: #f2f2f2;
 
   text-decoration: none;
+
   font-size: 19px;
 
-  border: 1px solid #333;
+  border: 1px solid rgba(255,255,255,0.08);
 
-  transition: 0.3s;
+  backdrop-filter: blur(3px);
+
+  transition: 0.4s;
 }
 
 .topic small {
   display: block;
-  margin-top: 6px;
-  color: #aaa;
+  margin-top: 8px;
+  color: #aeb7c7;
   font-size: 14px;
+  line-height: 1.8;
 }
 
 .topic:hover {
-  background: #292929;
-}
 
-/* מצב תודעת לימוד */
+  background: rgba(120,170,255,0.08);
 
-body.focus-mode {
-  background: #050505;
+  border-color: rgba(120,170,255,0.25);
 }
 
 body.focus-mode .topic {
-  background: #151515;
-  border-color: #555;
-}
 
-body.focus-mode #focusBtn,
-body.focus-mode #homeBtn {
-  background: #dcdcdc;
-  color: #111;
+  background: rgba(10,15,25,0.72);
+
+  border-color: rgba(120,170,255,0.12);
 }
 
 /* מובייל */
@@ -146,14 +226,14 @@ body.focus-mode #homeBtn {
 @media (max-width: 600px) {
 
   #homeBtn {
-    width: 36px;
-    height: 36px;
-    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
   }
 
   #focusBtn {
     font-size: 12px;
-    padding: 7px 10px;
+    padding: 7px 11px;
   }
 
   h1 {
