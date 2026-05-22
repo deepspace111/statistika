@@ -8,9 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap" rel="stylesheet">
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{ box-sizing:border-box; }
 
 body{
   margin:0;
@@ -22,8 +20,6 @@ body{
   overflow-x:hidden;
 }
 
-/* גשם — מתחיל רק מתחת לעכביש */
-
 .rain{
   position:fixed;
   inset:0;
@@ -31,22 +27,20 @@ body{
   pointer-events:none;
   overflow:hidden;
   opacity:0;
-  transition:opacity 2.2s ease;
+  transition:opacity 1.4s ease;
 }
 
-body.storm-active .rain{
-  opacity:0.34;
-}
+body.storm-active .rain{ opacity:0.48; }
 
 .drop{
   position:absolute;
   top:-120vh;
   width:1px;
-  height:72px;
+  height:78px;
   background:linear-gradient(
     to bottom,
     rgba(120,255,190,0),
-    rgba(120,255,190,0.29),
+    rgba(120,255,190,0.40),
     rgba(120,255,190,0)
   );
   animation:rain linear infinite;
@@ -57,8 +51,6 @@ body.storm-active .rain{
   to{ transform:translateY(150vh); }
 }
 
-/* ענן רעם אפרפר־כחלחל */
-
 .thunder-cloud{
   position:fixed;
   top:18vh;
@@ -67,8 +59,8 @@ body.storm-active .rain{
   height:28vh;
   background:radial-gradient(
     circle,
-    rgba(170,200,225,0.11),
-    rgba(120,150,180,0.045),
+    rgba(170,200,225,0.12),
+    rgba(120,150,180,0.05),
     rgba(0,0,0,0)
   );
   z-index:3;
@@ -78,11 +70,7 @@ body.storm-active .rain{
   transition:opacity 0.8s ease;
 }
 
-.thunder-cloud.flash{
-  opacity:1;
-}
-
-/* כפתורים */
+.thunder-cloud.flash{ opacity:1; }
 
 #homeBtn{
   position:fixed;
@@ -111,22 +99,16 @@ body.storm-active .rain{
 }
 
 #focusBtn.active{
-  background:rgba(120,255,190,0.10);
-  color:rgba(220,255,235,0.88);
-  border-color:rgba(120,255,190,0.28);
+  background:rgba(120,255,190,0.12);
+  color:rgba(220,255,235,0.9);
+  border-color:rgba(120,255,190,0.34);
 }
 
-#focusBtn.scrolling{
-  opacity:0.18;
-}
-
-/* מצב תודעת לימוד */
+#focusBtn.scrolling{ opacity:0.18; }
 
 body.learning-mode .hero img{
   filter:brightness(0.28) contrast(1.08) saturate(0.9);
 }
-
-/* פתיח */
 
 .hero{
   position:relative;
@@ -164,8 +146,6 @@ body.learning-mode .hero img{
   padding:80px 24px;
 }
 
-/* טיפוגרפיה */
-
 h1{
   font-size:36px;
   margin:0 0 38px;
@@ -175,7 +155,7 @@ h1{
 
 h3{
   font-size:28px;
-  margin:75px 0 34px;
+  margin:42px 0 22px;
   font-weight:normal;
   color:rgba(225,225,225,0.88);
 }
@@ -183,7 +163,7 @@ h3{
 p{
   font-size:20px;
   color:rgba(205,205,205,0.82);
-  margin:0 0 30px;
+  margin:0 0 24px;
 }
 
 .hero-content p{
@@ -191,39 +171,31 @@ p{
 }
 
 .highlight{
-  font-size:25px;
+  font-size:24px;
   color:rgba(215,215,215,0.84);
-  margin:62px 0;
+  margin:34px 0;
 }
-
-.hero-content .highlight{
-  color:rgba(205,205,205,0.78);
-}
-
-/* תוכן */
 
 .content{
   position:relative;
   z-index:5;
   max-width:900px;
   margin:auto;
-  padding:26px 24px 130px;
+  padding:8px 24px 120px;
 }
 
 .content h3:first-child{
-  margin-top:18px;
+  margin-top:8px;
 }
-
-/* תמונת הכבל — ממורכזת */
 
 .cable-reveal{
   width:min(92vw, 980px);
   aspect-ratio:16 / 9;
-  margin:78px auto 92px;
+  margin:46px auto 54px;
   opacity:0;
-  transform:translateY(40px);
+  transform:translateY(35px);
   filter:blur(6px);
-  transition:1.8s ease;
+  transition:1.6s ease;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -248,43 +220,31 @@ p{
 
 .footer-line{
   font-size:16px;
-  margin-top:120px;
+  margin-top:90px;
   color:rgba(210,210,210,0.68);
 }
 
-/* מובייל */
-
 @media (max-width:768px){
 
-  body{
-    line-height:1.9;
-  }
+  body{ line-height:1.9; }
 
-  h1{
-    font-size:30px;
-  }
+  h1{ font-size:30px; }
 
   h3{
     font-size:24px;
-    margin:64px 0 30px;
+    margin:34px 0 18px;
   }
 
-  p{
-    font-size:18px;
-  }
+  p{ font-size:18px; }
 
   .highlight{
-    font-size:22px;
-    margin:54px 0;
+    font-size:21px;
+    margin:28px 0;
   }
 
-  .footer-line{
-    font-size:15px;
-  }
+  .footer-line{ font-size:15px; }
 
-  #homeBtn{
-    font-size:24px;
-  }
+  #homeBtn{ font-size:24px; }
 
   #focusBtn{
     top:70px;
@@ -298,19 +258,14 @@ p{
   }
 
   .content{
-    padding:22px 20px 110px;
+    padding:8px 20px 100px;
   }
 
   .cable-reveal{
     width:92vw;
     aspect-ratio:4 / 5;
-    margin:65px auto 78px;
+    margin:42px auto 50px;
     border-radius:14px;
-  }
-
-  .cable-reveal img{
-    object-fit:cover;
-    object-position:center center;
   }
 
   .thunder-cloud{
@@ -331,15 +286,15 @@ p{
 <a href="../intro.html" id="homeBtn">道</a>
 <button id="focusBtn">תודעת לימוד</button>
 
-<audio id="brownNoise" loop>
+<audio id="brownNoise" loop preload="auto">
   <source src="brown-noise.mp3" type="audio/mpeg">
 </audio>
 
-<audio id="rainSound" loop>
+<audio id="rainSound" loop preload="auto">
   <source src="rain.mp3" type="audio/mpeg">
 </audio>
 
-<audio id="thunderSound">
+<audio id="thunderSound" preload="auto">
   <source src="thunder.mp3" type="audio/mpeg">
 </audio>
 
@@ -369,7 +324,7 @@ p{
   <h3>רשת</h3>
 
   <p>
-    רשת מחברת בין נקודות להעברת מידע.
+    מחברת בין נקודות להעברת מידע.
   </p>
 
   <div class="highlight">
@@ -394,10 +349,6 @@ p{
   </div>
 
   <h3>RJ45</h3>
-
-  <div class="cable-reveal">
-    <img src="cable.jpg" alt="מחבר RJ45">
-  </div>
 
   <p>
     בקצה הכבל נמצא מחבר בשם RJ45.
@@ -458,7 +409,6 @@ p{
 </div>
 
 <script>
-
 const rain = document.getElementById("rain");
 const hero = document.getElementById("hero");
 const focusBtn = document.getElementById("focusBtn");
@@ -470,15 +420,15 @@ const thunderCloud = document.getElementById("thunderCloud");
 let soundAllowed = false;
 let thunderTimer = null;
 
-for(let i = 0; i < 145; i++){
+for(let i = 0; i < 170; i++){
   const drop = document.createElement("div");
   drop.classList.add("drop");
 
   drop.style.left = Math.random() * 100 + "vw";
   drop.style.top = Math.random() * -120 + "vh";
-  drop.style.animationDuration = (5 + Math.random() * 7) + "s";
-  drop.style.opacity = 0.07 + Math.random() * 0.14;
-  drop.style.height = 42 + Math.random() * 92 + "px";
+  drop.style.animationDuration = (4.5 + Math.random() * 6.5) + "s";
+  drop.style.opacity = 0.10 + Math.random() * 0.18;
+  drop.style.height = 46 + Math.random() * 100 + "px";
   drop.style.animationDelay = Math.random() * -8 + "s";
 
   rain.appendChild(drop);
@@ -507,47 +457,48 @@ function fadeAudio(audio, targetVolume, duration){
   }, duration / steps);
 }
 
-function startAtmosphere(){
-  document.body.classList.add("storm-active");
+function isBelowHero(){
+  return window.scrollY > hero.offsetHeight - 8;
+}
 
-  if(soundAllowed){
-    rainSound.volume = 0;
-    brownNoise.volume = 0;
+function updateStormVisual(){
+  if(isBelowHero()){
+    document.body.classList.add("storm-active");
+  } else {
+    document.body.classList.remove("storm-active");
+    thunderCloud.classList.remove("flash");
+  }
 
-    rainSound.play().then(function(){
-      fadeAudio(rainSound, 0.22, 2200);
-    }).catch(function(){});
+  updateSoundAtmosphere();
+}
 
-    brownNoise.play().then(function(){
-      fadeAudio(brownNoise, 0.10, 2200);
-    }).catch(function(){});
+function updateSoundAtmosphere(){
+  if(soundAllowed && document.body.classList.contains("storm-active")){
+    if(rainSound.paused){
+      rainSound.volume = 0;
+      rainSound.play().then(function(){
+        fadeAudio(rainSound, 0.22, 1600);
+      }).catch(function(){});
+    }
+
+    if(brownNoise.paused){
+      brownNoise.volume = 0;
+      brownNoise.play().then(function(){
+        fadeAudio(brownNoise, 0.10, 1600);
+      }).catch(function(){});
+    }
 
     startThunderLoop();
-  }
-}
-
-function stopAtmosphere(){
-  document.body.classList.remove("storm-active");
-
-  fadeAudio(rainSound, 0, 1800);
-  fadeAudio(brownNoise, 0, 1800);
-
-  stopThunderLoop();
-}
-
-function checkStormBorder(){
-  const heroBottom = hero.getBoundingClientRect().bottom;
-
-  if(heroBottom <= 20){
-    startAtmosphere();
   } else {
-    stopAtmosphere();
+    fadeAudio(rainSound, 0, 900);
+    fadeAudio(brownNoise, 0, 900);
+    stopThunderLoop();
   }
 }
 
 function thunderFlash(){
-  if(!document.body.classList.contains("storm-active")) return;
   if(!soundAllowed) return;
+  if(!document.body.classList.contains("storm-active")) return;
 
   thunderCloud.classList.add("flash");
 
@@ -555,7 +506,7 @@ function thunderFlash(){
     thunderCloud.classList.remove("flash");
   }, 420);
 
-  thunderSound.volume = 0.18;
+  thunderSound.volume = 0.16;
   thunderSound.currentTime = 0;
   thunderSound.play().catch(function(){});
 }
@@ -564,12 +515,13 @@ function startThunderLoop(){
   if(thunderTimer) return;
 
   function scheduleThunder(){
-    const delay = 18000 + Math.random() * 26000;
+    const delay = 20000 + Math.random() * 28000;
 
     thunderTimer = setTimeout(function(){
-      if(document.body.classList.contains("storm-active") && soundAllowed){
+      thunderTimer = null;
+
+      if(soundAllowed && document.body.classList.contains("storm-active")){
         thunderFlash();
-        thunderTimer = null;
         scheduleThunder();
       }
     }, delay);
@@ -589,22 +541,16 @@ function stopThunderLoop(){
 
 focusBtn.addEventListener("click", function(){
   soundAllowed = !soundAllowed;
-  document.body.classList.toggle("learning-mode");
-  focusBtn.classList.toggle("active");
 
+  document.body.classList.toggle("learning-mode", soundAllowed);
+  focusBtn.classList.toggle("active", soundAllowed);
   focusBtn.textContent = "תודעת לימוד";
 
-  if(soundAllowed){
-    checkStormBorder();
-  } else {
-    fadeAudio(rainSound, 0, 800);
-    fadeAudio(brownNoise, 0, 800);
-    stopThunderLoop();
-  }
+  updateSoundAtmosphere();
 });
 
-window.addEventListener("scroll", checkStormBorder);
-window.addEventListener("resize", checkStormBorder);
+window.addEventListener("scroll", updateStormVisual);
+window.addEventListener("resize", updateStormVisual);
 
 let scrollTimer;
 
@@ -634,8 +580,7 @@ cableReveals.forEach(function(item){
   observer.observe(item);
 });
 
-checkStormBorder();
-
+updateStormVisual();
 </script>
 
 </body>
