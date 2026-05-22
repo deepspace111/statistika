@@ -1,129 +1,521 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>道 דרך סטטיסטיקה תיאורית</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>השכבה הפיזית</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial;
-      background: #e8e8e8;
-      color: #111;
-      line-height: 1.8;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap" rel="stylesheet">
 
-    body.focus-mode {
-      background: #111;
-      color: #eee;
-    }
+<style>
+*{
+  box-sizing:border-box;
+}
 
-    .wrap {
-      max-width: 900px;
-      margin: auto;
-      padding: 20px;
-    }
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#000;
+  color:#fff;
+  text-align:center;
+  line-height:2.1;
+  overflow-x:hidden;
+}
 
-    .card {
-      background: #f5f5f5;
-      padding: 20px;
-      margin-bottom: 15px;
-      border-radius: 15px;
-    }
+/* גשם עדין - ירקרק מטריקס */
 
-    .focus-mode .card {
-      background: #222;
-      color: #eee;
-    }
+.rain{
+  position:fixed;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+  overflow:hidden;
+  opacity:0.26;
+}
 
-    h1 {
-      text-align: center;
-    }
+.drop{
+  position:absolute;
+  top:-160vh;
+  width:1px;
+  height:70px;
+  background:linear-gradient(
+    to bottom,
+    rgba(120,255,190,0),
+    rgba(120,255,190,0.22),
+    rgba(120,255,190,0)
+  );
+  animation:rain linear infinite;
+}
 
-    .japanese {
-      font-size: 1rem;
-      color: #aaa;
-      margin-right: 8px;
-      position: relative;
-      top: -5px;
-      font-weight: 300;
-    }
+@keyframes rain{
+  from{ transform:translateY(-20vh); }
+  to{ transform:translateY(150vh); }
+}
 
-    .focus-btn {
-      display: block;
-      margin: 0 auto 20px;
-      padding: 10px 20px;
-      font-size: 1rem;
-      background: #ddd;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-    }
+/* כפתורים */
 
-    .focus-btn:hover {
-      background: #ccc;
-    }
+#homeBtn{
+  position:fixed;
+  top:14px;
+  left:14px;
+  text-decoration:none;
+  font-family:'Yuji Mai', serif;
+  font-size:28px;
+  color:rgba(210,210,210,0.42);
+  z-index:20;
+}
 
-    .focus-mode .focus-btn {
-      background: #333;
-      color: #eee;
-    }
-  </style>
+#focusBtn{
+  position:fixed;
+  top:14px;
+  right:14px;
+  border:1px solid rgba(255,255,255,0.16);
+  background:rgba(255,255,255,0.035);
+  color:rgba(220,220,220,0.66);
+  padding:7px 12px;
+  border-radius:18px;
+  font-size:13px;
+  cursor:pointer;
+  z-index:20;
+  transition:0.4s ease;
+}
+
+#focusBtn.active{
+  background:rgba(120,255,190,0.10);
+  color:rgba(210,255,230,0.86);
+  border-color:rgba(120,255,190,0.30);
+}
+
+#focusBtn.scrolling{
+  opacity:0.18;
+}
+
+/* מצב תודעת לימוד */
+
+body.learning-mode .rain{
+  opacity:0.36;
+}
+
+body.learning-mode .hero img{
+  filter:brightness(0.28) contrast(1.08) saturate(0.9);
+}
+
+body.learning-mode #focusBtn{
+  background:rgba(120,255,190,0.12);
+  color:rgba(220,255,235,0.9);
+}
+
+/* פתיח */
+
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+.hero img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center center;
+  filter:brightness(0.34);
+}
+
+.overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.35),
+    rgba(0,0,0,0.96)
+  );
+}
+
+.hero-content{
+  position:relative;
+  z-index:5;
+  max-width:760px;
+  padding:80px 24px;
+  color:rgba(195,195,195,0.78);
+}
+
+/* טיפוגרפיה */
+
+h1{
+  font-size:42px;
+  margin:0 0 40px;
+  font-weight:normal;
+  color:rgba(215,215,215,0.72);
+}
+
+h3{
+  font-size:32px;
+  margin:100px 0 40px;
+  font-weight:normal;
+  color:#fff;
+}
+
+p{
+  font-size:24px;
+  color:#fff;
+  margin:0 0 34px;
+}
+
+.hero-content p{
+  color:rgba(190,190,190,0.76);
+}
+
+.highlight{
+  font-size:30px;
+  color:#fff;
+  margin:80px 0;
+}
+
+.hero-content .highlight{
+  color:rgba(205,205,205,0.78);
+}
+
+/* תוכן */
+
+.content{
+  position:relative;
+  z-index:5;
+  max-width:900px;
+  margin:auto;
+  padding:80px 24px 140px;
+  color:#fff;
+}
+
+/* תמונת הכבל / המחבר */
+
+.cable-reveal{
+  width:min(96vw, 1400px);
+  margin:90px auto 100px;
+  opacity:0;
+  transform:translateY(40px);
+  filter:blur(6px);
+  transition:1.8s ease;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.cable-reveal.visible{
+  opacity:1;
+  transform:translateY(0);
+  filter:blur(0);
+}
+
+.cable-reveal img{
+  width:100%;
+  max-width:100%;
+  display:block;
+  margin:0 auto;
+  border-radius:18px;
+  filter:brightness(0.98) contrast(1.08);
+  object-fit:cover;
+  object-position:center center;
+}
+
+.thinking-symbol{
+  text-decoration:none;
+  color:rgba(210,210,210,0.72);
+  display:inline-block;
+  margin-top:34px;
+  font-size:46px;
+  transition:0.4s;
+}
+
+.thinking-symbol:hover{
+  opacity:0.7;
+  transform:scale(1.08);
+}
+
+.footer-line{
+  font-size:30px;
+  margin-top:140px;
+  color:#fff;
+}
+
+/* מובייל */
+
+@media (max-width:768px){
+
+  body{
+    line-height:2;
+  }
+
+  h1{
+    font-size:34px;
+  }
+
+  h3{
+    font-size:28px;
+  }
+
+  p{
+    font-size:21px;
+  }
+
+  .highlight{
+    font-size:27px;
+  }
+
+  .footer-line{
+    font-size:26px;
+  }
+
+  #homeBtn{
+    font-size:26px;
+  }
+
+  #focusBtn{
+    top:70px;
+    right:10px;
+    writing-mode:vertical-rl;
+    text-orientation:mixed;
+    font-size:12px;
+    padding:12px 7px;
+    border-radius:18px;
+    line-height:1.3;
+  }
+
+  .cable-reveal{
+    width:94vw;
+    margin:70px auto 80px;
+  }
+
+  .cable-reveal img{
+    border-radius:14px;
+    object-position:center center;
+  }
+}
+</style>
 </head>
 
 <body>
 
-<div class="wrap">
+<div class="rain" id="rain"></div>
 
-  <h1>
-    <span class="japanese">道</span>
-    דרך סטטיסטיקה תיאורית
-  </h1>
+<a href="index.html" id="homeBtn">道</a>
+<button id="focusBtn">תודעת לימוד</button>
 
-  <button class="focus-btn" onclick="toggleFocus()">
-    כשמבינים — רואים
-  </button>
+<audio id="brownNoise" loop>
+  <source src="brown-noise.mp3" type="audio/mpeg">
+</audio>
 
-  <audio id="brownNoise" loop>
-    <source src="brown-noise.mp3" type="audio/mpeg">
-  </audio>
+<section class="hero">
 
-  <section class="card">
-    <h2>מה זה "מבוא לסטטיסטיקה תיאורית"?</h2>
-    <p>מבוא הוא שלב הכניסה לנושא.</p>
-    <p>לפני שמתחילים חישובים — צריך להבין מה לומדים.</p>
-    <p>סטטיסטיקה תיאורית היא הדרך שלנו לקחת נתונים ולתאר אותם בצורה ברורה ופשוטה.</p>
-    <p>אנחנו לא מנבאים — אנחנו מתארים.</p>
-  </section>
+  <img src="spider-network.png" alt="Spider Network">
 
-  <section class="card">
-    <h2>למה בכלל צריך סטטיסטיקה?</h2>
-    <p>בעולם האמיתי יש הרבה נתונים, אבל לא תמיד ברור מה הם אומרים.</p>
-    <p>סטטיסטיקה עושה סדר בתוך הבלגן.</p>
-  </section>
+  <div class="overlay"></div>
 
-  <section class="card">
-    <h2>לפני שמתחילים — צריך להבין את השפה</h2>
-    <p>סטטיסטיקה היא שפה.</p>
-    <p>כשמבינים — רואים.</p>
-  </section>
+  <div class="hero-content">
 
- 
+    <h1>מראה עיניים</h1>
+
+    <p>איך מחשבה הופכת לתנועת מידע?</p>
+
+    <p>
+      מסר נשלח והופך לאותות חשמליים הנעים דרך כבלים,
+      בסיבים אופטיים וגלים באוויר,
+      מתגבשים מחדש ביעד.
+    </p>
+
+    <div class="highlight">
+      מחשבה אחת קטנה<br>
+      מתחילה לנוע בעולם הרשתות.
+    </div>
+
+  </div>
+
+</section>
+
+<div class="content">
+
+  <h3>רשת</h3>
+
+  <p>יש הרבה רשתות בעולם.</p>
+
+  <p>
+    יש רשתות שתופסות.<br>
+    ויש רשתות שמחברות בין נקודות.
+  </p>
+
+  <p>
+    המידע נע בין אינספור חיבורים,<br>
+    ומחפש את דרכו.
+  </p>
+
+  <div class="highlight">
+    רשת מחברת בין נקודות.
+  </div>
+
+  <div class="highlight">
+    כדי להבין רשת<br>
+    נעצור.
+
+    <br><br>
+
+    <a href="thinking-station.html" class="thinking-symbol">☯</a>
+  </div>
+
+  <div class="cable-reveal" id="cableReveal">
+    <img src="cable.jpg" alt="כבל רשת בשכבה הפיזית">
+  </div>
+
+  <h3>הכבל</h3>
+
+  <p>
+    בתוכו גידים דקים מנחושת<br>
+    שדרכם נעים אותות חשמליים.
+  </p>
+
+  <p>
+    הם שזורים זה סביב זה,<br>
+    כדי לעזור לאות<br>
+    להמשיך לנוע<br>
+    גם בתוך הפרעות ורעש.
+  </p>
+
+  <p>
+    יש ארבעה זוגות,<br>
+    כדי לאפשר העברת מידע<br>
+    מהירה יותר.
+  </p>
+
+  <div class="highlight">
+    האותות החשמליים שעוברים בכבל<br>
+    מייצגים מידע:<br><br>
+    0 ו־1
+  </div>
+
+  <h3>RJ45</h3>
+
+  <p>בקצה הכבל נמצא מחבר בשם RJ45.</p>
+
+  <p>
+    Registered — תקן מוסכם<br>
+    Jack — מחבר / שקע<br>
+    45 — מספר התקן
+  </p>
+
+  <p>
+    זהו החיבור הפיזי<br>
+    של כבל הרשת.
+  </p>
+
+  <h3>כרטיס רשת ו־Ethernet</h3>
+
+  <p>
+    כאשר הכבל מתחבר למכשיר,<br>
+    האותות מגיעים אל כרטיס הרשת.
+  </p>
+
+  <p>
+    כרטיס הרשת:<br><br>
+    • מקבל אותות<br>
+    • שולח אותות<br>
+    • ויודע להבין את שפת הרשת
+  </p>
+
+  <div class="highlight">
+    Ethernet היא שפת התקשורת<br>
+    של כרטיסי הרשת<br>
+    בתוך רשת מקומית.
+  </div>
+
+  <p>הכבל מעביר אותות.</p>
+
+  <p>Ethernet נותנת לאותות משמעות.</p>
+
+  <p>
+    והפרוטוקולים הם החוקים<br>
+    של השפה הזאת.
+  </p>
+
+  <p>
+    כך מכשירים מצליחים<br>
+    להבין אחד את השני.
+  </p>
+
+  <div class="footer-line">
+    וכשמבינים את הדרך שבה מידע נע —<br>
+    מתחילים לראות את המערכת. 🌌
+  </div>
 
 </div>
 
 <script>
-function toggleFocus() {
-  const audio = document.getElementById("brownNoise");
-  document.body.classList.toggle("focus-mode");
 
-  if (document.body.classList.contains("focus-mode")) {
-    audio.play();
-  } else {
-    audio.pause();
-  }
+const rain = document.getElementById("rain");
+
+for(let i = 0; i < 110; i++){
+  const drop = document.createElement("div");
+  drop.classList.add("drop");
+
+  drop.style.left = Math.random() * 100 + "vw";
+  drop.style.top = Math.random() * -120 + "vh";
+  drop.style.animationDuration = (6 + Math.random() * 8) + "s";
+  drop.style.opacity = 0.05 + Math.random() * 0.11;
+  drop.style.height = 35 + Math.random() * 85 + "px";
+  drop.style.animationDelay = Math.random() * -8 + "s";
+
+  rain.appendChild(drop);
 }
+
+const focusBtn = document.getElementById("focusBtn");
+const brownNoise = document.getElementById("brownNoise");
+
+focusBtn.addEventListener("click", function(){
+  document.body.classList.toggle("learning-mode");
+  focusBtn.classList.toggle("active");
+
+  if(document.body.classList.contains("learning-mode")){
+    focusBtn.textContent = "מצב לימוד פעיל";
+  } else {
+    focusBtn.textContent = "תודעת לימוד";
+  }
+
+  if(brownNoise.paused){
+    brownNoise.volume = 0.16;
+    brownNoise.play().catch(() => {});
+  } else {
+    brownNoise.pause();
+  }
+});
+
+let scrollTimer;
+
+window.addEventListener("scroll", function(){
+  if(window.innerWidth <= 768){
+    focusBtn.classList.add("scrolling");
+
+    clearTimeout(scrollTimer);
+
+    scrollTimer = setTimeout(function(){
+      focusBtn.classList.remove("scrolling");
+    }, 650);
+  }
+});
+
+const cableReveal = document.getElementById("cableReveal");
+
+const observer = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if(entry.isIntersecting){
+      cableReveal.classList.add("visible");
+    }
+  });
+},{ threshold:0.25 });
+
+observer.observe(cableReveal);
+
 </script>
 
 </body>
