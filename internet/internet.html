@@ -8,14 +8,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap" rel="stylesheet">
 
 <style>
-
-*{
-  box-sizing:border-box;
-}
+*{ box-sizing:border-box; }
 
 body{
   margin:0;
-  font-family:Arial,sans-serif;
+  font-family:Arial, sans-serif;
   background:#000;
   color:rgba(205,205,205,0.78);
   text-align:center;
@@ -33,9 +30,7 @@ body{
   transition:opacity 1.4s ease;
 }
 
-body.storm-active .rain{
-  opacity:0.24;
-}
+body.storm-active .rain{ opacity:0.42; }
 
 .drop{
   position:absolute;
@@ -44,21 +39,16 @@ body.storm-active .rain{
   height:78px;
   background:linear-gradient(
     to bottom,
-    rgba(120,170,255,0),
-    rgba(120,170,255,0.22),
-    rgba(120,170,255,0)
+    rgba(110,170,255,0),
+    rgba(110,170,255,0.38),
+    rgba(110,170,255,0)
   );
   animation:rain linear infinite;
 }
 
 @keyframes rain{
-  from{
-    transform:translateY(-20vh);
-  }
-
-  to{
-    transform:translateY(150vh);
-  }
+  from{ transform:translateY(-20vh); }
+  to{ transform:translateY(150vh); }
 }
 
 .thunder-cloud{
@@ -69,8 +59,8 @@ body.storm-active .rain{
   height:28vh;
   background:radial-gradient(
     circle,
-    rgba(120,170,255,0.08),
-    rgba(80,120,180,0.04),
+    rgba(120,170,255,0.10),
+    rgba(80,120,180,0.05),
     rgba(0,0,0,0)
   );
   z-index:3;
@@ -80,9 +70,7 @@ body.storm-active .rain{
   transition:opacity 0.8s ease;
 }
 
-.thunder-cloud.flash{
-  opacity:1;
-}
+.thunder-cloud.flash{ opacity:1; }
 
 #homeBtn{
   position:fixed;
@@ -116,9 +104,7 @@ body.storm-active .rain{
   border-color:rgba(255,255,255,0.16);
 }
 
-#focusBtn.scrolling{
-  opacity:0.18;
-}
+#focusBtn.scrolling{ opacity:0.18; }
 
 body.learning-mode .hero img{
   filter:brightness(0.28) contrast(1.08) saturate(0.9);
@@ -168,10 +154,16 @@ h1{
 }
 
 h3{
-  font-size:46px;
+  font-size:28px;
   margin:42px 0 22px;
   font-weight:normal;
   color:rgba(225,225,225,0.88);
+}
+
+.network-title{
+  font-size:46px;
+  margin-top:-18px;
+  margin-bottom:18px;
 }
 
 p{
@@ -196,10 +188,6 @@ p{
   max-width:900px;
   margin:auto;
   padding:8px 24px 120px;
-}
-
-.content h3:first-child{
-  margin-top:8px;
 }
 
 .cable-reveal{
@@ -240,35 +228,31 @@ p{
 
 @media (max-width:768px){
 
-  body{
-    line-height:1.9;
-  }
+  body{ line-height:1.9; }
 
-  h1{
-    font-size:30px;
-  }
+  h1{ font-size:30px; }
 
   h3{
-    font-size:42px;
+    font-size:24px;
     margin:34px 0 18px;
   }
 
-  p{
-    font-size:18px;
+  .network-title{
+    font-size:40px;
+    margin-top:-14px;
+    margin-bottom:16px;
   }
+
+  p{ font-size:18px; }
 
   .highlight{
     font-size:21px;
     margin:28px 0;
   }
 
-  .footer-line{
-    font-size:15px;
-  }
+  .footer-line{ font-size:15px; }
 
-  #homeBtn{
-    font-size:24px;
-  }
+  #homeBtn{ font-size:24px; }
 
   #focusBtn{
     top:70px;
@@ -299,7 +283,6 @@ p{
     height:24vh;
   }
 }
-
 </style>
 </head>
 
@@ -309,10 +292,7 @@ p{
 <div class="thunder-cloud" id="thunderCloud"></div>
 
 <a href="../intro.html" id="homeBtn">道</a>
-
-<button id="focusBtn">
-תודעת לימוד
-</button>
+<button id="focusBtn">תודעת לימוד</button>
 
 <audio id="brownNoise" loop preload="auto">
   <source src="brown-noise.mp3" type="audio/mpeg">
@@ -349,7 +329,7 @@ p{
 
 <div class="content">
 
-  <h3>רשת</h3>
+  <h3 class="network-title">רשת</h3>
 
   <p>
     מחברת בין נקודות להעברת מידע.
@@ -437,160 +417,124 @@ p{
 </div>
 
 <script>
-
 const rain = document.getElementById("rain");
 const hero = document.getElementById("hero");
 const focusBtn = document.getElementById("focusBtn");
-
 const brownNoise = document.getElementById("brownNoise");
 const rainSound = document.getElementById("rainSound");
 const thunderSound = document.getElementById("thunderSound");
-
 const thunderCloud = document.getElementById("thunderCloud");
 
 let soundAllowed = false;
 let thunderTimer = null;
 
 for(let i = 0; i < 170; i++){
-
   const drop = document.createElement("div");
-
   drop.classList.add("drop");
 
   drop.style.left = Math.random() * 100 + "vw";
   drop.style.top = Math.random() * -120 + "vh";
-
-  drop.style.animationDuration =
-    (5.5 + Math.random() * 7.5) + "s";
-
-  drop.style.opacity =
-    0.04 + Math.random() * 0.10;
-
-  drop.style.height =
-    46 + Math.random() * 100 + "px";
-
-  drop.style.animationDelay =
-    Math.random() * -8 + "s";
+  drop.style.animationDuration = (5.2 + Math.random() * 7.2) + "s";
+  drop.style.opacity = 0.08 + Math.random() * 0.16;
+  drop.style.height = 46 + Math.random() * 100 + "px";
+  drop.style.animationDelay = Math.random() * -8 + "s";
 
   rain.appendChild(drop);
 }
 
 function fadeAudio(audio, targetVolume, duration){
-
   if(!audio) return;
 
   const steps = 24;
-
   const startVolume = audio.volume || 0;
-
   const diff = targetVolume - startVolume;
-
   let step = 0;
 
   const interval = setInterval(function(){
-
     step++;
-
-    audio.volume = Math.max(
-      0,
-      Math.min(
-        1,
-        startVolume + diff * (step / steps)
-      )
-    );
+    audio.volume = Math.max(0, Math.min(1, startVolume + diff * (step / steps)));
 
     if(step >= steps){
-
       clearInterval(interval);
-
       audio.volume = targetVolume;
 
       if(targetVolume === 0){
         audio.pause();
       }
     }
-
   }, duration / steps);
 }
 
 function startBrownNoise(){
-
   brownNoise.volume = 0;
-
   brownNoise.play().then(function(){
-
     fadeAudio(brownNoise, 0.16, 1600);
-
-  }).catch(function(err){
-
-    console.log(err);
-
-  });
+  }).catch(function(){});
 }
 
 function stopBrownNoise(){
-
   fadeAudio(brownNoise, 0, 900);
 }
 
+function isBelowHero(){
+  return window.scrollY > hero.offsetHeight - 8;
+}
+
 function updateStormVisual(){
-
-  if(window.scrollY > hero.offsetHeight - 8){
-
+  if(isBelowHero()){
     document.body.classList.add("storm-active");
-
   } else {
-
     document.body.classList.remove("storm-active");
-
     thunderCloud.classList.remove("flash");
+  }
+
+  updateRainSound();
+}
+
+function updateRainSound(){
+  if(soundAllowed && document.body.classList.contains("storm-active")){
+    if(rainSound.paused){
+      rainSound.volume = 0;
+      rainSound.play().then(function(){
+        fadeAudio(rainSound, 0.18, 1600);
+      }).catch(function(){});
+    }
+
+    startThunderLoop();
+  } else {
+    fadeAudio(rainSound, 0, 900);
+    stopThunderLoop();
   }
 }
 
 function thunderFlash(){
-
   if(!soundAllowed) return;
-
   if(!document.body.classList.contains("storm-active")) return;
 
   thunderCloud.classList.add("flash");
 
   setTimeout(function(){
-
     thunderCloud.classList.remove("flash");
-
   }, 420);
 
   thunderSound.volume = 0.16;
-
   thunderSound.currentTime = 0;
-
   thunderSound.play().catch(function(){});
 }
 
 function startThunderLoop(){
-
   if(thunderTimer) return;
 
   function scheduleThunder(){
-
-    const delay =
-      20000 + Math.random() * 28000;
+    const delay = 20000 + Math.random() * 28000;
 
     thunderTimer = setTimeout(function(){
-
       thunderTimer = null;
 
-      if(
-        soundAllowed &&
-        document.body.classList.contains("storm-active")
-      ){
-
+      if(soundAllowed && document.body.classList.contains("storm-active")){
         thunderFlash();
-
         scheduleThunder();
       }
-
     }, delay);
   }
 
@@ -598,11 +542,8 @@ function startThunderLoop(){
 }
 
 function stopThunderLoop(){
-
   if(thunderTimer){
-
     clearTimeout(thunderTimer);
-
     thunderTimer = null;
   }
 
@@ -610,106 +551,52 @@ function stopThunderLoop(){
 }
 
 focusBtn.addEventListener("click", function(){
-
   soundAllowed = !soundAllowed;
 
-  document.body.classList.toggle(
-    "learning-mode",
-    soundAllowed
-  );
-
-  focusBtn.classList.toggle(
-    "active",
-    soundAllowed
-  );
+  document.body.classList.toggle("learning-mode", soundAllowed);
+  focusBtn.classList.toggle("active", soundAllowed);
 
   if(soundAllowed){
-
     startBrownNoise();
-
   } else {
-
     stopBrownNoise();
   }
+
+  updateRainSound();
 });
 
-window.addEventListener("scroll", function(){
-
-  updateStormVisual();
-
-  if(
-    soundAllowed &&
-    document.body.classList.contains("storm-active")
-  ){
-
-    if(rainSound.paused){
-
-      rainSound.volume = 0;
-
-      rainSound.play().then(function(){
-
-        fadeAudio(rainSound, 0.18, 1600);
-
-      }).catch(function(){});
-    }
-
-    startThunderLoop();
-
-  } else {
-
-    fadeAudio(rainSound, 0, 900);
-
-    stopThunderLoop();
-  }
-});
-
-window.addEventListener(
-  "resize",
-  updateStormVisual
-);
+window.addEventListener("scroll", updateStormVisual);
+window.addEventListener("resize", updateStormVisual);
 
 let scrollTimer;
 
 window.addEventListener("scroll", function(){
-
   if(window.innerWidth <= 768){
-
     focusBtn.classList.add("scrolling");
 
     clearTimeout(scrollTimer);
 
     scrollTimer = setTimeout(function(){
-
       focusBtn.classList.remove("scrolling");
-
     }, 650);
   }
 });
 
-const cableReveals =
-  document.querySelectorAll(".cable-reveal");
+const cableReveals = document.querySelectorAll(".cable-reveal");
 
-const observer = new IntersectionObserver(
-  function(entries){
-
-    entries.forEach(function(entry){
-
-      if(entry.isIntersecting){
-
-        entry.target.classList.add("visible");
-      }
-    });
-
-  },{ threshold:0.25 }
-);
+const observer = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if(entry.isIntersecting){
+      entry.target.classList.add("visible");
+    }
+  });
+},{ threshold:0.25 });
 
 cableReveals.forEach(function(item){
-
   observer.observe(item);
 });
 
 updateStormVisual();
-
 </script>
 
 </body>
