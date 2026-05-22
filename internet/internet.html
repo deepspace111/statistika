@@ -1,473 +1,312 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>השכבה הפיזית</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap" rel="stylesheet">
+  <title>דרך הרשת 🌐</title>
 
-<style>
-*{
-  box-sizing:border-box;
-}
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:#000;
-  color:rgba(185,185,185,0.72);
-  text-align:center;
-  line-height:2.1;
-  overflow-x:hidden;
-}
+    body {
+      background: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+      line-height: 1.9;
+    }
 
-/* גשם עדין */
+    /* ---------------- RAIN ---------------- */
 
-.rain{
-  position:fixed;
-  inset:0;
-  z-index:2;
-  pointer-events:none;
-  overflow:hidden;
-}
+    .rain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
 
-.drop{
-  position:absolute;
-  top:-140px;
-  width:1px;
-  height:150px;
-  background:linear-gradient(
-    to bottom,
-    rgba(255,255,255,0),
-    rgba(140,160,190,0.16),
-    rgba(255,255,255,0)
-  );
-  animation:rain linear infinite;
-}
+    .drop {
+      position: absolute;
+      width: 1px;
+      height: 90px;
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0.35)
+      );
+      animation: rain linear infinite;
+    }
 
-@keyframes rain{
-  from{ transform:translateY(-150px); }
-  to{ transform:translateY(120vh); }
-}
+    @keyframes rain {
+      from {
+        transform: translateY(-120px);
+      }
 
-/* כפתורים */
+      to {
+        transform: translateY(120vh);
+      }
+    }
 
-#homeBtn{
-  position:fixed;
-  top:14px;
-  left:14px;
-  text-decoration:none;
-  font-family:'Yuji Mai', serif;
-  font-size:28px;
-  color:rgba(210,210,210,0.42);
-  z-index:20;
-}
+    /* ---------------- HERO ---------------- */
 
-#focusBtn{
-  position:fixed;
-  top:14px;
-  right:14px;
-  border:1px solid rgba(255,255,255,0.16);
-  background:rgba(255,255,255,0.035);
-  color:rgba(220,220,220,0.66);
-  padding:7px 12px;
-  border-radius:18px;
-  font-size:13px;
-  cursor:pointer;
-  z-index:20;
-  transition:0.4s ease;
-}
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 40px 20px;
+    }
 
-#focusBtn.scrolling{
-  opacity:0.18;
-}
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(0,0,0,0.35),
+          rgba(0,0,0,0.75)
+        );
+      z-index: 2;
+    }
 
-/* פתיח */
+    .hero-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter:
+        brightness(0.5)
+        contrast(1.05)
+        saturate(0.8);
+    }
 
-.hero{
-  position:relative;
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-}
+    /* ---------------- TEXT ---------------- */
 
-.hero img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  filter:brightness(0.34);
-}
+    .content {
+      position: relative;
+      z-index: 5;
+      width: 100%;
+      max-width: 850px;
+      text-align: center;
+    }
 
-.overlay{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.35),
-    rgba(0,0,0,0.96)
-  );
-}
+    .small-title {
+      color: #b8b8b8;
+      font-size: 2rem;
+      font-weight: normal;
+      margin-bottom: 55px;
+      letter-spacing: 0.5px;
+    }
 
-.hero-content{
-  position:relative;
-  z-index:5;
-  max-width:760px;
-  padding:80px 24px;
-}
+    .intro {
+      color: #b3b3b3;
+      font-size: 1.25rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
 
-/* טיפוגרפיה */
+    .intro p {
+      margin-bottom: 28px;
+    }
 
-h1{
-  font-size:58px;
-  margin:0 0 40px;
-  font-weight:normal;
-  color:rgba(215,215,215,0.78);
-}
+    /* ---------------- WHITE SECTION ---------------- */
 
-h3{
-  font-size:32px;
-  margin:100px 0 40px;
-  font-weight:normal;
-  color:rgba(210,210,210,0.72);
-}
+    .white-section {
+      position: relative;
+      z-index: 5;
+      padding: 110px 25px;
+      background: #000;
+      color: #fff;
+      text-align: center;
+    }
 
-p{
-  font-size:24px;
-  color:rgba(185,185,185,0.72);
-  margin:0 0 34px;
-}
+    .white-section .inner {
+      max-width: 820px;
+      margin: auto;
+    }
 
-.highlight{
-  font-size:30px;
-  color:rgba(205,205,205,0.76);
-  margin:80px 0;
-}
+    .white-section h2 {
+      font-size: 2rem;
+      font-weight: normal;
+      margin-bottom: 50px;
+    }
 
-/* תוכן */
+    .white-section p {
+      font-size: 1.2rem;
+      line-height: 2;
+      margin-bottom: 32px;
+    }
 
-.content{
-  position:relative;
-  z-index:5;
-  max-width:900px;
-  margin:auto;
-  padding:80px 24px 140px;
-}
+    /* ---------------- BUTTON ---------------- */
 
-/* תמונת הכבל */
+    .study-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 20;
 
-.cable-reveal{
-  width:min(96vw, 1400px);
-  margin:90px auto 100px;
-  opacity:0;
-  transform:translateY(40px);
-  filter:blur(6px);
-  transition:1.8s ease;
-}
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
 
-.cable-reveal.visible{
-  opacity:1;
-  transform:translateY(0);
-  filter:blur(0);
-}
+      color: #d8d8d8;
 
-.cable-reveal img{
-  width:100%;
-  max-width:100%;
-  display:block;
-  border-radius:18px;
-  filter:brightness(0.98) contrast(1.08);
-}
+      padding: 10px 18px;
+      border-radius: 999px;
 
-.thinking-symbol{
-  text-decoration:none;
-  color:rgba(210,210,210,0.72);
-  display:inline-block;
-  margin-top:34px;
-  font-size:46px;
-  transition:0.4s;
-}
+      cursor: pointer;
 
-.thinking-symbol:hover{
-  opacity:0.7;
-  transform:scale(1.08);
-}
+      transition: 0.3s;
+      backdrop-filter: blur(5px);
+    }
 
-.footer-line{
-  font-size:30px;
-  margin-top:140px;
-  color:rgba(205,205,205,0.76);
-}
+    .study-btn:hover {
+      background: rgba(255,255,255,0.14);
+    }
 
-/* מובייל */
+    /* ---------------- MOBILE ---------------- */
 
-@media (max-width:768px){
+    @media (max-width: 768px) {
 
-  body{
-    line-height:2;
-  }
+      .small-title {
+        font-size: 1.7rem;
+      }
 
-  h1{
-    font-size:42px;
-  }
+      .intro {
+        font-size: 1.08rem;
+      }
 
-  h3{
-    font-size:28px;
-  }
+      .white-section h2 {
+        font-size: 1.7rem;
+      }
 
-  p{
-    font-size:21px;
-  }
+      .white-section p {
+        font-size: 1.08rem;
+      }
 
-  .highlight{
-    font-size:27px;
-  }
-
-  .footer-line{
-    font-size:26px;
-  }
-
-  #homeBtn{
-    font-size:26px;
-  }
-
-  #focusBtn{
-    font-size:12px;
-    padding:6px 10px;
-  }
-
-  .cable-reveal{
-    width:94vw;
-    margin:70px auto 80px;
-  }
-
-  .cable-reveal img{
-    border-radius:14px;
-  }
-}
-</style>
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="rain" id="rain"></div>
+  <!-- RAIN -->
 
-<a href="index.html" id="homeBtn">道</a>
-<button id="focusBtn">תודעת לימוד</button>
+  <div class="rain" id="rain"></div>
 
-<audio id="brownNoise" loop>
-  <source src="brown-noise.mp3" type="audio/mpeg">
-</audio>
+  <!-- BUTTON -->
 
-<section class="hero">
+  <button class="study-btn">
+    תודעת לימוד
+  </button>
 
-  <img src="spider-network.png" alt="Spider Network">
+  <!-- HERO -->
 
-  <div class="overlay"></div>
+  <section class="hero">
 
-  <div class="hero-content">
+    <img
+      class="hero-image"
+      src="spider.jpg"
+      alt="Spider Web"
+    >
 
-    <h1>מראה עיינים</h1>
+    <div class="content">
 
-    <p>איך מחשבה הופכת לתנועת מידע?</p>
+      <h1 class="small-title">
+        מראה עיניים
+      </h1>
 
-    <p>
-      מסר נשלח<br>
-      והופך לאותות חשמליים.
-    </p>
+      <div class="intro">
 
-    <p>
-      האותות נעים דרך כבלים,<br>
-      בתוך סיבים אופטיים,<br>
-      וגלים באוויר.
-    </p>
+        <p>
+          איך מחשבה הופכת לתנועת מידע?
+        </p>
 
-    <p>
-      ואז מתגבשים מחדש<br>
-      אצל אדם אחר.
-    </p>
+        <p>
+          מסר נשלח והופך לאותות חשמליים הנעים דרך כבלים,
+          בסיבים אופטיים וגלים באוויר,
+          מתגבשים מחדש ביעד.
+        </p>
 
-    <div class="highlight">
-      מחשבה אחת קטנה<br>
-      מתחילה לנוע בעולם.
+        <p>
+          מחשבה אחת קטנה מתחילה לנוע בעולם הרשתות.
+        </p>
+
+      </div>
+
     </div>
 
-  </div>
+  </section>
 
-</section>
+  <!-- NEXT SECTION -->
 
-<div class="content">
+  <section class="white-section">
 
-  <h3>רשת</h3>
+    <div class="inner">
 
-  <p>יש הרבה רשתות בעולם.</p>
+      <h2>
+        רשת
+      </h2>
 
-  <p>
-    יש רשתות שתופסות.<br>
-    ויש רשתות שמחברות בין נקודות.
-  </p>
+      <p>
+        האינטרנט מזכיר רשת קורי עכביש עצומה.
+      </p>
 
-  <p>
-    המידע נע בין אינספור חיבורים,<br>
-    ומחפש את דרכו.
-  </p>
+      <p>
+        אבל בניגוד לה —
+        אין לה מרכז אחד.
+      </p>
 
-  <div class="highlight">
-    רשת מחברת בין נקודות.
-  </div>
+      <p>
+        המידע נע בין אינספור חיבורים,
+        ומחפש את דרכו.
+      </p>
 
-  <div class="highlight">
-    כדי להבין רשת<br>
-    נעצור.
+    </div>
 
-    <br><br>
+  </section>
 
-    <a href="thinking-station.html" class="thinking-symbol">☯</a>
-  </div>
+  <script>
 
-  <div class="cable-reveal" id="cableReveal">
-    <img src="cable.jpg" alt="כבל רשת בשכבה הפיזית">
-  </div>
+    /* RAIN */
 
-  <h3>הכבל</h3>
+    const rain = document.getElementById("rain");
 
-<p>
-  בתוכו גידים דקים מנחושת<br>
-  שדרכם נעים אותות חשמליים.
-</p>
+    for (let i = 0; i < 170; i++) {
 
-<p>
-  הם שזורים זה סביב זה,<br>
-  כדי לעזור לאות<br>
-  להמשיך לנוע<br>
-  גם בתוך הפרעות ורעש.
-</p>
-  <p>
-    יש ארבעה זוגות,<br>
-    כדי לאפשר העברת מידע<br>
-    מהירה יותר.
-  </p>
+      const drop = document.createElement("div");
 
-  <div class="highlight">
-    האותות החשמליים שעוברים בכבל<br>
-    מייצגים מידע:<br><br>
-    0 ו־1
-  </div>
+      drop.classList.add("drop");
 
-  <h3>RJ45</h3>
+      drop.style.left = Math.random() * 100 + "vw";
 
-  <p>בקצה הכבל נמצא מחבר בשם RJ45.</p>
+      drop.style.animationDuration =
+        (0.7 + Math.random() * 0.9) + "s";
 
-  <p>
-    Registered — תקן מוסכם<br>
-    Jack — מחבר / שקע<br>
-    45 — מספר התקן
-  </p>
+      drop.style.opacity =
+        0.15 + Math.random() * 0.4;
 
-  <p>
-    זהו החיבור הפיזי<br>
-    של כבל הרשת.
-  </p>
+      drop.style.height =
+        40 + Math.random() * 120 + "px";
 
-  <h3>כרטיס רשת ו־Ethernet</h3>
+      drop.style.animationDelay =
+        Math.random() * 2 + "s";
 
-  <p>
-    כאשר הכבל מתחבר למכשיר,<br>
-    האותות מגיעים אל כרטיס הרשת.
-  </p>
-
-  <p>
-    כרטיס הרשת:<br><br>
-    • מקבל אותות<br>
-    • שולח אותות<br>
-    • ויודע להבין את שפת הרשת
-  </p>
-
-  <div class="highlight">
-    Ethernet היא שפת התקשורת<br>
-    של כרטיסי הרשת<br>
-    בתוך רשת מקומית.
-  </div>
-
-  <p>הכבל מעביר אותות.</p>
-
-  <p>Ethernet נותנת לאותות משמעות.</p>
-
-  <p>
-    והפרוטוקולים הם החוקים<br>
-    של השפה הזאת.
-  </p>
-
-  <p>
-    כך מכשירים מצליחים<br>
-    להבין אחד את השני.
-  </p>
-
-  <div class="footer-line">
-    וכשמבינים את הדרך שבה מידע נע —<br>
-    מתחילים לראות את המערכת. 🌌
-  </div>
-
-</div>
-
-<script>
-
-const rain = document.getElementById("rain");
-
-for(let i = 0; i < 75; i++){
-  const drop = document.createElement("div");
-  drop.classList.add("drop");
-  drop.style.left = Math.random() * 100 + "vw";
-  drop.style.animationDuration = (7 + Math.random() * 9) + "s";
-  drop.style.opacity = 0.06 + Math.random() * 0.10;
-  rain.appendChild(drop);
-}
-
-const focusBtn = document.getElementById("focusBtn");
-const brownNoise = document.getElementById("brownNoise");
-
-focusBtn.addEventListener("click", function(){
-  document.body.classList.toggle("learning-mode");
-
-  if(brownNoise.paused){
-    brownNoise.volume = 0.16;
-    brownNoise.play().catch(() => {});
-  } else {
-    brownNoise.pause();
-  }
-});
-
-let scrollTimer;
-
-window.addEventListener("scroll", function(){
-  if(window.innerWidth <= 768){
-    focusBtn.classList.add("scrolling");
-
-    clearTimeout(scrollTimer);
-
-    scrollTimer = setTimeout(function(){
-      focusBtn.classList.remove("scrolling");
-    }, 650);
-  }
-});
-
-const cableReveal = document.getElementById("cableReveal");
-
-const observer = new IntersectionObserver(function(entries){
-  entries.forEach(function(entry){
-    if(entry.isIntersecting){
-      cableReveal.classList.add("visible");
+      rain.appendChild(drop);
     }
-  });
-},{ threshold:0.25 });
 
-observer.observe(cableReveal);
-
-</script>
+  </script>
 
 </body>
+
 </html>
