@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>CCNA - נושאים</title>
+
 <style>
 
 body {
@@ -245,6 +246,7 @@ body.focus-mode .topic {
     padding: 16px;
   }
 }
+
 .topic:hover {
   background: #292929;
 }
@@ -263,12 +265,12 @@ body.focus-mode .topic {
 }
 
 </style>
-</style>
 </head>
 
 <body>
 
-  <div id="rain"></div>
+<div id="rain"></div>
+
 <a href="index.html" id="homeBtn">道</a>
 
 <button id="focusBtn">תודעת לימוד</button>
@@ -290,7 +292,7 @@ body.focus-mode .topic {
       </small>
     </a>
 
-    <a class="topic" href="#">
+    <a class="topic" href="ARP/arp.html">
 
 <span class="english">
 <span class="first-letter">A</span>ddress
@@ -308,15 +310,6 @@ body.focus-mode .topic {
 <span class="first-letter">M</span>edia
 <span class="first-letter">A</span>ccess
 <span class="first-letter">C</span>ontrol
-</span>
-
-Address
-
-לפי כתובת
-
-<span class="english">
-<span class="first-letter">I</span>nternet
-<span class="first-letter">P</span>rotocol
 </span>
 
 Address
@@ -402,8 +395,6 @@ if (focusSaved === "on") {
 
   document.body.classList.add("focus-mode");
 
-  /* ניסיון הפעלה */
-
   audio.play().catch(() => {});
 
 }
@@ -434,6 +425,27 @@ focusBtn.addEventListener("click", async function () {
   }
 
 });
+
+/* גשם */
+
+const rain = document.getElementById("rain");
+
+for(let i=0;i<90;i++){
+
+  const drop = document.createElement("div");
+
+  drop.classList.add("drop");
+
+  drop.style.left = Math.random()*100 + "vw";
+
+  drop.style.animationDuration =
+    0.6 + Math.random()*0.8 + "s";
+
+  drop.style.animationDelay =
+    Math.random()*2 + "s";
+
+  rain.appendChild(drop);
+}
 
 </script>
 
