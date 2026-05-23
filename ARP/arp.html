@@ -1,1 +1,311 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MAC Address</title>
 
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #e8e8e8;
+      color: #111;
+      line-height: 1.9;
+      transition: background 1s ease, color 1s ease;
+    }
+
+    body.focus {
+      background: #050505;
+      color: #e8e8e8;
+    }
+
+    .top-bar {
+      position: fixed;
+      top: 18px;
+      left: 18px;
+      right: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .do-button,
+    .focus-button {
+      pointer-events: auto;
+      text-decoration: none;
+      border: 1px solid rgba(0,0,0,0.25);
+      background: rgba(255,255,255,0.55);
+      color: #111;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 15px;
+      cursor: pointer;
+      backdrop-filter: blur(6px);
+      transition: all 0.6s ease;
+    }
+
+    .do-button {
+      font-size: 28px;
+      padding: 4px 14px;
+      font-weight: bold;
+    }
+
+    body.focus .do-button,
+    body.focus .focus-button {
+      background: rgba(255,255,255,0.08);
+      color: #e8e8e8;
+      border-color: rgba(255,255,255,0.25);
+    }
+
+    .page {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 120px 24px 80px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: clamp(44px, 8vw, 82px);
+      margin: 40px 0 30px;
+      letter-spacing: 1px;
+      font-weight: 800;
+    }
+
+    h2 {
+      font-size: clamp(28px, 5vw, 46px);
+      margin: 55px 0 25px;
+      font-weight: 700;
+    }
+
+    h3 {
+      font-size: 24px;
+      margin: 35px 0 20px;
+    }
+
+    p {
+      font-size: clamp(20px, 3.8vw, 28px);
+      margin: 0;
+    }
+
+    .line {
+      width: 70%;
+      height: 1px;
+      background: rgba(0,0,0,0.22);
+      margin: 38px auto;
+    }
+
+    body.focus .line {
+      background: rgba(255,255,255,0.22);
+    }
+
+    .big-question {
+      font-size: clamp(30px, 6vw, 52px);
+      font-weight: 800;
+      margin: 18px 0;
+    }
+
+    .mac-example {
+      display: inline-block;
+      direction: ltr;
+      font-size: clamp(22px, 5vw, 38px);
+      letter-spacing: 2px;
+      padding: 18px 22px;
+      margin-top: 18px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(0,0,0,0.16);
+    }
+
+    body.focus .mac-example {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.18);
+    }
+
+    blockquote {
+      margin: 20px auto;
+      padding: 18px 24px;
+      max-width: 620px;
+      font-size: clamp(22px, 4vw, 34px);
+      font-weight: 700;
+      border-right: 4px solid currentColor;
+      background: rgba(255,255,255,0.38);
+    }
+
+    body.focus blockquote {
+      background: rgba(255,255,255,0.06);
+    }
+
+    .continue {
+      margin-top: 70px;
+    }
+
+    .topics-button {
+      display: inline-block;
+      text-decoration: none;
+      color: inherit;
+      border: 1px solid currentColor;
+      padding: 12px 26px;
+      border-radius: 999px;
+      font-size: 20px;
+      transition: all 0.4s ease;
+    }
+
+    .topics-button:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.35);
+    }
+
+    body.focus .topics-button:hover {
+      background: rgba(255,255,255,0.08);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="top-bar">
+    <a class="do-button" href="../index.html">דו</a>
+    <button class="focus-button" onclick="toggleFocus()">תודעת לימוד</button>
+  </div>
+
+  <audio id="brownNoise" loop>
+    <source src="../internet/thunder.mp3" type="audio/mpeg">
+  </audio>
+
+  <main class="page">
+
+    <h1>MAC Address</h1>
+
+    <p>כדי שמידע ינוע ברשת,<br>
+    המחשב חייב לדעת:</p>
+
+    <div class="big-question">למי למסור עכשיו את המידע?</div>
+
+    <div class="line"></div>
+
+    <p>לכן לכל מכשיר ברשת<br>
+    יש זהות מקומית.</p>
+
+    <div class="line"></div>
+
+    <p>הזהות הזו נקראת:</p>
+
+    <h2>MAC Address</h2>
+
+    <div class="line"></div>
+
+    <p>כתובת MAC<br>
+    שייכת לכרטיס הרשת.</p>
+
+    <div class="line"></div>
+
+    <p>היא בנויה<br>
+    מרצף של מספרים ואותיות.</p>
+
+    <div class="mac-example">00:1A:2B:3C:4D:5E</div>
+
+    <div class="line"></div>
+
+    <p>כאשר המחשב רוצה למצוא<br>
+    את המכשיר המתאים,</p>
+
+    <div class="line"></div>
+
+    <p>הוא שולח שאלה<br>
+    לכל הרשת המקומית.</p>
+
+    <div class="line"></div>
+
+    <h2>Broadcast</h2>
+
+    <p>שידור לכל הרשת המקומית.</p>
+
+    <div class="line"></div>
+
+    <p>כל המכשירים שומעים.</p>
+
+    <div class="line"></div>
+
+    <p>כל מכשיר בודק:</p>
+
+    <blockquote>“האם מחפשים אותי?”</blockquote>
+
+    <div class="line"></div>
+
+    <p>ורק המכשיר המתאים עונה:</p>
+
+    <blockquote>“זה אני.”</blockquote>
+
+    <div class="line"></div>
+
+    <p>ורק עכשיו<br>
+    המידע יכול להתחיל לנוע.</p>
+
+    <div class="line"></div>
+
+    <h2>ARP</h2>
+    <h3>Address Resolution Protocol</h3>
+
+    <p>ARP הוא הדרך של מחשבים<br>
+    למצוא את המכשיר הנכון<br>
+    בתוך הרשת המקומית.</p>
+
+    <div class="line"></div>
+
+    <h2>מה פירוש השם?</h2>
+
+    <p><strong>Address</strong><br>
+    כתובת / יעד</p>
+
+    <div class="line"></div>
+
+    <p><strong>Resolution</strong><br>
+    בירור / גילוי / פתרון</p>
+
+    <div class="line"></div>
+
+    <p><strong>Protocol</strong><br>
+    דרך מסודרת שבה מחשבים מתקשרים</p>
+
+    <div class="line"></div>
+
+    <p>כלומר:</p>
+
+    <blockquote>
+      הפרוטוקול שעוזר לברר<br>
+      מי הוא היעד בתוך הרשת.
+    </blockquote>
+
+    <div class="line"></div>
+
+    <p>בהמשך נלמד:</p>
+
+    <div class="big-question">איך מידע יוצא<br>גם לרשתות אחרות בעולם.</div>
+
+    <div class="continue">
+      <a class="topics-button" href="../intro.html">חזרה לעמוד הנושאים</a>
+    </div>
+
+  </main>
+
+  <script>
+    const body = document.body;
+    const audio = document.getElementById("brownNoise");
+
+    function toggleFocus() {
+      body.classList.toggle("focus");
+
+      if (body.classList.contains("focus")) {
+        audio.volume = 0.35;
+        audio.play().catch(() => {});
+      } else {
+        audio.pause();
+      }
+    }
+  </script>
+
+</body>
+</html>
