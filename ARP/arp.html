@@ -8,42 +8,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap" rel="stylesheet">
 
 <style>
-
-.thinking-button{
-  display:inline-block;
-  margin-top:34px;
-  margin-bottom:60px;
-  padding:12px 24px;
-
-  color:rgba(220,220,220,0.70);
-
-  text-decoration:none;
-
-  border:1px solid rgba(255,255,255,0.14);
-
-  border-radius:24px;
-
-  background:rgba(255,255,255,0.03);
-
-  transition:0.4s ease;
-
-  font-size:16px;
-
-  backdrop-filter:blur(4px);
-}
-
-.thinking-button:hover{
-
-  background:rgba(110,170,255,0.08);
-
-  border-color:rgba(110,170,255,0.22);
-
-  color:rgba(235,235,235,0.92);
-
-  box-shadow:
-  0 0 24px rgba(110,170,255,0.10);
-}
-
 *{
   box-sizing:border-box;
 }
@@ -184,23 +148,26 @@ p{
   background:rgba(255,255,255,0.035);
 }
 
-.broadcast-image{
-  width:100vw;
-  height:70vh;
+.thinking-button{
+  display:inline-block;
+  margin-top:34px;
+  margin-bottom:60px;
+  padding:12px 24px;
+  color:rgba(220,220,220,0.70);
+  text-decoration:none;
+  border:1px solid rgba(255,255,255,0.14);
+  border-radius:24px;
+  background:rgba(255,255,255,0.03);
+  transition:0.4s ease;
+  font-size:16px;
+  backdrop-filter:blur(4px);
+}
 
-  max-width:none;
-
-  margin:50px calc(50% - 50vw);
-
-  display:block;
-
-  object-fit:cover;
-  object-position:center center;
-
-  opacity:0.94;
-
-  box-shadow:
-  0 0 40px rgba(110,170,255,0.08);
+.thinking-button:hover{
+  background:rgba(110,170,255,0.08);
+  border-color:rgba(110,170,255,0.22);
+  color:rgba(235,235,235,0.92);
+  box-shadow:0 0 24px rgba(110,170,255,0.10);
 }
 
 @media (max-width:768px){
@@ -393,8 +360,6 @@ Protocol — דרך מסודרת<br>
 
 <div class="line"></div>
 
-<img src="broadcast.png" class="broadcast-image">
-
 <a href="broadcast.png" class="thinking-button">
 מי זה X ?
 </a>
@@ -402,7 +367,6 @@ Protocol — דרך מסודרת<br>
 </div>
 
 <script>
-
 const rain = document.getElementById("rain");
 const focusBtn = document.getElementById("focusBtn");
 const brownNoise = document.getElementById("brownNoise");
@@ -436,11 +400,8 @@ for(let i = 0; i < 150; i++){
 function fadeAudio(audio, targetVolume, duration){
 
   const steps = 24;
-
   const startVolume = audio.volume || 0;
-
   const diff = targetVolume - startVolume;
-
   let step = 0;
 
   const interval = setInterval(function(){
@@ -508,15 +469,11 @@ focusBtn.addEventListener("click", function(){
   );
 
   if(soundAllowed){
-
     startBrownNoise();
-
   }else{
-
     stopBrownNoise();
   }
 });
-
 </script>
 
 </body>
