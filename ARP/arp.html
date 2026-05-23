@@ -3,266 +3,211 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>MAC Address</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap" rel="stylesheet">
+
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #111;
-  color: #f2f2f2;
-  min-height: 100vh;
-  text-align: center;
-  overflow-x: hidden;
-  transition: 0.8s;
+*{ box-sizing:border-box; }
+
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#000;
+  color:rgba(205,205,205,0.78);
+  text-align:center;
+  line-height:2;
+  overflow-x:hidden;
+  transition:background 1.2s ease;
 }
 
-/* גשם */
-
-#rain {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.16;
+body.learning-mode{
+  background:
+    radial-gradient(circle at 50% 20%, rgba(110,170,255,0.10), transparent 38%),
+    #000;
 }
 
-.drop {
-  position: absolute;
-  top: -120px;
-  width: 1px;
-  height: 75px;
+.rain{
+  position:fixed;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  overflow:hidden;
+  opacity:0;
+  transition:opacity 1.4s ease;
+}
 
-  background: linear-gradient(
+body.learning-mode .rain{
+  opacity:0.34;
+}
+
+.drop{
+  position:absolute;
+  top:-120vh;
+  width:1px;
+  height:78px;
+  background:linear-gradient(
     to bottom,
-    rgba(120,170,255,0),
-    rgba(120,170,255,0.28)
+    rgba(110,170,255,0),
+    rgba(110,170,255,0.34),
+    rgba(110,170,255,0)
   );
-
-  animation: rain linear infinite;
+  animation:rain linear infinite;
 }
 
-@keyframes rain {
-  from {
-    transform: translateY(0);
+@keyframes rain{
+  from{ transform:translateY(-20vh); }
+  to{ transform:translateY(150vh); }
+}
+
+#homeBtn{
+  position:fixed;
+  top:14px;
+  left:14px;
+  text-decoration:none;
+  font-family:'Yuji Mai', serif;
+  font-size:26px;
+  color:rgba(210,210,210,0.42);
+  z-index:20;
+}
+
+#focusBtn{
+  position:fixed;
+  top:14px;
+  right:14px;
+  border:1px solid rgba(255,255,255,0.16);
+  background:rgba(255,255,255,0.035);
+  color:rgba(220,220,220,0.66);
+  padding:7px 12px;
+  border-radius:18px;
+  font-size:13px;
+  cursor:pointer;
+  z-index:20;
+  transition:0.4s ease;
+}
+
+#focusBtn.active{
+  background:rgba(110,170,255,0.10);
+  color:rgba(230,235,255,0.82);
+  border-color:rgba(110,170,255,0.24);
+}
+
+.container{
+  position:relative;
+  z-index:5;
+  max-width:840px;
+  margin:auto;
+  padding:96px 24px 100px;
+}
+
+h1{
+  font-size:36px;
+  margin:0 0 38px;
+  font-weight:normal;
+  color:rgba(215,215,215,0.74);
+}
+
+h2{
+  font-size:28px;
+  margin:42px 0 22px;
+  font-weight:normal;
+  color:rgba(225,225,225,0.88);
+}
+
+h3{
+  font-size:20px;
+  margin:-12px 0 24px;
+  font-weight:normal;
+  color:rgba(160,170,185,0.74);
+}
+
+p{
+  font-size:20px;
+  color:rgba(205,205,205,0.82);
+  margin:0;
+}
+
+.big{
+  font-size:24px;
+  color:rgba(215,215,215,0.84);
+  margin:0;
+}
+
+.line{
+  width:62%;
+  height:1px;
+  background:rgba(255,255,255,0.12);
+  margin:32px auto;
+}
+
+.mac-example{
+  direction:ltr;
+  display:inline-block;
+  margin-top:18px;
+  padding:10px 16px;
+  font-size:22px;
+  letter-spacing:2px;
+  color:rgba(225,225,225,0.86);
+  border:1px solid rgba(255,255,255,0.13);
+  border-radius:14px;
+  background:rgba(255,255,255,0.035);
+}
+
+blockquote{
+  max-width:560px;
+  margin:18px auto 0;
+  padding:14px 20px;
+  font-size:22px;
+  line-height:1.8;
+  color:rgba(225,225,225,0.84);
+  background:rgba(255,255,255,0.035);
+  border-right:3px solid rgba(110,170,255,0.35);
+}
+
+.topics-link{
+  display:inline-block;
+  margin-top:58px;
+  color:rgba(210,210,210,0.64);
+  text-decoration:none;
+  font-size:16px;
+  border-bottom:1px solid rgba(210,210,210,0.28);
+  padding-bottom:4px;
+}
+
+@media (max-width:768px){
+  .container{
+    padding:90px 22px 90px;
   }
 
-  to {
-    transform: translateY(125vh);
-  }
-}
+  h1{ font-size:30px; }
 
-/* מצב תודעת לימוד */
-
-body.focus-mode {
-  background: #05070b;
-}
-
-body.focus-mode #rain {
-  opacity: 0.24;
-}
-
-/* כפתורים */
-
-#homeBtn {
-  position: fixed;
-  top: 18px;
-  left: 18px;
-
-  width: 46px;
-  height: 46px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 50%;
-  background: rgba(255,255,255,0.05);
-  color: #f2f2f2;
-
-  text-decoration: none;
-  font-size: 28px;
-
-  z-index: 20;
-
-  box-shadow: 0 0 12px rgba(255,255,255,0.08);
-  backdrop-filter: blur(4px);
-
-  transition: 0.5s;
-}
-
-#homeBtn:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 18px rgba(120,170,255,0.35);
-}
-
-#focusBtn {
-  position: fixed;
-  top: 18px;
-  right: 18px;
-
-  padding: 8px 13px;
-  border-radius: 20px;
-
-  border: 1px solid #555;
-  background: rgba(255,255,255,0.05);
-  color: #f2f2f2;
-
-  font-size: 13px;
-  cursor: pointer;
-
-  z-index: 20;
-  transition: 0.5s;
-}
-
-#focusBtn:hover {
-  transform: scale(1.05);
-}
-
-body.focus-mode #focusBtn {
-  background: #dfe8ff;
-  color: #111;
-  border-color: #dfe8ff;
-  box-shadow: 0 0 15px rgba(120,170,255,0.35);
-}
-
-/* תוכן */
-
-.container {
-  position: relative;
-  z-index: 2;
-
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 105px 24px 80px;
-}
-
-h1 {
-  font-size: 42px;
-  margin: 0 0 42px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-}
-
-h2 {
-  font-size: 30px;
-  margin: 0 0 22px;
-  font-weight: 700;
-}
-
-h3 {
-  font-size: 20px;
-  margin: -14px 0 24px;
-  color: #9aa4b5;
-  font-weight: 400;
-}
-
-p {
-  font-size: 22px;
-  line-height: 1.9;
-  margin: 0;
-}
-
-.big {
-  font-size: 30px;
-  font-weight: 700;
-  line-height: 1.7;
-}
-
-.line {
-  width: 68%;
-  height: 1px;
-  margin: 34px auto;
-  background: rgba(255,255,255,0.18);
-}
-
-.mac-example {
-  direction: ltr;
-  display: inline-block;
-
-  margin-top: 18px;
-  padding: 12px 18px;
-
-  font-size: 24px;
-  letter-spacing: 2px;
-
-  border-radius: 14px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.14);
-}
-
-blockquote {
-  margin: 18px auto 0;
-  padding: 16px 20px;
-
-  max-width: 560px;
-
-  font-size: 25px;
-  line-height: 1.7;
-  font-weight: 700;
-
-  background: rgba(255,255,255,0.05);
-  border-right: 4px solid rgba(120,170,255,0.55);
-}
-
-.topics-link {
-  display: inline-block;
-  margin-top: 55px;
-
-  padding: 11px 24px;
-  border-radius: 24px;
-
-  border: 1px solid rgba(255,255,255,0.25);
-  color: #f2f2f2;
-  text-decoration: none;
-
-  font-size: 17px;
-
-  transition: 0.4s;
-}
-
-.topics-link:hover {
-  background: rgba(120,170,255,0.10);
-  border-color: rgba(120,170,255,0.35);
-}
-
-/* מובייל */
-
-@media (max-width: 600px) {
-  .container {
-    padding: 95px 20px 70px;
+  h2{
+    font-size:24px;
+    margin:36px 0 18px;
   }
 
-  h1 {
-    font-size: 34px;
+  h3{ font-size:18px; }
+
+  p{ font-size:18px; }
+
+  .big{ font-size:21px; }
+
+  .line{
+    width:72%;
+    margin:28px auto;
   }
 
-  h2 {
-    font-size: 26px;
-  }
+  #homeBtn{ font-size:24px; }
 
-  p {
-    font-size: 20px;
-  }
-
-  .big {
-    font-size: 25px;
-  }
-
-  .line {
-    width: 78%;
-  }
-
-  #homeBtn {
-    width: 40px;
-    height: 40px;
-    font-size: 24px;
-  }
-
-  #focusBtn {
-    font-size: 12px;
-    padding: 7px 11px;
+  #focusBtn{
+    top:70px;
+    right:10px;
+    writing-mode:vertical-rl;
+    text-orientation:mixed;
+    font-size:12px;
+    padding:12px 7px;
+    border-radius:18px;
+    line-height:1.3;
   }
 }
 </style>
@@ -270,11 +215,14 @@ blockquote {
 
 <body>
 
-<div id="rain"></div>
+<div class="rain" id="rain"></div>
 
-<a href="../index.html" id="homeBtn">道</a>
-
+<a href="../intro.html" id="homeBtn">道</a>
 <button id="focusBtn">תודעת לימוד</button>
+
+<audio id="brownNoise" loop preload="auto">
+  <source src="../brown-noise.mp3" type="audio/mpeg">
+</audio>
 
 <div class="container">
 
@@ -300,9 +248,7 @@ blockquote {
 
   <div class="line"></div>
 
-  <p>
-    הזהות הזו נקראת:
-  </p>
+  <p>הזהות הזו נקראת:</p>
 
   <h2>MAC Address</h2>
 
@@ -340,35 +286,23 @@ blockquote {
 
   <h2>Broadcast</h2>
 
-  <p>
-    שידור לכל הרשת המקומית.
-  </p>
+  <p>שידור לכל הרשת המקומית.</p>
 
   <div class="line"></div>
 
-  <p>
-    כל המכשירים שומעים.
-  </p>
+  <p>כל המכשירים שומעים.</p>
 
   <div class="line"></div>
 
-  <p>
-    כל מכשיר בודק:
-  </p>
+  <p>כל מכשיר בודק:</p>
 
-  <blockquote>
-    “האם מחפשים אותי?”
-  </blockquote>
+  <blockquote>“האם מחפשים אותי?”</blockquote>
 
   <div class="line"></div>
 
-  <p>
-    ורק המכשיר המתאים עונה:
-  </p>
+  <p>ורק המכשיר המתאים עונה:</p>
 
-  <blockquote>
-    “זה אני.”
-  </blockquote>
+  <blockquote>“זה אני.”</blockquote>
 
   <div class="line"></div>
 
@@ -420,9 +354,7 @@ blockquote {
 
   <div class="line"></div>
 
-  <p>
-    בהמשך נלמד:
-  </p>
+  <p>בהמשך נלמד:</p>
 
   <div class="big">
     איך מידע יוצא<br>
@@ -434,62 +366,70 @@ blockquote {
 </div>
 
 <script>
-
-/* רעש חום */
-
-const audio = new Audio("../brown-noise.mp3");
-audio.loop = true;
-audio.volume = 0.35;
-
-/* תודעת לימוד */
-
-const focusBtn = document.getElementById("focusBtn");
-const focusSaved = localStorage.getItem("focusMode");
-
-if (focusSaved === "on") {
-  document.body.classList.add("focus-mode");
-  audio.play().catch(() => {});
-}
-
-focusBtn.addEventListener("click", async function () {
-  document.body.classList.toggle("focus-mode");
-
-  if (document.body.classList.contains("focus-mode")) {
-    localStorage.setItem("focusMode", "on");
-
-    try {
-      await audio.play();
-    } catch(err) {
-      console.log("audio blocked");
-    }
-
-  } else {
-    localStorage.setItem("focusMode", "off");
-    audio.pause();
-    audio.currentTime = 0;
-  }
-});
-
-/* גשם איטי ועדין */
-
 const rain = document.getElementById("rain");
+const focusBtn = document.getElementById("focusBtn");
+const brownNoise = document.getElementById("brownNoise");
 
-for (let i = 0; i < 65; i++) {
+let soundAllowed = false;
+
+for(let i = 0; i < 150; i++){
   const drop = document.createElement("div");
-
   drop.classList.add("drop");
 
   drop.style.left = Math.random() * 100 + "vw";
-
-  drop.style.animationDuration =
-    2.8 + Math.random() * 3.5 + "s";
-
-  drop.style.animationDelay =
-    Math.random() * 0.25 + "s";
+  drop.style.top = Math.random() * -120 + "vh";
+  drop.style.animationDuration = (5.2 + Math.random() * 7.2) + "s";
+  drop.style.opacity = 0.07 + Math.random() * 0.14;
+  drop.style.height = 46 + Math.random() * 95 + "px";
+  drop.style.animationDelay = Math.random() * -8 + "s";
 
   rain.appendChild(drop);
 }
 
+function fadeAudio(audio, targetVolume, duration){
+  const steps = 24;
+  const startVolume = audio.volume || 0;
+  const diff = targetVolume - startVolume;
+  let step = 0;
+
+  const interval = setInterval(function(){
+    step++;
+    audio.volume = Math.max(0, Math.min(1, startVolume + diff * (step / steps)));
+
+    if(step >= steps){
+      clearInterval(interval);
+      audio.volume = targetVolume;
+
+      if(targetVolume === 0){
+        audio.pause();
+      }
+    }
+  }, duration / steps);
+}
+
+function startBrownNoise(){
+  brownNoise.volume = 0;
+  brownNoise.play().then(function(){
+    fadeAudio(brownNoise, 0.16, 1600);
+  }).catch(function(){});
+}
+
+function stopBrownNoise(){
+  fadeAudio(brownNoise, 0, 900);
+}
+
+focusBtn.addEventListener("click", function(){
+  soundAllowed = !soundAllowed;
+
+  document.body.classList.toggle("learning-mode", soundAllowed);
+  focusBtn.classList.toggle("active", soundAllowed);
+
+  if(soundAllowed){
+    startBrownNoise();
+  } else {
+    stopBrownNoise();
+  }
+});
 </script>
 
 </body>
