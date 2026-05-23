@@ -9,10 +9,10 @@
 
 <style>
 
-  .thinking-button{
+.thinking-button{
   display:inline-block;
-
   margin-top:34px;
+  margin-bottom:60px;
   padding:12px 24px;
 
   color:rgba(220,220,220,0.70);
@@ -43,7 +43,10 @@
   box-shadow:
   0 0 24px rgba(110,170,255,0.10);
 }
-*{ box-sizing:border-box; }
+
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
@@ -181,51 +184,48 @@ p{
   background:rgba(255,255,255,0.035);
 }
 
-.topics-link{
-  display:inline-block;
-  margin-top:58px;
-  color:rgba(210,210,210,0.64);
-  text-decoration:none;
-  font-size:16px;
-  border-bottom:1px solid rgba(210,210,210,0.28);
-  padding-bottom:4px;
-}
 .broadcast-image{
   width:100vw;
-
   max-width:none;
-
   margin:50px calc(50% - 50vw);
-
   display:block;
-
   opacity:0.94;
 
   box-shadow:
   0 0 40px rgba(110,170,255,0.08);
 }
+
 @media (max-width:768px){
+
   .container{
     padding:90px 22px 90px;
   }
 
-  h1{ font-size:30px; }
+  h1{
+    font-size:30px;
+  }
 
   h2{
     font-size:24px;
     margin:36px 0 18px;
   }
 
-  h3{ font-size:18px; }
+  h3{
+    font-size:18px;
+  }
 
-  p{ font-size:18px; }
+  p{
+    font-size:18px;
+  }
 
   .line{
     width:72%;
     margin:28px auto;
   }
 
-  #homeBtn{ font-size:24px; }
+  #homeBtn{
+    font-size:24px;
+  }
 
   #focusBtn{
     top:70px;
@@ -246,7 +246,10 @@ p{
 <div class="rain" id="rain"></div>
 
 <a href="../intro.html" id="homeBtn">道</a>
-<button id="focusBtn">תודעת לימוד</button>
+
+<button id="focusBtn">
+תודעת לימוד
+</button>
 
 <audio id="brownNoise" loop preload="auto">
   <source src="../brown-noise.mp3" type="audio/mpeg">
@@ -254,128 +257,144 @@ p{
 
 <div class="container">
 
-  <h1>MAC Address</h1>
+<h1>MAC Address</h1>
 
-  <p>
-    הזהות המקומית<br>
-    של כרטיס הרשת.
-  </p>
+<p>
+הזהות המקומית<br>
+של כרטיס הרשת.
+</p>
 
-  <div class="line"></div>
+<div class="line"></div>
 
-  <p>
-    היא רצף מספרים<br>
-    הקסה־דצימליים,
-  </p>
+<p>
+היא רצף של מספרים<br>
+הקסה־דצימליים,
+</p>
 
-  <p>
-    המוטבעים על כרטיס הרשת<br>
-    כבר מהמפעל בו יוצר.
-  </p>
+<p>
+המוטבעים על כרטיס הרשת<br>
+כבר מהמפעל שבו יוצר.
+</p>
 
-  <div class="mac-example">00:1A:2B:3C:4D:5E</div>
+<div class="mac-example">
+00:1A:2B:3C:4D:5E
+</div>
 
-  <div class="line"></div>
+<div class="line"></div>
 
-  <p>
-    כדי שמידע ינוע ברשת,<br>
-    המחשב חייב לדעת<br>
-    למי למסור אותו.
-  </p>
+<p>
+כדי שמידע ינוע ברשת,<br>
+המחשב חייב לדעת<br>
+למי למסור אותו.
+</p>
 
-  <div class="line"></div>
+<div class="line"></div>
 
-  <p>
-    כאשר מחשב או התקן<br>
-    מחפש מכשיר מסוים,
-  </p>
+<p>
+כאשר מחשב או התקן<br>
+מחפש מכשיר מסוים,
+</p>
 
-  <p>
-    הוא שולח בקשת גילוי<br>
-    לכל הרשת המקומית.
-  </p>
+<p>
+הוא שולח בקשת גילוי<br>
+לכל הרשת המקומית.
+</p>
 
-  <div class="line"></div>
+<div class="line"></div>
 
-  <h2>Broadcast</h2>
+<h2>Broadcast</h2>
 
-  <p>
-    שידור לכל הרשת המקומית.
-  </p>
+<p>
+שידור לכל הרשת המקומית.
+</p>
 
-  <div class="line"></div>
+<div class="line"></div>
 
-  <p>כל המכשירים שומעים.</p>
+<p>
+כל המכשירים שומעים.
+</p>
 
-  <div class="line"></div>
+<div class="line"></div>
 
-  <p>כל מכשיר בודק:</p>
+<p>
+כל מכשיר בודק:
+</p>
 
-  <p>“האם מחפשים אותי?”</p>
+<p>
+“האם מחפשים אותי?”
+</p>
 
-  <div class="line"></div>
+<div class="line"></div>
 
-  <p>ורק המכשיר המתאים עונה:</p>
+<p>
+ורק המכשיר המתאים עונה:
+</p>
 
-  <p>“זה אני.”</p>
+<p>
+“זה אני.”
+</p>
 
-  <div class="line"></div>
+<div class="line"></div>
 
-  <p>
-    ורק עכשיו<br>
-    המידע יכול להתחיל לנוע.
-  </p>
+<p>
+ורק עכשיו<br>
+המידע יכול להתחיל לנוע.
+</p>
 
-  <div class="line"></div>
+<div class="line"></div>
 
-  <h2>ARP</h2>
-  <h3>Address Resolution Protocol</h3>
+<h2>ARP</h2>
 
-  <p>
-    ARP הוא הדרך של מחשבים<br>
-    למצוא את המכשיר הנכון<br>
-    בתוך הרשת המקומית.
-  </p>
+<h3>
+Address Resolution Protocol
+</h3>
 
-  <div class="line"></div>
+<p>
+ARP הוא הדרך של מחשבים<br>
+למצוא את המכשיר הנכון<br>
+בתוך הרשת המקומית.
+</p>
 
-  <h2>מה פירוש השם?</h2>
+<div class="line"></div>
 
-  <p>
-    Address — כתובת / יעד
-  </p>
+<h2>מה פירוש השם?</h2>
 
-  <div class="line"></div>
+<p>
+Address — כתובת / יעד
+</p>
 
-  <p>
-    Resolution — בירור / גילוי / פתרון
-  </p>
+<div class="line"></div>
 
-  <div class="line"></div>
+<p>
+Resolution — בירור / גילוי / פתרון
+</p>
 
-  <p>
-    Protocol — דרך מסודרת<br>
-    שבה מחשבים מתקשרים
-  </p>
+<div class="line"></div>
 
-  <div class="line"></div>
+<p>
+Protocol — דרך מסודרת<br>
+שבה מחשבים מתקשרים
+</p>
 
-  <p>
-    הפרוטוקול שעוזר לברר<br>
-    מי הוא היעד בתוך הרשת.
-  </p>
+<div class="line"></div>
 
-  <div class="line"></div>
+<p>
+הפרוטוקול שעוזר לברר<br>
+מי הוא היעד בתוך הרשת.
+</p>
 
-  
+<div class="line"></div>
+
 <img src="broadcast.png" class="broadcast-image">
 
 <a href="broadcast.png" class="thinking-button">
 מי זה X ?
 </a>
+
 </div>
 
 <script>
+
 const rain = document.getElementById("rain");
 const focusBtn = document.getElementById("focusBtn");
 const brownNoise = document.getElementById("brownNoise");
@@ -383,63 +402,113 @@ const brownNoise = document.getElementById("brownNoise");
 let soundAllowed = false;
 
 for(let i = 0; i < 150; i++){
+
   const drop = document.createElement("div");
+
   drop.classList.add("drop");
 
   drop.style.left = Math.random() * 100 + "vw";
   drop.style.top = Math.random() * -120 + "vh";
-  drop.style.animationDuration = (5.2 + Math.random() * 7.2) + "s";
-  drop.style.opacity = 0.07 + Math.random() * 0.14;
-  drop.style.height = 46 + Math.random() * 95 + "px";
-  drop.style.animationDelay = Math.random() * -8 + "s";
+
+  drop.style.animationDuration =
+  (5.2 + Math.random() * 7.2) + "s";
+
+  drop.style.opacity =
+  0.07 + Math.random() * 0.14;
+
+  drop.style.height =
+  46 + Math.random() * 95 + "px";
+
+  drop.style.animationDelay =
+  Math.random() * -8 + "s";
 
   rain.appendChild(drop);
 }
 
 function fadeAudio(audio, targetVolume, duration){
+
   const steps = 24;
+
   const startVolume = audio.volume || 0;
+
   const diff = targetVolume - startVolume;
+
   let step = 0;
 
   const interval = setInterval(function(){
+
     step++;
-    audio.volume = Math.max(0, Math.min(1, startVolume + diff * (step / steps)));
+
+    audio.volume = Math.max(
+      0,
+      Math.min(
+        1,
+        startVolume + diff * (step / steps)
+      )
+    );
 
     if(step >= steps){
+
       clearInterval(interval);
+
       audio.volume = targetVolume;
 
       if(targetVolume === 0){
         audio.pause();
       }
     }
+
   }, duration / steps);
 }
 
 function startBrownNoise(){
+
   brownNoise.volume = 0;
+
   brownNoise.play().then(function(){
-    fadeAudio(brownNoise, 0.16, 1600);
+
+    fadeAudio(
+      brownNoise,
+      0.16,
+      1600
+    );
+
   }).catch(function(){});
 }
 
 function stopBrownNoise(){
-  fadeAudio(brownNoise, 0, 900);
+
+  fadeAudio(
+    brownNoise,
+    0,
+    900
+  );
 }
 
 focusBtn.addEventListener("click", function(){
+
   soundAllowed = !soundAllowed;
 
-  document.body.classList.toggle("learning-mode", soundAllowed);
-  focusBtn.classList.toggle("active", soundAllowed);
+  document.body.classList.toggle(
+    "learning-mode",
+    soundAllowed
+  );
+
+  focusBtn.classList.toggle(
+    "active",
+    soundAllowed
+  );
 
   if(soundAllowed){
+
     startBrownNoise();
-  } else {
+
+  }else{
+
     stopBrownNoise();
   }
 });
+
 </script>
 
 </body>
