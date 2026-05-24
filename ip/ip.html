@@ -234,6 +234,54 @@ p{
     line-height:1.3;
   }
 }
+
+.ip-wrapper{
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-top:40px;
+  direction:ltr;
+}
+
+.ip-block{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+}
+
+.decimal{
+  background:#111;
+  color:#f2f2f2;
+  padding:18px 24px;
+  border-radius:14px;
+  font-size:2rem;
+  font-weight:bold;
+  min-width:90px;
+  text-align:center;
+  box-shadow:0 0 12px rgba(255,255,255,0.08);
+}
+
+.binary{
+  background:#1b1b1b;
+  color:#8fd3ff;
+  padding:12px 16px;
+  border-radius:12px;
+  font-size:1rem;
+  letter-spacing:2px;
+  font-family:monospace;
+  text-align:center;
+  box-shadow:0 0 10px rgba(100,180,255,0.08);
+}
+
+.dot{
+  color:#888;
+  font-size:2.4rem;
+  margin-top:18px;
+}
+  
 </style>
 </head>
 
@@ -275,11 +323,34 @@ p{
 192.168.1.8
 </div>
 
-<div class="octets">
-  <div class="octet">192</div>
-  <div class="octet">168</div>
-  <div class="octet">1</div>
-  <div class="octet">8</div>
+<div class="ip-wrapper">
+
+  <div class="ip-block">
+    <div class="decimal">192</div>
+    <div class="binary">11000000</div>
+  </div>
+
+  <div class="dot">.</div>
+
+  <div class="ip-block">
+    <div class="decimal">168</div>
+    <div class="binary">10101000</div>
+  </div>
+
+  <div class="dot">.</div>
+
+  <div class="ip-block">
+    <div class="decimal">1</div>
+    <div class="binary">00000001</div>
+  </div>
+
+  <div class="dot">.</div>
+
+  <div class="ip-block">
+    <div class="decimal">8</div>
+    <div class="binary">00001000</div>
+  </div>
+
 </div>
 
 <div class="line"></div>
