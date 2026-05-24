@@ -160,6 +160,21 @@ p{
   background:rgba(255,255,255,0.035);
 }
 
+.meaning-signal{
+  margin:10px auto 0;
+  padding:22px 18px;
+  border-radius:22px;
+  border:1px solid rgba(110,170,255,0.12);
+  background:rgba(255,255,255,0.025);
+  box-shadow:0 0 34px rgba(80,130,220,0.045);
+}
+
+.meaning-signal strong{
+  color:rgba(230,238,255,0.95);
+  font-weight:normal;
+  text-shadow:0 0 12px rgba(110,170,255,0.14);
+}
+
 .thinking-button{
   display:inline-block;
   margin-top:34px;
@@ -242,6 +257,10 @@ p{
   <source src="../brown-noise.mp3" type="audio/mpeg">
 </audio>
 
+<audio id="morseAudio" loop preload="auto">
+  <source src="telegraph.mp3" type="audio/mpeg">
+</audio>
+
 <div class="container">
 
 <h1>MAC Address</h1>
@@ -266,6 +285,39 @@ p{
 <div class="mac-example">
 00:1A:2B:3C:4D:5E
 </div>
+
+<div class="line"></div>
+
+<section id="ethernet-meaning" class="meaning-signal">
+
+<p>
+אבל כרטיס הרשת<br>
+לא רק מקבל אותות.
+</p>
+
+<div class="line"></div>
+
+<p>
+הוא <strong>מפענח</strong> אותם.
+</p>
+
+<div class="line"></div>
+
+<p>
+Ethernet היא השפה<br>
+שנותנת משמעות<br>
+לאימפולסים החשמליים.
+</p>
+
+<div class="line"></div>
+
+<p>
+כמו קוד מורס:<br>
+נקישות פשוטות<br>
+שהופכות למסר.
+</p>
+
+</section>
 
 <div class="line"></div>
 
@@ -382,6 +434,8 @@ Protocol — דרך מסודרת<br>
 const rain = document.getElementById("rain");
 const focusBtn = document.getElementById("focusBtn");
 const brownNoise = document.getElementById("brownNoise");
+const morseAudio = document.getElementById("morseAudio");
+const ethernetMeaning = document.getElementById("ethernet-meaning");
 
 let soundAllowed = false;
 
@@ -466,6 +520,53 @@ function stopBrownNoise(){
   );
 }
 
+function updateMorseByScroll(){
+
+  if(!soundAllowed || !ethernetMeaning){
+    morseAudio.volume = 0;
+    morseAudio.pause();
+    return;
+  }
+
+  const rect = ethernetMeaning.getBoundingClientRect();
+
+  const screenHeight = window.innerHeight;
+
+  const sectionMiddle = rect.top + rect.height / 2;
+
+  const distanceFromFocusPoint =
+    Math.abs(sectionMiddle - screenHeight * 0.48);
+
+  const maxDistance = screenHeight * 0.78;
+
+  let intensity =
+    1 - (distanceFromFocusPoint / maxDistance);
+
+  intensity = Math.max(0, Math.min(1, intensity));
+
+  if(intensity > 0.04){
+
+    if(morseAudio.paused){
+      morseAudio.volume = 0;
+      morseAudio.play().catch(function(){});
+    }
+
+    morseAudio.volume = intensity * 0.20;
+
+  }else{
+
+    morseAudio.volume = 0;
+    morseAudio.pause();
+  }
+}
+
+function stopMorse(){
+
+  morseAudio.volume = 0;
+  morseAudio.pause();
+  morseAudio.currentTime = 0;
+}
+
 focusBtn.addEventListener("click", function(){
 
   soundAllowed = !soundAllowed;
@@ -482,10 +583,15 @@ focusBtn.addEventListener("click", function(){
 
   if(soundAllowed){
     startBrownNoise();
+    updateMorseByScroll();
   }else{
     stopBrownNoise();
+    stopMorse();
   }
 });
+
+window.addEventListener("scroll", updateMorseByScroll);
+window.addEventListener("resize", updateMorseByScroll);
 </script>
 
 </body>
