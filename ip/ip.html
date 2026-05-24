@@ -181,7 +181,7 @@ p{
 }
 
 .binary{
-  color:#8dff8d;
+  color:#00ff66;
 
   font-family:monospace;
 
@@ -189,9 +189,13 @@ p{
 
   letter-spacing:1px;
 
-  opacity:0.88;
+  opacity:0.92;
 
-  text-shadow:none;
+  text-shadow:
+    0 0 3px rgba(0,255,102,0.35),
+    0 0 8px rgba(0,255,102,0.18);
+
+  filter:saturate(1.2);
 }
 
 .decimal{
@@ -268,6 +272,8 @@ p{
   border-radius:4px;
 
   box-shadow:none;
+background:rgba(0,20,0,0.18);
+    
 }
   .dot{
     font-size:2rem;
