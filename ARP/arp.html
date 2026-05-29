@@ -188,28 +188,9 @@ body.learning-mode .line{
   background:rgba(255,255,255,0.12);
 }
 
-.mac-example{
-  direction:ltr;
-  display:inline-block;
-  margin-top:18px;
-  padding:10px 16px;
-  font-size:22px;
-  letter-spacing:2px;
-  color:rgba(20,20,20,0.88);
-  border:1px solid rgba(0,0,0,0.14);
-  border-radius:14px;
-  background:rgba(255,255,255,0.38);
-}
-
-body.learning-mode .mac-example{
-  color:rgba(225,225,225,0.86);
-  border:1px solid rgba(255,255,255,0.13);
-  background:rgba(255,255,255,0.035);
-}
-
 .meaning-signal{
-  margin:10px auto 0;
-  padding:24px 18px;
+  margin:34px auto 38px;
+  padding:26px 18px 30px;
   border-radius:22px;
   border:1px solid rgba(0,0,0,0.12);
   background:rgba(255,255,255,0.30);
@@ -223,8 +204,8 @@ body.learning-mode .meaning-signal{
 
 .morse-button{
   display:inline-block;
-  margin-top:16px;
-  padding:8px 20px;
+  margin:18px auto 14px;
+  padding:8px 22px;
   border-radius:22px;
   border:1px solid rgba(0,0,0,0.16);
   background:rgba(255,255,255,0.38);
@@ -252,6 +233,82 @@ body.learning-mode .morse-button.active{
   color:rgba(235,245,255,0.96);
   box-shadow:0 0 30px rgba(110,170,255,0.20);
   border-color:rgba(110,170,255,0.35);
+}
+
+.mac-example{
+  direction:ltr;
+  display:inline-block;
+  margin-top:18px;
+  padding:10px 16px;
+  font-size:22px;
+  letter-spacing:2px;
+  color:rgba(20,20,20,0.88);
+  border:1px solid rgba(0,0,0,0.14);
+  border-radius:14px;
+  background:rgba(255,255,255,0.38);
+}
+
+body.learning-mode .mac-example{
+  color:rgba(225,225,225,0.86);
+  border:1px solid rgba(255,255,255,0.13);
+  background:rgba(255,255,255,0.035);
+}
+
+.binary-map{
+  direction:ltr;
+  max-width:620px;
+  margin:22px auto 0;
+  padding:18px 16px;
+  border-radius:18px;
+  border:1px solid rgba(0,0,0,0.10);
+  background:rgba(255,255,255,0.22);
+  font-family:Arial, sans-serif;
+}
+
+body.learning-mode .binary-map{
+  border:1px solid rgba(255,255,255,0.10);
+  background:rgba(255,255,255,0.025);
+}
+
+.bit-row{
+  display:grid;
+  grid-template-columns:70px 1fr;
+  gap:14px;
+  align-items:center;
+  margin:6px 0;
+  font-size:16px;
+  color:rgba(20,20,20,0.76);
+}
+
+body.learning-mode .bit-row{
+  color:rgba(220,220,220,0.76);
+}
+
+.hex-part{
+  letter-spacing:1px;
+}
+
+.bit-part{
+  letter-spacing:2px;
+}
+
+.broadcast-example{
+  direction:ltr;
+  display:inline-block;
+  margin-top:18px;
+  padding:10px 16px;
+  font-size:21px;
+  letter-spacing:2px;
+  color:rgba(20,20,20,0.88);
+  border:1px solid rgba(0,0,0,0.14);
+  border-radius:14px;
+  background:rgba(255,255,255,0.38);
+}
+
+body.learning-mode .broadcast-example{
+  color:rgba(225,225,225,0.86);
+  border:1px solid rgba(255,255,255,0.13);
+  background:rgba(255,255,255,0.035);
 }
 
 .thinking-button{
@@ -330,6 +387,21 @@ body.learning-mode .thinking-button:hover{
     border-radius:18px;
     line-height:1.3;
   }
+
+  .bit-row{
+    grid-template-columns:58px 1fr;
+    gap:10px;
+    font-size:14px;
+  }
+
+  .bit-part{
+    letter-spacing:1px;
+  }
+
+  .broadcast-example{
+    font-size:17px;
+    letter-spacing:1px;
+  }
 }
 </style>
 </head>
@@ -381,8 +453,6 @@ body.learning-mode .thinking-button:hover{
 שדרכו המחשב מתחבר לרשת.
 </p>
 
-
-
 <section id="ethernet-meaning" class="meaning-signal">
 
 <p>
@@ -413,11 +483,9 @@ Ethernet היא השפה<br>
 
 </section>
 
-<div class="line"></div>
-
 <p>
 בתוך הרשת המקומית,<br>
-המחשב חייב לדעת<br>
+המחשב צריך גם לדעת<br>
 למי המידע שייך.
 </p>
 
@@ -444,32 +512,138 @@ Ethernet היא השפה<br>
 00:1A:2B:3C:4D:5E
 </div>
 
+<div class="binary-map">
+
+<div class="bit-row">
+<span class="hex-part">00</span>
+<span class="bit-part">00000000</span>
+</div>
+
+<div class="bit-row">
+<span class="hex-part">1A</span>
+<span class="bit-part">00011010</span>
+</div>
+
+<div class="bit-row">
+<span class="hex-part">2B</span>
+<span class="bit-part">00101011</span>
+</div>
+
+<div class="bit-row">
+<span class="hex-part">3C</span>
+<span class="bit-part">00111100</span>
+</div>
+
+<div class="bit-row">
+<span class="hex-part">4D</span>
+<span class="bit-part">01001101</span>
+</div>
+
+<div class="bit-row">
+<span class="hex-part">5E</span>
+<span class="bit-part">01011110</span>
+</div>
+
+</div>
+
 <div class="line"></div>
 
 <p>
-כדי שהמידע יתחיל לנוע ברשת,<br>
-המחשב חייב למצוא<br>
-את היעד הנכון
+כל זוג הקסה־דצימלי<br>
+מייצג אוקטטה אחת.
+</p>
+
+<p>
+כל אוקטטה<br>
+היא שמונה ביטים.
 </p>
 
 <div class="line"></div>
 
+<p>
+כדי שמידע ינוע ברשת,<br>
+המחשב חייב למצוא<br>
+את היעד הנכון.
+</p>
+
+<div class="line"></div>
 
 <p>
-ולכן הוא שולח<br>
-בקשת גילוי<br>
+כאשר מחשב או התקן<br>
+מחפש מכשיר מסוים,
+</p>
+
+<p>
+הוא שולח בקשת גילוי<br>
+מסוג Broadcast<br>
 לכל הרשת המקומית.
 </p>
 
-<p>
-(ARP — Address Resolution Protocol)
-</p>
 <div class="line"></div>
 
 <h2>Broadcast</h2>
 
 <p>
 שידור לכל הרשת המקומית.
+</p>
+
+<div class="broadcast-example">
+FF:FF:FF:FF:FF:FF
+</div>
+
+<div class="binary-map">
+
+<div class="bit-row">
+<span class="hex-part">FF</span>
+<span class="bit-part">11111111</span>
+</div>
+
+<div class="bit-row">
+<span class="hex-part">FF</span>
+<span class="bit-part">11111111</span>
+</div>
+
+<div class="bit-row">
+<span class="hex-part">FF</span>
+<span class="bit-part">11111111</span>
+</div>
+
+<div class="bit-row">
+<span class="hex-part">FF</span>
+<span class="bit-part">11111111</span>
+</div>
+
+<div class="bit-row">
+<span class="hex-part">FF</span>
+<span class="bit-part">11111111</span>
+</div>
+
+<div class="bit-row">
+<span class="hex-part">FF</span>
+<span class="bit-part">11111111</span>
+</div>
+
+</div>
+
+<div class="line"></div>
+
+<p>
+כל הביטים דלוקים.
+</p>
+
+<p>
+זו לא כתובת<br>
+של כרטיס רשת אחד.
+</p>
+
+<p>
+זו פנייה לכולם<br>
+בתוך הרשת המקומית.
+</p>
+
+<p>
+כך אף אחד בתוך ה־LAN<br>
+לא מתפספס.
 </p>
 
 <div class="line"></div>
@@ -529,6 +703,14 @@ ARP הוא הדרך של מחשבים<br>
 
 <div class="line"></div>
 
+<p>
+ARP משתמש ב־Broadcast<br>
+כדי למצוא יעד<br>
+בתוך הרשת המקומית.
+</p>
+
+<div class="line"></div>
+
 <h2>מה פירוש השם?</h2>
 
 <p>
@@ -557,7 +739,7 @@ Protocol — דרך מסודרת<br>
 
 <div class="line"></div>
 
-<a href="broadcast.html" class="thinking-button">
+<a href="broadcast.png" class="thinking-button">
 מי זה X ?
 </a>
 
