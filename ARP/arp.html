@@ -15,29 +15,28 @@
 body{
   margin:0;
   font-family:Arial, sans-serif;
-  background:
-radial-gradient(
-circle at top,
-rgba(90,140,220,0.08),
-transparent 42%
-),
-
-linear-gradient(
-to bottom,
-#05070a,
-#000814 45%,
-#000 100%
-);
-  color:rgba(205,205,205,0.78);
+  background:#e8e8e8;
+  color:#111;
   text-align:center;
   line-height:2;
   overflow-x:hidden;
+  transition:background 1.2s ease, color 1.2s ease;
 }
 
 body.learning-mode{
   background:
-    radial-gradient(circle at 50% 18%, rgba(110,170,255,0.10), transparent 40%),
-    #000;
+    radial-gradient(
+      circle at top,
+      rgba(90,140,220,0.08),
+      transparent 42%
+    ),
+    linear-gradient(
+      to bottom,
+      #05070a,
+      #000814 45%,
+      #000 100%
+    );
+  color:rgba(205,205,205,0.78);
 }
 
 .rain{
@@ -75,28 +74,50 @@ body.learning-mode .rain{
 
 #homeBtn{
   position:fixed;
-  top:14px;
-  left:14px;
+  top:18px;
+  left:18px;
   text-decoration:none;
   font-family:'Yuji Mai', serif;
-  font-size:26px;
-  color:rgba(210,210,210,0.42);
+  font-size:42px;
+  color:rgba(20,20,20,0.55);
   z-index:20;
+  line-height:1;
+  transition:0.5s ease;
+}
+
+body.learning-mode #homeBtn{
+  color:rgba(210,210,210,0.48);
+  text-shadow:0 0 18px rgba(110,170,255,0.10);
+}
+
+#homeBtn:hover{
+  color:rgba(20,20,20,0.85);
+  transform:scale(1.05);
+}
+
+body.learning-mode #homeBtn:hover{
+  color:rgba(235,235,235,0.88);
 }
 
 #focusBtn{
   position:fixed;
   top:14px;
   right:14px;
-  border:1px solid rgba(255,255,255,0.16);
-  background:rgba(255,255,255,0.035);
-  color:rgba(220,220,220,0.66);
+  border:1px solid rgba(0,0,0,0.18);
+  background:rgba(255,255,255,0.38);
+  color:rgba(20,20,20,0.68);
   padding:7px 12px;
   border-radius:18px;
   font-size:13px;
   cursor:pointer;
   z-index:20;
   transition:0.4s ease;
+}
+
+body.learning-mode #focusBtn{
+  border:1px solid rgba(255,255,255,0.16);
+  background:rgba(255,255,255,0.035);
+  color:rgba(220,220,220,0.66);
 }
 
 #focusBtn.active{
@@ -117,6 +138,10 @@ h1{
   font-size:36px;
   margin:0 0 38px;
   font-weight:normal;
+  color:#111;
+}
+
+body.learning-mode h1{
   color:rgba(215,215,215,0.74);
 }
 
@@ -124,6 +149,10 @@ h2{
   font-size:28px;
   margin:42px 0 22px;
   font-weight:normal;
+  color:#111;
+}
+
+body.learning-mode h2{
   color:rgba(225,225,225,0.88);
 }
 
@@ -131,20 +160,32 @@ h3{
   font-size:20px;
   margin:-12px 0 24px;
   font-weight:normal;
+  color:rgba(40,40,40,0.70);
+}
+
+body.learning-mode h3{
   color:rgba(160,170,185,0.74);
 }
 
 p{
   font-size:20px;
-  color:rgba(205,205,205,0.82);
+  color:rgba(20,20,20,0.82);
   margin:0;
+}
+
+body.learning-mode p{
+  color:rgba(205,205,205,0.82);
 }
 
 .line{
   width:62%;
   height:1px;
-  background:rgba(255,255,255,0.12);
+  background:rgba(0,0,0,0.16);
   margin:32px auto;
+}
+
+body.learning-mode .line{
+  background:rgba(255,255,255,0.12);
 }
 
 .mac-example{
@@ -154,25 +195,63 @@ p{
   padding:10px 16px;
   font-size:22px;
   letter-spacing:2px;
+  color:rgba(20,20,20,0.88);
+  border:1px solid rgba(0,0,0,0.14);
+  border-radius:14px;
+  background:rgba(255,255,255,0.38);
+}
+
+body.learning-mode .mac-example{
   color:rgba(225,225,225,0.86);
   border:1px solid rgba(255,255,255,0.13);
-  border-radius:14px;
   background:rgba(255,255,255,0.035);
 }
 
 .meaning-signal{
   margin:10px auto 0;
-  padding:22px 18px;
+  padding:24px 18px;
   border-radius:22px;
+  border:1px solid rgba(0,0,0,0.12);
+  background:rgba(255,255,255,0.30);
+}
+
+body.learning-mode .meaning-signal{
   border:1px solid rgba(110,170,255,0.12);
   background:rgba(255,255,255,0.025);
   box-shadow:0 0 34px rgba(80,130,220,0.045);
 }
 
-.meaning-signal strong{
-  color:rgba(230,238,255,0.95);
-  font-weight:normal;
-  text-shadow:0 0 12px rgba(110,170,255,0.14);
+.morse-button{
+  display:inline-block;
+  margin-top:16px;
+  padding:8px 20px;
+  border-radius:22px;
+  border:1px solid rgba(0,0,0,0.16);
+  background:rgba(255,255,255,0.38);
+  color:rgba(20,20,20,0.78);
+  font-size:20px;
+  cursor:pointer;
+  transition:0.4s ease;
+}
+
+.morse-button:hover,
+.morse-button.active{
+  color:rgba(20,20,20,0.96);
+  box-shadow:0 0 26px rgba(80,130,220,0.25);
+  border-color:rgba(80,130,220,0.34);
+}
+
+body.learning-mode .morse-button{
+  border:1px solid rgba(110,170,255,0.18);
+  background:rgba(255,255,255,0.035);
+  color:rgba(225,235,255,0.78);
+}
+
+body.learning-mode .morse-button:hover,
+body.learning-mode .morse-button.active{
+  color:rgba(235,245,255,0.96);
+  box-shadow:0 0 30px rgba(110,170,255,0.20);
+  border-color:rgba(110,170,255,0.35);
 }
 
 .thinking-button{
@@ -180,17 +259,29 @@ p{
   margin-top:34px;
   margin-bottom:60px;
   padding:12px 24px;
-  color:rgba(220,220,220,0.70);
+  color:rgba(20,20,20,0.70);
   text-decoration:none;
-  border:1px solid rgba(255,255,255,0.14);
+  border:1px solid rgba(0,0,0,0.16);
   border-radius:24px;
-  background:rgba(255,255,255,0.03);
+  background:rgba(255,255,255,0.32);
   transition:0.4s ease;
   font-size:16px;
   backdrop-filter:blur(4px);
 }
 
 .thinking-button:hover{
+  background:rgba(255,255,255,0.55);
+  color:rgba(0,0,0,0.92);
+  box-shadow:0 0 24px rgba(80,130,220,0.12);
+}
+
+body.learning-mode .thinking-button{
+  color:rgba(220,220,220,0.70);
+  border:1px solid rgba(255,255,255,0.14);
+  background:rgba(255,255,255,0.03);
+}
+
+body.learning-mode .thinking-button:hover{
   background:rgba(110,170,255,0.08);
   border-color:rgba(110,170,255,0.22);
   color:rgba(235,235,235,0.92);
@@ -226,7 +317,7 @@ p{
   }
 
   #homeBtn{
-    font-size:24px;
+    font-size:38px;
   }
 
   #focusBtn{
@@ -273,6 +364,73 @@ p{
 <div class="line"></div>
 
 <p>
+הרשת לא מורכבת<br>
+רק ממידע שנע.
+</p>
+
+<p>
+היא מורכבת גם<br>
+ממערכות שמקשיבות.
+</p>
+
+<div class="line"></div>
+
+<p>
+כרטיס הרשת<br>
+הוא המקום<br>
+שדרכו המחשב מתחבר לרשת.
+</p>
+
+<div class="line"></div>
+
+<section id="ethernet-meaning" class="meaning-signal">
+
+<p>
+כרטיס הרשת שולח ומקבל אותות,<br>
+מפענח אותם ונותן להם משמעות.
+</p>
+
+<div class="line"></div>
+
+<p>
+Ethernet היא השפה<br>
+שנותנת משמעות<br>
+לאימפולסים החשמליים,
+</p>
+
+<p>
+בדומה לקוד מורס.
+</p>
+
+<button id="morseBtn" class="morse-button">
+מורס
+</button>
+
+<p>
+נקישות פשוטות<br>
+שמייצגות מסר.
+</p>
+
+</section>
+
+<div class="line"></div>
+
+<p>
+בתוך הרשת המקומית,<br>
+המחשב צריך גם לדעת<br>
+למי המידע שייך.
+</p>
+
+<div class="line"></div>
+
+<p>
+לכן לכל כרטיס רשת<br>
+יש זהות מקומית משלו.
+</p>
+
+<h2>MAC Address</h2>
+
+<p>
 היא רצף של מספרים<br>
 הקסה־דצימליים,
 </p>
@@ -288,43 +446,10 @@ p{
 
 <div class="line"></div>
 
-<section id="ethernet-meaning" class="meaning-signal">
-
-<p>
-אבל כרטיס הרשת<br>
-לא רק מקבל אותות.
-</p>
-
-<div class="line"></div>
-
-<p>
-הוא <strong>מפענח</strong> אותם.
-</p>
-
-<div class="line"></div>
-
-<p>
-Ethernet היא השפה<br>
-שנותנת משמעות<br>
-לאימפולסים החשמליים.
-</p>
-
-<div class="line"></div>
-
-<p>
-כמו קוד מורס:<br>
-נקישות פשוטות<br>
-שהופכות למסר.
-</p>
-
-</section>
-
-<div class="line"></div>
-
 <p>
 כדי שמידע ינוע ברשת,<br>
-המחשב חייב לדעת<br>
-למי למסור אותו.
+המחשב חייב למצוא<br>
+את היעד הנכון.
 </p>
 
 <div class="line"></div>
@@ -335,7 +460,7 @@ Ethernet היא השפה<br>
 </p>
 
 <p>
-הוא שולח בקשת גילוי<br>
+הוא שולח שאלה<br>
 לכל הרשת המקומית.
 </p>
 
@@ -353,6 +478,10 @@ Ethernet היא השפה<br>
 כל המכשירים שומעים.
 </p>
 
+<p>
+כולם מקבלים את השאלה.
+</p>
+
 <div class="line"></div>
 
 <p>
@@ -364,6 +493,10 @@ Ethernet היא השפה<br>
 </p>
 
 <div class="line"></div>
+
+<p>
+רוב המכשירים שותקים.
+</p>
 
 <p>
 ורק המכשיר המתאים עונה:
@@ -390,8 +523,8 @@ Address Resolution Protocol
 
 <p>
 ARP הוא הדרך של מחשבים<br>
-למצוא את המכשיר הנכון<br>
-בתוך הרשת המקומית.
+לגלות<br>
+מי הוא היעד המקומי.
 </p>
 
 <div class="line"></div>
@@ -405,7 +538,7 @@ Address — כתובת / יעד
 <div class="line"></div>
 
 <p>
-Resolution — בירור / גילוי / פתרון
+Resolution — בירור / גילוי / זיהוי
 </p>
 
 <div class="line"></div>
@@ -419,12 +552,12 @@ Protocol — דרך מסודרת<br>
 
 <p>
 הפרוטוקול שעוזר לברר<br>
-מי הוא היעד בתוך הרשת.
+מי הוא היעד בתוך הרשת המקומית.
 </p>
 
 <div class="line"></div>
 
-<a href="broadcast.png" class="thinking-button">
+<a href="broadcast.html" class="thinking-button">
 מי זה X ?
 </a>
 
@@ -435,9 +568,10 @@ const rain = document.getElementById("rain");
 const focusBtn = document.getElementById("focusBtn");
 const brownNoise = document.getElementById("brownNoise");
 const morseAudio = document.getElementById("morseAudio");
-const ethernetMeaning = document.getElementById("ethernet-meaning");
+const morseBtn = document.getElementById("morseBtn");
 
 let soundAllowed = false;
+let morseOn = false;
 
 for(let i = 0; i < 150; i++){
 
@@ -520,51 +654,28 @@ function stopBrownNoise(){
   );
 }
 
-function updateMorseByScroll(){
+function startMorse(){
 
-  if(!soundAllowed || !ethernetMeaning){
-    morseAudio.volume = 0;
-    morseAudio.pause();
-    return;
-  }
+  morseAudio.volume = 0;
 
-  const rect = ethernetMeaning.getBoundingClientRect();
+  morseAudio.play().then(function(){
 
-  const screenHeight = window.innerHeight;
+    fadeAudio(
+      morseAudio,
+      0.22,
+      900
+    );
 
-  const sectionMiddle = rect.top + rect.height / 2;
-
-  const distanceFromFocusPoint =
-    Math.abs(sectionMiddle - screenHeight * 0.48);
-
-  const maxDistance = screenHeight * 0.78;
-
-  let intensity =
-    1 - (distanceFromFocusPoint / maxDistance);
-
-  intensity = Math.max(0, Math.min(1, intensity));
-
-  if(intensity > 0.04){
-
-    if(morseAudio.paused){
-      morseAudio.volume = 0;
-      morseAudio.play().catch(function(){});
-    }
-
-    morseAudio.volume = intensity * 0.20;
-
-  }else{
-
-    morseAudio.volume = 0;
-    morseAudio.pause();
-  }
+  }).catch(function(){});
 }
 
 function stopMorse(){
 
-  morseAudio.volume = 0;
-  morseAudio.pause();
-  morseAudio.currentTime = 0;
+  fadeAudio(
+    morseAudio,
+    0,
+    700
+  );
 }
 
 focusBtn.addEventListener("click", function(){
@@ -583,15 +694,26 @@ focusBtn.addEventListener("click", function(){
 
   if(soundAllowed){
     startBrownNoise();
-    updateMorseByScroll();
   }else{
     stopBrownNoise();
-    stopMorse();
   }
 });
 
-window.addEventListener("scroll", updateMorseByScroll);
-window.addEventListener("resize", updateMorseByScroll);
+morseBtn.addEventListener("click", function(){
+
+  morseOn = !morseOn;
+
+  morseBtn.classList.toggle(
+    "active",
+    morseOn
+  );
+
+  if(morseOn){
+    startMorse();
+  }else{
+    stopMorse();
+  }
+});
 </script>
 
 </body>
