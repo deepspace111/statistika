@@ -354,7 +354,37 @@ body.learning-mode .thinking-button:hover{
   color:rgba(235,235,235,0.92);
   box-shadow:0 0 24px rgba(110,170,255,0.10);
 }
+.yin-yang-image{
 
+  width:220px;
+
+  max-width:72%;
+
+  display:block;
+
+  margin:26px auto;
+
+  opacity:0.94;
+
+  transition:0.5s ease;
+
+  filter:
+    drop-shadow(
+      0 0 18px
+      rgba(110,170,255,0.10)
+    );
+}
+
+.yin-yang-image:hover{
+
+  transform:scale(1.03);
+
+  filter:
+    drop-shadow(
+      0 0 26px
+      rgba(110,170,255,0.16)
+    );
+}
 @media (max-width:768px){
 
   .container{
@@ -862,10 +892,11 @@ ARP מחבר<br>
 
 <div class="line"></div>
 
-<p>
-ובנושא הבא<br>
-נשלים את המשך הפאזל.
-</p>
+<img
+  src="ipmacyinyang.png"
+  class="yin-yang-image"
+  alt="IP and MAC Yin Yang"
+>
 
 </section>
 
