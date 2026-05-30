@@ -202,52 +202,20 @@ body.learning-mode .meaning-signal{
   box-shadow:0 0 34px rgba(80,130,220,0.045);
 }
 
-.morse-button{
+.morse-word{
   display:inline-block;
-  margin:18px auto 14px;
-  padding:8px 22px;
-  border-radius:22px;
-  border:1px solid rgba(0,0,0,0.16);
-  background:rgba(255,255,255,0.38);
-  color:rgba(20,20,20,0.78);
-  font-size:20px;
+  margin:0 2px;
+  font-size:1em;
+  letter-spacing:1px;
   cursor:pointer;
-  transition:0.4s ease;
-}
-
-.morse-button:hover,
-.morse-button.active{
-  color:rgba(20,20,20,0.96);
-  box-shadow:0 0 26px rgba(80,130,220,0.25);
-  border-color:rgba(80,130,220,0.34);
-}
-
-body.learning-mode .morse-button{
-  border:1px solid rgba(110,170,255,0.18);
-  background:rgba(255,255,255,0.035);
-  color:rgba(225,235,255,0.78);
-}
-
-body.learning-mode .morse-button:hover,
-body.learning-mode .morse-button.active{
-  color:rgba(235,245,255,0.96);
-  box-shadow:0 0 30px rgba(110,170,255,0.20);
-  border-color:rgba(110,170,255,0.35);
-}
-  .morse-word{
-  display:inline-block;
-  margin:18px auto 14px;
-  font-size:21px;
-  letter-spacing:4px;
-  cursor:pointer;
-  color:rgba(20,20,20,0.78);
+  color:rgba(20,20,20,0.86);
   transition:0.4s ease;
   text-shadow:
-    0 0 8px rgba(80,130,220,0.10);
+    0 0 8px rgba(80,130,220,0.12);
 }
 
 .morse-word:hover{
-  transform:scale(1.06);
+  transform:scale(1.04);
   color:rgba(20,20,20,0.98);
   text-shadow:
     0 0 12px rgba(80,130,220,0.28),
@@ -255,16 +223,14 @@ body.learning-mode .morse-button.active{
 }
 
 body.learning-mode .morse-word{
-  color:rgba(225,235,255,0.82);
-
+  color:rgba(225,235,255,0.86);
   text-shadow:
-    0 0 10px rgba(110,170,255,0.22),
-    0 0 26px rgba(110,170,255,0.10);
+    0 0 10px rgba(110,170,255,0.24),
+    0 0 26px rgba(110,170,255,0.12);
 }
 
 body.learning-mode .morse-word:hover{
   color:rgba(240,248,255,0.98);
-
   text-shadow:
     0 0 14px rgba(110,170,255,0.50),
     0 0 34px rgba(110,170,255,0.24),
@@ -273,16 +239,11 @@ body.learning-mode .morse-word:hover{
 
 .morse-word.active{
   color:rgba(240,248,255,0.98);
-
   text-shadow:
     0 0 16px rgba(110,170,255,0.65),
     0 0 38px rgba(110,170,255,0.34),
     0 0 62px rgba(110,170,255,0.18);
 }
-
-
-
-  
 
 .mac-example{
   direction:ltr;
@@ -469,10 +430,6 @@ body.learning-mode .thinking-button:hover{
   <source src="../brown-noise.mp3" type="audio/mpeg">
 </audio>
 
-<audio id="morseAudio" loop preload="auto">
-  <source src="telegraph.mp3" type="audio/mpeg">
-</audio>
-
 <div class="container">
 
 <h1>MAC Address</h1>
@@ -526,7 +483,7 @@ Ethernet היא השפה<br>
 בה נקישות פשוטות<br>
 מייצגות מסר.
 </p>
- 
+
 <div class="line"></div>
 
 <p>
@@ -567,12 +524,6 @@ Ethernet היא השפה<br>
 פיזית לאן להגיע<br>
 בתוך הרשת המקומית.
 </p>
-
-<div class="line"></div>
-
-
-
-
 
 </section>
 
@@ -797,6 +748,96 @@ ARP משתמש ב־Broadcast<br>
 בתוך הרשת המקומית.
 </p>
 
+<section class="meaning-signal">
+
+<p>
+ARP הוא באמת “אזור מעבר”<br>
+בין <strong>IP Address</strong><br>
+לבין <strong>MAC Address</strong>.
+</p>
+
+<div class="line"></div>
+
+<p>
+המחשב יודע:
+</p>
+
+<p>
+“אני רוצה להגיע ל־IP הזה”
+</p>
+
+<div class="line"></div>
+
+<p>
+אבל בתוך הרשת המקומית,<br>
+<strong>Ethernet</strong> לא עובד עם IP.
+</p>
+
+<p>
+הוא צריך כתובת MAC.
+</p>
+
+<div class="line"></div>
+
+<p>
+אז בעצם ה־Broadcast שואל:
+</p>
+
+<p>
+“מי מחזיק ב־IP הזה?”<br>
+“מי הוא 192.168.1.8 ?”
+</p>
+
+<div class="line"></div>
+
+<p>
+והמכשיר המתאים עונה:
+</p>
+
+<p>
+“זה אני —<br>
+וה־MAC שלי הוא<br>
+XX:XX:XX:XX:XX:XX”
+</p>
+
+<div class="line"></div>
+
+<p>
+בתוך הרשת המקומית,<br>
+ARP עוזר לחבר<br>
+בין כתובת ה־IP<br>
+לבין כתובת ה־MAC.
+</p>
+
+<p>
+ה־IP עוזר לזהות<br>
+מי הוא היעד המבוקש,
+</p>
+
+<p>
+אבל התנועה הפיזית עצמה<br>
+בתוך ה־LAN<br>
+מתבצעת באמצעות MAC Address.
+</p>
+
+<div class="line"></div>
+
+<p>
+ARP מחבר<br>
+בין העולם הלוגי (IP)<br>
+לבין העולם הפיזי־מקומי<br>
+(MAC / Ethernet / Frame).
+</p>
+
+<div class="line"></div>
+
+<p>
+ובנושא הבא<br>
+נשלים את המשך הפאזל.
+</p>
+
+</section>
+
 <div class="line"></div>
 
 <h2>מה פירוש השם?</h2>
@@ -837,11 +878,12 @@ Protocol — דרך מסודרת<br>
 const rain = document.getElementById("rain");
 const focusBtn = document.getElementById("focusBtn");
 const brownNoise = document.getElementById("brownNoise");
-const morseAudio = document.getElementById("morseAudio");
 const morseBtn = document.getElementById("morseBtn");
 
 let soundAllowed = false;
 let morseOn = false;
+let audioContext = null;
+let morseTimer = null;
 
 for(let i = 0; i < 150; i++){
 
@@ -924,28 +966,88 @@ function stopBrownNoise(){
   );
 }
 
+function getAudioContext(){
+
+  if(!audioContext){
+    audioContext = new (
+      window.AudioContext ||
+      window.webkitAudioContext
+    )();
+  }
+
+  return audioContext;
+}
+
+function playTelegraphClick(duration){
+
+  const ctx = getAudioContext();
+  const now = ctx.currentTime;
+
+  const oscillator = ctx.createOscillator();
+  const gain = ctx.createGain();
+  const filter = ctx.createBiquadFilter();
+
+  oscillator.type = "square";
+  oscillator.frequency.setValueAtTime(640, now);
+
+  filter.type = "bandpass";
+  filter.frequency.setValueAtTime(720, now);
+  filter.Q.setValueAtTime(5, now);
+
+  gain.gain.setValueAtTime(0.0001, now);
+  gain.gain.exponentialRampToValueAtTime(0.11, now + 0.012);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+  oscillator.connect(filter);
+  filter.connect(gain);
+  gain.connect(ctx.destination);
+
+  oscillator.start(now);
+  oscillator.stop(now + duration + 0.03);
+}
+
 function startMorse(){
 
-  morseAudio.volume = 0;
+  const pattern = [
+    0.07, 0.07, 0.07, 0.20,
+    0.18, 0.08,
+    0.07, 0.07, 0.07, 0.42,
+    0.07, 0.07, 0.18, 0.20,
+    0.18, 0.08,
+    0.07, 0.55
+  ];
 
-  morseAudio.play().then(function(){
+  let index = 0;
 
-    fadeAudio(
-      morseAudio,
-      0.22,
-      900
+  function tick(){
+
+    if(!morseOn){
+      return;
+    }
+
+    const duration = pattern[index];
+
+    if(index % 2 === 0){
+      playTelegraphClick(duration);
+    }
+
+    index = (index + 1) % pattern.length;
+
+    morseTimer = setTimeout(
+      tick,
+      (duration + 0.045) * 1000
     );
+  }
 
-  }).catch(function(){});
+  tick();
 }
 
 function stopMorse(){
 
-  fadeAudio(
-    morseAudio,
-    0,
-    700
-  );
+  if(morseTimer){
+    clearTimeout(morseTimer);
+    morseTimer = null;
+  }
 }
 
 focusBtn.addEventListener("click", function(){
