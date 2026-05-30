@@ -18,42 +18,225 @@ body {
   overflow-x: hidden;
 }
 
-/* גשם */
-#rain { position: fixed; inset:0; pointer-events:none; z-index:0; opacity:0; transition:1.5s;}
-body.focus-mode #rain { opacity:0.22; }
-.drop { position:absolute; width:1px; height:90px; background: linear-gradient(to bottom, rgba(120,170,255,0), rgba(120,170,255,0.7)); animation: rain linear infinite; }
-@keyframes rain { from {transform: translateY(-120px);} to {transform: translateY(120vh);} }
-
-/* כפתור דו */
-#homeBtn { position:fixed; top:18px; left:18px; width:48px; height:48px; display:flex; align-items:center; justify-content:center; border-radius:50%; background:rgba(255,255,255,0.04); color:#f2f2f2; text-decoration:none; font-size:30px; box-shadow:0 0 12px rgba(255,255,255,0.08); backdrop-filter: blur(4px); z-index:20; transition:0.5s;}
-#homeBtn:hover { transform:scale(1.08); box-shadow:0 0 18px rgba(120,170,255,0.35); }
-
-/* כפתור תודעת לימוד */
-#focusBtn { position:fixed; top:18px; right:18px; padding:9px 14px; border-radius:20px; border:1px solid #555; background:rgba(255,255,255,0.04); color:#f2f2f2; font-size:13px; cursor:pointer; z-index:20; transition:0.5s;}
-#focusBtn:hover { transform: scale(1.05);}
-body.focus-mode #focusBtn { background:#dfe8ff; color:#111; border-color:#dfe8ff; box-shadow:0 0 15px rgba(120,170,255,0.35);}
-body.focus-mode { background:#05070b; }
-
-/* תוכן */
-.container { position:relative; z-index:2; max-width:760px; margin:0 auto; padding:90px 22px 40px; }
-h1 { font-size:34px; margin-bottom:10px; }
-.subtitle { color:#9aa4b5; margin-bottom:35px; font-size:17px; }
-.topic-list { display:grid; gap:14px; }
-.topic { display:block; padding:18px; border-radius:18px; background: rgba(255,255,255,0.04); color:#f2f2f2; text-decoration:none; font-size:19px; border:1px solid rgba(255,255,255,0.08); backdrop-filter:blur(3px); transition:0.4s; }
-.topic small { display:block; margin-top:8px; color:#aeb7c7; font-size:14px; line-height:1.8;}
-.topic:hover { background: rgba(120,170,255,0.08); border-color: rgba(120,170,255,0.25); }
-body.focus-mode .topic { background: rgba(10,15,25,0.72); border-color: rgba(120,170,255,0.12); }
-
-@media (max-width: 600px) {
-  #homeBtn { width:40px; height:40px; font-size:24px;}
-  #focusBtn { font-size:12px; padding:7px 11px;}
-  h1 { font-size:28px; }
-  .topic { font-size:17px; padding:16px; }
+#rain{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  opacity:0;
+  transition:2s ease;
+  overflow:hidden;
 }
 
-.english { direction:ltr; unicode-bidi:isolate; display:inline-block; }
-.first-letter { color:#8db8ff; font-weight:bold; }
+body.focus-mode #rain{
+  opacity:0.13;
+}
 
+.drop{
+  position:absolute;
+  top:-140vh;
+  width:1px;
+  height:70px;
+  background:linear-gradient(
+    to bottom,
+    rgba(120,170,255,0),
+    rgba(120,170,255,0.22),
+    rgba(120,170,255,0)
+  );
+  animation:rain linear infinite;
+}
+
+@keyframes rain{
+  from{ transform:translateY(-20vh); }
+  to{ transform:translateY(160vh); }
+}
+
+#homeBtn {
+  position:fixed;
+  top:18px;
+  left:18px;
+  width:48px;
+  height:48px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:rgba(255,255,255,0.04);
+  color:#f2f2f2;
+  text-decoration:none;
+  font-size:30px;
+  box-shadow:0 0 12px rgba(255,255,255,0.08);
+  backdrop-filter: blur(4px);
+  z-index:20;
+  transition:0.5s;
+}
+
+#homeBtn:hover {
+  transform:scale(1.08);
+  box-shadow:0 0 18px rgba(120,170,255,0.35);
+}
+
+#focusBtn {
+  position:fixed;
+  top:18px;
+  right:18px;
+  padding:9px 14px;
+  border-radius:20px;
+  border:1px solid #555;
+  background:rgba(255,255,255,0.04);
+  color:#f2f2f2;
+  font-size:13px;
+  cursor:pointer;
+  z-index:20;
+  transition:0.5s;
+}
+
+#focusBtn:hover {
+  transform: scale(1.05);
+}
+
+body.focus-mode #focusBtn {
+  background:#dfe8ff;
+  color:#111;
+  border-color:#dfe8ff;
+  box-shadow:0 0 15px rgba(120,170,255,0.35);
+}
+
+body.focus-mode {
+  background:#05070b;
+}
+
+.container {
+  position:relative;
+  z-index:2;
+  max-width:980px;
+  margin:0 auto;
+  padding:90px 22px 60px;
+}
+
+h1 {
+  font-size:34px;
+  margin-bottom:10px;
+}
+
+.subtitle {
+  color:#9aa4b5;
+  margin-bottom:35px;
+  font-size:17px;
+}
+
+.topic-list {
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:16px;
+}
+
+.topic {
+  display:block;
+  padding:18px;
+  border-radius:18px;
+  background: rgba(255,255,255,0.04);
+  color:#f2f2f2;
+  text-decoration:none;
+  font-size:19px;
+  border:1px solid rgba(255,255,255,0.08);
+  backdrop-filter:blur(3px);
+  transition:0.4s;
+  animation:signalPulse 7s ease-in-out infinite;
+}
+
+.topic:nth-child(2){ animation-delay:0.6s; }
+.topic:nth-child(3){ animation-delay:1.2s; }
+.topic:nth-child(4){ animation-delay:1.8s; }
+.topic:nth-child(5){ animation-delay:2.4s; }
+.topic:nth-child(6){ animation-delay:3s; }
+.topic:nth-child(7){ animation-delay:3.6s; }
+.topic:nth-child(8){ animation-delay:4.2s; }
+.topic:nth-child(9){ animation-delay:4.8s; }
+.topic:nth-child(10){ animation-delay:5.4s; }
+.topic:nth-child(11){ animation-delay:6s; }
+
+@keyframes signalPulse{
+  0%{
+    opacity:0.78;
+    box-shadow:none;
+    text-shadow:none;
+  }
+
+  50%{
+    opacity:1;
+    box-shadow:0 0 18px rgba(120,170,255,0.08);
+    text-shadow:0 0 10px rgba(120,170,255,0.16);
+  }
+
+  100%{
+    opacity:0.78;
+    box-shadow:none;
+    text-shadow:none;
+  }
+}
+
+.topic small {
+  display:block;
+  margin-top:8px;
+  color:#aeb7c7;
+  font-size:14px;
+  line-height:1.8;
+}
+
+.topic:hover {
+  background: rgba(120,170,255,0.08);
+  border-color: rgba(120,170,255,0.25);
+  transform:translateY(-2px);
+}
+
+body.focus-mode .topic {
+  background: rgba(10,15,25,0.72);
+  border-color: rgba(120,170,255,0.12);
+}
+
+.english {
+  direction:ltr;
+  unicode-bidi:isolate;
+  display:inline-block;
+}
+
+.first-letter {
+  color:#8db8ff;
+  font-weight:bold;
+}
+
+@media (max-width: 700px) {
+  #homeBtn {
+    width:40px;
+    height:40px;
+    font-size:24px;
+  }
+
+  #focusBtn {
+    font-size:12px;
+    padding:7px 11px;
+  }
+
+  h1 {
+    font-size:28px;
+  }
+
+  .container{
+    max-width:760px;
+    padding:86px 18px 50px;
+  }
+
+  .topic-list {
+    grid-template-columns:1fr;
+    gap:14px;
+  }
+
+  .topic {
+    font-size:17px;
+    padding:16px;
+  }
+}
 </style>
 </head>
 
@@ -71,9 +254,14 @@ body.focus-mode .topic { background: rgba(10,15,25,0.72); border-color: rgba(120
 
 <div class="topic-list">
 
+<a class="topic" href="ccna-introduction.html">
+מבוא
+<small>מהי רשת, איך מידע מתחיל לנוע, ולמה צריך להבין את הדרך</small>
+</a>
+
 <a class="topic" href="internet/internet.html">
 השכבה הפיזית
-<small>כבלים,אותות ותחילת תנועת המידע</small>
+<small>כבלים, אותות ותחילת תנועת המידע</small>
 </a>
 
 <a class="topic" href="ARP/arp.html">
@@ -139,38 +327,61 @@ Network Address Translation — NAT
 </div>
 
 <script>
-// רעש חום
 const audio = new Audio("brown-noise.mp3");
 audio.loop = true;
 audio.volume = 0.35;
 
-// כפתור תודעת לימוד
 const focusBtn = document.getElementById("focusBtn");
 const focusSaved = localStorage.getItem("focusMode");
+
 if (focusSaved === "on") {
   document.body.classList.add("focus-mode");
   audio.play().catch(()=>{});
 }
+
 focusBtn.addEventListener("click", async function () {
   document.body.classList.toggle("focus-mode");
+
   if (document.body.classList.contains("focus-mode")) {
     localStorage.setItem("focusMode","on");
-    try { await audio.play(); } catch(err){ console.log("audio blocked"); }
+
+    try {
+      await audio.play();
+    } catch(err) {
+      console.log("audio blocked");
+    }
+
   } else {
     localStorage.setItem("focusMode","off");
     audio.pause();
-    audio.currentTime=0;
+    audio.currentTime = 0;
   }
 });
 
-// יצירת גשם
-const rain=document.getElementById("rain");
-for(let i=0;i<90;i++){
-  const drop=document.createElement("div");
+const rain = document.getElementById("rain");
+
+for(let i = 0; i < 75; i++){
+
+  const drop = document.createElement("div");
+
   drop.classList.add("drop");
-  drop.style.left=Math.random()*100+"vw";
-  drop.style.animationDuration=0.6+Math.random()*0.8+"s";
-  drop.style.animationDelay=Math.random()*2+"s";
+
+  drop.style.left = Math.random() * 100 + "vw";
+
+  drop.style.top = Math.random() * -140 + "vh";
+
+  drop.style.height =
+    40 + Math.random() * 70 + "px";
+
+  drop.style.opacity =
+    0.04 + Math.random() * 0.10;
+
+  drop.style.animationDuration =
+    4.5 + Math.random() * 6 + "s";
+
+  drop.style.animationDelay =
+    Math.random() * -8 + "s";
+
   rain.appendChild(drop);
 }
 </script>
