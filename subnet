@@ -1,1 +1,296 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Subnet — גבולות הרשת המקומית</title>
 
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top, rgba(95, 67, 42, 0.35), transparent 40%),
+        linear-gradient(180deg, #1f160f 0%, #120d09 100%);
+      color: #ead8bf;
+      font-family: Arial, sans-serif;
+      line-height: 1.9;
+      overflow-x: hidden;
+    }
+
+    .rain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.28;
+      background-image:
+        linear-gradient(180deg, rgba(92, 255, 150, 0.32) 0%, rgba(92, 255, 150, 0) 70%);
+      background-size: 2px 80px;
+      animation: rainFall 0.75s linear infinite;
+      filter: blur(0.4px);
+    }
+
+    @keyframes rainFall {
+      from {
+        background-position: 0 -80px;
+      }
+      to {
+        background-position: 0 80px;
+      }
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 72px 24px 96px;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 6vw, 4.2rem);
+      line-height: 1.25;
+      margin: 0 0 56px;
+      color: #f3dfbd;
+      font-weight: 400;
+      text-align: center;
+      letter-spacing: 0.02em;
+    }
+
+    h2 {
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      margin: 72px 0 24px;
+      color: #f0c98d;
+      font-weight: 400;
+      text-align: center;
+    }
+
+    p {
+      font-size: clamp(1.15rem, 2.8vw, 1.45rem);
+      margin: 18px 0;
+      text-align: center;
+    }
+
+    .section {
+      margin: 64px 0;
+    }
+
+    .codebox {
+      direction: ltr;
+      text-align: left;
+      background: rgba(38, 27, 18, 0.82);
+      border: 1px solid rgba(240, 201, 141, 0.28);
+      color: #f7e6c9;
+      padding: 22px;
+      border-radius: 18px;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: clamp(1rem, 2.4vw, 1.25rem);
+      line-height: 1.7;
+      overflow-x: auto;
+      box-shadow: 0 0 28px rgba(0, 0, 0, 0.22);
+      margin: 28px auto;
+      max-width: 760px;
+      white-space: pre;
+    }
+
+    .binary {
+      color: #bfffd4;
+      border-color: rgba(92, 255, 150, 0.32);
+      background: rgba(12, 24, 16, 0.55);
+    }
+
+    .note {
+      color: #f6d9a7;
+      font-size: clamp(1.2rem, 3vw, 1.6rem);
+    }
+
+    .divider {
+      width: 80px;
+      height: 1px;
+      background: rgba(240, 201, 141, 0.45);
+      margin: 64px auto;
+    }
+
+    ul {
+      max-width: 520px;
+      margin: 24px auto;
+      padding: 0;
+      list-style: none;
+      text-align: center;
+      font-size: clamp(1.15rem, 2.8vw, 1.4rem);
+    }
+
+    li {
+      margin: 14px 0;
+    }
+
+    li::before {
+      content: "• ";
+      color: #7cffaa;
+    }
+
+    .back {
+      position: fixed;
+      top: 18px;
+      left: 18px;
+      z-index: 3;
+      color: #f3dfbd;
+      text-decoration: none;
+      border: 1px solid rgba(243, 223, 189, 0.35);
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(31, 22, 15, 0.62);
+      backdrop-filter: blur(8px);
+      font-size: 1rem;
+    }
+
+    .back:hover {
+      background: rgba(92, 255, 150, 0.12);
+      border-color: rgba(92, 255, 150, 0.55);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="rain"></div>
+
+  <a class="back" href="../ccna.html">דו</a>
+
+  <main>
+    <h1>Subnet — גבולות הרשת המקומית</h1>
+
+    <section class="section">
+      <p>ברשתות תקשורת,</p>
+      <p>מכשירים שונים נמצאים במרחבי כתובות שונים.</p>
+
+      <p>כל רשת מקבלת חלק משלה</p>
+      <p>מתוך מרחב כתובות ה־IP.</p>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="section">
+      <h2>כתובת IP מורכבת משני חלקים</h2>
+
+      <div class="codebox">חלק הרשת
++
+חלק ה־Host</div>
+
+      <p>חלק הרשת מזהה</p>
+      <p>לאיזו רשת המכשיר שייך.</p>
+
+      <p>חלק ה־Host מזהה</p>
+      <p>את המכשיר בתוך אותה רשת.</p>
+    </section>
+
+    <section class="section">
+      <h2>דוגמה</h2>
+
+      <div class="codebox">192.168.1.X</div>
+
+      <p>יכול להיות מרחב כתובות של רשת אחת.</p>
+
+      <p>ובתוך מרחב הכתובות הזה</p>
+      <p>יכולים להיות מכשירים שונים:</p>
+
+      <div class="codebox">192.168.1.1
+192.168.1.8
+192.168.1.25
+192.168.1.200</div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="section">
+      <p>אבל איך המחשב יודע</p>
+      <p>איזה חלק מהכתובת שייך לרשת</p>
+      <p>ואיזה חלק שייך למכשיר?</p>
+
+      <p class="note">כאן נכנס ה־Subnet Mask.</p>
+
+      <div class="codebox">255.255.255.0</div>
+
+      <p>ה־Mask קובע</p>
+      <p>איזה חלק מהכתובת שייך לרשת.</p>
+    </section>
+
+    <section class="section">
+      <h2>למה כתוב 255?</h2>
+
+      <p>אוקטטה אחת בנויה מ־8 ביטים.</p>
+
+      <p>כל ביט יכול להיות:</p>
+
+      <div class="codebox">0 או 1</div>
+
+      <p>הערך הגבוה ביותר של אוקטטה הוא:</p>
+
+      <div class="codebox binary">11111111
+=
+255</div>
+
+      <p>לכן:</p>
+
+      <div class="codebox">255.255.255.0</div>
+
+      <p>הוא ייצוג עשרוני של:</p>
+
+      <div class="codebox binary">11111111.11111111.11111111.00000000</div>
+    </section>
+
+    <section class="section">
+      <h2>כתובת IP וה־Subnet Mask בבינארי</h2>
+
+      <div class="codebox binary">11000000.10101000.00000001.00001000
+11111111.11111111.11111111.00000000</div>
+
+      <p>ניתן לראות שבייצוג הבינארי,</p>
+      <p>שלושת האוקטטות הראשונות כבר “תפוסות” על ידי הרשת,</p>
+      <p>ורק האוקטטה האחרונה נשארת פנויה למכשירים.</p>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="section">
+      <h2>מה זה אומר בפועל?</h2>
+
+      <div class="codebox">192.168.1.8
+255.255.255.0</div>
+
+      <p>במקרה הזה:</p>
+
+      <div class="codebox">192.168.1</div>
+
+      <p>הוא חלק הרשת.</p>
+
+      <p>והמספר האחרון:</p>
+
+      <div class="codebox">8</div>
+
+      <p>מזהה את המכשיר בתוך אותה רשת.</p>
+    </section>
+
+    <section class="section">
+      <h2>למה זה חשוב?</h2>
+
+      <p>עכשיו המחשב יכול להבין:</p>
+
+      <ul>
+        <li>מי נמצא בתוך הרשת המקומית</li>
+        <li>ומי שייך לרשת אחרת</li>
+      </ul>
+
+      <p>אם היעד שייך לאותה רשת —</p>
+      <p>המידע נשאר מקומי.</p>
+
+      <p>אם לא —</p>
+      <p>צריך לפנות אל ה־Gateway.</p>
+    </section>
+  </main>
+</body>
+</html>
