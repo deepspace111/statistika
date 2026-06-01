@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>דרך לימוד</title>
+  <title>way to see</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap" rel="stylesheet">
 
@@ -25,37 +25,68 @@
 
     .container {
       text-align: center;
-      max-width: 700px;
+      max-width: 760px;
       width: 100%;
     }
 
-    .title-btn {
-      font-size: 36px;
-      margin-bottom: 34px;
-      color: #111;
-      font-weight: bold;
+    .brand {
+      margin-bottom: 42px;
       cursor: pointer;
+      user-select: none;
       transition: 0.4s ease;
     }
 
-    .title-btn span {
+    .brand-en {
+      direction: ltr;
+      font-size: 34px;
+      letter-spacing: 0.36em;
+      text-transform: uppercase;
+      font-weight: 300;
+      color: #111;
+      opacity: 0.88;
+      animation: softReveal 1.8s ease-out forwards;
+    }
+
+    .brand-he {
+      margin-top: 18px;
+      font-size: 24px;
+      letter-spacing: 0.04em;
+      color: #111;
+      opacity: 0.86;
+      animation: softReveal 2.2s ease-out forwards;
+    }
+
+    .dao-mark {
+      display: block;
       font-family: 'Yuji Mai', cursive;
-      font-size: 54px;
-      opacity: 0.95;
-      margin-right: 12px;
-      position: relative;
-      top: 8px;
-      animation: inkAppear 2s ease-out forwards;
+      font-size: 58px;
+      line-height: 1;
+      margin-top: 18px;
+      opacity: 0.82;
+      animation: inkAppear 2.4s ease-out forwards;
+    }
+
+    @keyframes softReveal {
+      from {
+        opacity: 0;
+        filter: blur(5px);
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 0.88;
+        filter: blur(0);
+        transform: translateY(0);
+      }
     }
 
     @keyframes inkAppear {
       from {
         opacity: 0;
-        filter: blur(4px);
-        transform: translateY(8px) scale(0.96);
+        filter: blur(6px);
+        transform: translateY(10px) scale(0.94);
       }
       to {
-        opacity: 0.95;
+        opacity: 0.82;
         filter: blur(0);
         transform: translateY(0) scale(1);
       }
@@ -86,6 +117,17 @@
       transform: translateY(0);
     }
 
+    .btn.disabled {
+      cursor: default;
+      opacity: 0.62;
+    }
+
+    .btn.disabled:hover {
+      transform: none;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.25);
+      background: linear-gradient(135deg, #111, #333);
+    }
+
     .philosophy {
       margin-top: 70px;
       line-height: 2.2;
@@ -102,12 +144,6 @@
     .philosophy-line {
       font-size: 18px;
       margin: 10px 0;
-    }
-
-    .philosophy-final {
-      font-size: 20px;
-      margin-top: 24px;
-      font-weight: bold;
     }
 
     .thinking-stations {
@@ -134,8 +170,14 @@
       color: rgba(215,220,230,0.82);
     }
 
-    body.focus-mode .title-btn {
+    body.focus-mode .brand-en,
+    body.focus-mode .brand-he {
       color: #e8e8e8;
+    }
+
+    body.focus-mode .dao-mark {
+      color: #e8e8e8;
+      opacity: 0.9;
     }
 
     body.focus-mode .btn {
@@ -148,6 +190,12 @@
       background: linear-gradient(135deg, #ffffff, #dcdcdc);
     }
 
+    body.focus-mode .btn.disabled:hover {
+      transform: none;
+      box-shadow: 0 8px 24px rgba(255,255,255,0.12);
+      background: linear-gradient(135deg, #e8e8e8, #ffffff);
+    }
+
     body.focus-mode .philosophy {
       color: #dcdcdc;
       opacity: 0.9;
@@ -158,17 +206,21 @@
     }
 
     @media (max-width: 600px) {
-
       body {
         padding: 30px 16px;
       }
 
-      .title-btn {
-        font-size: 30px;
+      .brand-en {
+        font-size: 24px;
+        letter-spacing: 0.24em;
       }
 
-      .title-btn span {
-        font-size: 50px;
+      .brand-he {
+        font-size: 21px;
+      }
+
+      .dao-mark {
+        font-size: 52px;
       }
 
       .btn {
@@ -187,10 +239,6 @@
 
       .philosophy-line {
         font-size: 17px;
-      }
-
-      .philosophy-final {
-        font-size: 19px;
       }
 
       .thinking-stations {
@@ -212,13 +260,15 @@
 
 <div class="container">
 
-  <div id="focusBtn" class="title-btn">
-    כשמבינים רואים <span>道</span>
+  <div id="focusBtn" class="brand">
+    <div class="brand-en">way to see</div>
+    <div class="brand-he">כשמבינים — רואים</div>
+    <span class="dao-mark">道</span>
   </div>
 
   <audio id="brownNoise" src="brown-noise.mp3" loop></audio>
 
-  <a class="btn" href="statistika.html">סטטיסטיקה</a>
+  <a class="btn disabled" href="#" onclick="return false;">סטטיסטיקה</a>
   <a class="btn" href="intro.html">CCNA</a>
 
   <div class="philosophy">
@@ -238,8 +288,6 @@
     <div class="philosophy-line">
       להבין איך דברים מתחברים
     </div>
-
-    
 
     <div class="thinking-stations">
 
