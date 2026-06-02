@@ -10,6 +10,36 @@
 
 <style>
 
+  .cinema {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  height: 560px;
+  margin: 40px auto;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #000;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.035);
+  transition:
+    opacity 1.4s ease,
+    transform 4s ease;
+}
+
+.slide.active {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 2;
+}
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -769,6 +799,20 @@ stationBtn.addEventListener("click", function(event) {
 });
 
 </script>
+<script>
+const slides = document.querySelectorAll(".slide");
+let current = 0;
 
+slides.forEach(img => {
+  const preload = new Image();
+  preload.src = img.src;
+});
+
+setInterval(() => {
+  slides[current].classList.remove("active");
+  current = (current + 1) % slides.length;
+  slides[current].classList.add("active");
+}, 3200);
+</script>
 </body>
 </html>
