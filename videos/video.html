@@ -111,11 +111,19 @@ body {
 /* כפתור המשך */
 
 .nextBtn {
-  position: fixed;
-  bottom: 18px;
-  right: 18px;
-  z-index: 30;
+  display: inline-block;
+  margin-top: 18px;
 
+  color: rgba(255,255,255,0.72);
+  text-decoration: none;
+  font-size: 15px;
+
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 20px;
+  padding: 7px 22px;
+
+  background: rgba(0,0,0,0.24);
+}
   color: rgba(255,255,255,0.62);
   text-decoration: none;
   font-size: 15px;
@@ -166,9 +174,11 @@ body {
 <div class="caption">
   המידע מתפרק, נעטף, נע — ונבנה מחדש.
   <span class="small">כשמבינים — רואים.</span>
+
+  <br>
+  <a href="../ccna.html" class="nextBtn">המשך</a>
 </div>
 
-<a href="../ccna.html" class="nextBtn">המשך</a>
 
 <script>
 
