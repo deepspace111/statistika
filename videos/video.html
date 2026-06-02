@@ -125,6 +125,7 @@ img {
 <a href="../intro.html" class="nextBtn">המשך לנושאים</a>
 
 <script>
+
 const images = [
   "1.jpg.png",
   "2.jpg.png",
@@ -142,29 +143,32 @@ const images = [
 ];
 
 let index = 0;
+
 const slide = document.getElementById("slide");
 
-/*
-  קצב רגוע:
-  כל תמונה נשארת 5.5 שניות,
-  והמעבר עצמו נמשך 2.2 שניות.
-*/
+images.forEach(src => {
+  const img = new Image();
+  img.src = src;
+});
+
+slide.src = images[0];
 
 setInterval(() => {
+
   slide.style.opacity = 0;
 
   setTimeout(() => {
-    index++;
 
-    if (index >= images.length) {
-      index = 0;
-    }
+    index = (index + 1) % images.length;
 
     slide.src = images[index];
-    slide.style.opacity = 1;
-  }, 2200);
 
-}, 5500);
+    slide.style.opacity = 1;
+
+  }, 700);
+
+}, 3200);
+
 </script>
 
 </body>
