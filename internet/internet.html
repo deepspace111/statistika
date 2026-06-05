@@ -12,14 +12,37 @@
 
 body{
   margin:0;
-  font-family:Arial, sans-serif;
-  background:#000;
-  color:rgba(205,205,205,0.78);
+
+  font-family:Arial,sans-serif;
+
+  background:#dcdcdc;
+
+  color:rgba(40,40,40,0.78);
+
   text-align:center;
-  line-height:2;
+
+  line-height:2.7;
+
   overflow-x:hidden;
+
+  transition:
+    background 1.6s ease,
+    color 1.6s ease;
+
+  font-size:11px;
+
+  letter-spacing:0.22em;
+
+  font-weight:300;
+
+  -webkit-font-smoothing:antialiased;
+}
+  body.learning-mode{
+  background:#05070b;
+  color:rgba(220,220,220,0.74);
 }
 
+  
 .rain{
   position:fixed;
   inset:0;
@@ -122,11 +145,35 @@ body.learning-mode .hero img{
 .hero img{
   position:absolute;
   inset:0;
+
   width:100%;
   height:100%;
+
   object-fit:cover;
-  object-position:center center;
-  filter:brightness(0.34);
+
+  transition:
+    opacity 1.8s ease,
+    filter 1.8s ease;
+
+  filter:
+    brightness(0.95)
+    grayscale(25%);
+}
+
+  .hero img.dark-mode{
+  opacity:0;
+}
+
+body.learning-mode .hero img.dark-mode{
+  opacity:1;
+}
+
+body.learning-mode .hero img.light-mode{
+  opacity:0;
+}
+
+.hero img.light-mode{
+  opacity:1;
 }
 
 .overlay{
@@ -308,12 +355,13 @@ p{
 
 <section class="hero" id="hero">
 
-  <img src="spider-network.png" alt="Spider Network">
+  <img src="mantis-network.png"
+class="light-mode"
+alt="Mantis">
 
-  <div class="overlay"></div>
-
-  <div class="hero-content">
-
+<img src="spider-network.png"
+class="dark-mode"
+alt="Spider">
     <h1>מראה עיניים</h1>
 
     <p>מחשבה הופכת תנועת מידע</p>
