@@ -30,24 +30,32 @@ body.learning-mode{
   color:rgba(225,225,225,0.84);
 }
 
+/* rain is now active from page start */
 .rain{
   position:fixed;
   inset:0;
   z-index:2;
   pointer-events:none;
   overflow:hidden;
-  opacity:0;
+  opacity:0.24;
   transition:opacity 1.4s ease;
 }
 
-body.storm-active .rain{ opacity:0.42; }
+body.learning-mode .rain{
+  opacity:0.42;
+}
 
 .drop{
   position:absolute;
   top:-120vh;
   width:1px;
   height:78px;
-  background:linear-gradient(to bottom,rgba(110,170,255,0),rgba(110,170,255,0.38),rgba(110,170,255,0));
+  background:linear-gradient(
+    to bottom,
+    rgba(110,170,255,0),
+    rgba(110,170,255,0.38),
+    rgba(110,170,255,0)
+  );
   animation:rain linear infinite;
 }
 
@@ -58,15 +66,20 @@ body.storm-active .rain{ opacity:0.42; }
 
 .thunder-cloud{
   position:fixed;
-  top:18vh;
-  left:9vw;
-  width:38vw;
-  height:28vh;
-  background:radial-gradient(circle,rgba(120,170,255,0.10),rgba(80,120,180,0.05),rgba(0,0,0,0));
+  top:13vh;
+  left:8vw;
+  width:42vw;
+  height:32vh;
+  background:radial-gradient(
+    circle,
+    rgba(120,170,255,0.13),
+    rgba(80,120,180,0.055),
+    rgba(0,0,0,0)
+  );
   z-index:3;
   pointer-events:none;
   opacity:0;
-  filter:blur(22px);
+  filter:blur(24px);
   transition:opacity 0.8s ease;
 }
 
@@ -250,9 +263,10 @@ body.learning-mode .highlight{
   filter:brightness(0.86) contrast(1.05) grayscale(6%);
 }
 
+/* brighter dark cable */
 .cable-dark{
   opacity:0;
-  filter:brightness(0.46) contrast(1.18) saturate(1.15);
+  filter:brightness(0.62) contrast(1.10) saturate(1.08);
 }
 
 body.learning-mode .cable-light{ opacity:0; }
@@ -316,10 +330,10 @@ body.learning-mode .footer-line{
   }
 
   .thunder-cloud{
-    top:22vh;
+    top:16vh;
     left:5vw;
-    width:55vw;
-    height:24vh;
+    width:60vw;
+    height:28vh;
   }
 }
 </style>
@@ -456,7 +470,6 @@ body.learning-mode .footer-line{
 
 <script>
 const rain = document.getElementById("rain");
-const hero = document.getElementById("hero");
 const focusBtn = document.getElementById("focusBtn");
 const brownNoise = document.getElementById("brownNoise");
 const rainSound = document.getElementById("rainSound");
@@ -514,40 +527,23 @@ function stopBrownNoise(){
   fadeAudio(brownNoise, 0, 900);
 }
 
-function isBelowHero(){
-  return window.scrollY > hero.offsetHeight - 8;
+function startRainSound(){
+  if(!soundAllowed) return;
+
+  if(rainSound.paused){
+    rainSound.volume = 0;
+    rainSound.play().then(function(){
+      fadeAudio(rainSound, 0.18, 1600);
+    }).catch(function(){});
+  }
 }
 
-function updateStormVisual(){
-  if(isBelowHero()){
-    document.body.classList.add("storm-active");
-  } else {
-    document.body.classList.remove("storm-active");
-    thunderCloud.classList.remove("flash");
-  }
-
-  updateRainSound();
-}
-
-function updateRainSound(){
-  if(soundAllowed && document.body.classList.contains("storm-active")){
-    if(rainSound.paused){
-      rainSound.volume = 0;
-      rainSound.play().then(function(){
-        fadeAudio(rainSound, 0.18, 1600);
-      }).catch(function(){});
-    }
-
-    startThunderLoop();
-  } else {
-    fadeAudio(rainSound, 0, 900);
-    stopThunderLoop();
-  }
+function stopRainSound(){
+  fadeAudio(rainSound, 0, 900);
 }
 
 function thunderFlash(){
   if(!soundAllowed) return;
-  if(!document.body.classList.contains("storm-active")) return;
 
   thunderCloud.classList.add("flash");
 
@@ -564,12 +560,12 @@ function startThunderLoop(){
   if(thunderTimer) return;
 
   function scheduleThunder(){
-    const delay = 20000 + Math.random() * 28000;
+    const delay = 14000 + Math.random() * 26000;
 
     thunderTimer = setTimeout(function(){
       thunderTimer = null;
 
-      if(soundAllowed && document.body.classList.contains("storm-active")){
+      if(soundAllowed){
         thunderFlash();
         scheduleThunder();
       }
@@ -596,15 +592,19 @@ focusBtn.addEventListener("click", function(){
 
   if(soundAllowed){
     startBrownNoise();
+    startRainSound();
+    startThunderLoop();
+
+    setTimeout(function(){
+      thunderFlash();
+    }, 1800);
+
   } else {
     stopBrownNoise();
+    stopRainSound();
+    stopThunderLoop();
   }
-
-  updateRainSound();
 });
-
-window.addEventListener("scroll", updateStormVisual);
-window.addEventListener("resize", updateStormVisual);
 
 let scrollTimer;
 
@@ -633,8 +633,6 @@ const observer = new IntersectionObserver(function(entries){
 cableReveals.forEach(function(item){
   observer.observe(item);
 });
-
-updateStormVisual();
 </script>
 
 </body>
