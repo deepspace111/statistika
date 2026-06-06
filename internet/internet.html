@@ -27,7 +27,7 @@ body{
 
 body.learning-mode{
   background:#000;
-  color:rgba(235,235,235,0.92);
+  color:rgba(185,185,185,0.84);
 }
 
 .rain{
@@ -36,12 +36,12 @@ body.learning-mode{
   z-index:2;
   pointer-events:none;
   overflow:hidden;
-  opacity:0.24;
+  opacity:0.22;
   transition:opacity 1.4s ease;
 }
 
 body.learning-mode .rain{
-  opacity:0.46;
+  opacity:0.43;
 }
 
 .drop{
@@ -52,7 +52,7 @@ body.learning-mode .rain{
   background:linear-gradient(
     to bottom,
     rgba(110,170,255,0),
-    rgba(110,170,255,0.38),
+    rgba(110,170,255,0.34),
     rgba(110,170,255,0)
   );
   animation:rain linear infinite;
@@ -86,7 +86,7 @@ body.learning-mode .rain{
 
 #homeBtn{
   position:fixed;
-  top:14px;
+  top:6px;
   left:14px;
   text-decoration:none;
   font-family:'Yuji Mai',serif;
@@ -97,7 +97,7 @@ body.learning-mode .rain{
 }
 
 body.learning-mode #homeBtn{
-  color:rgba(255,255,255,0.82);
+  color:rgba(210,210,210,0.78);
 }
 
 #focusBtn{
@@ -116,9 +116,9 @@ body.learning-mode #homeBtn{
 }
 
 body.learning-mode #focusBtn{
-  border:1px solid rgba(255,255,255,0.28);
-  background:rgba(255,255,255,0.08);
-  color:rgba(255,255,255,0.90);
+  border:1px solid rgba(210,210,210,0.24);
+  background:rgba(255,255,255,0.06);
+  color:rgba(200,200,200,0.82);
 }
 
 #focusBtn.scrolling{ opacity:0.18; }
@@ -169,7 +169,7 @@ body.learning-mode .hero img.dark-mode{ opacity:1; }
 body.learning-mode .overlay{
   background:linear-gradient(
     to bottom,
-    rgba(0,0,0,0.05),
+    rgba(0,0,0,0.04),
     rgba(0,0,0,1)
   );
 }
@@ -199,7 +199,7 @@ h3{
 body.learning-mode h1,
 body.learning-mode h2,
 body.learning-mode h3{
-  color:rgba(235,235,235,0.92);
+  color:rgba(185,185,185,0.84);
 }
 
 .network-title{
@@ -215,7 +215,7 @@ p{
 }
 
 body.learning-mode p{
-  color:rgba(235,235,235,0.90);
+  color:rgba(185,185,185,0.82);
 }
 
 .highlight{
@@ -225,7 +225,7 @@ body.learning-mode p{
 }
 
 body.learning-mode .highlight{
-  color:rgba(235,235,235,0.94);
+  color:rgba(195,195,195,0.86);
 }
 
 .content{
@@ -286,7 +286,7 @@ body.learning-mode .cable-dark{ opacity:1; }
 }
 
 body.learning-mode .footer-line{
-  color:rgba(235,235,235,0.88);
+  color:rgba(185,185,185,0.80);
 }
 
 @media (max-width:768px){
@@ -312,7 +312,10 @@ body.learning-mode .footer-line{
 
   .footer-line{ font-size:15px; }
 
-  #homeBtn{ font-size:32px; }
+  #homeBtn{
+    top:6px;
+    font-size:32px;
+  }
 
   #focusBtn{
     top:70px;
@@ -551,6 +554,7 @@ function stopRainSound(){
 
 function thunderFlash(){
   if(!soundAllowed) return;
+  if(!document.body.classList.contains("learning-mode")) return;
 
   thunderCloud.classList.add("flash");
 
@@ -572,7 +576,10 @@ function startThunderLoop(){
     thunderTimer = setTimeout(function(){
       thunderTimer = null;
 
-      if(soundAllowed){
+      if(
+        soundAllowed &&
+        document.body.classList.contains("learning-mode")
+      ){
         thunderFlash();
         scheduleThunder();
       }
@@ -589,6 +596,8 @@ function stopThunderLoop(){
   }
 
   thunderCloud.classList.remove("flash");
+  thunderSound.pause();
+  thunderSound.currentTime = 0;
 }
 
 focusBtn.addEventListener("click", function(){
