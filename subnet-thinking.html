@@ -18,14 +18,29 @@ body{
   min-height:100vh;
   overflow:hidden;
   background:
-    radial-gradient(circle at 50% 70%, rgba(20,55,95,0.22), transparent 42%),
-    radial-gradient(circle at 20% 15%, rgba(35,75,120,0.16), transparent 35%),
+    radial-gradient(circle at 50% 68%, rgba(18,52,92,0.24), transparent 43%),
+    radial-gradient(circle at 20% 18%, rgba(25,70,120,0.13), transparent 36%),
     #02040a;
   color:rgba(220,235,255,0.82);
   font-family:Arial, sans-serif;
 }
 
-/* דו */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:rgba(130,170,230,0);
+  animation:softPulse 14s infinite;
+  z-index:2;
+}
+
+@keyframes softPulse{
+  0%,82%,100%{ background:rgba(130,170,230,0); }
+  84%{ background:rgba(130,170,230,0.035); }
+  86%{ background:rgba(130,170,230,0); }
+}
+
 #homeBtn{
   position:fixed;
   top:16px;
@@ -38,71 +53,6 @@ body{
   line-height:1;
 }
 
-/* תודעת לימוד */
-#focusBtn{
-  position:fixed;
-  top:14px;
-  right:14px;
-  border:1px solid rgba(255,255,255,0.14);
-  background:rgba(255,255,255,0.035);
-  color:rgba(220,230,245,0.66);
-  padding:7px 12px;
-  border-radius:18px;
-  font-size:13px;
-  cursor:pointer;
-  z-index:30;
-  transition:0.4s ease;
-}
-
-#focusBtn:hover{
-  background:rgba(255,255,255,0.08);
-}
-
-/* גשם */
-.rain{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  opacity:0;
-  z-index:3;
-  background-image:
-    linear-gradient(to bottom, rgba(180,210,255,0.18) 0 1px, transparent 1px);
-  background-size:2px 18px;
-  animation:rainFall 0.55s linear infinite;
-  transition:opacity 1.5s ease;
-}
-
-body.focus .rain{
-  opacity:0.23;
-}
-
-@keyframes rainFall{
-  from{ background-position:0 -18px; }
-  to{ background-position:0 18px; }
-}
-
-/* ברק רחוק */
-.lightning{
-  position:fixed;
-  inset:0;
-  background:rgba(160,195,255,0.0);
-  pointer-events:none;
-  z-index:4;
-}
-
-body.focus .lightning{
-  animation:softLightning 12s infinite;
-}
-
-@keyframes softLightning{
-  0%, 84%, 100%{ background:rgba(160,195,255,0); }
-  85%{ background:rgba(160,195,255,0.06); }
-  86%{ background:rgba(160,195,255,0); }
-  88%{ background:rgba(160,195,255,0.035); }
-  89%{ background:rgba(160,195,255,0); }
-}
-
-/* מרכז */
 .stage{
   position:relative;
   min-height:100vh;
@@ -110,10 +60,9 @@ body.focus .lightning{
   flex-direction:column;
   justify-content:center;
   align-items:center;
-  perspective:900px;
-  z-index:10;
   text-align:center;
   padding:24px;
+  z-index:10;
 }
 
 .small-title{
@@ -121,211 +70,376 @@ body.focus .lightning{
   top:18%;
   font-size:13px;
   letter-spacing:0.22em;
-  color:rgba(210,225,245,0.34);
+  color:rgba(210,225,245,0.32);
 }
 
-.flipBox{
+.subLabel{
+  margin-bottom:10px;
+  font-size:13px;
+  letter-spacing:0.18em;
+  color:rgba(210,225,245,0.28);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4, minmax(68px, 150px));
+  gap:clamp(12px, 3vw, 34px);
+  direction:ltr;
+  margin:8px 0 28px;
+}
+
+.cell{
   position:relative;
-  width:min(92vw, 850px);
-  height:130px;
-  transform-style:preserve-3d;
+  min-height:66px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:"Courier New", monospace;
+  font-size:clamp(22px, 4.8vw, 46px);
+  color:rgba(235,242,255,0.88);
+  text-shadow:0 0 18px rgba(120,170,255,0.14);
 }
 
-.decimal,
-.binary{
+.cell .dec,
+.cell .bin{
   position:absolute;
   inset:0;
   display:flex;
   align-items:center;
   justify-content:center;
+  transition:
+    opacity 1.2s ease,
+    transform 1.6s ease,
+    text-shadow 1.6s ease,
+    color 1.6s ease;
+}
+
+.cell .bin{
+  opacity:0;
+  transform:translateY(14px) rotateX(-72deg);
+  color:rgba(150,205,255,0.92);
+  font-size:clamp(15px, 2.4vw, 25px);
+}
+
+body.binary .cell .dec{
+  opacity:0;
+  transform:translateY(-18px) rotateX(82deg);
+}
+
+body.binary .cell .bin{
+  opacity:1;
+  transform:translateY(0) rotateX(0deg);
+  text-shadow:0 0 22px rgba(105,175,255,0.42);
+}
+
+.maskRow{
+  margin-top:8px;
+  opacity:0.82;
+}
+
+.networkHint{
+  margin-top:18px;
   font-family:"Courier New", monospace;
-  letter-spacing:0.06em;
-  font-size:clamp(26px, 6vw, 58px);
-  white-space:nowrap;
-}
-
-.decimal{
-  color:rgba(235,242,255,0.9);
-  transform-origin:top center;
-  animation:fallBack 4.2s ease-in-out forwards;
-  animation-delay:1s;
-  text-shadow:0 0 18px rgba(120,170,255,0.18);
-}
-
-.binary{
+  font-size:clamp(15px, 2.2vw, 22px);
+  color:rgba(210,225,245,0.46);
   opacity:0;
-  color:rgba(155,205,255,0.96);
-  transform:scale(0.96);
-  animation:binaryWake 2s ease forwards;
-  animation-delay:3.85s;
-  text-shadow:0 0 22px rgba(80,150,255,0.25);
+  transform:translateY(10px);
+  transition:1.4s ease;
 }
 
-@keyframes fallBack{
-  0%{
-    transform:rotateX(0deg) translateY(0);
-    opacity:1;
-  }
-  62%{
-    transform:rotateX(72deg) translateY(8px);
-    opacity:0.55;
-  }
-  76%{
-    transform:rotateX(92deg) translateY(18px);
-    opacity:0.24;
-  }
-  100%{
-    transform:rotateX(112deg) translateY(28px);
-    opacity:0;
-  }
+body.binary .networkHint{
+  opacity:1;
+  transform:translateY(0);
 }
 
-@keyframes binaryWake{
-  0%{
-    opacity:0;
-    transform:scale(0.96);
-  }
-  28%{
-    opacity:1;
-    transform:scale(1.045);
-    text-shadow:0 0 35px rgba(115,180,255,0.85);
-  }
-  100%{
-    opacity:1;
-    transform:scale(1);
-  }
+.takenBit{
+  color:rgba(255,255,255,0.96);
+  text-shadow:0 0 20px rgba(120,185,255,0.8);
 }
 
-.hitLine{
-  margin-top:35px;
-  height:1px;
-  width:min(78vw, 680px);
-  background:linear-gradient(to left, transparent, rgba(125,185,255,0.45), transparent);
-  opacity:0;
-  animation:lineWake 1.4s ease forwards;
-  animation-delay:3.75s;
-}
-
-@keyframes lineWake{
-  from{ opacity:0; transform:scaleX(0.6); }
-  to{ opacity:1; transform:scaleX(1); }
-}
-
-.explain{
-  margin-top:34px;
-  max-width:680px;
-  line-height:2.1;
-  font-size:clamp(15px, 2.2vw, 20px);
-  color:rgba(220,232,250,0.62);
-  opacity:0;
-  animation:textIn 2s ease forwards;
-  animation-delay:5.2s;
-}
-
-@keyframes textIn{
-  from{ opacity:0; transform:translateY(12px); }
-  to{ opacity:1; transform:translateY(0); }
-}
-
-.power{
-  margin-top:30px;
+.ranges{
+  margin-top:22px;
+  line-height:2;
   font-family:"Courier New", monospace;
-  font-size:clamp(20px, 4vw, 34px);
-  color:rgba(190,220,255,0.82);
+  font-size:clamp(16px, 2.4vw, 24px);
+  color:rgba(210,225,245,0.58);
   opacity:0;
-  animation:textIn 2s ease forwards;
-  animation-delay:6.6s;
+  transition:1.7s ease;
 }
 
-.power span{
-  color:white;
-  text-shadow:0 0 22px rgba(120,180,255,0.85);
+body.binary .ranges{
+  opacity:1;
 }
 
-.controls{
+/* מסכות */
+.maskNav{
   position:fixed;
-  bottom:22px;
+  top:50%;
+  width:92px;
+  height:118px;
+  transform:translateY(-50%);
+  z-index:25;
+  cursor:pointer;
+  opacity:0.38;
+  transition:opacity 0.8s ease, transform 0.8s ease;
+}
+
+.maskNav:hover{
+  opacity:0.78;
+}
+
+.maskLeft{
+  left:26px;
+}
+
+.maskRight{
+  right:26px;
+}
+
+.face{
+  position:absolute;
+  inset:0;
+  border-radius:48% 48% 44% 44%;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(180,195,220,0.13), transparent 38%),
+    rgba(120,132,150,0.055);
+  border:1px solid rgba(175,190,215,0.10);
+  box-shadow:
+    inset 0 0 26px rgba(210,225,245,0.035),
+    0 0 18px rgba(80,130,200,0.045);
+  overflow:hidden;
+}
+
+.face::after{
+  content:"";
+  position:absolute;
+  inset:-40%;
+  background:linear-gradient(105deg, transparent 42%, rgba(190,215,255,0.16), transparent 58%);
+  transform:translateX(-120%);
+  animation:waveReveal 8s infinite;
+}
+
+@keyframes waveReveal{
+  0%,55%,100%{ transform:translateX(-120%); }
+  68%{ transform:translateX(120%); }
+}
+
+.eye{
+  position:absolute;
+  top:38px;
+  width:18px;
+  height:6px;
+  border-radius:50%;
+  background:rgba(210,225,245,0.08);
+  overflow:hidden;
+  transition:height 0.6s ease, background 0.6s ease;
+}
+
+.eye.leftEye{ left:25px; }
+.eye.rightEye{ right:25px; }
+
+.pupil{
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:rgba(220,235,255,0.65);
+  transform:translate(-50%,-50%);
+  opacity:0;
+  transition:opacity 0.5s ease;
+}
+
+body.awake .eye{
+  height:14px;
+  background:rgba(210,225,245,0.18);
+}
+
+body.awake .pupil{
+  opacity:1;
+}
+
+.mouth{
+  position:absolute;
+  left:50%;
+  bottom:34px;
+  width:34px;
+  height:14px;
+  border-bottom:2px solid rgba(210,225,245,0.12);
+  border-radius:0 0 40px 40px;
+  transform:translateX(-50%);
+  transition:0.8s ease;
+}
+
+.maskRight .mouth{
+  border-bottom-color:rgba(210,225,245,0.17);
+}
+
+body.binary .maskRight .mouth{
+  height:20px;
+  width:42px;
+  border-bottom-color:rgba(225,240,255,0.34);
+}
+
+body.binary .maskLeft .mouth{
+  border-bottom:0;
+  border-top:2px solid rgba(210,225,245,0.13);
+  border-radius:40px 40px 0 0;
+}
+
+.hint{
+  position:absolute;
+  top:124px;
   left:50%;
   transform:translateX(-50%);
-  z-index:30;
+  font-size:11px;
+  white-space:nowrap;
+  color:rgba(210,225,245,0.26);
+  letter-spacing:0.12em;
 }
 
-.restart{
-  border:1px solid rgba(255,255,255,0.14);
-  background:rgba(255,255,255,0.035);
-  color:rgba(220,230,245,0.58);
-  padding:8px 16px;
-  border-radius:20px;
-  cursor:pointer;
-  font-size:13px;
-}
+@media(max-width:760px){
+  .grid{
+    grid-template-columns:repeat(2, minmax(90px, 1fr));
+  }
 
-.restart:hover{
-  background:rgba(255,255,255,0.08);
+  .maskNav{
+    width:70px;
+    height:92px;
+    opacity:0.32;
+  }
+
+  .maskLeft{ left:12px; }
+  .maskRight{ right:12px; }
+
+  .hint{
+    display:none;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<a href="../ccna.html" id="homeBtn">道</a>
-<button id="focusBtn">תודעת לימוד</button>
+<a href="subnet.html" id="homeBtn">道</a>
 
-<div class="rain"></div>
-<div class="lightning"></div>
-
-<audio id="thunder" loop>
-  <source src="../thunder.mp3" type="audio/mpeg">
+<audio id="hum">
+  <source src="hum.mp3" type="audio/mpeg">
 </audio>
 
 <main class="stage">
 
   <div class="small-title">תחנת חשיבה — Subnet</div>
 
-  <section class="flipBox">
-    <div class="decimal">192.168.1.130</div>
-    <div class="binary">11000000.10101000.00000001.10000010</div>
+  <div class="subLabel">IP ADDRESS</div>
+
+  <section class="grid ipGrid">
+    <div class="cell"><span class="dec">192</span><span class="bin">11000000</span></div>
+    <div class="cell"><span class="dec">168</span><span class="bin">10101000</span></div>
+    <div class="cell"><span class="dec">1</span><span class="bin">00000001</span></div>
+    <div class="cell"><span class="dec">130</span><span class="bin">10000010</span></div>
   </section>
 
-  <div class="hitLine"></div>
+  <div class="subLabel">SUBNET MASK</div>
 
-  <div class="explain">
-    הכתובת העשרונית היא מה שאנחנו רואים.<br>
-    הבינארי הוא המבנה שיושב מתחת.
+  <section class="grid maskRow">
+    <div class="cell"><span class="dec">255</span><span class="bin">11111111</span></div>
+    <div class="cell"><span class="dec">255</span><span class="bin">11111111</span></div>
+    <div class="cell"><span class="dec">255</span><span class="bin">11111111</span></div>
+    <div class="cell"><span class="dec">128</span><span class="bin"><span class="takenBit">1</span>0000000</span></div>
+  </section>
+
+  <div class="networkHint">
+    Network | Host<br>
+    הביט הראשון עבר לחלק הרשת
   </div>
 
-  <div class="power">
-    <span>10000000</span> = 128
+  <div class="ranges">
+    0xxxxxxx&nbsp;&nbsp;→&nbsp;&nbsp;0 - 127<br>
+    1xxxxxxx&nbsp;&nbsp;→&nbsp;&nbsp;128 - 255
   </div>
 
 </main>
 
-<div class="controls">
-  <button class="restart" onclick="restartAnimation()">הפעל שוב</button>
+<div class="maskNav maskLeft" id="toDecimal" title="חזרה לדצימלי">
+  <div class="face">
+    <div class="eye leftEye"><div class="pupil"></div></div>
+    <div class="eye rightEye"><div class="pupil"></div></div>
+    <div class="mouth"></div>
+  </div>
+  <div class="hint">Decimal</div>
+</div>
+
+<div class="maskNav maskRight" id="toBinary" title="מעבר לבינארי">
+  <div class="face">
+    <div class="eye leftEye"><div class="pupil"></div></div>
+    <div class="eye rightEye"><div class="pupil"></div></div>
+    <div class="mouth"></div>
+  </div>
+  <div class="hint">Binary</div>
 </div>
 
 <script>
-const focusBtn = document.getElementById("focusBtn");
-const thunder = document.getElementById("thunder");
+const hum = document.getElementById("hum");
+const toBinary = document.getElementById("toBinary");
+const toDecimal = document.getElementById("toDecimal");
 
-focusBtn.addEventListener("click", async () => {
-  document.body.classList.toggle("focus");
+let sleepTimer;
 
-  if(document.body.classList.contains("focus")){
-    thunder.volume = 0.16;
-    try{
-      await thunder.play();
-    }catch(e){}
-  }else{
-    thunder.pause();
-  }
+function wakeMasks(){
+  document.body.classList.add("awake");
+  clearTimeout(sleepTimer);
+  sleepTimer = setTimeout(() => {
+    document.body.classList.remove("awake");
+  }, 2600);
+}
+
+document.addEventListener("mousemove", (e) => {
+  wakeMasks();
+
+  document.querySelectorAll(".eye").forEach((eye) => {
+    const pupil = eye.querySelector(".pupil");
+    const rect = eye.getBoundingClientRect();
+
+    const eyeX = rect.left + rect.width / 2;
+    const eyeY = rect.top + rect.height / 2;
+
+    const dx = Math.max(-4, Math.min(4, (e.clientX - eyeX) / 35));
+    const dy = Math.max(-3, Math.min(3, (e.clientY - eyeY) / 45));
+
+    pupil.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`;
+  });
 });
 
-function restartAnimation(){
-  const stage = document.querySelector(".stage");
-  const clone = stage.cloneNode(true);
-  stage.parentNode.replaceChild(clone, stage);
+function playHum(){
+  hum.pause();
+  hum.currentTime = 0;
+  hum.volume = 0.09;
+  hum.play().catch(() => {});
 }
+
+function stopHumSoftly(){
+  const fade = setInterval(() => {
+    if(hum.volume > 0.01){
+      hum.volume = Math.max(0, hum.volume - 0.01);
+    }else{
+      hum.pause();
+      hum.currentTime = 0;
+      clearInterval(fade);
+    }
+  }, 90);
+}
+
+toBinary.addEventListener("click", () => {
+  document.body.classList.add("binary");
+  playHum();
+});
+
+toDecimal.addEventListener("click", () => {
+  document.body.classList.remove("binary");
+  stopHumSoftly();
+});
 </script>
 
 </body>
