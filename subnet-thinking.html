@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>תחנת חשיבה — Subnet Binary</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap" rel="stylesheet">
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 70%, rgba(20,55,95,0.22), transparent 42%),
+    radial-gradient(circle at 20% 15%, rgba(35,75,120,0.16), transparent 35%),
+    #02040a;
+  color:rgba(220,235,255,0.82);
+  font-family:Arial, sans-serif;
+}
+
+/* דו */
+#homeBtn{
+  position:fixed;
+  top:16px;
+  left:18px;
+  text-decoration:none;
+  font-family:"Yuji Mai", serif;
+  font-size:32px;
+  color:rgba(210,225,245,0.42);
+  z-index:30;
+  line-height:1;
+}
+
+/* תודעת לימוד */
+#focusBtn{
+  position:fixed;
+  top:14px;
+  right:14px;
+  border:1px solid rgba(255,255,255,0.14);
+  background:rgba(255,255,255,0.035);
+  color:rgba(220,230,245,0.66);
+  padding:7px 12px;
+  border-radius:18px;
+  font-size:13px;
+  cursor:pointer;
+  z-index:30;
+  transition:0.4s ease;
+}
+
+#focusBtn:hover{
+  background:rgba(255,255,255,0.08);
+}
+
+/* גשם */
+.rain{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:0;
+  z-index:3;
+  background-image:
+    linear-gradient(to bottom, rgba(180,210,255,0.18) 0 1px, transparent 1px);
+  background-size:2px 18px;
+  animation:rainFall 0.55s linear infinite;
+  transition:opacity 1.5s ease;
+}
+
+body.focus .rain{
+  opacity:0.23;
+}
+
+@keyframes rainFall{
+  from{ background-position:0 -18px; }
+  to{ background-position:0 18px; }
+}
+
+/* ברק רחוק */
+.lightning{
+  position:fixed;
+  inset:0;
+  background:rgba(160,195,255,0.0);
+  pointer-events:none;
+  z-index:4;
+}
+
+body.focus .lightning{
+  animation:softLightning 12s infinite;
+}
+
+@keyframes softLightning{
+  0%, 84%, 100%{ background:rgba(160,195,255,0); }
+  85%{ background:rgba(160,195,255,0.06); }
+  86%{ background:rgba(160,195,255,0); }
+  88%{ background:rgba(160,195,255,0.035); }
+  89%{ background:rgba(160,195,255,0); }
+}
+
+/* מרכז */
+.stage{
+  position:relative;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  perspective:900px;
+  z-index:10;
+  text-align:center;
+  padding:24px;
+}
+
+.small-title{
+  position:absolute;
+  top:18%;
+  font-size:13px;
+  letter-spacing:0.22em;
+  color:rgba(210,225,245,0.34);
+}
+
+.flipBox{
+  position:relative;
+  width:min(92vw, 850px);
+  height:130px;
+  transform-style:preserve-3d;
+}
+
+.decimal,
+.binary{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:"Courier New", monospace;
+  letter-spacing:0.06em;
+  font-size:clamp(26px, 6vw, 58px);
+  white-space:nowrap;
+}
+
+.decimal{
+  color:rgba(235,242,255,0.9);
+  transform-origin:top center;
+  animation:fallBack 4.2s ease-in-out forwards;
+  animation-delay:1s;
+  text-shadow:0 0 18px rgba(120,170,255,0.18);
+}
+
+.binary{
+  opacity:0;
+  color:rgba(155,205,255,0.96);
+  transform:scale(0.96);
+  animation:binaryWake 2s ease forwards;
+  animation-delay:3.85s;
+  text-shadow:0 0 22px rgba(80,150,255,0.25);
+}
+
+@keyframes fallBack{
+  0%{
+    transform:rotateX(0deg) translateY(0);
+    opacity:1;
+  }
+  62%{
+    transform:rotateX(72deg) translateY(8px);
+    opacity:0.55;
+  }
+  76%{
+    transform:rotateX(92deg) translateY(18px);
+    opacity:0.24;
+  }
+  100%{
+    transform:rotateX(112deg) translateY(28px);
+    opacity:0;
+  }
+}
+
+@keyframes binaryWake{
+  0%{
+    opacity:0;
+    transform:scale(0.96);
+  }
+  28%{
+    opacity:1;
+    transform:scale(1.045);
+    text-shadow:0 0 35px rgba(115,180,255,0.85);
+  }
+  100%{
+    opacity:1;
+    transform:scale(1);
+  }
+}
+
+.hitLine{
+  margin-top:35px;
+  height:1px;
+  width:min(78vw, 680px);
+  background:linear-gradient(to left, transparent, rgba(125,185,255,0.45), transparent);
+  opacity:0;
+  animation:lineWake 1.4s ease forwards;
+  animation-delay:3.75s;
+}
+
+@keyframes lineWake{
+  from{ opacity:0; transform:scaleX(0.6); }
+  to{ opacity:1; transform:scaleX(1); }
+}
+
+.explain{
+  margin-top:34px;
+  max-width:680px;
+  line-height:2.1;
+  font-size:clamp(15px, 2.2vw, 20px);
+  color:rgba(220,232,250,0.62);
+  opacity:0;
+  animation:textIn 2s ease forwards;
+  animation-delay:5.2s;
+}
+
+@keyframes textIn{
+  from{ opacity:0; transform:translateY(12px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+
+.power{
+  margin-top:30px;
+  font-family:"Courier New", monospace;
+  font-size:clamp(20px, 4vw, 34px);
+  color:rgba(190,220,255,0.82);
+  opacity:0;
+  animation:textIn 2s ease forwards;
+  animation-delay:6.6s;
+}
+
+.power span{
+  color:white;
+  text-shadow:0 0 22px rgba(120,180,255,0.85);
+}
+
+.controls{
+  position:fixed;
+  bottom:22px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:30;
+}
+
+.restart{
+  border:1px solid rgba(255,255,255,0.14);
+  background:rgba(255,255,255,0.035);
+  color:rgba(220,230,245,0.58);
+  padding:8px 16px;
+  border-radius:20px;
+  cursor:pointer;
+  font-size:13px;
+}
+
+.restart:hover{
+  background:rgba(255,255,255,0.08);
+}
+</style>
+</head>
+
+<body>
+
+<a href="../ccna.html" id="homeBtn">道</a>
+<button id="focusBtn">תודעת לימוד</button>
+
+<div class="rain"></div>
+<div class="lightning"></div>
+
+<audio id="thunder" loop>
+  <source src="../thunder.mp3" type="audio/mpeg">
+</audio>
+
+<main class="stage">
+
+  <div class="small-title">תחנת חשיבה — Subnet</div>
+
+  <section class="flipBox">
+    <div class="decimal">192.168.1.130</div>
+    <div class="binary">11000000.10101000.00000001.10000010</div>
+  </section>
+
+  <div class="hitLine"></div>
+
+  <div class="explain">
+    הכתובת העשרונית היא מה שאנחנו רואים.<br>
+    הבינארי הוא המבנה שיושב מתחת.
+  </div>
+
+  <div class="power">
+    <span>10000000</span> = 128
+  </div>
+
+</main>
+
+<div class="controls">
+  <button class="restart" onclick="restartAnimation()">הפעל שוב</button>
+</div>
+
+<script>
+const focusBtn = document.getElementById("focusBtn");
+const thunder = document.getElementById("thunder");
+
+focusBtn.addEventListener("click", async () => {
+  document.body.classList.toggle("focus");
+
+  if(document.body.classList.contains("focus")){
+    thunder.volume = 0.16;
+    try{
+      await thunder.play();
+    }catch(e){}
+  }else{
+    thunder.pause();
+  }
+});
+
+function restartAnimation(){
+  const stage = document.querySelector(".stage");
+  const clone = stage.cloneNode(true);
+  stage.parentNode.replaceChild(clone, stage);
+}
+</script>
+
+</body>
+</html>
