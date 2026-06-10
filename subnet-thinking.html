@@ -29,8 +29,6 @@ body{
   font-family:Arial,sans-serif;
 }
 
-/* הבהוב עדין */
-
 body::after{
   content:"";
 
@@ -61,8 +59,6 @@ body::after{
   }
 }
 
-/* דו */
-
 #homeBtn{
   position:fixed;
 
@@ -83,8 +79,6 @@ body::after{
 
   line-height:1;
 }
-
-/* מרכז */
 
 .stage{
   position:relative;
@@ -115,8 +109,6 @@ body::after{
   color:rgba(210,225,245,0.28);
 }
 
-/* כותרות */
-
 .rowLabel{
   margin-bottom:10px;
 
@@ -126,8 +118,6 @@ body::after{
 
   color:rgba(210,225,245,0.24);
 }
-
-/* גריד */
 
 .grid{
   display:grid;
@@ -172,9 +162,13 @@ body::after{
   white-space:nowrap;
 }
 
-/* דצימאלי */
-
 .decimal{
+  opacity:1;
+
+  transform:
+    rotateX(0deg)
+    translateY(0);
+
   font-size:clamp(24px,5vw,52px);
 
   color:rgba(235,242,255,0.9);
@@ -182,8 +176,6 @@ body::after{
   text-shadow:
     0 0 18px rgba(120,170,255,0.12);
 }
-
-/* בינארי */
 
 .binary{
   opacity:0;
@@ -198,8 +190,6 @@ body::after{
 
   letter-spacing:0.08em;
 }
-
-/* מצב בינארי */
 
 body.binary .decimal{
   opacity:0;
@@ -220,7 +210,21 @@ body.binary .binary{
     0 0 24px rgba(105,175,255,0.48);
 }
 
-/* Network Host */
+body:not(.binary) .decimal{
+  opacity:1;
+
+  transform:
+    rotateX(0deg)
+    translateY(0);
+}
+
+body:not(.binary) .binary{
+  opacity:0;
+
+  transform:
+    rotateX(-90deg)
+    translateY(18px);
+}
 
 .network{
   margin-top:4px;
@@ -253,8 +257,6 @@ body.binary .network{
     0 0 24px rgba(120,185,255,0.92);
 }
 
-/* טווחים */
-
 .ranges{
   margin-top:28px;
 
@@ -274,8 +276,6 @@ body.binary .network{
 body.binary .ranges{
   opacity:1;
 }
-
-/* מסכות */
 
 .maskWrap{
   position:absolute;
@@ -299,8 +299,6 @@ body.binary .ranges{
 .maskRight{
   right:11%;
 }
-
-/* גוף מסכה */
 
 .mask{
   position:absolute;
@@ -338,8 +336,6 @@ body.binary .ranges{
   opacity:0.78;
 }
 
-/* גל אור */
-
 .mask::after{
   content:"";
 
@@ -370,8 +366,6 @@ body.binary .ranges{
     transform:translateX(140%);
   }
 }
-
-/* עיניים */
 
 .eye{
   position:absolute;
@@ -422,8 +416,6 @@ body.binary .ranges{
   transition:0.4s ease;
 }
 
-/* מתעורר */
-
 body.awake .eye{
   height:16px;
 
@@ -435,8 +427,6 @@ body.awake .pupil{
   opacity:1;
 }
 
-/* פה */
-
 .mouth{
   position:absolute;
 
@@ -447,8 +437,6 @@ body.awake .pupil{
 
   transition:1s ease;
 }
-
-/* ימין שמח */
 
 .maskRight .mouth{
   width:44px;
@@ -468,8 +456,6 @@ body.binary .maskRight .mouth{
   height:28px;
 }
 
-/* שמאל עצוב */
-
 .maskLeft .mouth{
   width:40px;
   height:18px;
@@ -480,25 +466,6 @@ body.binary .maskRight .mouth{
   border-radius:
     40px 40px 0 0;
 }
-
-.maskHint{
-  position:absolute;
-
-  top:192px;
-  left:50%;
-
-  transform:translateX(-50%);
-
-  font-size:11px;
-
-  letter-spacing:0.16em;
-
-  color:rgba(210,225,245,0.22);
-
-  white-space:nowrap;
-}
-
-/* מובייל */
 
 @media(max-width:900px){
 
@@ -529,10 +496,6 @@ body.binary .maskRight .mouth{
 
   .mouth{
     bottom:32px;
-  }
-
-  .maskHint{
-    display:none;
   }
 
   .grid{
@@ -638,8 +601,6 @@ body.binary .maskRight .mouth{
 
 </main>
 
-<!-- שמאל -->
-
 <div class="maskWrap maskLeft" id="decimalBtn">
 
   <div class="mask">
@@ -656,13 +617,7 @@ body.binary .maskRight .mouth{
 
   </div>
 
-  <div class="maskHint">
-    Decimal
-  </div>
-
 </div>
-
-<!-- ימין -->
 
 <div class="maskWrap maskRight" id="binaryBtn">
 
@@ -680,10 +635,6 @@ body.binary .maskRight .mouth{
 
   </div>
 
-  <div class="maskHint">
-    Binary
-  </div>
-
 </div>
 
 <script>
@@ -698,8 +649,7 @@ const decimalBtn =
   document.getElementById("decimalBtn");
 
 let sleepTimer;
-
-/* התעוררות */
+let humFadeTimer = null;
 
 function wakeMasks(){
 
@@ -713,8 +663,6 @@ function wakeMasks(){
 
   },2600);
 }
-
-/* מעקב עיניים */
 
 document.addEventListener("mousemove",(e)=>{
 
@@ -760,9 +708,19 @@ document.addEventListener("mousemove",(e)=>{
     });
 });
 
-/* אום */
+function clearHumFade(){
+
+  if(humFadeTimer){
+
+    clearInterval(humFadeTimer);
+
+    humFadeTimer = null;
+  }
+}
 
 function startHum(){
+
+  clearHumFade();
 
   hum.pause();
 
@@ -774,7 +732,7 @@ function startHum(){
 
   let v = 0;
 
-  const fade =
+  humFadeTimer =
     setInterval(()=>{
 
       v += 0.003;
@@ -783,7 +741,7 @@ function startHum(){
 
         v = 0.12;
 
-        clearInterval(fade);
+        clearHumFade();
       }
 
       hum.volume = v;
@@ -791,16 +749,20 @@ function startHum(){
     },90);
 }
 
-/* עצירת אום */
-
 function stopHum(){
 
-  const fade =
+  clearHumFade();
+
+  humFadeTimer =
     setInterval(()=>{
 
       if(hum.volume > 0.01){
 
-        hum.volume -= 0.004;
+        hum.volume =
+          Math.max(
+            0,
+            hum.volume - 0.004
+          );
 
       }else{
 
@@ -808,15 +770,17 @@ function stopHum(){
 
         hum.currentTime = 0;
 
-        clearInterval(fade);
+        hum.volume = 0;
+
+        clearHumFade();
       }
 
     },90);
 }
 
-/* בינארי */
+function showBinary(){
 
-binaryBtn.addEventListener("click",()=>{
+  wakeMasks();
 
   startHum();
 
@@ -825,16 +789,36 @@ binaryBtn.addEventListener("click",()=>{
     document.body.classList.add("binary");
 
   },900);
-});
+}
 
-/* דצימאלי */
+function showDecimal(){
 
-decimalBtn.addEventListener("click",()=>{
+  wakeMasks();
 
   document.body.classList.remove("binary");
 
   stopHum();
-});
+
+  document
+    .querySelectorAll(".decimal")
+    .forEach((item)=>{
+
+      item.style.opacity = "";
+      item.style.transform = "";
+    });
+
+  document
+    .querySelectorAll(".binary")
+    .forEach((item)=>{
+
+      item.style.opacity = "";
+      item.style.transform = "";
+    });
+}
+
+binaryBtn.addEventListener("click",showBinary);
+
+decimalBtn.addEventListener("click",showDecimal);
 
 </script>
 
