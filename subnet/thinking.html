@@ -28,13 +28,16 @@ body::after{
   inset:0;
   pointer-events:none;
   background:rgba(150,190,255,0);
-  animation:softFlash 16s infinite;
   z-index:1;
 }
 
+body.pulse::after{
+  animation:softFlash 4s ease-in-out infinite;
+}
+
 @keyframes softFlash{
-  0%,84%,100%{background:rgba(150,190,255,0)}
-  86%{background:rgba(150,190,255,.032)}
+  0%,76%,100%{background:rgba(150,190,255,0)}
+  82%{background:rgba(150,190,255,.035)}
   88%{background:rgba(150,190,255,0)}
 }
 
@@ -47,6 +50,13 @@ body::after{
   font-size:32px;
   color:rgba(210,225,245,.46);
   z-index:40;
+  line-height:1;
+  transition:.5s ease;
+}
+
+#homeBtn:hover{
+  color:white;
+  transform:scale(1.06);
 }
 
 .stage{
@@ -63,7 +73,7 @@ body::after{
 
 .title{
   position:absolute;
-  top:14%;
+  top:10%;
   font-size:13px;
   letter-spacing:.24em;
   color:rgba(215,230,250,.28);
@@ -74,18 +84,18 @@ body::after{
   justify-content:center;
   align-items:center;
   gap:34px;
-  margin-bottom:10px;
+  margin-bottom:16px;
   direction:ltr;
 }
 
 .maskBtn{
-  width:118px;
-  height:170px;
+  width:112px;
+  height:162px;
   border:0;
   background:transparent;
   cursor:pointer;
   padding:0;
-  opacity:.72;
+  opacity:.68;
   transition:.8s ease;
 }
 
@@ -105,16 +115,28 @@ body::after{
     drop-shadow(0 0 18px rgba(90,140,210,.18));
 }
 
-body.step2 .rightMask img{
+body.step1 .rightMask img,
+body.step2 .rightMask img,
+body.step3 .rightMask img,
+body.step4 .rightMask img{
   filter:
     grayscale(1)
-    brightness(1.02)
-    contrast(1.12)
-    drop-shadow(0 0 28px rgba(130,190,255,.32));
+    brightness(1.04)
+    contrast(1.14)
+    drop-shadow(0 0 30px rgba(130,190,255,.34));
+}
+
+body.pulse .rightMask img{
+  animation:maskBreath 4s ease-in-out infinite;
+}
+
+@keyframes maskBreath{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.035)}
 }
 
 .label{
-  margin:6px 0 6px;
+  margin:6px 0;
   font-size:12px;
   letter-spacing:.22em;
   color:rgba(215,230,250,.26);
@@ -125,12 +147,12 @@ body.step2 .rightMask img{
   display:grid;
   grid-template-columns:repeat(4,minmax(72px,150px));
   gap:clamp(12px,3vw,34px);
-  margin-bottom:14px;
+  margin-bottom:12px;
   perspective:900px;
 }
 
 .cell{
-  height:66px;
+  height:62px;
   position:relative;
   font-family:"Courier New",monospace;
   transform-style:preserve-3d;
@@ -143,48 +165,75 @@ body.step2 .rightMask img{
   justify-content:center;
   align-items:center;
   backface-visibility:hidden;
-  transition:transform 1.35s ease, opacity 1.35s ease, color 1s ease, text-shadow 1s ease;
+  transition:
+    transform 1.25s ease,
+    opacity 1.25s ease,
+    color 1s ease,
+    text-shadow 1s ease;
 }
 
 .front{
-  font-size:clamp(24px,5vw,50px);
+  font-size:clamp(24px,5vw,48px);
   color:rgba(238,245,255,.9);
 }
 
 .back{
   transform:rotateX(-180deg);
-  font-size:clamp(14px,2.15vw,24px);
+  font-size:clamp(14px,2.15vw,23px);
   letter-spacing:.08em;
   color:rgba(155,205,255,.92);
 }
 
 body.step1 .front,
-body.step2 .front{
+body.step2 .front,
+body.step3 .front,
+body.step4 .front{
   transform:rotateX(180deg);
   opacity:0;
 }
 
 body.step1 .back,
-body.step2 .back{
+body.step2 .back,
+body.step3 .back,
+body.step4 .back{
   transform:rotateX(0);
   opacity:1;
   text-shadow:0 0 24px rgba(105,175,255,.46);
 }
 
-.subnetOnly{
+.flow{
+  min-height:155px;
+  margin-top:12px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+
+.panel{
+  display:none;
   opacity:0;
-  transform:translateY(12px);
-  transition:1.4s ease;
-  margin-top:14px;
+  transform:translateY(14px);
+  transition:1.2s ease;
+  color:rgba(220,235,255,.66);
   line-height:2;
-  color:rgba(220,235,255,.6);
   font-family:"Courier New",monospace;
   font-size:clamp(15px,2.2vw,23px);
 }
 
-body.step2 .subnetOnly{
-  opacity:1;
-  transform:translateY(0);
+body.step1 .p1,
+body.step2 .p2,
+body.step3 .p3,
+body.step4 .p4{
+  display:block;
+  animation:rise 1.2s ease forwards;
+}
+
+@keyframes rise{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 
 .glow{
@@ -192,25 +241,46 @@ body.step2 .subnetOnly{
   text-shadow:0 0 24px rgba(130,190,255,.95);
 }
 
+.cutLine{
+  direction:ltr;
+  font-size:clamp(17px,2.5vw,26px);
+  letter-spacing:.04em;
+  line-height:2.2;
+}
+
+.arrow{
+  color:rgba(150,200,255,.72);
+}
+
+.stepText{
+  position:absolute;
+  bottom:9%;
+  font-size:12px;
+  letter-spacing:.22em;
+  color:rgba(215,230,250,.24);
+}
+
 @media(max-width:900px){
   .grid{grid-template-columns:repeat(2,minmax(100px,1fr))}
   .maskBtn{width:82px;height:120px}
-  .maskRow{gap:22px;margin-bottom:6px}
+  .maskRow{gap:22px;margin-bottom:8px}
+  .title{top:8%}
+  .flow{min-height:190px}
 }
 </style>
 </head>
 
 <body>
 
-<a href="subnet.html" id="homeBtn">道</a>
+<a href="../intro.html" id="homeBtn">道</a>
 
 <audio id="hum">
-  <source src="hum.mp3" type="audio/mpeg">
+  <source src="om.mp3" type="audio/mpeg">
 </audio>
 
 <main class="stage">
 
-  <div class="title">תחנת חשיבה — Subnet</div>
+  <div class="title">תחנת חשיבה — Subnet Geometry</div>
 
   <div class="maskRow">
     <button class="maskBtn leftMask" id="backBtn">
@@ -233,7 +303,7 @@ body.step2 .subnetOnly{
 
   <div class="label">SUBNET MASK</div>
 
-  <section class="grid" id="maskGrid">
+  <section class="grid">
     <div class="cell"><div class="front">255</div><div class="back">11111111</div></div>
     <div class="cell"><div class="front">255</div><div class="back">11111111</div></div>
     <div class="cell"><div class="front">255</div><div class="back">11111111</div></div>
@@ -243,21 +313,41 @@ body.step2 .subnetOnly{
     </div>
   </section>
 
-  <div class="subnetOnly">
-    Subnet Mask משתנה:<br>
-    255.255.255.<span class="glow">128</span><br>
-    11111111.11111111.11111111.<span class="glow">10000000</span>
-  </div>
+  <section class="flow">
 
-  <div class="subnetOnly">
-    הביט הראשון עבר לחלק הרשת<br>
-    <span class="glow">1</span>xxxxxxx → 128 - 255
-  </div>
+    <div class="panel p1">
+      המספרים מתהפכים לבינארי.<br>
+      עכשיו רואים את מה שהכתובת הסתירה.
+    </div>
 
-  <div class="subnetOnly">
-    תת־הרשת של הכתובת:<br>
-    <span class="glow">192.168.1.128</span><br>
-    <span class="glow">11000000.10101000.00000001.10000000</span>
+    <div class="panel p2">
+      המסכה משתנה:<br>
+      255.255.255.<span class="glow">128</span><br>
+      11111111.11111111.11111111.<span class="glow">10000000</span>
+    </div>
+
+    <div class="panel p3">
+      הביט לא נעלם.<br>
+      הוא החליף תפקיד.<br><br>
+      במקום להבדיל בין Hosts,<br>
+      הוא מתחיל להבדיל בין רשתות.
+    </div>
+
+    <div class="panel p4">
+      <div class="cutLine">
+        [-----------------------------]<br>
+        <span class="arrow">↓</span><br>
+        [-------------][-------------]
+      </div>
+      הביט לא תופס מקום.<br>
+      <span class="glow">הביט מפצל מרחב.</span><br>
+      כל ביט נוסף חותך את המרחב שוב.
+    </div>
+
+  </section>
+
+  <div class="stepText" id="stepText">
+    לחץ על המסכה השמחה כדי להתקדם
   </div>
 
 </main>
@@ -269,50 +359,76 @@ const nextBtn = document.getElementById("nextBtn");
 const backBtn = document.getElementById("backBtn");
 const maskLastDec = document.getElementById("maskLastDec");
 const maskLastBin = document.getElementById("maskLastBin");
+const stepText = document.getElementById("stepText");
 
 let step = 0;
 let fadeTimer = null;
 
 function setStep(n){
-  step = Math.max(0, Math.min(2, n));
+  step = Math.max(0, Math.min(4, n));
 
-  body.classList.remove("step1","step2");
-
-  if(step === 1){
-    body.classList.add("step1");
-    maskLastDec.textContent = "0";
-    maskLastBin.textContent = "00000000";
-    startHum();
-  }
-
-  if(step === 2){
-    body.classList.add("step2");
-    maskLastDec.textContent = "128";
-    maskLastBin.innerHTML = '<span class="glow">1</span>0000000';
-    startHum();
-  }
+  body.classList.remove("step1","step2","step3","step4","pulse");
 
   if(step === 0){
     maskLastDec.textContent = "0";
     maskLastBin.textContent = "00000000";
+    stepText.textContent = "לחץ על המסכה השמחה כדי להתקדם";
     stopHum();
+    return;
+  }
+
+  if(step === 1){
+    body.classList.add("step1","pulse");
+    maskLastDec.textContent = "0";
+    maskLastBin.textContent = "00000000";
+    stepText.textContent = "שלב 1 — הבינארי נחשף";
+    startHum();
+  }
+
+  if(step === 2){
+    body.classList.add("step2","pulse");
+    maskLastDec.textContent = "128";
+    maskLastBin.innerHTML = '<span class="glow">1</span>0000000';
+    stepText.textContent = "שלב 2 — המסכה מציבה גבול";
+    startHum();
+  }
+
+  if(step === 3){
+    body.classList.add("step3","pulse");
+    maskLastDec.textContent = "128";
+    maskLastBin.innerHTML = '<span class="glow">1</span>0000000';
+    stepText.textContent = "שלב 3 — הביט מחליף תפקיד";
+    startHum();
+  }
+
+  if(step === 4){
+    body.classList.add("step4","pulse");
+    maskLastDec.textContent = "128";
+    maskLastBin.innerHTML = '<span class="glow">1</span>0000000';
+    stepText.textContent = "שלב 4 — גיאומטריה של חלוקה";
+    startHum();
   }
 }
 
 function startHum(){
   clearInterval(fadeTimer);
+
   hum.pause();
   hum.currentTime = 0;
   hum.volume = 0;
+
   hum.play().catch(()=>{});
 
   let v = 0;
+
   fadeTimer = setInterval(()=>{
     v += 0.004;
+
     if(v >= 0.13){
       v = 0.13;
       clearInterval(fadeTimer);
     }
+
     hum.volume = v;
   },80);
 }
