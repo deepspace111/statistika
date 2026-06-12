@@ -69,8 +69,52 @@ body::after{
   color:rgba(215,230,250,.28);
 }
 
+.maskRow{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:34px;
+  margin-bottom:10px;
+  direction:ltr;
+}
+
+.maskBtn{
+  width:118px;
+  height:170px;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  padding:0;
+  opacity:.72;
+  transition:.8s ease;
+}
+
+.maskBtn:hover{
+  opacity:1;
+  transform:scale(1.035);
+}
+
+.maskBtn img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  filter:
+    grayscale(1)
+    brightness(.86)
+    contrast(1.08)
+    drop-shadow(0 0 18px rgba(90,140,210,.18));
+}
+
+body.step2 .rightMask img{
+  filter:
+    grayscale(1)
+    brightness(1.02)
+    contrast(1.12)
+    drop-shadow(0 0 28px rgba(130,190,255,.32));
+}
+
 .label{
-  margin:12px 0 8px;
+  margin:6px 0 6px;
   font-size:12px;
   letter-spacing:.22em;
   color:rgba(215,230,250,.26);
@@ -81,7 +125,7 @@ body::after{
   display:grid;
   grid-template-columns:repeat(4,minmax(72px,150px));
   gap:clamp(12px,3vw,34px);
-  margin-bottom:20px;
+  margin-bottom:14px;
   perspective:900px;
 }
 
@@ -131,7 +175,7 @@ body.step2 .back{
   opacity:0;
   transform:translateY(12px);
   transition:1.4s ease;
-  margin-top:18px;
+  margin-top:14px;
   line-height:2;
   color:rgba(220,235,255,.6);
   font-family:"Courier New",monospace;
@@ -148,71 +192,10 @@ body.step2 .subnetOnly{
   text-shadow:0 0 24px rgba(130,190,255,.95);
 }
 
-.note{
-  margin-top:16px;
-  font-size:clamp(15px,2vw,19px);
-  color:rgba(220,235,255,.52);
-  line-height:2;
-}
-
-.maskBtn{
-  position:fixed;
-  top:50%;
-  transform:translateY(-50%);
-  width:145px;
-  height:220px;
-  border:0;
-  background:transparent;
-  cursor:pointer;
-  z-index:35;
-  padding:0;
-  opacity:.72;
-  transition:.8s ease;
-}
-
-.maskBtn:hover{
-  opacity:1;
-  transform:translateY(-50%) scale(1.035);
-}
-
-.maskBtn img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  filter:
-    grayscale(1)
-    brightness(.86)
-    contrast(1.08)
-    drop-shadow(0 0 18px rgba(90,140,210,.18));
-}
-
-.leftMask{left:7%}
-.rightMask{right:7%}
-
-.maskText{
-  position:absolute;
-  bottom:-20px;
-  left:50%;
-  transform:translateX(-50%);
-  color:rgba(220,235,255,.26);
-  font-size:11px;
-  letter-spacing:.18em;
-}
-
-body.step2 .rightMask img{
-  filter:
-    grayscale(1)
-    brightness(1.02)
-    contrast(1.12)
-    drop-shadow(0 0 28px rgba(130,190,255,.32));
-}
-
 @media(max-width:900px){
   .grid{grid-template-columns:repeat(2,minmax(100px,1fr))}
-  .maskBtn{width:86px;height:135px}
-  .leftMask{left:1%}
-  .rightMask{right:1%}
-  .maskText{display:none}
+  .maskBtn{width:82px;height:120px}
+  .maskRow{gap:22px;margin-bottom:6px}
 }
 </style>
 </head>
@@ -225,19 +208,19 @@ body.step2 .rightMask img{
   <source src="hum.mp3" type="audio/mpeg">
 </audio>
 
-<button class="maskBtn leftMask" id="backBtn">
-  <img src="sad-mask.png" alt="sad mask">
-  <div class="maskText">Decimal</div>
-</button>
-
-<button class="maskBtn rightMask" id="nextBtn">
-  <img src="happy-mask.png" alt="happy mask">
-  <div class="maskText">Binary</div>
-</button>
-
 <main class="stage">
 
   <div class="title">תחנת חשיבה — Subnet</div>
+
+  <div class="maskRow">
+    <button class="maskBtn leftMask" id="backBtn">
+      <img src="sad-mask.png" alt="sad mask">
+    </button>
+
+    <button class="maskBtn rightMask" id="nextBtn">
+      <img src="happy-mask.png" alt="happy mask">
+    </button>
+  </div>
 
   <div class="label">IP ADDRESS</div>
 
@@ -276,8 +259,6 @@ body.step2 .rightMask img{
     <span class="glow">192.168.1.128</span><br>
     <span class="glow">11000000.10101000.00000001.10000000</span>
   </div>
-
-
 
 </main>
 
