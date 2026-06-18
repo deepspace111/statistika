@@ -1,3 +1,4 @@
+alert("JS loaded");
 document.addEventListener("DOMContentLoaded", () => {
   const focusButton = document.querySelector(".focus-toggle");
   if (!focusButton) return;
