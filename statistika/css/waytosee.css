@@ -1,0 +1,32 @@
+:root {
+    --do-size: 32px;
+    --bass-clef-size: 36px;
+    --focus-button-color: white;
+}
+
+/* מפתח פה / תודעת לימוד */
+
+.focus-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 9999;
+
+    background: transparent;
+    border: none;
+    color: var(--focus-button-color);
+
+    font-size: var(--bass-clef-size);
+    cursor: pointer;
+
+    transition: all 0.4s ease;
+}
+
+.focus-toggle:hover {
+    transform: scale(1.1);
+    text-shadow: 0 0 10px white;
+}
+
+body.focus-mode .focus-toggle {
+    font-size: 18px;
+}
