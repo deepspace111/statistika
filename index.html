@@ -305,22 +305,7 @@
 
 </div>
 
-<script>
-  const focusBtn = document.getElementById("focusBtn");
-  const brownNoise = document.getElementById("brownNoise");
 
-  focusBtn.addEventListener("click", function () {
-    document.body.classList.toggle("focus-mode");
-
-    if (brownNoise.paused) {
-      brownNoise.play();
-      localStorage.setItem("soundOn", "true");
-    } else {
-      brownNoise.pause();
-      localStorage.setItem("soundOn", "false");
-    }
-  });
-</script>
 
 </body>
 </html>
