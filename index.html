@@ -204,7 +204,82 @@
     body.focus-mode .thinking-stations {
       border-top: 1px solid rgba(255,255,255,0.16);
     }
+body.focus-mode {
+  background: #000;
+}
 
+.focus-clefs {
+  display: none;
+}
+
+body.focus-mode .focus-clefs {
+  display: block;
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.focus-clef {
+  position: absolute;
+  top: 22%;
+  font-size: 360px;
+  color: rgba(220,220,220,0.035);
+  line-height: 1;
+  font-family: serif;
+}
+
+.focus-clef.left {
+  left: 5%;
+}
+
+.focus-clef.right {
+  right: 5%;
+}
+
+.focus-wave {
+  position: absolute;
+  top: 34%;
+  left: -40%;
+  width: 38%;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(230,230,230,0.85),
+    transparent
+  );
+  filter: blur(3px);
+  opacity: 0;
+  animation: clefWave 12s ease-in-out 5s infinite;
+}
+
+@keyframes clefWave {
+  0% {
+    left: -40%;
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.8;
+  }
+  45% {
+    left: 105%;
+    opacity: 0.8;
+  }
+  60% {
+    opacity: 0;
+  }
+  100% {
+    left: 105%;
+    opacity: 0;
+  }
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+}
     @media (max-width: 600px) {
       body {
         padding: 30px 16px;
@@ -257,6 +332,12 @@
 </head>
 
 <body>
+
+  <div class="focus-clefs">
+  <div class="focus-clef left">𝄢</div>
+  <div class="focus-clef right">𝄢</div>
+  <div class="focus-wave"></div>
+</div>
 
 <div class="container">
 
