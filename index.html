@@ -306,6 +306,21 @@
 </div>
 
 
+<script>
+  const focusBtn = document.getElementById("focusBtn");
+  const brownNoise = document.getElementById("brownNoise");
 
+  focusBtn.addEventListener("click", () => {
+    document.body.classList.toggle("focus-mode");
+
+    if (document.body.classList.contains("focus-mode")) {
+      brownNoise.volume = 0.25;
+      brownNoise.play().catch(() => {});
+    } else {
+      brownNoise.pause();
+      brownNoise.currentTime = 0;
+    }
+  });
+</script>
 </body>
 </html>
