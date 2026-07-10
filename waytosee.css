@@ -1,0 +1,39 @@
+.focus-toggle {
+  position: fixed !important;
+  top: 4% !important;
+  right: 18px !important;
+  transform: translateY(-50%) !important;
+
+  z-index: 999999 !important;
+
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+
+  background: transparent !important;
+  border: none !important;
+
+  color: rgba(82,68,54,0.78);
+  cursor: pointer !important;
+
+  font-size: 40px !important;
+  font-family: serif; !important;
+  line-height: 1;
+}
+{
+    position: fixed;
+    top: 50%;
+    right: 30px;
+    transform: translateY(-50%);
+
+    z-index: 9999;
+
+    background: transparent;
+    border: none;
+
+    color: white;
+    cursor: pointer;
+
+    font-size: 32px;
+    font-family: serif;
+}
