@@ -37,3 +37,15 @@
     font-size: 32px;
     font-family: serif;
 }
+body{
+  background:#d2cdc4;
+  color:rgba(82,68,54,0.96);
+  transition:background 1.2s ease, color 1.2s ease;
+}
+
+body.learning-mode{
+  background:
+    radial-gradient(circle at top, rgba(180,180,180,0.08), transparent 44%),
+    linear-gradient(180deg,#060708 0%, #050608 40%, #000 100%);
+  color:rgba(240,240,240,0.92);
+}
