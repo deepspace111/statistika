@@ -377,6 +377,87 @@
       }
     }
   </style>
+
+  /* התאמת כל עמוד הבית למסכים קטנים */
+
+body {
+  min-height: 100svh;
+}
+
+#constructionSign {
+  width: min(520px, 82vw, 30vh);
+}
+
+@media (max-width: 600px), (max-height: 850px) {
+
+  body {
+    padding: 14px 12px;
+    min-height: 100svh;
+  }
+
+  .brand {
+    margin-bottom: 14px;
+  }
+
+  .brand-en {
+    font-size: clamp(19px, 5vw, 25px);
+  }
+
+  .brand-he {
+    margin-top: 8px;
+    font-size: clamp(17px, 4.5vw, 21px);
+  }
+
+  .dao-mark {
+    margin-top: 8px;
+    font-size: clamp(38px, 10vw, 50px);
+  }
+
+  .btn {
+    padding: 10px 26px;
+    margin: 6px;
+    font-size: 16px;
+  }
+
+  .philosophy {
+    margin-top: 20px;
+    line-height: 1.65;
+  }
+
+  .philosophy-title {
+    margin-bottom: 10px;
+    font-size: 20px;
+  }
+
+  .philosophy-line {
+    margin: 3px 0;
+    font-size: 15px;
+  }
+
+  .thinking-stations {
+    margin-top: 16px;
+    padding-top: 12px;
+    line-height: 1.55;
+  }
+
+  .thinking-line {
+    margin: 3px 0;
+    font-size: 15px;
+  }
+
+  .thinking-note {
+    margin-top: 3px;
+    font-size: 14px;
+  }
+
+  .construction-wrapper {
+    margin-top: 12px;
+  }
+
+  #constructionSign {
+    width: min(400px, 80vw, 25vh);
+  }
+}
 </head>
 
 <body>
