@@ -1,8 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap");
+
+
 .focus-toggle {
   position: fixed !important;
-  top: 4% !important;
-  right: 18px !important;
-  transform: translateY(-50%) !important;
+  top: 18px !important;
+  right: 26px !important;
+  transform: none  !important;
 
   z-index: 999999 !important;
 
@@ -12,31 +15,27 @@
 
   background: transparent !important;
   border: none !important;
+  padding: 0 !important;
 
-  color: rgba(82,68,54,0.78);
   cursor: pointer !important;
-
-  font-size: 40px !important;
-  font-family: serif; !important;
-  line-height: 1;
+  line-height: 1 !important;
 }
-{
-    position: fixed;
-    top: 50%;
-    right: 30px;
-    transform: translateY(-50%);
 
-    z-index: 9999;
+.focus-toggle img {
+  display: block !important;
+  width:50px !important;
+  height: auto !important;
+filter: brightness(0.55);
+transition: filter 0.8s ease;
 
-    background: transparent;
-    border: none;
-
-    color: white;
-    cursor: pointer;
-
-    font-size: 32px;
-    font-family: serif;
 }
+body.learning-mode .focus-toggle img {
+  filter: brightness(1);
+}
+body {
+  /* עיצוב הדף */
+}
+
 body{
   background:#d2cdc4;
   color:rgba(82,68,54,0.96);
@@ -48,4 +47,25 @@ body.learning-mode{
     radial-gradient(circle at top, rgba(180,180,180,0.08), transparent 44%),
     linear-gradient(180deg,#060708 0%, #050608 40%, #000 100%);
   color:rgba(240,240,240,0.92);
+}
+/* כפתור דו – חזרה לדף הבית */
+
+#homeBtn {
+  position: fixed;
+  top: 14px;
+  left: 26px;
+  right: auto;
+
+  color: rgba(20, 20, 20, 0.68);
+  font-size: 30px;
+  font-family: "Yuji Mai", serif;
+font-weight: 500;
+transition: color 0.8s ease;
+
+  text-decoration: none;
+
+  z-index: 1000;
+  cursor: pointer;
+}body.learning-mode #homeBtn {
+  color: rgba(240, 240, 240, 0.88);
 }
