@@ -29,12 +29,7 @@ filter: brightness(0.55);
 transition: filter 0.8s ease;
 
 }
-body.learning-mode .focus-toggle img {
-  filter: brightness(1);
-}
-body {
-  /* עיצוב הדף */
-}
+
 
 body{
   background:#d2cdc4;
@@ -68,4 +63,102 @@ transition: color 0.8s ease;
   cursor: pointer;
 }body.learning-mode #homeBtn {
   color: rgba(240, 240, 240, 0.88);
+}
+
+
+/* ========================================
+   פריסת עיתון רספונסיבית
+======================================== */
+
+.newspaper-page {
+  position: relative;
+  z-index: 5;
+  max-width: 1450px;
+  margin: 0 auto;
+  padding: 80px 48px 70px;
+}
+
+.newspaper-page > h1 {
+  margin: 0 0 46px;
+  text-align: center;
+  font-size: 42px;
+  font-weight: 300;
+}
+
+.newspaper-content {
+  column-count: 3;
+  column-gap: 54px;
+  column-rule: 1px solid rgba(82, 68, 54, 0.22);
+  text-align: right;
+  line-height: 1.8;
+}
+
+body.learning-mode .newspaper-content {
+  column-rule-color: rgba(255, 255, 255, 0.16);
+}
+
+.newspaper-content .section {
+  margin: 0 0 34px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(82, 68, 54, 0.18);
+}
+
+body.learning-mode .newspaper-content .section {
+  border-top-color: rgba(255, 255, 255, 0.14);
+}
+
+.newspaper-content .section:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+
+.newspaper-content h2 {
+  break-after: avoid;
+  margin: 28px 0 14px;
+  font-size: 23px;
+}
+
+.newspaper-content p {
+  break-inside: avoid;
+  margin: 10px 0;
+  font-size: 17px;
+}
+
+.newspaper-content .term {
+  font-weight: bold;
+}
+
+/* טאבלט */
+
+@media (min-width: 601px) and (max-width: 1050px) {
+  .newspaper-page {
+    padding-inline: 34px;
+  }
+
+  .newspaper-content {
+    column-count: 2;
+    column-gap: 42px;
+  }
+}
+
+/* טלפון */
+
+@media (max-width: 600px) {
+  .newspaper-page {
+    max-width: 760px;
+    padding: 80px 24px 70px;
+  }
+
+  .newspaper-page > h1 {
+    font-size: 34px;
+  }
+
+  .newspaper-content {
+    column-count: 1;
+    text-align: center;
+  }
+
+  .newspaper-content p {
+    font-size: 18px;
+  }
 }
