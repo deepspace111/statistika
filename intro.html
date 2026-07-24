@@ -1,404 +1,119 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cisco Certified Network Associate</title>
   <link rel="stylesheet" href="waytosee.css">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Cisco Certified Network Associate</title>
-  
-<link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-  box-sizing:border-box;
-}
-
-body{
-  margin:0;
-
-  font-family:Arial,sans-serif;
-
-  background:#e8e8e8;
-
-  color:#111;
-
-  min-height:100vh;
-
-  text-align:center;
-
-  overflow-x:hidden;
-
-  transition:
-    background 1.2s ease,
-    color 1.2s ease;
-}
-
-/* מצב תודעת לימוד */
-
-body.focus-mode{
-
+  <style>
+/* רקע ייחודי לדף זה - רק במצב תודעת לימוד. במצב רגיל, הרקע הרגיל של מערכת העצבים המרכזית (waytosee.css) חל כרגיל */
+body.learning-mode{
   background:
     radial-gradient(
       circle at top,
       rgba(90,140,220,0.08),
       transparent 42%
     ),
-
     linear-gradient(
       to bottom,
       #05070a,
       #000814 45%,
       #000 100%
     );
-
   color:rgba(205,205,205,0.82);
 }
 
-/* גשם */
-
-#rain{
-  position:fixed;
-  inset:0;
-
-  pointer-events:none;
-
-  z-index:0;
-
-  opacity:0;
-
-  overflow:hidden;
-
-  transition:2s ease;
-}
-
-body.focus-mode #rain{
-  opacity:0.18;
-}
-
-.drop{
-  position:absolute;
-
-  top:-140vh;
-
-  width:1px;
-
-  height:72px;
-
-  background:linear-gradient(
-    to bottom,
-    rgba(120,170,255,0),
-    rgba(120,170,255,0.28),
-    rgba(120,170,255,0)
-  );
-
-  animation:rain linear infinite;
-}
-
-@keyframes rain{
-
-  from{
-    transform:translateY(-20vh);
-  }
-
-  to{
-    transform:translateY(160vh);
-  }
-}
-
-/* דו */
-
-#homeBtn{
-
-  position:fixed;
-
-  top:16px;
-  left:18px;
-
-  text-decoration:none;
-
-  font-family:
-    "Yuji Mai",
-    serif;
-
-  font-size:32px;
-
-  color:rgba(20,20,20,0.56);
-
-  z-index:20;
-
-  line-height:1;
-
-  transition:0.5s ease;
-
-  text-shadow:
-    0 0 8px rgba(80,130,220,0.05);
-}
-
-body.focus-mode #homeBtn{
-
-  color:rgba(225,225,225,0.62);
-
-  text-shadow:
-    0 0 14px rgba(110,170,255,0.12);
-}
-
-#homeBtn:hover{
-
-  transform:scale(1.06);
-
-  color:rgba(20,20,20,0.88);
-}
-
-body.focus-mode #homeBtn:hover{
-
-  color:rgba(255,255,255,0.92);
-
-  text-shadow:
-    0 0 18px rgba(120,170,255,0.20);
-}
-
-/* כפתור תודעת לימוד */
-
-#focusBtn{
-
-  position:fixed;
-
-  top:14px;
-  right:14px;
-
-  border:1px solid rgba(0,0,0,0.18);
-
-  background:rgba(255,255,255,0.38);
-
-  color:rgba(20,20,20,0.68);
-
-  padding:7px 12px;
-
-  border-radius:18px;
-
-  font-size:13px;
-
-  cursor:pointer;
-
-  z-index:20;
-
-  transition:0.4s ease;
-}
-
-body.learning-mode #focusBtn{
-
-  border:1px solid rgba(255,255,255,0.16);
-
-  background:rgba(255,255,255,0.035);
-
-  color:rgba(220,220,220,0.66);
-}
-
-#focusBtn.active{
-
-  background:rgba(110,170,255,0.10);
-
-  color:rgba(230,235,255,0.82);
-
-  border-color:rgba(110,170,255,0.24);
-}
-
-/* תוכן */
-
 .container{
-
   position:relative;
-
   z-index:2;
-
   max-width:980px;
-
   margin:0 auto;
-
   padding:92px 22px 60px;
 }
 
-h1{
-
+.container h1{
   font-size:14px;
-
   letter-spacing:6px;
-
   line-height:2.2;
-
   margin-bottom:18px;
-
   font-weight:300;
-
   text-transform:uppercase;
-
   color:#111;
 }
 
-body.focus-mode h1{
+body.learning-mode .container h1{
   color:rgba(225,225,225,0.86);
 }
 
 .subtitle{
-
   color:rgba(50,50,50,0.62);
-
   margin-bottom:38px;
-
   font-size:17px;
 }
 
-body.focus-mode .subtitle{
+body.learning-mode .subtitle{
   color:#9aa4b5;
 }
 
-/* נושאים */
-
 .topic-list{
-
   display:grid;
-
-  grid-template-columns:
-    repeat(2,minmax(0,1fr));
-
+  grid-template-columns:repeat(2,minmax(0,1fr));
   gap:16px;
 }
 
 .topic{
-
   display:block;
-
   padding:18px;
-
   border-radius:20px;
-
-  background:
-    rgba(255,255,255,0.78);
-
+  background:rgba(255,255,255,0.78);
   color:#111;
-
   text-decoration:none;
-
   font-size:19px;
-
-  border:
-  1px solid rgba(0,0,0,0.18);
-
-box-shadow:
-  0 8px 24px rgba(0,0,0,0.06);;
-
+  border:1px solid rgba(0,0,0,0.18);
+  box-shadow:0 8px 24px rgba(0,0,0,0.06);
   backdrop-filter:blur(3px);
-
   transition:0.4s ease;
-
-  animation:
-    signalPulse 7s ease-in-out infinite;
+  animation:signalPulse 7s ease-in-out infinite;
 }
 
-body.focus-mode .topic{
-
-  background:
-    rgba(10,15,25,0.72);
-
+body.learning-mode .topic{
+  background:rgba(10,15,25,0.72);
   color:#f2f2f2;
-
-  border-color:
-    rgba(120,170,255,0.12);
+  border-color:rgba(120,170,255,0.12);
 }
 
-.topic:nth-child(2){
-  animation-delay:0.6s;
-}
-
-.topic:nth-child(3){
-  animation-delay:1.2s;
-}
-
-.topic:nth-child(4){
-  animation-delay:1.8s;
-}
-
-.topic:nth-child(5){
-  animation-delay:2.4s;
-}
-
-.topic:nth-child(6){
-  animation-delay:3s;
-}
-
-.topic:nth-child(7){
-  animation-delay:3.6s;
-}
-
-.topic:nth-child(8){
-  animation-delay:4.2s;
-}
-
-.topic:nth-child(9){
-  animation-delay:4.8s;
-}
-
-.topic:nth-child(10){
-  animation-delay:5.4s;
-}
-
-.topic:nth-child(11){
-  animation-delay:6s;
-}
+.topic:nth-child(2){ animation-delay:0.6s; }
+.topic:nth-child(3){ animation-delay:1.2s; }
+.topic:nth-child(4){ animation-delay:1.8s; }
+.topic:nth-child(5){ animation-delay:2.4s; }
+.topic:nth-child(6){ animation-delay:3s; }
+.topic:nth-child(7){ animation-delay:3.6s; }
+.topic:nth-child(8){ animation-delay:4.2s; }
+.topic:nth-child(9){ animation-delay:4.8s; }
+.topic:nth-child(10){ animation-delay:5.4s; }
+.topic:nth-child(11){ animation-delay:6s; }
 
 @keyframes signalPulse{
-
-  0%{
-    opacity:0.78;
-    box-shadow:none;
-    text-shadow:none;
-  }
-
-  50%{
-
-    opacity:1;
-
-    box-shadow:
-      0 0 18px rgba(120,170,255,0.08);
-
-    text-shadow:
-      0 0 10px rgba(120,170,255,0.16);
-  }
-
-  100%{
-    opacity:0.78;
-    box-shadow:none;
-    text-shadow:none;
-  }
+  0%{ opacity:0.78; box-shadow:none; text-shadow:none; }
+  50%{ opacity:1; box-shadow:0 0 18px rgba(120,170,255,0.08); text-shadow:0 0 10px rgba(120,170,255,0.16); }
+  100%{ opacity:0.78; box-shadow:none; text-shadow:none; }
 }
 
 .topic:hover{
-
   transform:translateY(-2px);
-
-  background:
-    rgba(120,170,255,0.08);
-
-  border-color:
-    rgba(120,170,255,0.25);
+  background:rgba(120,170,255,0.08);
+  border-color:rgba(120,170,255,0.25);
 }
 
 .topic small{
-
   display:block;
-
   margin-top:8px;
-
   line-height:1.8;
-
   font-size:14px;
-
   color:rgba(60,60,60,0.68);
 }
 
-body.focus-mode .topic small{
+body.learning-mode .topic small{
   color:#aeb7c7;
 }
 
@@ -413,58 +128,17 @@ body.focus-mode .topic small{
   font-weight:bold;
 }
 
-/* מובייל */
-
 @media (max-width:700px){
-
-  .topic-list{
-    grid-template-columns:1fr;
-  }
-
-  .container{
-    padding:88px 18px 50px;
-  }
-
-  h1{
-    font-size:30px;
-  }
-
-  .topic{
-    font-size:17px;
-    padding:16px;
-  }
-
-  #focusBtn{
-
-    top:70px;
-    right:10px;
-
-    writing-mode:vertical-rl;
-
-    text-orientation:mixed;
-
-    font-size:12px;
-
-    padding:12px 7px;
-
-    border-radius:18px;
-
-    line-height:1.3;
-  }
+  .topic-list{ grid-template-columns:1fr; }
+  .container{ padding:88px 18px 50px; }
+  .container h1{ font-size:30px; }
+  .topic{ font-size:17px; padding:16px; }
 }
-
 </style>
 </head>
-
 <body>
-
-<div id="rain"></div>
-
-<a href="index.html" id="homeBtn">道</a>
-
-
-
-<div class="container">
+<main class="page-content">
+  <div class="container">
 
 <h1>
 Cisco Certified Network Associate
@@ -495,39 +169,21 @@ Cisco Certified Network Associate
 </a>
 
 <a class="topic" href="ARP/arp.html">
-
 <span class="english">
-
 <span class="first-letter">A</span>ddress
-
 <span class="first-letter">R</span>esolution
-
 <span class="first-letter">P</span>rotocol
-
 </span>
-
 — ARP
-
 <small>
-
 מציאת כתובת
-
 <span class="english">
-
 <span class="first-letter">M</span>edia
-
 <span class="first-letter">A</span>ccess
-
 <span class="first-letter">C</span>ontrol
-
 </span>
-
-
-
 בתוך הרשת המקומית
-
 </small>
-
 </a>
 
 <a class="topic" href="ip/ip.html">
@@ -536,16 +192,16 @@ IP Address
 הכתובת הלוגית של היעד
 </small>
 </a>
-  
+
 <a class="topic" href="subnet/">
 Subnet
 <small>
-  
 גבולות הרשת המקומית,
 חלק הרשת
 וחלק ה־Host
 </small>
 </a>
+
 <a class="topic" href="#">
 Gateway
 <small>
@@ -606,115 +262,7 @@ Network Address Translation — NAT
 
 </div>
 </div>
-
-<script>
-
-// רעש חום
-
-const audio = new Audio(
-  "brown-noise.mp3"
-);
-
-audio.loop = true;
-
-audio.volume = 0.35;
-
-// כפתור תודעת לימוד
-
-const focusBtn =
-document.getElementById("focusBtn");
-
-const focusSaved =
-localStorage.getItem("focusMode");
-
-if(focusSaved === "on"){
-
-  document.body.classList.add(
-    "focus-mode"
-  );
-
-  audio.play().catch(()=>{});
-}
-
-focusBtn.addEventListener(
-  "click",
-
-  async function(){
-
-    document.body.classList.toggle(
-      "focus-mode"
-    );
-
-    focusBtn.classList.toggle(
-      "active"
-    );
-
-    if(
-      document.body.classList.contains(
-        "focus-mode"
-      )
-    ){
-
-      localStorage.setItem(
-        "focusMode",
-        "on"
-      );
-
-      try{
-        await audio.play();
-      }
-      catch(err){
-        console.log("audio blocked");
-      }
-
-    }else{
-
-      localStorage.setItem(
-        "focusMode",
-        "off"
-      );
-
-      audio.pause();
-
-      audio.currentTime = 0;
-    }
-  }
-);
-
-// גשם
-
-const rain =
-document.getElementById("rain");
-
-for(let i = 0; i < 78; i++){
-
-  const drop =
-  document.createElement("div");
-
-  drop.classList.add("drop");
-
-  drop.style.left =
-    Math.random() * 100 + "vw";
-
-  drop.style.top =
-    Math.random() * -140 + "vh";
-
-  drop.style.height =
-    42 + Math.random() * 72 + "px";
-
-  drop.style.opacity =
-    0.05 + Math.random() * 0.12;
-
-  drop.style.animationDuration =
-    4 + Math.random() * 6 + "s";
-
-  drop.style.animationDelay =
-    Math.random() * -8 + "s";
-
-  rain.appendChild(drop);
-}
-
-</script>
+</main>
 <script src="waytosee.js"></script>
 </body>
 </html>
