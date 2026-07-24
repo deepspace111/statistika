@@ -105,10 +105,8 @@ brownNoise.src =
         fadeAudio(brownNoise, 0.60, 1600);
       })
       .catch((error) => {
-  alert(
-    "שגיאת שמע: " + error.message +
-    "\n\nכתובת הקובץ:\n" + brownNoise.src
-  );
+  
+   console.warn("שגיאת שמע:", error.message, brownNoise.src);
 });
   }
 
