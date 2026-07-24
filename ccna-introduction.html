@@ -6,32 +6,13 @@
 
 <title>דרך הרשת 🌐</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="waytosee.css">
 
 <style>
-
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f7f7f7;
-  color: #111;
-  min-height: 100vh;
-  text-align: center;
-  line-height: 1.9;
-  overflow-x: hidden;
-  transition: 0.5s ease;
-}
-
-body.learning-mode {
-  background: #111;
-  color: #f2f2f2;
-}
 
 body.soft-entering {
   animation: softPageFade 1.4s ease forwards;
 }
-
-/* גשם */
 
 .rain {
   position: fixed;
@@ -46,69 +27,17 @@ body.soft-entering {
   top: -120px;
   width: 1px;
   height: 120px;
-  background: linear-gradient(
-    to bottom,
-    rgba(255,255,255,0),
-    rgba(70,90,120,0.12),
-    rgba(255,255,255,0)
-  );
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(70,90,120,0.12), rgba(255,255,255,0));
   animation: rain linear infinite;
 }
 
 body.learning-mode .drop {
-  background: linear-gradient(
-    to bottom,
-    rgba(255,255,255,0),
-    rgba(130,170,255,0.16),
-    rgba(255,255,255,0)
-  );
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(130,170,255,0.16), rgba(255,255,255,0));
 }
 
 @keyframes rain {
   from { transform: translateY(-120px); }
   to { transform: translateY(120vh); }
-}
-
-#homeBtn {
-  position: fixed;
-  top: 14px;
-  left: 14px;
-  text-decoration: none;
-  font-family: 'Yuji Mai', serif;
-  font-size: 23px;
-  color: rgba(50,50,50,0.42);
-  z-index: 20;
-  opacity: 0;
-  animation: fadeInHome 3s ease forwards;
-}
-
-body.learning-mode #homeBtn {
-  color: rgba(220,220,220,0.40);
-}
-
-@keyframes fadeInHome {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 0.72; transform: translateY(0); }
-}
-
-#focusBtn {
-  position: fixed;
-  top: 14px;
-  right: 14px;
-  border: 1px solid rgba(0,0,0,0.16);
-  background: rgba(0,0,0,0.04);
-  color: rgba(20,20,20,0.75);
-  padding: 7px 12px;
-  border-radius: 18px;
-  font-size: 13px;
-  cursor: pointer;
-  z-index: 20;
-}
-
-body.learning-mode #focusBtn {
-  border: 1px solid rgba(255,255,255,0.18);
-  background: rgba(255,255,255,0.04);
-  color: rgba(240,240,240,0.75);
 }
 
 .container {
@@ -119,22 +48,9 @@ body.learning-mode #focusBtn {
   padding: 80px 24px 70px;
 }
 
-h1 {
-  font-size: 42px;
-  margin-bottom: 55px;
-  font-weight: 300;
-}
-
-h2 {
-  font-size: 25px;
-  margin: 50px 0 18px;
-  font-weight: 500;
-}
-
-p {
-  font-size: 20px;
-  margin: 14px 0;
-}
+.container h1 { font-size: 42px; margin-bottom: 55px; font-weight: 300; }
+.container h2 { font-size: 25px; margin: 50px 0 18px; font-weight: 500; }
+.container p { font-size: 20px; margin: 14px 0; }
 
 .section {
   position: relative;
@@ -143,20 +59,9 @@ p {
   border-top: 1px solid rgba(0,0,0,0.14);
 }
 
-.section:first-of-type {
-  border-top: none;
-  padding-top: 0;
-}
-
-body.learning-mode .section {
-  border-top: 1px solid rgba(255,255,255,0.14);
-}
-
-.term {
-  font-weight: bold;
-}
-
-/* תחנת מחשבה / עטוף בפרוטוקולים */
+.section:first-of-type { border-top: none; padding-top: 0; }
+body.learning-mode .section { border-top: 1px solid rgba(255,255,255,0.14); }
+.term { font-weight: bold; }
 
 .protocol-station {
   position: relative;
@@ -194,19 +99,12 @@ body.learning-mode .section {
   filter: drop-shadow(0 0 16px rgba(0,0,0,0.22));
 }
 
-body.learning-mode .protocol-symbol {
-  filter: invert(1) grayscale(100%);
-  opacity: 0.78;
-}
-
+body.learning-mode .protocol-symbol { filter: invert(1) grayscale(100%); opacity: 0.78; }
 body.learning-mode .protocol-symbol-link:hover .protocol-symbol {
   filter: invert(1) grayscale(100%) drop-shadow(0 0 18px rgba(255,255,255,0.28));
   opacity: 0.96;
 }
-
-body.soft-entering .protocol-symbol {
-  animation: symbolSoftExit 1.4s ease forwards;
-}
+body.soft-entering .protocol-symbol { animation: symbolSoftExit 1.4s ease forwards; }
 
 .do-mark {
   font-family: 'Yuji Mai', serif;
@@ -219,20 +117,14 @@ body.soft-entering .protocol-symbol {
   margin-top: 8px;
 }
 
-body.learning-mode .do-mark {
-  color: rgba(220,220,220,0.38);
-}
+body.learning-mode .do-mark { color: rgba(220,220,220,0.38); }
 
 @keyframes fadeInDo {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 0.72; transform: translateY(0); }
 }
 
-.final-line {
-  margin-top: 65px;
-  font-size: 23px;
-  font-weight: bold;
-}
+.final-line { margin-top: 65px; font-size: 23px; font-weight: bold; }
 
 .next-btn {
   display: inline-block;
@@ -247,21 +139,9 @@ body.learning-mode .do-mark {
   transition: 0.3s ease;
 }
 
-.next-btn:hover {
-  background: rgba(0,0,0,0.08);
-}
-
-body.learning-mode .next-btn {
-  border: 1px solid rgba(255,255,255,0.25);
-  color: #f2f2f2;
-  background: rgba(255,255,255,0.04);
-}
-
-body.learning-mode .next-btn:hover {
-  background: rgba(255,255,255,0.09);
-}
-
-/* כניסה שקטה לתחנת חשיבה */
+.next-btn:hover { background: rgba(0,0,0,0.08); }
+body.learning-mode .next-btn { border: 1px solid rgba(255,255,255,0.25); color: #f2f2f2; background: rgba(255,255,255,0.04); }
+body.learning-mode .next-btn:hover { background: rgba(255,255,255,0.09); }
 
 .soft-fade {
   position: fixed;
@@ -272,9 +152,7 @@ body.learning-mode .next-btn:hover {
   z-index: 999;
 }
 
-body.soft-entering .soft-fade {
-  animation: softFade 1.4s ease forwards;
-}
+body.soft-entering .soft-fade { animation: softFade 1.4s ease forwards; }
 
 @keyframes quietBreath {
   0% { transform: scale(1); }
@@ -283,56 +161,22 @@ body.soft-entering .soft-fade {
 }
 
 @keyframes symbolSoftExit {
-  0% {
-    transform: scale(1);
-    opacity: 0.9;
-  }
-
-  100% {
-    transform: scale(1.08);
-    opacity: 0.18;
-  }
+  0% { transform: scale(1); opacity: 0.9; }
+  100% { transform: scale(1.08); opacity: 0.18; }
 }
 
-@keyframes softFade {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes softPageFade {
-  from { filter: none; }
-  to { filter: brightness(0.35); }
-}
-
-/* מובייל בלבד */
+@keyframes softFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes softPageFade { from { filter: none; } to { filter: brightness(0.35); } }
 
 @media (max-width: 600px) {
-  h1 { font-size: 34px; }
-  h2 { font-size: 22px; }
-  p { font-size: 18px; }
-  #homeBtn { font-size: 22px; }
+  .container h1 { font-size: 34px; }
+  .container h2 { font-size: 22px; }
+  .container p { font-size: 18px; }
   .do-mark { font-size: 24px; }
-  #focusBtn { font-size: 12px; padding: 6px 10px; }
   .next-btn { font-size: 17px; padding: 8px 24px; }
-
-  .protocol-station {
-    display: block;
-    min-height: auto;
-    margin: 14px 0;
-  }
-
-  .protocol-symbol-link {
-    position: static;
-    transform: none;
-    display: block;
-    width: 180px;
-    margin: 22px auto 0;
-  }
-
-  .protocol-symbol {
-    width: 180px;
-    opacity: 0.78;
-  }
+  .protocol-station { display: block; min-height: auto; margin: 14px 0; }
+  .protocol-symbol-link { position: static; transform: none; display: block; width: 180px; margin: 22px auto 0; }
+  .protocol-symbol { width: 180px; opacity: 0.78; }
 }
 
 </style>
@@ -341,13 +185,6 @@ body.soft-entering .soft-fade {
 <body>
 
 <div class="rain" id="rain"></div>
-
-<a href="index.html" id="homeBtn">道</a>
-<button id="focusBtn">תודעת לימוד</button>
-
-<audio id="brownNoise" loop>
-  <source src="brown-noise.mp3" type="audio/mpeg">
-</audio>
 
 <div class="soft-fade"></div>
 
@@ -692,7 +529,7 @@ Binary = מבוסס על שני מצבים
 
 </div>
 
-<div class="section"> ג
+<div class="section">
 <p class="term">Route = דרך / נתיב</p>
 <p><span class="term">Router = המכשיר שמכוון את הדרך</span><br>של המידע בין רשתות.</p>
 <p><span class="term">הנתב מכוון הדרך</span></p>
@@ -707,7 +544,6 @@ Binary = מבוסס על שני מצבים
 <p>כאשר מידע צריך לצאת<br>מהרשת המקומית בבית<br>אל רשתות אחרות באינטרנט,</p>
 <p>הוא עובר דרך הנתב.</p>
 </div>
-
 
 </div>
 
@@ -724,34 +560,6 @@ for(let i=0;i<90;i++){
   rain.appendChild(drop);
 }
 
-const focusBtn = document.getElementById("focusBtn");
-const brownNoise = document.getElementById("brownNoise");
-
-function turnLearningOn() {
-  document.body.classList.add("learning-mode");
-  localStorage.setItem("learningMode", "on");
-  brownNoise.volume = 0.18;
-  brownNoise.play().catch(() => {});
-}
-
-function turnLearningOff() {
-  document.body.classList.remove("learning-mode");
-  localStorage.setItem("learningMode", "off");
-  brownNoise.pause();
-}
-
-if (localStorage.getItem("learningMode") === "on") {
-  document.body.classList.add("learning-mode");
-}
-
-focusBtn.addEventListener("click", () => {
-  if (document.body.classList.contains("learning-mode")) {
-    turnLearningOff();
-  } else {
-    turnLearningOn();
-  }
-});
-
 const stationBtn = document.getElementById("stationBtn");
 
 stationBtn.addEventListener("click", function(event) {
@@ -766,5 +574,6 @@ stationBtn.addEventListener("click", function(event) {
 
 </script>
 
+<script src="waytosee.js"></script>
 </body>
 </html>
