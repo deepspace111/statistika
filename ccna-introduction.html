@@ -178,7 +178,21 @@ body.soft-entering .soft-fade { animation: softFade 1.4s ease forwards; }
   .protocol-symbol-link { position: static; transform: none; display: block; width: 180px; margin: 22px auto 0; }
   .protocol-symbol { width: 180px; opacity: 0.78; }
 }
+.container {
+  max-width: 1200px;
+  column-count: 3;
+  column-gap: 70px;
+}
 
+.container h1 {
+  column-span: all;
+}
+
+@media (max-width: 600px) {
+  .container {
+    column-count: 1;
+  }
+}
 </style>
 </head>
 
