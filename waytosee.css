@@ -29,7 +29,9 @@ filter: brightness(0.55);
 transition: filter 0.8s ease;
 
 }
-
+body{
+  font-family: Arial, sans-serif;
+  background:#d2cdc4;
 
 body{
   background:#d2cdc4;
