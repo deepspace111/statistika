@@ -7,19 +7,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>השכבה הפיזית</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap" rel="stylesheet">
-
 <style>
 *{ box-sizing:border-box; }
 
+/* טיפוגרפיה ייחודית לדף זה - מרווח אותיות רחב, שורות גבוהות */
 body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#d2cdc4;
-  color:rgba(82,68,54,0.96);
   text-align:center;
   line-height:3.05;
-  overflow-x:hidden;
   transition:background 1.6s ease,color 1.6s ease;
   font-size:11px;
   letter-spacing:0.22em;
@@ -27,6 +21,7 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 
+/* רקע ייחודי לדף זה במצב תודעת לימוד - שחור מלא, לא הגרדיאנט המשותף */
 body.learning-mode{
   background:#000;
   color:rgba(185,185,185,0.84);
@@ -86,45 +81,7 @@ body.learning-mode .rain{
 
 .thunder-cloud.flash{ opacity:1; }
 
-#homeBtn{
-  position:fixed;
-  top:16px;
-  left:18px;
-  text-decoration:none;
-  font-family:'Yuji Mai',serif;
-  font-size:32px;
-  color:rgba(82,68,54,0.78);
-  z-index:20;
-  transition:0.5s ease;
-  line-height:1;
-}
-
-body.learning-mode #homeBtn{
-  color:rgba(210,210,210,0.78);
-}
-
-#focusBtn{
-  position:fixed;
-  top:14px;
-  right:14px;
-  border:1px solid rgba(82,68,54,0.42);
-  background:rgba(255,255,255,0.34);
-  color:rgba(82,68,54,0.88);
-  padding:7px 12px;
-  border-radius:18px;
-  font-size:13px;
-  cursor:pointer;
-  z-index:20;
-  transition:0.4s ease;
-}
-
-body.learning-mode #focusBtn{
-  border:1px solid rgba(210,210,210,0.24);
-  background:rgba(255,255,255,0.06);
-  color:rgba(200,200,200,0.82);
-}
-
-#focusBtn.scrolling{ opacity:0.18; }
+.focus-toggle.scrolling{ opacity:0.18; }
 
 .hero{
   position:relative;
@@ -184,24 +141,24 @@ body.learning-mode .overlay{
   padding:40px 24px;
 }
 
-h1{
+.hero-content h1{
   font-size:30px;
   margin:0 0 38px;
   font-weight:normal;
   color:rgba(82,68,54,0.96);
 }
 
-h2,
-h3{
+.content h2,
+.content h3{
   font-size:24px;
   margin:42px 0 22px;
   font-weight:normal;
   color:rgba(82,68,54,0.96);
 }
 
-body.learning-mode h1,
-body.learning-mode h2,
-body.learning-mode h3{
+body.learning-mode .hero-content h1,
+body.learning-mode .content h2,
+body.learning-mode .content h3{
   color:rgba(185,185,185,0.84);
 }
 
@@ -211,13 +168,15 @@ body.learning-mode h3{
   margin-bottom:18px;
 }
 
-p{
+.hero-content p,
+.content p{
   font-size:18px;
   color:rgba(82,68,54,0.96);
   margin:0 0 28px;
 }
 
-body.learning-mode p{
+body.learning-mode .hero-content p,
+body.learning-mode .content p{
   color:rgba(185,185,185,0.82);
 }
 
@@ -269,8 +228,6 @@ body.learning-mode .highlight{
   transition:opacity 1.8s ease,filter 1.8s ease;
 }
 
-.
-
 .cable-dark{
   opacity:0;
   filter:brightness(0.62) contrast(1.10) saturate(1.08);
@@ -292,10 +249,10 @@ body.learning-mode .footer-line{
 @media (max-width:768px){
   body{ line-height:2.3; }
 
-  h1{ font-size:26px; }
+  .hero-content h1{ font-size:26px; }
 
-  h2,
-  h3{ font-size:22px; }
+  .content h2,
+  .content h3{ font-size:22px; }
 
   .network-title{
     font-size:34px;
@@ -303,7 +260,8 @@ body.learning-mode .footer-line{
     margin-bottom:16px;
   }
 
-  p{ font-size:17px; }
+  .hero-content p,
+  .content p{ font-size:17px; }
 
   .highlight{
     font-size:19px;
@@ -311,22 +269,6 @@ body.learning-mode .footer-line{
   }
 
   .footer-line{ font-size:15px; }
-
-  #homeBtn{
-    top:6px;
-    font-size:32px;
-  }
-
-  #focusBtn{
-    top:70px;
-    right:10px;
-    writing-mode:vertical-rl;
-    text-orientation:mixed;
-    font-size:12px;
-    padding:12px 7px;
-    border-radius:18px;
-    line-height:1.3;
-  }
 
   .content{
     padding:8px 20px 100px;
@@ -356,17 +298,20 @@ body.learning-mode .footer-line{
 
 <a href="../intro.html" id="homeBtn">道</a>
 
+<button id="focusBtn" class="focus-toggle" title="כניסה לתודעת לימוד">
+  <img src="../waytosee-clef.png" alt="מפתח פה">
+</button>
 
 <audio id="brownNoise" loop preload="auto">
-  <source src="brown-noise.mp3" type="audio/mpeg">
+  <source src="../brown-noise.mp3" type="audio/mpeg">
 </audio>
 
 <audio id="rainSound" loop preload="auto">
-  <source src="rain.mp3" type="audio/mpeg">
+  <source src="../rain.mp3" type="audio/mpeg">
 </audio>
 
 <audio id="thunderSound" preload="auto">
-  <source src="thunder.mp3" type="audio/mpeg">
+  <source src="../thunder.mp3" type="audio/mpeg">
 </audio>
 
 <section class="hero" id="hero">
@@ -651,8 +596,5 @@ cableReveals.forEach(function(item){
 });
 </script>
 
-<script src="../waytosee.js"></script>
-
 </body>
 </html>
-
