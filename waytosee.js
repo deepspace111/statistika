@@ -6,9 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const mainScript =
     document.querySelector('script[src$="waytosee.js"]');
 
-  const homeAddress = mainScript
+  const homeAddress = window.waytoseeHomeOverride || (mainScript
     ? new URL("index.html", mainScript.src).href
-    : "../index.html";
+    : "../index.html");
 
   /*
     כפתור דו – חזרה לדף הבית
