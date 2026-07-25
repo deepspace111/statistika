@@ -14,14 +14,8 @@
       box-sizing:border-box;
     }
 
-    /* רקע ייחודי לדף זה - כהה תמיד (גם במצב רגיל), עם גוון שונה במצב תודעת לימוד (שכבר מוגדר במערכת המשותפת) */
+    /* טיפוגרפיה ייחודית לדף זה */
     body{
-      background:
-      radial-gradient(circle at top, rgba(150,150,150,0.06), transparent 40%),
-      linear-gradient(180deg,#0b0d10 0%, #090b0f 45%, #000 100%);
-
-      color:rgba(225,230,235,0.88);
-
       line-height:1.95;
     }
 
@@ -87,9 +81,13 @@
 
       margin:0 0 52px;
 
-      color:rgba(240,240,240,0.9);
+      color:rgba(82,68,54,0.96);
 
       letter-spacing:0.02em;
+    }
+
+    body.learning-mode main h1{
+      color:rgba(240,240,240,0.9);
     }
 
     main h2{
@@ -101,6 +99,10 @@
 
       margin:72px 0 28px;
 
+      color:rgba(82,68,54,0.90);
+    }
+
+    body.learning-mode main h2{
       color:rgba(210,215,225,0.92);
     }
 
@@ -120,9 +122,13 @@
       width:76px;
       height:1px;
 
-      background:rgba(255,255,255,0.18);
+      background:rgba(82,68,54,0.22);
 
       margin:68px auto;
+    }
+
+    body.learning-mode .divider{
+      background:rgba(255,255,255,0.18);
     }
 
     .codebox{
@@ -130,11 +136,11 @@
 
       text-align:left;
 
-      background:rgba(255,255,255,0.03);
+      background:rgba(0,0,0,0.03);
 
-      border:1px solid rgba(255,255,255,0.08);
+      border:1px solid rgba(0,0,0,0.10);
 
-      color:rgba(240,240,240,0.92);
+      color:rgba(82,68,54,0.92);
 
       border-radius:18px;
 
@@ -155,15 +161,30 @@
       font-size:clamp(1rem,2.4vw,1.22rem);
     }
 
-    .binary{
-      background:rgba(255,255,255,0.025);
+    body.learning-mode .codebox{
+      background:rgba(255,255,255,0.03);
+      border:1px solid rgba(255,255,255,0.08);
+      color:rgba(240,240,240,0.92);
+    }
 
+    .binary{
+      background:rgba(0,0,0,0.025);
+
+      color:rgba(60,50,42,0.95);
+    }
+
+    body.learning-mode .binary{
+      background:rgba(255,255,255,0.025);
       color:rgba(235,235,235,0.95);
     }
 
     .note{
       font-size:clamp(1.18rem,3vw,1.5rem);
 
+      color:rgba(82,68,54,0.96);
+    }
+
+    body.learning-mode .note{
       color:rgba(245,245,245,0.92);
     }
 
@@ -188,6 +209,10 @@
     main li::before{
       content:"• ";
 
+      color:rgba(82,68,54,0.75);
+    }
+
+    body.learning-mode main li::before{
       color:rgba(220,220,220,0.9);
     }
 
@@ -196,13 +221,17 @@
 
       font-size:clamp(1.2rem,3vw,1.65rem);
 
-      color:rgba(250,250,250,0.95);
+      color:rgba(82,68,54,0.96);
 
       margin:40px auto;
 
       line-height:2.1;
 
       max-width:720px;
+    }
+
+    body.learning-mode .quote{
+      color:rgba(250,250,250,0.95);
     }
 
     audio{
@@ -219,13 +248,13 @@
 
       padding:10px 22px;
 
-      border:1px solid rgba(255,255,255,0.14);
+      border:1px solid rgba(82,68,54,0.20);
 
       border-radius:24px;
 
-      background:rgba(255,255,255,0.04);
+      background:rgba(255,255,255,0.5);
 
-      color:rgba(235,235,235,0.78);
+      color:rgba(82,68,54,0.85);
 
       text-decoration:none;
 
@@ -239,10 +268,22 @@
     }
 
     #thinkingBtn:hover{
+      color:rgba(50,40,32,1);
+
+      border-color:rgba(82,68,54,0.35);
+
+      background:rgba(255,255,255,0.75);
+    }
+
+    body.learning-mode #thinkingBtn{
+      border:1px solid rgba(255,255,255,0.14);
+      background:rgba(255,255,255,0.04);
+      color:rgba(235,235,235,0.78);
+    }
+
+    body.learning-mode #thinkingBtn:hover{
       color:white;
-
       border-color:rgba(255,255,255,0.3);
-
       background:rgba(255,255,255,0.08);
     }
 
