@@ -32,11 +32,9 @@ transition: filter 0.8s ease;
 body{
   font-family: Arial, sans-serif;
   background:#d2cdc4;
-
-body{
-  background:#d2cdc4;
   color:rgba(82,68,54,0.96);
   transition:background 1.2s ease, color 1.2s ease;
+}
 }
 
 body.learning-mode{
@@ -140,7 +138,7 @@ body.learning-mode .newspaper-content .section {
     column-gap: 42px;
   }
 }
-SSSS
+S
 /* טלפון */
 
 @media (max-width: 600px) {
