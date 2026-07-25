@@ -86,7 +86,7 @@ transition: color 0.8s ease;
 }
 
 .newspaper-content {
-  column-count: 3;
+  column-width: 340px;
   column-gap: 54px;
   column-rule: 1px solid rgba(82, 68, 54, 0.22);
   text-align: right;
@@ -134,13 +134,11 @@ body.learning-mode .newspaper-content .section {
   .newspaper-page {
     padding-inline: 34px;
   }
-
   .newspaper-content {
-    column-count: 2;
     column-gap: 42px;
   }
 }
-
+SSSS
 /* טלפון */
 
 @media (max-width: 600px) {
@@ -160,5 +158,22 @@ body.learning-mode .newspaper-content .section {
 
   .newspaper-content p {
     font-size: 18px;
+  }
+}
+/* פריסת טורים בסגנון עיתון - לדפי תוכן/מאמר בלבד */
+.article-columns {
+  column-width: 340px;
+  column-gap: 60px;
+}
+
+.article-columns > h1,
+.article-columns > h2 {
+  column-span: all;
+}
+
+@media (max-width: 700px) {
+  .article-columns {
+    column-width: auto;
+    column-count: 1;
   }
 }
