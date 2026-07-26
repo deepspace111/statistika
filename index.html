@@ -5,23 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>way to see</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="waytosee.css">
 
   <style>
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #e8e8e8;
-      color: #111;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
+      min-height: 100svh;
       text-align: center;
-      transition: 0.4s ease;
       padding: 40px 20px;
       box-sizing: border-box;
-      overflow-x: hidden;
     }
 
     .container {
@@ -45,18 +39,32 @@
       letter-spacing: 0.36em;
       text-transform: uppercase;
       font-weight: 300;
-      color: #111;
+      color: rgba(82,68,54,0.96);
       opacity: 0.88;
       animation: softReveal 1.8s ease-out forwards;
+    }
+
+    body.learning-mode .brand-en {
+      color: rgba(240,240,240,0.92);
     }
 
     .brand-he {
       margin-top: 18px;
       font-size: 24px;
       letter-spacing: 0.04em;
-      color: #111;
+      color: rgba(82,68,54,0.96);
       opacity: 0.86;
       animation: softReveal 2.2s ease-out forwards;
+    }
+
+    body.learning-mode .brand-he {
+      color: rgba(240,240,240,0.92);
+    }
+
+    .dao-wrap {
+      position: relative;
+      display: inline-block;
+      margin-top: 18px;
     }
 
     .dao-mark {
@@ -64,35 +72,56 @@
       font-family: 'Yuji Mai', cursive;
       font-size: 58px;
       line-height: 1;
-      margin-top: 18px;
       opacity: 0.82;
+      color: rgba(82,68,54,0.96);
       animation: inkAppear 2.4s ease-out forwards;
     }
 
+    body.learning-mode .dao-mark {
+      color: rgba(240,240,240,0.92);
+    }
+
+    .clef-inline {
+      position: absolute;
+      top: 50%;
+      right: 100%;
+      margin-right: 10px;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      background-color: rgba(240,240,240,0.92);
+      -webkit-mask-image: url('waytosee-clef.png');
+      mask-image: url('waytosee-clef.png');
+      -webkit-mask-size: contain;
+      mask-size: contain;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+      mask-position: center;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    body.learning-mode .clef-inline {
+      animation: briefSignature 6s ease-in-out forwards;
+    }
+
+    @keyframes briefSignature {
+      0%   { opacity: 0; }
+      50%  { opacity: 0; }
+      62%  { opacity: 0.85; }
+      85%  { opacity: 0.85; }
+      100% { opacity: 0; }
+    }
+
     @keyframes softReveal {
-      from {
-        opacity: 0;
-        filter: blur(5px);
-        transform: translateY(8px);
-      }
-      to {
-        opacity: 0.88;
-        filter: blur(0);
-        transform: translateY(0);
-      }
+      from { opacity: 0; filter: blur(5px); transform: translateY(8px); }
+      to   { opacity: 0.88; filter: blur(0); transform: translateY(0); }
     }
 
     @keyframes inkAppear {
-      from {
-        opacity: 0;
-        filter: blur(6px);
-        transform: translateY(10px) scale(0.94);
-      }
-      to {
-        opacity: 0.82;
-        filter: blur(0);
-        transform: translateY(0) scale(1);
-      }
+      from { opacity: 0; filter: blur(6px); transform: translateY(10px) scale(0.94); }
+      to   { opacity: 0.82; filter: blur(0); transform: translateY(0) scale(1); }
     }
 
     .btn {
@@ -116,14 +145,9 @@
       background: linear-gradient(135deg, #000, #444);
     }
 
-    .btn:active {
-      transform: translateY(0);
-    }
+    .btn:active { transform: translateY(0); }
 
-    .btn.disabled {
-      cursor: default;
-      opacity: 0.62;
-    }
+    .btn.disabled { cursor: default; opacity: 0.62; }
 
     .btn.disabled:hover {
       transform: none;
@@ -131,350 +155,89 @@
       background: linear-gradient(135deg, #111, #333);
     }
 
-    .philosophy {
-      margin-top: 70px;
-      line-height: 2.2;
-      opacity: 0.82;
-      transition: 0.4s ease;
-    }
-
-    .philosophy-title {
-      font-size: 24px;
-      margin-bottom: 28px;
-      letter-spacing: 1px;
-    }
-
-    .philosophy-line {
-      font-size: 18px;
-      margin: 10px 0;
-    }
-
-    .thinking-stations {
-      margin-top: 46px;
-      padding-top: 28px;
-      border-top: 1px solid rgba(0,0,0,0.14);
-      line-height: 2.1;
-      opacity: 0.86;
-    }
-
-    .thinking-line {
-      font-size: 18px;
-      margin: 8px 0;
-    }
-
-    .thinking-note {
-      font-size: 17px;
-      margin-top: 8px;
-      opacity: 0.82;
-    }
-
-    body.focus-mode {
-      background: #000;
-      color: rgba(215,220,230,0.82);
-    }
-
-    body.focus-mode .brand-en,
-    body.focus-mode .brand-he {
-      color: #e8e8e8;
-    }
-
-    body.focus-mode .dao-mark {
-      color: #e8e8e8;
-      opacity: 0.9;
-    }
-
-    body.focus-mode .btn {
+    body.learning-mode .btn {
       background: linear-gradient(135deg, #e8e8e8, #ffffff);
       color: #111;
       box-shadow: 0 8px 24px rgba(255,255,255,0.12);
     }
 
-    body.focus-mode .btn:hover {
+    body.learning-mode .btn:hover {
       background: linear-gradient(135deg, #ffffff, #dcdcdc);
     }
 
-    body.focus-mode .btn.disabled:hover {
+    body.learning-mode .btn.disabled:hover {
       transform: none;
       box-shadow: 0 8px 24px rgba(255,255,255,0.12);
       background: linear-gradient(135deg, #e8e8e8, #ffffff);
     }
 
-    body.focus-mode .philosophy {
-      color: #dcdcdc;
-      opacity: 0.9;
+    .philosophy {
+      margin-top: 70px;
+      line-height: 2.2;
+      color: rgba(82,68,54,0.85);
+      opacity: 0.82;
+      transition: 0.4s ease;
     }
 
-    body.focus-mode .thinking-stations {
+    body.learning-mode .philosophy { color: #dcdcdc; opacity: 0.9; }
+
+    .philosophy-title { font-size: 24px; margin-bottom: 28px; letter-spacing: 1px; }
+    .philosophy-line { font-size: 18px; margin: 10px 0; }
+
+    .thinking-stations {
+      margin-top: 46px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(82,68,54,0.18);
+      line-height: 2.1;
+      opacity: 0.86;
+    }
+
+    body.learning-mode .thinking-stations {
       border-top: 1px solid rgba(255,255,255,0.16);
     }
 
-    .clef-layer {
-      display: none;
-    }
+    .thinking-line { font-size: 18px; margin: 8px 0; }
+    .thinking-note { font-size: 17px; margin-top: 8px; opacity: 0.82; }
 
-    body.focus-mode .clef-layer {
+    #constructionSign {
+      width: min(140px, 27.5vw, 9vh);
+      height: auto;
       display: block;
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1;
-      overflow: hidden;
+      margin: 0 auto;
+      opacity: 0.96;
     }
 
-    .clef {
-      position: absolute;
-      top: 50%;
-      width: 840px;
-      transform: translateY(-50%);
-      opacity: 0;
-      filter: grayscale(100%);
+    @media (max-width: 600px), (max-height: 850px) {
+      body { padding: 14px 12px; }
+      .brand { margin-bottom: 14px; }
+      .brand-en { font-size: clamp(19px, 5vw, 25px); letter-spacing: 0.24em; }
+      .brand-he { margin-top: 8px; font-size: clamp(17px, 4.5vw, 21px); }
+      .dao-mark { font-size: clamp(38px, 10vw, 50px); }
+      .clef-inline { width: 34px; height: 34px; }
+      .btn { padding: 10px 26px; margin: 6px; font-size: 16px; }
+      .philosophy { margin-top: 20px; line-height: 1.65; }
+      .philosophy-title { margin-bottom: 10px; font-size: 20px; }
+      .philosophy-line { margin: 3px 0; font-size: 15px; }
+      .thinking-stations { margin-top: 16px; padding-top: 12px; line-height: 1.55; }
+      .thinking-line { margin: 3px 0; font-size: 15px; }
+      .thinking-note { margin-top: 3px; font-size: 14px; }
+      .construction-wrapper { margin-top: 12px; }
+      #constructionSign { width: min(400px, 80vw, 25vh); }
     }
-
-    .left-clef {
-      left: -5%;
-    }
-
-    .right-clef {
-      right: -5%;
-      transform: translateY(-50%) ;
-    }
-
-    body.focus-mode .clef-layer::after {
-      content: "";
-      position: absolute;
-      width: 75vw;
-      height: 75vh;
-      left: -80vw;
-      top: -70vh;
-      background: radial-gradient(
-        ellipse,
-        rgba(255,255,255,0.18) 0%,
-        rgba(255,255,255,0.08) 28%,
-        rgba(255,255,255,0.025) 48%,
-        transparent 70%
-      );
-      filter: blur(28px);
-      transform: rotate(-22deg);
-      animation: diagonalWave 13s ease-in-out 5s infinite;
-    }
-
-    body.focus-mode .clef {
-      animation: revealClef 13s ease-in-out 5s infinite;
-    }
-
-    @keyframes diagonalWave {
-      0% {
-        left: -80vw;
-        top: -70vh;
-        opacity: 0;
-      }
-      12% {
-        opacity: 0;
-      }
-      25% {
-        opacity: 1;
-      }
-      55% {
-        left: 85vw;
-        top: 75vh;
-        opacity: 1;
-      }
-      70% {
-        opacity: 0;
-      }
-      100% {
-        left: 85vw;
-        top: 75vh;
-        opacity: 0;
-      }
-    }
-
-    @keyframes revealClef {
-      0% {
-        opacity: 0;
-      }
-      18% {
-        opacity: 0;
-      }
-      32% {
-        opacity: 0.09;
-      }
-      52% {
-        opacity: 0.09;
-      }
-      68% {
-        opacity: 0;
-      }
-      100% {
-        opacity: 0;
-      }
-    }
-#constructionSign {
-  width: min(520px, 85vw);
-  height: auto;
-  display: block;
-  margin: 0 auto;
-  opacity: 0.96;
-}
-    @media (max-width: 600px) {
-      body {
-        padding: 30px 16px;
-      }
-
-      .brand-en {
-        font-size: 24px;
-        letter-spacing: 0.24em;
-      }
-
-      .brand-he {
-        font-size: 21px;
-      }
-
-      .dao-mark {
-        font-size: 52px;
-      }
-
-      .btn {
-        display: block;
-        width: 180px;
-        margin: 14px auto;
-      }
-
-      .philosophy {
-        margin-top: 55px;
-      }
-
-      .philosophy-title {
-        font-size: 22px;
-      }
-
-      .philosophy-line {
-        font-size: 17px;
-      }
-
-      .thinking-stations {
-        margin-top: 40px;
-      }
-
-      .thinking-line {
-        font-size: 17px;
-      }
-
-      .thinking-note {
-        font-size: 16px;
-      }
-
-      .clef {
-        width: 260px;
-      }
-
-      .left-clef {
-        left: -22%;
-      }
-
-      .right-clef {
-        right: -22%;
-      }
-    }
-  
-
-  /* התאמת כל עמוד הבית למסכים קטנים */
-
-body {
-  min-height: 100svh;
-}
-
-#constructionSign {
-    width: min(140px, 27.5vw, 9vh);
-}
-
-@media (max-width: 600px), (max-height: 850px) {
-
-  body {
-    padding: 14px 12px;
-    min-height: 100svh;
-  }
-
-  .brand {
-    margin-bottom: 14px;
-  }
-
-  .brand-en {
-    font-size: clamp(19px, 5vw, 25px);
-  }
-
-  .brand-he {
-    margin-top: 8px;
-    font-size: clamp(17px, 4.5vw, 21px);
-  }
-
-  .dao-mark {
-    margin-top: 8px;
-    font-size: clamp(38px, 10vw, 50px);
-  }
-
-  .btn {
-    padding: 10px 26px;
-    margin: 6px;
-    font-size: 16px;
-  }
-
-  .philosophy {
-    margin-top: 20px;
-    line-height: 1.65;
-  }
-
-  .philosophy-title {
-    margin-bottom: 10px;
-    font-size: 20px;
-  }
-
-  .philosophy-line {
-    margin: 3px 0;
-    font-size: 15px;
-  }
-
-  .thinking-stations {
-    margin-top: 16px;
-    padding-top: 12px;
-    line-height: 1.55;
-  }
-
-  .thinking-line {
-    margin: 3px 0;
-    font-size: 15px;
-  }
-
-  .thinking-note {
-    margin-top: 3px;
-    font-size: 14px;
-  }
-
-  .construction-wrapper {
-    margin-top: 12px;
-  }
-
-  #constructionSign {
-    width: min(400px, 80vw, 25vh);
-  }
-}
-
-</style>
+  </style>
 </head>
 
 <body>
-
-<div class="clef-layer">
-  <img src="waytosee-clef.png" class="clef left-clef" alt="">
-  <img src="waytosee-clef.png" class="clef right-clef" alt="">
-</div>
 
 <div class="container">
 
   <div id="focusBtn" class="brand">
     <div class="brand-en">way to see</div>
     <div class="brand-he">כשמבינים — רואים</div>
-    <span class="dao-mark">道</span>
+    <div class="dao-wrap">
+      <span class="dao-mark">道</span>
+      <span class="clef-inline"></span>
+    </div>
   </div>
 
   <audio id="brownNoise" src="brown-noise.mp3" loop></audio>
@@ -484,43 +247,19 @@ body {
 
   <div class="philosophy">
 
-    <div class="philosophy-title">
-      אמנות לימוד
-    </div>
-
-    <div class="philosophy-line">
-      לא לשנן מידע
-    </div>
-
-    <div class="philosophy-line">
-      ללמוד לראות מערכות
-    </div>
-
-    <div class="philosophy-line">
-      להבין איך דברים מתחברים
-    </div>
+    <div class="philosophy-title">אמנות לימוד</div>
+    <div class="philosophy-line">לא לשנן מידע</div>
+    <div class="philosophy-line">ללמוד לראות מערכות</div>
+    <div class="philosophy-line">להבין איך דברים מתחברים</div>
 
     <div class="thinking-stations">
 
-      <div class="thinking-line">
-        באתר זה יונגשו תחנות חשיבה
+      <div class="thinking-line">באתר זה יונגשו תחנות חשיבה</div>
+      <div class="thinking-note">(התקדמות תוך עצירה)</div>
+
+      <div class="construction-wrapper">
+        <img src="under-construction.png" id="constructionSign" alt="Under Construction">
       </div>
-
-      <div class="thinking-note">
-        (התקדמות תוך עצירה)
-      </div>
-
- <div class="construction-wrapper">
-
-  <img
-      src="under-construction.png"
-      id="constructionSign"
-      alt="Under Construction">
-
-</div>
-
-
-
 
     </div>
 
@@ -528,16 +267,14 @@ body {
 
 </div>
 
-
-
 <script>
   const focusBtn = document.getElementById("focusBtn");
   const brownNoise = document.getElementById("brownNoise");
 
   focusBtn.addEventListener("click", () => {
-    document.body.classList.toggle("focus-mode");
+    document.body.classList.toggle("learning-mode");
 
-    if (document.body.classList.contains("focus-mode")) {
+    if (document.body.classList.contains("learning-mode")) {
       brownNoise.volume = 0.25;
       brownNoise.play().catch(() => {});
     } else {
