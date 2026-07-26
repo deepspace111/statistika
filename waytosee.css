@@ -1,3 +1,5 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap");
 html{
   scrollbar-width: none;       /* Firefox */
   -ms-overflow-style: none;    /* Edge/IE ישנים */
@@ -6,8 +8,6 @@ html{
 html::-webkit-scrollbar{
   display: none;               /* Chrome, Safari, Edge חדש */
 }
-
-@import url("https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap");
 
 
 .focus-toggle {
