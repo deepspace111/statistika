@@ -1,3 +1,13 @@
+html{
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;    /* Edge/IE ישנים */
+}
+
+html::-webkit-scrollbar{
+  display: none;               /* Chrome, Safari, Edge חדש */
+}
+
+
 document.addEventListener("DOMContentLoaded", () => {
   /*
     יצירת כתובת נכונה לדף הבית.
