@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const skipFocusSetup = window.waytoseeSkipFocusSetup === true;
+
   const mainScript =
     document.querySelector('script[src$="waytosee.js"]');
   const homeAddress = window.waytoseeHomeOverride || (mainScript
@@ -14,6 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
   homeButton.textContent = "道";
   homeButton.href = homeAddress;
   homeButton.title = "חזרה לדף הבית";
+
+  if (skipFocusSetup) return;
 
   let focusButton = document.getElementById("focusBtn");
   if (!focusButton) {
