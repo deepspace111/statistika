@@ -61,17 +61,21 @@ body.learning-mode{
   left: 26px;
   right: auto;
 
+  display: block;
   color: rgba(20, 20, 20, 0.68);
-  font-size: 30px;
-  font-family: "Yuji Mai", serif;
-font-weight: 500;
-transition: color 0.8s ease;
+  transition: color 0.8s ease, transform 0.3s ease;
 
   text-decoration: none;
 
   z-index: 1000;
   cursor: pointer;
-}body.learning-mode #homeBtn {
+}
+
+#homeBtn:hover {
+  transform: scale(1.08);
+}
+
+body.learning-mode #homeBtn {
   color: rgba(240, 240, 240, 0.88);
 }
 
