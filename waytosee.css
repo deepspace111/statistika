@@ -35,8 +35,8 @@ html::-webkit-scrollbar{
 }
 
 .focus-toggle {
-  width: 30px !important;
-  height: 24px !important;
+  width: 23px !important;
+  height: 18px !important;
   background-color: rgba(20, 20, 20, 0.68) !important;
   -webkit-mask-image: url('waytosee-clef.png') !important;
   mask-image: url('waytosee-clef.png') !important;
