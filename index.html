@@ -7,7 +7,7 @@
 
   <link rel="stylesheet" href="waytosee.css">
 
-  <style>
+ <style>
     body {
       display: flex;
       justify-content: center;
@@ -79,39 +79,6 @@
 
     body.learning-mode .dao-mark {
       color: rgba(240,240,240,0.92);
-    }
-
-    .clef-inline {
-      position: absolute;
-      top: 50%;
-      right: 100%;
-      margin-right: 10px;
-      transform: translateY(-50%);
-      width: 40px;
-      height: 40px;
-      background-color: rgba(240,240,240,0.92);
-      -webkit-mask-image: url('waytosee-clef.png');
-      mask-image: url('waytosee-clef.png');
-      -webkit-mask-size: contain;
-      mask-size: contain;
-      -webkit-mask-repeat: no-repeat;
-      mask-repeat: no-repeat;
-      -webkit-mask-position: center;
-      mask-position: center;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    body.learning-mode .clef-inline {
-      animation: briefSignature 6s ease-in-out forwards;
-    }
-
-    @keyframes briefSignature {
-      0%   { opacity: 0; }
-      50%  { opacity: 0; }
-      62%  { opacity: 0.85; }
-      85%  { opacity: 0.85; }
-      100% { opacity: 0; }
     }
 
     @keyframes softReveal {
@@ -213,14 +180,13 @@
       .brand-en { font-size: clamp(19px, 5vw, 25px); letter-spacing: 0.24em; }
       .brand-he { margin-top: 8px; font-size: clamp(17px, 4.5vw, 21px); }
       .dao-mark { font-size: clamp(38px, 10vw, 50px); }
-      .clef-inline { width: 34px; height: 34px; }
       .btn {
-  display: block;
-  width: 180px;
-  margin: 10px auto;
-  padding: 10px 26px;
-  font-size: 16px;
-}
+        display: block;
+        width: 180px;
+        margin: 10px auto;
+        padding: 10px 26px;
+        font-size: 16px;
+      }
       .philosophy { margin-top: 20px; line-height: 1.65; }
       .philosophy-title { margin-bottom: 10px; font-size: 20px; }
       .philosophy-line { margin: 3px 0; font-size: 15px; }
