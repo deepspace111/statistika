@@ -31,12 +31,30 @@ html::-webkit-scrollbar{
 }
 
 .focus-toggle img {
-  display: block !important;
-  width:50px !important;
-  height: auto !important;
-filter: brightness(0.55);
-transition: filter 0.8s ease;
+  display: none !important;
+}
 
+.focus-toggle {
+  width: 30px !important;
+  height: 24px !important;
+  background-color: rgba(20, 20, 20, 0.68) !important;
+  -webkit-mask-image: url('waytosee-clef.png') !important;
+  mask-image: url('waytosee-clef.png') !important;
+  -webkit-mask-size: contain !important;
+  mask-size: contain !important;
+  -webkit-mask-repeat: no-repeat !important;
+  mask-repeat: no-repeat !important;
+  -webkit-mask-position: center !important;
+  mask-position: center !important;
+  transition: background-color 0.8s ease, transform 0.3s ease !important;
+}
+
+body.learning-mode .focus-toggle {
+  background-color: rgba(240, 240, 240, 0.88) !important;
+}
+
+.focus-toggle:hover {
+  transform: scale(1.08);
 }
 body{
   font-family: Arial, sans-serif;
