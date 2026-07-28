@@ -84,15 +84,23 @@ document.addEventListener("DOMContentLoaded", () => {
     fadeAudio(brownNoise, 0, 900);
   }
 
+ // שחזור המצב שנשמר מדף קודם
+  if (localStorage.getItem("waytoseeLearningMode") === "on") {
+    document.body.classList.add("learning-mode");
+    focusButton.classList.add("active");
+    focusButton.title = "יציאה מתודעת לימוד";
+    startBrownNoise();
+  }
+
   focusButton.addEventListener("click", () => {
     document.body.classList.toggle("learning-mode");
     const isLearningMode = document.body.classList.contains("learning-mode");
     focusButton.classList.toggle("active", isLearningMode);
     focusButton.title = isLearningMode ? "יציאה מתודעת לימוד" : "כניסה לתודעת לימוד";
+    localStorage.setItem("waytoseeLearningMode", isLearningMode ? "on" : "off");
     if (isLearningMode) {
       startBrownNoise();
     } else {
       stopBrownNoise();
     }
   });
-});
