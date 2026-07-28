@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     <polygon points="78.58,63.50 61.43,33.80 56.41,39.60 66.02,56.25" opacity="0.78"/>
   </svg>`;
   homeButton.href = homeAddress;
-  homeButton.title = "חזרה לדף הבית";
+  
   if (skipFocusSetup) return;
 
   let focusButton = document.getElementById("focusBtn");
@@ -33,8 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ? new URL("waytosee-clef.png", mainScript.src).href
     : "../waytosee-clef.png";
   focusButton.innerHTML = `<img src="${clefAddress}" alt="מפתח פה">`;
-  focusButton.title = "כניסה לתודעת לימוד";
-
+  
   let brownNoise = document.getElementById("brownNoise");
   if (!brownNoise) {
     brownNoise = document.createElement("audio");
@@ -88,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (localStorage.getItem("waytoseeLearningMode") === "on") {
     document.body.classList.add("learning-mode");
     focusButton.classList.add("active");
-    focusButton.title = "יציאה מתודעת לימוד";
+    
     startBrownNoise();
   }
 
@@ -96,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.classList.toggle("learning-mode");
     const isLearningMode = document.body.classList.contains("learning-mode");
     focusButton.classList.toggle("active", isLearningMode);
-    focusButton.title = isLearningMode ? "יציאה מתודעת לימוד" : "כניסה לתודעת לימוד";
+    
     localStorage.setItem("waytoseeLearningMode", isLearningMode ? "on" : "off");
     if (isLearningMode) {
       startBrownNoise();
