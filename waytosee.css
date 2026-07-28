@@ -54,7 +54,7 @@ body.learning-mode .focus-toggle {
 }
 
 .focus-toggle:hover {
-  transform: scale(1.08);
+  transform: scale(1.08) !important;
 }
 body{
   font-family: Arial, sans-serif;
