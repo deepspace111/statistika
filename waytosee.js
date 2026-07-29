@@ -106,3 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+p {
+  margin-top: 0.3em;
+  margin-bottom: 0.3em;
+}

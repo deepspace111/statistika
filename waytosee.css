@@ -208,4 +208,11 @@ body.learning-mode .newspaper-content .section {
     column-width: auto;
     column-count: 1;
   }
+}p {
+  margin: 0 0 0.3em;
+}
+
+.section {
+  margin-bottom: 24px;
+  padding-top: 18px;
 }
