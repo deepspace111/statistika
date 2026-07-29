@@ -75,21 +75,17 @@ body.learning-mode .section { border-top: 1px solid rgba(255,255,255,0.14); }
 
 .protocol-symbol-link {
   position: static;
-  width: 140px;
-  height: auto;
+  width: 100px;
+  flex-shrink: 0;
   display: block;
   cursor: pointer;
   z-index: 3;
 }
-}
 
 .protocol-symbol {
-  width: 180px;
+  width: 100%;
   height: auto;
-  opacity: 0.88;
-  pointer-events: none;
-  transition: 0.7s ease;
-  animation: quietBreath 5.5s ease-in-out infinite;
+  display: block;
 }
 
 .protocol-symbol-link:hover .protocol-symbol {
