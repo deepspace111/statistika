@@ -217,3 +217,21 @@ p {
   margin-bottom: 24px;
   padding-top: 18px;
 }
+
+body.learning-mode .container {
+  animation: turquoise-flicker 15s infinite;
+}
+@keyframes turquoise-flicker {
+  0%, 78%, 100% {
+    color: inherit;
+    text-shadow: none;
+  }
+  80%, 84%, 88%, 92% {
+    color: #40e0d0;
+    text-shadow: 0 0 5px rgba(64, 224, 208, 0.55);
+  }
+  82%, 86%, 90% {
+    color: inherit;
+    text-shadow: none;
+  }
+}
