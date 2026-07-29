@@ -1,12 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const skipFocusSetup = window.waytoseeSkipFocusSetup === true;
+  // רווח מצומצם בין פסקאות בכל האתר
+  const style = document.createElement("style");
+  style.textContent = `
+    p {
+      margin-top: 0.3em;
+      margin-bottom: 0.3em;
+    }
+  `;
+  document.head.appendChild(style);
 
+  const skipFocusSetup = window.waytoseeSkipFocusSetup === true;
   const mainScript =
     document.querySelector('script[src$="waytosee.js"]');
   const homeAddress = window.waytoseeHomeOverride || (mainScript
     ? new URL("index.html", mainScript.src).href
     : "../index.html");
-
   let homeButton = document.getElementById("homeBtn");
   if (!homeButton) {
     homeButton = document.createElement("a");
@@ -19,9 +27,8 @@ document.addEventListener("DOMContentLoaded", () => {
     <polygon points="78.58,63.50 61.43,33.80 56.41,39.60 66.02,56.25" opacity="0.78"/>
   </svg>`;
   homeButton.href = homeAddress;
-  
-  if (skipFocusSetup) return;
 
+  if (skipFocusSetup) return;
   let focusButton = document.getElementById("focusBtn");
   if (!focusButton) {
     focusButton = document.createElement("button");
@@ -33,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ? new URL("waytosee-clef.png", mainScript.src).href
     : "../waytosee-clef.png";
   focusButton.innerHTML = `<img src="${clefAddress}" alt="מפתח פה">`;
-  
+
   let brownNoise = document.getElementById("brownNoise");
   if (!brownNoise) {
     brownNoise = document.createElement("audio");
@@ -46,7 +53,6 @@ document.addEventListener("DOMContentLoaded", () => {
     brownNoise.src = scriptPath.replace("waytosee.js", "brown-noise.mp3");
     document.body.appendChild(brownNoise);
   }
-
   function fadeAudio(audio, targetVolume, duration) {
     const steps = 24;
     const startVolume = audio.volume;
@@ -64,7 +70,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }, duration / steps);
   }
-
   function startBrownNoise() {
     if (!brownNoise) return;
     brownNoise.volume = 0;
@@ -77,29 +82,27 @@ document.addEventListener("DOMContentLoaded", () => {
         console.warn("שגיאת שמע:", error.message, brownNoise.src);
       });
   }
-
   function stopBrownNoise() {
     if (!brownNoise) return;
     fadeAudio(brownNoise, 0, 900);
   }
-
- // שחזור המצב שנשמר מדף קודם
+  // שחזור המצב שנשמר מדף קודם
   if (localStorage.getItem("waytoseeLearningMode") === "on") {
     document.body.classList.add("learning-mode");
     focusButton.classList.add("active");
-    
+
     startBrownNoise();
   }
-
   focusButton.addEventListener("click", () => {
     document.body.classList.toggle("learning-mode");
     const isLearningMode = document.body.classList.contains("learning-mode");
     focusButton.classList.toggle("active", isLearningMode);
-    
+
     localStorage.setItem("waytoseeLearningMode", isLearningMode ? "on" : "off");
     if (isLearningMode) {
       startBrownNoise();
     } else {
       stopBrownNoise();
     }
-  });  });
+  });
+});
