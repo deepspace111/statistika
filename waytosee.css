@@ -1,218 +1,93 @@
-
-@import url("https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap");
-html{
-  scrollbar-width: none;       /* Firefox */
-  -ms-overflow-style: none;    /* Edge/IE ישנים */
-}
-
-html::-webkit-scrollbar{
-  display: none;               /* Chrome, Safari, Edge חדש */
-}
-
-
-.focus-toggle {
-  position: fixed !important;
-  top: 18px !important;
-  right: 26px !important;
-  transform: none  !important;
-
-  z-index: 999999 !important;
-
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-
-  background: transparent !important;
-  border: none !important;
-  padding: 0 !important;
-
-  cursor: pointer !important;
-  line-height: 1 !important;
-}
-
-.focus-toggle img {
-  display: none !important;
-}
-
-.focus-toggle {
-  width: 21px !important;
-  height: 16px !important;
-  background-color: rgba(20, 20, 20, 0.68) !important;
-  -webkit-mask-image: url('waytosee-clef.png') !important;
-  mask-image: url('waytosee-clef.png') !important;
-  -webkit-mask-size: contain !important;
-  mask-size: contain !important;
-  -webkit-mask-repeat: no-repeat !important;
-  mask-repeat: no-repeat !important;
-  -webkit-mask-position: center !important;
-  mask-position: center !important;
-  transition: background-color 0.8s ease, transform 0.3s ease !important;
-}
-
-body.learning-mode .focus-toggle {
-  background-color: rgba(240, 240, 240, 0.88) !important;
-}
-
-.focus-toggle:hover {
-  transform: scale(1.08) !important;
-}
-body{
-  font-family: Arial, sans-serif;
-  background:#d2cdc4;
-  color:rgba(82,68,54,0.96);
-  transition:background 1.2s ease, color 1.2s ease;
-}
-body.learning-mode{
-  background:
-    radial-gradient(circle at top, rgba(180,180,180,0.08), transparent 44%),
-    linear-gradient(180deg,#060708 0%, #050608 40%, #000 100%);
-  color:rgba(240,240,240,0.92);
-}
-
-
-
-/* כפתור דו – חזרה לדף הבית */
-
-#homeBtn {
-  position: fixed;
-  top: 14px;
-  left: 26px;
-  right: auto;
-
-  display: block;
-  color: rgba(20, 20, 20, 0.68);
-  transition: color 0.8s ease, transform 0.3s ease;
-
-  text-decoration: none;
-
-  z-index: 1000;
-  cursor: pointer;
-}
-
-#homeBtn:hover {
-  transform: scale(1.08);
-}
-
-body.learning-mode #homeBtn {
-  color: rgba(240, 240, 240, 0.88);
-}
-
-
-/* ========================================
-   פריסת עיתון רספונסיבית
-======================================== */
-
-.newspaper-page {
-  position: relative;
-  z-index: 5;
-  max-width: 1450px;
-  margin: 0 auto;
-  padding: 80px 48px 70px;
-}
-
-.newspaper-page > h1 {
-  margin: 0 0 46px;
-  text-align: center;
-  font-size: 42px;
-  font-weight: 300;
-}
-
-.newspaper-content {
-  column-width: 340px;
-  column-gap: 54px;
-  column-rule: 1px solid rgba(82, 68, 54, 0.22);
-  text-align: justify;
-  line-height: 1.8;
-}
-
-body.learning-mode .newspaper-content {
-  column-rule-color: rgba(255, 255, 255, 0.16);
-}
-
-.newspaper-content .section {
-  margin: 0 0 34px;
-  padding-top: 24px;
-  border-top: 1px solid rgba(82, 68, 54, 0.18);
-}
-
-body.learning-mode .newspaper-content .section {
-  border-top-color: rgba(255, 255, 255, 0.14);
-}
-
-.newspaper-content .section:first-child {
-  padding-top: 0;
-  border-top: none;
-}
-
-.newspaper-content h2 {
-  break-after: avoid;
-  margin: 28px 0 14px;
-  font-size: 23px;
-}
-
-.newspaper-content p {
-  break-inside: avoid;
-  margin: 10px 0;
-  font-size: 17px;
-}
-
-.newspaper-content .term {
-  font-weight: bold;
-}
-
-/* טאבלט */
-
-@media (min-width: 601px) and (max-width: 1050px) {
-  .newspaper-page {
-    padding-inline: 34px;
+document.addEventListener("DOMContentLoaded", () => {
+  const skipFocusSetup = window.waytoseeSkipFocusSetup === true;
+  const mainScript =
+    document.querySelector('script[src$="waytosee.js"]');
+  const homeAddress = window.waytoseeHomeOverride || (mainScript
+    ? new URL("index.html", mainScript.src).href
+    : "../index.html");
+  let homeButton = document.getElementById("homeBtn");
+  if (!homeButton) {
+    homeButton = document.createElement("a");
+    homeButton.id = "homeBtn";
+    document.body.appendChild(homeButton);
   }
-  .newspaper-content {
-    column-gap: 42px;
+  homeButton.innerHTML = `<svg viewBox="0 0 100 78" width="30" height="24" fill="currentColor" aria-hidden="true">
+    <polygon points="50.00,14.00 32.85,43.70 40.39,45.15 50.00,28.50" opacity="1"/>
+    <polygon points="21.42,63.50 55.72,63.50 53.20,56.25 33.98,56.25" opacity="0.55"/>
+    <polygon points="78.58,63.50 61.43,33.80 56.41,39.60 66.02,56.25" opacity="0.78"/>
+  </svg>`;
+  homeButton.href = homeAddress;
+  if (skipFocusSetup) return;
+  let focusButton = document.getElementById("focusBtn");
+  if (!focusButton) {
+    focusButton = document.createElement("button");
+    focusButton.className = "focus-toggle";
+    focusButton.id = "focusBtn";
+    document.body.appendChild(focusButton);
   }
-}
-
-/* טלפון */
-
-@media (max-width: 600px) {
-  .newspaper-page {
-    max-width: 760px;
-    padding: 80px 24px 70px;
+  const clefAddress = mainScript
+    ? new URL("waytosee-clef.png", mainScript.src).href
+    : "../waytosee-clef.png";
+  focusButton.innerHTML = `<img src="${clefAddress}" alt="מפתח פה">`;
+  let brownNoise = document.getElementById("brownNoise");
+  if (!brownNoise) {
+    brownNoise = document.createElement("audio");
+    brownNoise.id = "brownNoise";
+    brownNoise.loop = true;
+    brownNoise.preload = "auto";
+    const scriptPath = mainScript
+      ? mainScript.getAttribute("src")
+      : "../waytosee.js";
+    brownNoise.src = scriptPath.replace("waytosee.js", "brown-noise.mp3");
+    document.body.appendChild(brownNoise);
   }
-
-  .newspaper-page > h1 {
-    font-size: 34px;
+  function fadeAudio(audio, targetVolume, duration) {
+    const steps = 24;
+    const startVolume = audio.volume;
+    const difference = targetVolume - startVolume;
+    let step = 0;
+    const interval = setInterval(() => {
+      step++;
+      audio.volume = Math.max(0, Math.min(1, startVolume + difference * (step / steps)));
+      if (step >= steps) {
+        clearInterval(interval);
+        audio.volume = targetVolume;
+        if (targetVolume === 0) {
+          audio.pause();
+        }
+      }
+    }, duration / steps);
   }
-
-  .newspaper-content {
-    column-count: 1;
-    text-align: center;
+  function startBrownNoise() {
+    if (!brownNoise) return;
+    brownNoise.volume = 0;
+    brownNoise
+      .play()
+      .then(() => {
+        fadeAudio(brownNoise, 0.60, 1600);
+      })
+      .catch((error) => {
+        console.warn("שגיאת שמע:", error.message, brownNoise.src);
+      });
   }
-
-  .newspaper-content p {
-    font-size: 18px;
+  function stopBrownNoise() {
+    if (!brownNoise) return;
+    fadeAudio(brownNoise, 0, 900);
   }
-}
-/* פריסת טורים בסגנון עיתון - לדפי תוכן/מאמר בלבד */
-.article-columns {
-  column-width: 340px;
-  column-gap: 60px;
-}
-
-.article-columns > h1,
-.article-columns > h2 {
-  column-span: all;
-}
-
-@media (max-width: 700px) {
-  .article-columns {
-    column-width: auto;
-    column-count: 1;
+  if (localStorage.getItem("waytoseeLearningMode") === "on") {
+    document.body.classList.add("learning-mode");
+    focusButton.classList.add("active");
+    startBrownNoise();
   }
-}p {
-  margin: 0 0 0.3em;
-}
-
-.section {
-  margin-bottom: 24px;
-  padding-top: 18px;
-}
+  focusButton.addEventListener("click", () => {
+    document.body.classList.toggle("learning-mode");
+    const isLearningMode = document.body.classList.contains("learning-mode");
+    focusButton.classList.toggle("active", isLearningMode);
+    localStorage.setItem("waytoseeLearningMode", isLearningMode ? "on" : "off");
+    if (isLearningMode) {
+      startBrownNoise();
+    } else {
+      stopBrownNoise();
+    }
+  });
+});
