@@ -57,7 +57,7 @@ body.learning-mode .focus-toggle {
 }
 body{
   font-family: Arial, sans-serif;
-  background:#d2cdc4;
+  background:#e8e8e8;
   color:rgba(82,68,54,0.96);
   transition:background 1.2s ease, color 1.2s ease;
 }
