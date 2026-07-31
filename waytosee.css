@@ -244,20 +244,22 @@ p {
   padding-top: 18px;
 }
 
+
+
 body.learning-mode .container {
-  animation: turquoise-flicker 15s steps(1, end) infinite;
+  animation: turquoise-flicker 8s steps(1, end) infinite;
 }
 
 @keyframes turquoise-flicker {
-  0%, 91%, 100% {
+  0%, 60%, 100% {
     color: inherit;
     text-shadow: none;
   }
-  91.5%, 92%, 92.5%, 93%, 93.5%, 94% {
+  61%, 63%, 65%, 67%, 69%, 71%, 73%, 75%, 77%, 79%, 81%, 83%, 85% {
     color: #40e0d0;
     text-shadow: 0 0 6px rgba(64, 224, 208, 0.8), 0 0 14px rgba(64, 224, 208, 0.4);
   }
-  91.7%, 92.2%, 92.7%, 93.2%, 93.7% {
+  62%, 64%, 66%, 68%, 70%, 72%, 74%, 76%, 78%, 80%, 82%, 84%, 86% {
     color: inherit;
     text-shadow: none;
   }
