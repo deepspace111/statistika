@@ -247,7 +247,7 @@ p {
 
 
 body.learning-mode .container {
-  animation: turquoise-flicker 1.5s steps(1, end) infinite;
+  animation: turquoise-flicker 6s steps(1, end) infinite;
 }
 
 @keyframes turquoise-flicker {
