@@ -245,7 +245,7 @@ p {
 }
 
 .turquoise-flash {
-  animation: turquoise-flicker 0.3s steps(1, end);
+  animation: turquoise-flicker 0.1s steps(1, end);
 }
 
 @keyframes turquoise-flicker {
@@ -253,8 +253,12 @@ p {
     color: inherit;
     text-shadow: none;
   }
-  50% {
+  20%, 60% {
     color: #40e0d0;
     text-shadow: 0 0 6px rgba(64, 224, 208, 0.8), 0 0 14px rgba(64, 224, 208, 0.4);
+  }
+  40%, 80% {
+    color: inherit;
+    text-shadow: none;
   }
 }
