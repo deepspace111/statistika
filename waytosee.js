@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const container = document.querySelector(".container");
     if (!container) return;
     container.classList.add("turquoise-flash");
-    setTimeout(() => container.classList.remove("turquoise-flash"), 300);
+    setTimeout(() => container.classList.remove("turquoise-flash"), 200);
     const nextDelay = 2000 + Math.random() * 6000; // בין 2 ל-8 שניות
     flickerTimeout = setTimeout(scheduleFlicker, nextDelay);
   }

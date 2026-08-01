@@ -245,7 +245,7 @@ p {
 }
 
 .turquoise-flash {
-  animation: turquoise-flicker 0.1s steps(1, end);
+  animation: turquoise-flicker 0.2s steps(1, end);
 }
 
 @keyframes turquoise-flicker {
