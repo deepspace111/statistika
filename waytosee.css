@@ -244,23 +244,17 @@ p {
   padding-top: 18px;
 }
 
-
-
-body.learning-mode .container {
-  animation: turquoise-flicker 6s steps(1, end) infinite;
+.turquoise-flash {
+  animation: turquoise-flicker 0.3s steps(1, end);
 }
 
 @keyframes turquoise-flicker {
-  0%, 40%, 100% {
+  0%, 100% {
     color: inherit;
     text-shadow: none;
   }
-  41%, 43%, 45%, 47%, 49%, 51% {
+  50% {
     color: #40e0d0;
     text-shadow: 0 0 6px rgba(64, 224, 208, 0.8), 0 0 14px rgba(64, 224, 208, 0.4);
-  }
-  42%, 44%, 46%, 48%, 50%, 52% {
-    color: inherit;
-    text-shadow: none;
   }
 }
