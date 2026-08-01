@@ -36,7 +36,7 @@ html::-webkit-scrollbar{
 .focus-toggle {
   width: 21px !important;
   height: 16px !important;
-  background-color: rgba(20, 20, 20, 0.68) !important;
+  background-color: rgba(20, 20, 20, 0.55) !important;
   -webkit-mask-image: url('waytosee-clef.png') !important;
   mask-image: url('waytosee-clef.png') !important;
   -webkit-mask-size: contain !important;
@@ -49,7 +49,7 @@ html::-webkit-scrollbar{
 }
 
 body.learning-mode .focus-toggle {
-  background-color: rgba(240, 240, 240, 0.88) !important;
+  background-color: rgba(180, 180, 180, 0.55) !important;
 }
 
 .focus-toggle:hover {
@@ -260,5 +260,13 @@ p {
   40%, 80% {
     color: inherit;
     text-shadow: none;
+  }
+}
+@media (max-width: 600px) {
+  #homeBtn {
+    left: 6px;
+  }
+  .focus-toggle {
+    right: 6px !important;
   }
 }
