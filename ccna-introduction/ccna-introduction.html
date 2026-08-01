@@ -4,11 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>דרך הרשת 🌐</title>
+<title>דרך רשת</title>
 
 <link rel="stylesheet" href="../waytosee.css">
 
 <style>
+
+.section {
+  border-top: 1px solid rgba(0,0,0,0.14);
+  padding-top: 10px;
+  padding-bottom: 14px;
+}
+.section > h2:first-child {
+  margin-top: 0;
+}
 
 body.soft-entering {
   animation: softPageFade 1.4s ease forwards;
@@ -40,13 +49,6 @@ body.learning-mode .drop {
   to { transform: translateY(120vh); }
 }
 
-.page-title {
-  font-size: 42px;
-  margin: 0 0 18px;
-  text-align: center;
-  font-weight: 300;
-}
-
 .container {
   position: relative;
   z-index: 5;
@@ -55,21 +57,22 @@ body.learning-mode .drop {
   column-count: 3;
   column-gap: 70px;
   padding: 24px 24px 70px;
+ 
 }
 
+.container h1 {
+  font-size: 42px;
+  margin-bottom: 0;
+  padding-bottom: 18px;
+  font-weight: 300;
+  column-span: all;
+}
 .container h2 { font-size: 25px; margin: 16px 0 8px; font-weight: 500; }
-
 .section {
   position: relative;
   break-inside: avoid;
   page-break-inside: avoid;
   border-top: 1px solid rgba(0,0,0,0.14);
-  padding-top: 12px;
-  padding-bottom: 12px;
-}
-
-.section > h2:first-child {
-  margin-top: 0;
 }
 
 body.learning-mode .section { border-top: 1px solid rgba(255,255,255,0.14); }
@@ -180,7 +183,7 @@ body.soft-entering .soft-fade { animation: softFade 1.4s ease forwards; }
 
 @media (max-width: 600px) {
   .container { column-count: 1; }
-  .page-title { font-size: 34px; }
+  .container h1 { font-size: 34px; }
   .container h2 { font-size: 22px; }
   .container p { font-size: 18px; }
   .do-mark { font-size: 24px; }
@@ -198,14 +201,13 @@ body.soft-entering .soft-fade { animation: softFade 1.4s ease forwards; }
 
 <div class="soft-fade"></div>
 
-<h1 class="page-title">דרך הרשת 🌐</h1>
-
 <div class="container">
 
+<h1>דרך רשת </h1>
+
 <div class="section">
-  <h2>אינטרנט</h2>
   <p>
-    מתחילה במרחב שלך – בטלפון, במחשב, בטלוויזיה החכמה ובנתב שמחבר ביניהם.
+  <h2>אינטרנט</h2> מתחיל במרחב שלך – בטלפון, במחשב, בטלוויזיה החכמה ובנתב  שמחבר ביניהם.
     כל המכשירים האלה כבר מדברים זה עם זה כל הזמן. הבית שלך כבר מלא בשיחות דיגיטליות שקטות,
     גם כשנדמה שהכול דומם.
   </p>
@@ -355,8 +357,6 @@ body.soft-entering .soft-fade { animation: softFade 1.4s ease forwards; }
   </p>
 </div>
 
-</div>
-
 <script>
 
 const rain = document.getElementById("rain");
@@ -376,7 +376,7 @@ stationBtn.addEventListener("click", function(event) {
   event.preventDefault();
 
   document.body.classList.add("soft-entering");
-
+S
   setTimeout(() => {
     window.location.href = "thinking-station.html";
   }, 1400);
@@ -386,4 +386,4 @@ stationBtn.addEventListener("click", function(event) {
 
 <script src="../waytosee.js"></script>
 </body>
-</html>
+</html>S
