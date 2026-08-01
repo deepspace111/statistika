@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", () => {
   const skipFocusSetup = window.waytoseeSkipFocusSetup === true;
   const mainScript =
@@ -74,10 +75,30 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!brownNoise) return;
     fadeAudio(brownNoise, 0, 900);
   }
+ 
+  let flickerTimeout = null;
+ 
+  function scheduleFlicker() {
+    const container = document.querySelector(".container");
+    if (!container) return;
+    container.classList.add("turquoise-flash");
+    setTimeout(() => container.classList.remove("turquoise-flash"), 300);
+    const nextDelay = 2000 + Math.random() * 6000; // בין 2 ל-8 שניות
+    flickerTimeout = setTimeout(scheduleFlicker, nextDelay);
+  }
+ 
+  function stopFlicker() {
+    if (flickerTimeout) {
+      clearTimeout(flickerTimeout);
+      flickerTimeout = null;
+    }
+  }
+ 
   if (localStorage.getItem("waytoseeLearningMode") === "on") {
     document.body.classList.add("learning-mode");
     focusButton.classList.add("active");
     startBrownNoise();
+    scheduleFlicker();
   }
   focusButton.addEventListener("click", () => {
     document.body.classList.toggle("learning-mode");
@@ -86,8 +107,11 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("waytoseeLearningMode", isLearningMode ? "on" : "off");
     if (isLearningMode) {
       startBrownNoise();
+      scheduleFlicker();
     } else {
       stopBrownNoise();
+      stopFlicker();
     }
   });
 });
+ 
