@@ -12,11 +12,16 @@
 
 .section {
   border-top: 1px solid rgba(0,0,0,0.14);
-  padding-top: 10px;
-  padding-bottom: 14px;
+  padding-top: 6px;
+  padding-bottom: 8px;
 }
 .section > h2:first-child {
   margin-top: 0;
+}
+
+.container p {
+  line-height: 1.35;
+  margin: 8px 0;
 }
 
 body.soft-entering {
@@ -153,6 +158,24 @@ body.learning-mode .do-mark { color: rgba(220,220,220,0.38); }
 }
 
 .next-btn:hover { background: rgba(0,0,0,0.08); }
+
+.protocol-text-btn {
+  display: inline;
+  margin-top: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: none;
+  color: inherit;
+  font-weight: bold;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.protocol-text-btn:hover {
+  opacity: 0.6;
+  background: none;
+}
 body.learning-mode .next-btn { border: 1px solid rgba(255,255,255,0.25); color: #f2f2f2; background: rgba(255,255,255,0.04); }
 body.learning-mode .next-btn:hover { background: rgba(255,255,255,0.09); }
 
@@ -206,8 +229,9 @@ body.soft-entering .soft-fade { animation: softFade 1.4s ease forwards; }
 <h1>דרך רשת </h1>
 
 <div class="section">
+  <h2>אינטרנט</h2>
   <p>
-  <h2>אינטרנט</h2> מתחיל גם במרחב שלך – בטלפון, במחשב, בטלוויזיה החכמה ובנתב  שמחבר ביניהם.
+    מתחיל במרחב שלך – בטלפון, במחשב, בטלוויזיה החכמה ובנתב  שמחבר ביניהם.
     כל המכשירים האלה כבר מדברים זה עם זה כל הזמן. הבית שלך כבר מלא בשיחות דיגיטליות שקטות,
     גם כשנדמה שהכול דומם.
   </p>
@@ -300,7 +324,7 @@ body.soft-entering .soft-fade { animation: softFade 1.4s ease forwards; }
   </p>
 
   <div class="protocol-station">
-    <p class="term">עטוף בפרוטוקולים — כדי שהמידע יוכל לנוע.</p>
+    <a href="thinking-station.html" class="next-btn protocol-text-btn">עטוף בפרוטוקולים — כדי שהמידע יוכל לנוע.</a>
 
     <a href="thinking-station.html"
        class="thinking-btn"
@@ -355,8 +379,9 @@ for(let i=0;i<90;i++){
 }
 
 const stationBtn = document.getElementById("stationBtn");
+const protocolTextBtn = document.querySelector(".protocol-text-btn");
 
-stationBtn.addEventListener("click", function(event) {
+function goToThinkingStation(event) {
   event.preventDefault();
 
   document.body.classList.add("soft-entering");
@@ -364,7 +389,10 @@ stationBtn.addEventListener("click", function(event) {
   setTimeout(() => {
     window.location.href = "thinking-station.html";
   }, 1400);
-});
+}
+
+stationBtn.addEventListener("click", goToThinkingStation);
+protocolTextBtn.addEventListener("click", goToThinkingStation);
 
 </script>
 
