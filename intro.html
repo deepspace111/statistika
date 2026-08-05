@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-    
-<!-- Google tag (gtag.js) -->
+
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -10,263 +9,269 @@
   gtag('js', new Date());
 
   gtag('config', 'G-FTM28BMBXC');
-</script>  
-  
-  <meta charset="UTF-8">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>way to see</title>
-
-  <link rel="stylesheet" href="waytosee.css">
-
- <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100svh;
-      text-align: center;
-      padding: 40px 20px;
-      box-sizing: border-box;
-    }
-
-    .container {
-      text-align: center;
-      max-width: 760px;
-      width: 100%;
-      position: relative;
-      z-index: 5;
-    }
-
-    .brand {
-      margin-bottom: 42px;
-      cursor: pointer;
-      user-select: none;
-      transition: 0.4s ease;
-    }
-
-    .brand-en {
-      direction: ltr;
-      font-size: 34px;
-      letter-spacing: 0.36em;
-      text-transform: uppercase;
-      font-weight: 300;
-      color: rgba(82,68,54,0.96);
-      opacity: 0.88;
-      animation: softReveal 1.8s ease-out forwards;
-    }
-
-    body.learning-mode .brand-en {
-      color: rgba(240,240,240,0.92);
-    }
-
-    .brand-he {
-      margin-top: 18px;
-      font-size: 24px;
-      letter-spacing: 0.04em;
-      color: rgba(82,68,54,0.96);
-      opacity: 0.86;
-      animation: softReveal 2.2s ease-out forwards;
-    }
-
-    body.learning-mode .brand-he {
-      color: rgba(240,240,240,0.92);
-    }
-
-    .dao-wrap {
-      position: relative;
-      display: inline-block;
-      margin-top: 18px;
-    }
-
-    .dao-mark {
-      display: block;
-      font-family: 'Yuji Mai', cursive;
-      font-size: 58px;
-      line-height: 1;
-      opacity: 0.82;
-      color: rgba(82,68,54,0.96);
-      animation: inkAppear 2.4s ease-out forwards;
-    }
-
-    body.learning-mode .dao-mark {
-      color: rgba(240,240,240,0.92);
-    }
-
-    @keyframes softReveal {
-      from { opacity: 0; filter: blur(5px); transform: translateY(8px); }
-      to   { opacity: 0.88; filter: blur(0); transform: translateY(0); }
-    }
-
-    @keyframes inkAppear {
-      from { opacity: 0; filter: blur(6px); transform: translateY(10px) scale(0.94); }
-      to   { opacity: 0.82; filter: blur(0); transform: translateY(0) scale(1); }
-    }
-
-    .btn {
-      display: inline-block;
-      min-width: 150px;
-      padding: 16px 38px;
-      margin: 12px;
-      border-radius: 999px;
-      text-decoration: none;
-      font-size: 19px;
-      font-weight: bold;
-      background: linear-gradient(135deg, #111, #333);
-      color: white;
-      box-shadow: 0 8px 22px rgba(0,0,0,0.25);
-      transition: 0.25s ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 28px rgba(0,0,0,0.35);
-      background: linear-gradient(135deg, #000, #444);
-    }
-
-    .btn:active { transform: translateY(0); }
-
-    .btn.disabled { cursor: default; opacity: 0.62; }
-
-    .btn.disabled:hover {
-      transform: none;
-      box-shadow: 0 8px 22px rgba(0,0,0,0.25);
-      background: linear-gradient(135deg, #111, #333);
-    }
-
-    body.learning-mode .btn {
-      background: linear-gradient(135deg, #e8e8e8, #ffffff);
-      color: #111;
-      box-shadow: 0 8px 24px rgba(255,255,255,0.12);
-    }
-
-    body.learning-mode .btn:hover {
-      background: linear-gradient(135deg, #ffffff, #dcdcdc);
-    }
-
-    body.learning-mode .btn.disabled:hover {
-      transform: none;
-      box-shadow: 0 8px 24px rgba(255,255,255,0.12);
-      background: linear-gradient(135deg, #e8e8e8, #ffffff);
-    }
-
-    .philosophy {
-      margin-top: 70px;
-      line-height: 2.2;
-      color: rgba(82,68,54,0.85);
-      opacity: 0.82;
-      transition: 0.4s ease;
-    }
-
-    body.learning-mode .philosophy { color: #dcdcdc; opacity: 0.9; }
-
-    .philosophy-title { font-size: 24px; margin-bottom: 28px; letter-spacing: 1px; }
-    .philosophy-line { font-size: 18px; margin: 10px 0; }
-
-    .thinking-stations {
-      margin-top: 46px;
-      padding-top: 28px;
-      border-top: 1px solid rgba(82,68,54,0.18);
-      line-height: 2.1;
-      opacity: 0.86;
-    }
-
-    body.learning-mode .thinking-stations {
-      border-top: 1px solid rgba(255,255,255,0.16);
-    }
-
-    .thinking-line { font-size: 18px; margin: 8px 0; }
-    .thinking-note { font-size: 17px; margin-top: 8px; opacity: 0.82; }
-
-    #constructionSign {
-      width: min(140px, 27.5vw, 9vh);
-      height: auto;
-      display: block;
-      margin: 0 auto;
-      opacity: 0.96;
-    }
-
-    @media (max-width: 600px), (max-height: 850px) {
-      body { padding: 14px 12px; }
-      .brand { margin-bottom: 14px; }
-      .brand-en { font-size: clamp(19px, 5vw, 25px); letter-spacing: 0.24em; }
-      .brand-he { margin-top: 8px; font-size: clamp(17px, 4.5vw, 21px); }
-      .dao-mark { font-size: clamp(38px, 10vw, 50px); }
-      .btn {
-        display: block;
-        width: 180px;
-        margin: 10px auto;
-        padding: 10px 26px;
-        font-size: 16px;
-      }
-      .philosophy { margin-top: 20px; line-height: 1.65; }
-      .philosophy-title { margin-bottom: 10px; font-size: 20px; }
-      .philosophy-line { margin: 3px 0; font-size: 15px; }
-      .thinking-stations { margin-top: 16px; padding-top: 12px; line-height: 1.55; }
-      .thinking-line { margin: 3px 0; font-size: 15px; }
-      .thinking-note { margin-top: 3px; font-size: 14px; }
-      .construction-wrapper { margin-top: 12px; }
-      #constructionSign { width: min(400px, 80vw, 25vh); }
-    }
-  </style>
-</head>
-
-<body>
-
-<div class="container">
-
-  <div id="focusBtn" class="brand">
-    <div class="brand-en">way to see</div>
-    <div class="brand-he">כשמבינים — רואים</div>
-    <div class="dao-wrap">
-      <span class="dao-mark">道</span>
-      <span class="clef-inline"></span>
-    </div>
-  </div>
-
-  <audio id="brownNoise" src="brown-noise.mp3" loop></audio>
-
-  <a class="btn disabled" href="#" onclick="return false;">סטטיסטיקה</a>
-  <a class="btn" href="intro.html">Networking</a>
-
-  <div class="philosophy">
-
-    <div class="philosophy-title">אמנות לימוד</div>
-    <div class="philosophy-line">לא לשנן מידע</div>
-    <div class="philosophy-line">ללמוד לראות מערכות</div>
-    <div class="philosophy-line">להבין איך דברים מתחברים</div>
-
-    <div class="thinking-stations">
-
-      <div class="thinking-line">באתר זה יונגשו תחנות חשיבה</div>
-      <div class="thinking-note">(התקדמות תוך עצירה)</div>
-
-      <div class="construction-wrapper">
-        <img src="under-construction.png" id="constructionSign" alt="Under Construction">
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-<script>
-  const focusBtn = document.getElementById("focusBtn");
-  const brownNoise = document.getElementById("brownNoise");
-
-  focusBtn.addEventListener("click", () => {
-    document.body.classList.toggle("learning-mode");
-
-    if (document.body.classList.contains("learning-mode")) {
-      brownNoise.volume = 0.25;
-      brownNoise.play().catch(() => {});
-    } else {
-      brownNoise.pause();
-      brownNoise.currentTime = 0;
-    }
-  });
 </script>
 
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cisco Certified Network Associate</title>
+  <link rel="stylesheet" href="waytosee.css">
+  <style>
+/* רקע ייחודי לדף זה - רק במצב תודעת לימוד. במצב רגיל, הרקע הרגיל של מערכת העצבים המרכזית (waytosee.css) חל כרגיל */
+body.learning-mode{
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(90,140,220,0.08),
+      transparent 42%
+    ),
+    linear-gradient(
+      to bottom,
+      #05070a,
+      #000814 45%,
+      #000 100%
+    );
+  color:rgba(205,205,205,0.82);
+}
+
+.container{
+  position:relative;
+  z-index:2;
+  max-width:980px;
+  margin:0 auto;
+  padding:92px 22px 60px;
+  text-align:center;
+}
+
+.container h1{
+  font-size:14px;
+  letter-spacing:6px;
+  line-height:2.2;
+  margin-bottom:18px;
+  font-weight:300;
+  text-transform:uppercase;
+  color:#111;
+}
+
+body.learning-mode .container h1{
+  color:rgba(225,225,225,0.86);
+}
+
+.subtitle{
+  color:rgba(50,50,50,0.62);
+  margin-bottom:38px;
+  font-size:17px;
+}
+
+body.learning-mode .subtitle{
+  color:#9aa4b5;
+}
+
+.topic-list{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+}
+
+.topic{
+  display:block;
+  padding:18px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.78);
+  color:#111;
+  text-decoration:none;
+  font-size:19px;
+  border:1px solid rgba(0,0,0,0.18);
+  box-shadow:0 8px 24px rgba(0,0,0,0.06);
+  backdrop-filter:blur(3px);
+  transition:0.4s ease;
+  animation:signalPulse 7s ease-in-out infinite;
+}
+
+body.learning-mode .topic{
+  background:rgba(10,15,25,0.72);
+  color:#f2f2f2;
+  border-color:rgba(120,170,255,0.12);
+}
+
+.topic:nth-child(2){ animation-delay:0.6s; }
+.topic:nth-child(3){ animation-delay:1.2s; }
+.topic:nth-child(4){ animation-delay:1.8s; }
+.topic:nth-child(5){ animation-delay:2.4s; }
+.topic:nth-child(6){ animation-delay:3s; }
+.topic:nth-child(7){ animation-delay:3.6s; }
+.topic:nth-child(8){ animation-delay:4.2s; }
+.topic:nth-child(9){ animation-delay:4.8s; }
+.topic:nth-child(10){ animation-delay:5.4s; }
+.topic:nth-child(11){ animation-delay:6s; }
+
+@keyframes signalPulse{
+  0%{ opacity:0.78; box-shadow:none; text-shadow:none; }
+  50%{ opacity:1; box-shadow:0 0 18px rgba(120,170,255,0.08); text-shadow:0 0 10px rgba(120,170,255,0.16); }
+  100%{ opacity:0.78; box-shadow:none; text-shadow:none; }
+}
+
+.topic:hover{
+  transform:translateY(-2px);
+  background:rgba(120,170,255,0.08);
+  border-color:rgba(120,170,255,0.25);
+}
+
+.topic small{
+  display:block;
+  margin-top:8px;
+  line-height:1.8;
+  font-size:14px;
+  color:rgba(60,60,60,0.68);
+}
+
+body.learning-mode .topic small{
+  color:#aeb7c7;
+}
+
+.english{
+  direction:ltr;
+  unicode-bidi:isolate;
+  display:inline-block;
+}
+
+.first-letter{
+  color:#8db8ff;
+  font-weight:bold;
+}
+
+@media (max-width:700px){
+  .topic-list{ grid-template-columns:1fr; }
+  .container{ padding:88px 18px 50px; }
+  .container h1{ font-size:30px; }
+  .topic{ font-size:17px; padding:16px; }
+}
+</style>
+</head>
+<body>
+<main class="page-content">
+  <div class="container">
+
+<h1>
+Cisco Certified Network Associate
+</h1>
+
+<div class="subtitle">
+כשמבינים גבולות — רואים את המערכת
+</div>
+
+<div class="topic-list">
+
+<a class="topic" href="ccna-introduction/ccna-introduction.html">
+מבוא
+<small> המידע הנע דרך הרשת
+
+</small>
+</a>
+
+<a class="topic" href="internet/internet.html">
+השכבה הפיזית
+<small>
+כבלים,
+אותות
+ותשתית תנועת המידע
+</small>
+</a>
+
+<a class="topic" href="ARP/arp.html">
+<span class="english">
+<span class="first-letter">A</span>ddress
+<span class="first-letter">R</span>esolution
+<span class="first-letter">P</span>rotocol
+</span>
+— ARP
+<small>תרגום כתובת IP לכתובת MAC
+<span class="english">
+<span class="first-letter">M</span>edia
+<span class="first-letter">A</span>ccess
+<span class="first-letter">C</span>ontrol
+</span>
+בתוך הרשת המקומית
+</small>
+</a>
+
+<a class="topic" href="ip/ip.html">
+IP Address
+<small>
+הכתובת הלוגית של היעד
+</small>
+</a>
+
+<a class="topic" href="subnet/">
+Subnet
+<small>
+גבולות הרשת המקומית,
+חלק הרשת
+וחלק ה־Host
+</small>
+</a>
+
+<a class="topic" href="#">
+Gateway
+<small>
+כשיעד מחוץ לרשת המקומית —
+שולחים לנתב
+</small>
+</a>
+
+<a class="topic" href="#">
+Domain Name System — DNS
+<small>
+תרגום שם כמו google.com
+לכתובת Internet Protocol Address
+</small>
+</a>
+
+<a class="topic" href="#">
+Internet Control Message Protocol — ICMP
+<small>
+בדיקת תקשורת באמצעות
+Echo Request
+ו־Echo Reply
+</small>
+</a>
+
+<a class="topic" href="#">
+Transmission Control Protocol — TCP
+<small>
+תקשורת אמינה ומסודרת
+בין מחשבים
+</small>
+</a>
+
+<a class="topic" href="#">
+User Datagram Protocol — UDP
+<small>
+תקשורת מהירה
+ללא בדיקת הגעה
+</small>
+</a>
+
+<a class="topic" href="#">
+Ports
+<small>
+איך המחשב יודע
+לאיזו תוכנה להעביר את המידע
+</small>
+</a>
+
+<a class="topic" href="#">
+Network Address Translation — NAT
+<small>
+איך כמה מכשירים בבית
+יוצאים לאינטרנט
+דרך כתובת אחת
+</small>
+</a>
+
+</div>
+</div>
+</main>
+<script src="waytosee.js"></script>
 </body>
 </html>
