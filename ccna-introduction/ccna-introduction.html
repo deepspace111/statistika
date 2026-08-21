@@ -428,4 +428,20 @@ const stationBtn = document.getElementById("stationBtn");
 const protocolTextBtn = document.querySelector(".protocol-text-btn");
 
 function goToThinkingStation(event) {
-  event.preventDef
+  event.preventDefault();
+
+  document.body.classList.add("soft-entering");
+
+  setTimeout(() => {
+    window.location.href = "thinking-station.html";
+  }, 1400);
+}
+
+stationBtn.addEventListener("click", goToThinkingStation);
+protocolTextBtn.addEventListener("click", goToThinkingStation);
+
+</script>
+
+<script src="../waytosee.js"></script>
+</body>
+</html>
