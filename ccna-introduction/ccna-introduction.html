@@ -21,6 +21,32 @@
 
 <style>
 
+.section {
+  border-top: 1px solid rgba(0,0,0,0.14);
+  padding-top: 6px;
+  padding-bottom: 8px;
+}
+.col > .section:last-child {
+  border-bottom: 1px solid rgba(0,0,0,0.14);
+  padding-bottom: 12px;
+}
+
+body.learning-mode .col > .section:last-child {
+  border-bottom: 1px solid rgba(255,255,255,0.14);
+}
+
+
+
+
+.section > h2:first-child {
+  margin-top: 0;
+}
+
+.container p {
+  line-height: 1.35;
+  margin: 8px 0;
+}
+
 body.soft-entering {
   animation: softPageFade 1.4s ease forwards;
 }
@@ -51,6 +77,17 @@ body.learning-mode .drop {
   to { transform: translateY(120vh); }
 }
 
+.container {
+  position: relative;
+  z-index: 5;
+  max-width: 1200px;
+  margin: 0 auto;
+  column-count: 3;
+  column-gap: 70px;
+  padding: 24px 24px 70px;
+ 
+}
+
 .page-title {
   max-width: 1200px;
   margin: 0 auto;
@@ -61,56 +98,12 @@ body.learning-mode .drop {
   font-weight: 300;
   text-align: center;
 }
-
-/* ===== פריסת Grid יציבה - שלוש עמודות קבועות ===== */
-
-.container {
-  position: relative;
-  z-index: 5;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 24px 24px 70px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0 70px;
-  align-items: start;
-}
-
-.col {
-  display: flex;
-  flex-direction: column;
-}
-
 .container h2 { font-size: 25px; margin: 16px 0 8px; font-weight: 500; }
-
-.container p {
-  line-height: 1.35;
-  margin: 8px 0;
-}
-
 .section {
   position: relative;
+  break-inside: avoid;
+  page-break-inside: avoid;
   border-top: 1px solid rgba(0,0,0,0.14);
-  padding-top: 6px;
-  padding-bottom: 8px;
-}
-
-.col > .section:last-child {
-  border-bottom: 1px solid rgba(0,0,0,0.14);
-  padding-bottom: 12px;
-}
-
-body.learning-mode .col > .section:last-child {
-  border-bottom: 1px solid rgba(255,255,255,0.14);
-}
-
-.section > h2:first-child,
-.section > p:first-child {
-  margin-top: 0;
-}
-
-.section > :last-child {
-  margin-bottom: 0;
 }
 
 body.learning-mode .section { border-top: 1px solid rgba(255,255,255,0.14); }
@@ -236,7 +229,7 @@ body.soft-entering .soft-fade { animation: softFade 1.4s ease forwards; }
 @keyframes softPageFade { from { filter: none; } to { filter: brightness(0.35); } }
 
 @media (max-width: 600px) {
-  .container { grid-template-columns: 1fr; }
+  .container { column-count: 1; }
   .page-title { font-size: 34px; }
   .container h2 { font-size: 22px; }
   .container p { font-size: 18px; }
@@ -245,6 +238,23 @@ body.soft-entering .soft-fade { animation: softFade 1.4s ease forwards; }
   .protocol-station { display: block; min-height: auto; margin: 14px 0; }
   .protocol-symbol-link { position: static; transform: none; display: block; width: 180px; margin: 22px auto 0; }
   .protocol-symbol { width: 180px; opacity: 0.78; }
+}
+
+.section > :first-child {
+  margin-top: 0;
+}
+
+.section > :last-child {
+  margin-bottom: 0;
+}
+.section-group:first-of-type > .section:first-child {
+  top: -12px;
+  margin-bottom: -12px;
+}
+
+.section-group {
+  break-inside: avoid;
+  page-break-inside: avoid;
 }
 
 </style>
@@ -260,155 +270,145 @@ body.soft-entering .soft-fade { animation: softFade 1.4s ease forwards; }
 
 <div class="container">
 
-<div class="col">
+<div class="section">
+  <h2>אינטרנט</h2>
+  <p>
+    מתחיל גם במרחב שלך – בטלפון, במחשב, בטלוויזיה החכמה ובנתב  שמחבר ביניהם.
+    כל המכשירים האלה כבר מדברים זה עם זה כל הזמן. הבית שלך כבר מלא בשיחות דיגיטליות שקטות,
+    גם כשנדמה שהכול דומם.
+  </p>
 
-  <div class="section">
-    <h2>אינטרנט</h2>
-    <p>
-      מתחיל גם במרחב שלך – בטלפון, במחשב, בטלוויזיה החכמה ובנתב  שמחבר ביניהם.
-      כל המכשירים האלה כבר מדברים זה עם זה כל הזמן. הבית שלך כבר מלא בשיחות דיגיטליות שקטות,
-      גם כשנדמה שהכול דומם.
-    </p>
-
-    <p>
-      LAN, או בשמה המלא Local Area Network, היא רשת מקומית שפועלת באזור מוגבל כמו בית,
-      חנות או מפעל. <span class="term">השם ניתן</span>משום שהמכשירים אינם מחוברים לנתב ר,
-      אלא גם זה לזה. המחשב, הטלפון, הטלוויזיה החכמה והמדפסת נמצאים באותה רשת ומסוגלים לתקשר.
-      כשמבינים שהרשת מתחילה כאן, במרחב שלך, מתחילים לראות אותה.
-    </p>
-  </div>
-
-  <div class="section">
-    <p>
-      ברגע זה ממש אנחנו בתוך האינטרנט. השיחה עצמה היא אינטרנט. האצבע גוללת את המסך,
-      והגלילה הופכת לתנועה בתוך מערכת. פיקסלים משתנים בזמן אמת, ומידע זורם בין רשתות,
-      שרתים, נתבים ומערכות שונות.
-      <span class="term">זוהי רשת מידע ותקשורת הזורמת דרך מערכות שונות.</span>
-    </p>
-  </div>
-
+  <p>
+    LAN, או בשמה המלא Local Area Network, היא רשת מקומית שפועלת באזור מוגבל כמו בית,
+    חנות או מפעל. <span class="term">השם ניתן</span>משום שהמכשירים אינם מחוברים לנתב ר,
+    אלא גם זה לזה. המחשב, הטלפון, הטלוויזיה החכמה והמדפסת נמצאים באותה רשת ומסוגלים לתקשר.
+    כשמבינים שהרשת מתחילה כאן, במרחב שלך, מתחילים לראות אותה.
+  </p>
 </div>
 
-<div class="col">
-
-  <div class="section">
-    <h2>מידע</h2>
-
-    <p>
-      בעולם הדיגיטלי מידע מיוצג באמצעות 0 ו־1. גם 0 הוא מידע – הוא אינו כלום.
-      0 ו־1 הם שני מצבים שבעזרתם מחשבים מייצגים מידע.
-      במערכות אלקטרוניות הם מיוצגים בדרך כלל באמצעות חשמל:
-      <span class="term">יש זרם / אין זרם, דלוק / כבוי.</span>
-      כך מערכות אלקטרוניות מצליחות לייצג מידע. כל 0 או 1 נקרא ביט.
-    </p>
-
-    <p>
-      <span class="term">Bit = Binary Digit</span> – ספרה בינארית.
-      ביט הוא יחידת המידע הקטנה ביותר בעולם הדיגיטלי.
-      אנחנו רגילים לספירה עשרונית, המבוססת על הספרות 0 עד 9,
-      אך מחשבים משתמשים בספירה בינארית.
-      <span class="term">Binary = מבוסס על שני מצבים: 0 ו־1.</span>
-    </p>
-
-    <p>
-      שמונה ביטים מרכיבים בייט אחד. בייט נקרא לעיתים גם אוקטטה,
-      מהמילה Octo שפירושה שמונה. מחשבים משתמשים בבייטים כדי לשמור,
-      לשלוח ולקבל מידע. תמונה, סרטון, מוזיקה, טקסט או משחק –
-      כולם מיוצגים בסופו של דבר באמצעות ביטים של 0 ו־1.
-    </p>
-  </div>
-
-  <div class="section">
-    <h2>תעבורת המידע</h2>
-
-    <p>
-      בהתחלה מערכות עבדו לבד, אך הצורך במידע גדל והתקשורת הפכה לצורך מרכזי.
-      כדי שמידע יוכל לעבור הוא צריך להשתנות – הוא מתפרק ליחידות קטנות לפני שהוא יוצא לדרך.
-    </p>
-
-    <p>
-      אילו היה עובר בבת אחת, תקלה קטנה הייתה פוגעת בכולו.
-      <span class="term">לכן הוא מתפרק לחלקים,</span> וכל חלק נעטף בפרוטוקולים כדי לנוע בין מערכות.
-      החלקים עוברים בדרכים שונות ומתחברים ביעד – ואם חלק אובד, שולחים רק אותו מחדש.
-    </p>
-
-    <p>
-      גם כשנתיב מסוים אינו זמין, המידע יכול לעבור בדרך אחרת –
-      זו הסיבה שהאינטרנט בנוי כרשת מבוזרת, ללא מרכז יחיד.
-    </p>
-  </div>
-
+<div class="section-group">
+<div class="section">
+  <p>
+    ברגע זה ממש אנחנו בתוך האינטרנט. השיחה עצמה היא אינטרנט. האצבע גוללת את המסך,
+    והגלילה הופכת לתנועה בתוך מערכת. פיקסלים משתנים בזמן אמת, ומידע זורם בין רשתות,
+    שרתים, נתבים ומערכות שונות.
+    <span class="term">זוהי רשת מידע ותקשורת הזורמת דרך מערכות שונות.</span>
+  </p>
 </div>
 
-<div class="col">
+<div class="section">
+  <h2>תעבורת המידע</h2>
 
-  <div class="section">
-    <h2>שפה</h2>
+  <p>
+    בהתחלה מערכות עבדו לבד, אך הצורך במידע גדל והתקשורת הפכה לצורך מרכזי.
+    כדי שמידע יוכל לעבור הוא צריך להשתנות – הוא מתפרק ליחידות קטנות לפני שהוא יוצא לדרך.
+  </p>
 
-    <p>
-      <span class="term">פרוטוקול = הסכמה כיצד לדבר.</span>
-      מחשבים צריכים שפה משותפת וחוקים ברורים לתקשורת.
-      כאשר מידע עובר ברשת הוא אינו נע חשוף.
-      כדי שמערכות שונות יוכלו להבין, לכוון ולהעביר אותו,
-      <span class="term">המידע נעטף בפרוטוקולים.</span>
-    </p>
+  <p>
+    אילו היה עובר בבת אחת, תקלה קטנה הייתה פוגעת בכולו.
+    <span class="term">לכן הוא מתפרק לחלקים,</span> וכל חלק נעטף בפרוטוקולים כדי לנוע בין מערכות.
+    החלקים עוברים בדרכים שונות ומתחברים ביעד – ואם חלק אובד, שולחים רק אותו מחדש.
+  </p>
 
-    <p>
-      כל שכבה מוסיפה מידע שעוזר לנתונים לנוע בדרך הנכונה.
-      שכבה אחת יכולה לציין מאין המידע הגיע ולאן עליו להגיע.
-      שכבה אחרת יכולה לקבוע כיצד לחלק אותו וכיצד להרכיב אותו מחדש.
-      שכבה נוספת מסייעת להעביר אותו בתוך הרשת המקומית.
-    </p>
-
-    <p>
-      אפשר לחשוב על המידע עצמו כתוכן,
-      ועל הפרוטוקולים כעטיפות שעוזרות לו לעבור בין מערכות.
-    </p>
-
-    <div class="protocol-station">
-      <a href="thinking-station.html" class="next-btn protocol-text-btn">עטוף בפרוטוקולים — כדי שהמידע יוכל לנוע.</a>
-
-      <a href="thinking-station.html"
-         class="thinking-btn"
-         id="stationBtn"
-         aria-label="כניסה לתחנת חשיבה">
-
-        <svg viewBox="0 0 100 100" fill="none" stroke-width="4">
-          <path d="M50 10 L90 75 L10 75 Z" />
-          <path d="M50 10 L38 55 L62 55 Z" />
-          <path d="M20 68 L38 55 L50 80" />
-          <path d="M80 68 L62 55 L50 80" />
-        </svg>
-
-      </a>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>הדרך</h2>
-
-    <p>
-      <span class="term">Route = דרך או נתיב.</span>
-      <span class="term">Router = המכשיר שמכוון את דרכו של המידע בין רשתות.</span>
-      הנתב מחבר בין הרשת המקומית בבית לבין רשת האינטרנט הגדולה,
-      ועוזר למידע לצאת מהרשת המקומית ולהגיע לרשתות אחרות.
-    </p>
-
-    <p>
-      הנתב יכול גם להעביר מידע בין כמה רשתות בתוך בית, משרד או ארגון.
-      הוא מאפשר למכשירים שונים לתקשר זה עם זה ולהתחבר לאינטרנט.
-    </p>
-
-    <p>
-      אפשר לחשוב על הנתב גם כעל שער יציאה –
-      <span class="term">Gateway.</span>
-      כאשר מידע צריך לצאת מהרשת המקומית אל רשתות אחרות,
-      הוא עובר דרך הנתב.
-    </p>
-  </div>
-
+  <p>
+    גם כשנתיב מסוים אינו זמין, המידע יכול לעבור בדרך אחרת –
+    זו הסיבה שהאינטרנט בנוי כרשת מבוזרת, ללא מרכז יחיד.
+  </p>
+</div>
 </div>
 
+<div class="section-group">
+<div class="section">
+  <h2>מידע</h2>
+
+  <p>
+    בעולם הדיגיטלי מידע מיוצג באמצעות 0 ו־1. גם 0 הוא מידע – הוא אינו כלום.
+    0 ו־1 הם שני מצבים שבעזרתם מחשבים מייצגים מידע.
+    במערכות אלקטרוניות הם מיוצגים בדרך כלל באמצעות חשמל:
+    <span class="term">יש זרם / אין זרם, דלוק / כבוי.</span>
+    כך מערכות אלקטרוניות מצליחות לייצג מידע. כל 0 או 1 נקרא ביט.
+  </p>
+
+  <p>
+    <span class="term">Bit = Binary Digit</span> – ספרה בינארית.
+    ביט הוא יחידת המידע הקטנה ביותר בעולם הדיגיטלי.
+    אנחנו רגילים לספירה עשרונית, המבוססת על הספרות 0 עד 9,
+    אך מחשבים משתמשים בספירה בינארית.
+    <span class="term">Binary = מבוסס על שני מצבים: 0 ו־1.</span>
+  </p>
+
+  <p>
+    שמונה ביטים מרכיבים בייט אחד. בייט נקרא לעיתים גם אוקטטה,
+    מהמילה Octo שפירושה שמונה. מחשבים משתמשים בבייטים כדי לשמור,
+    לשלוח ולקבל מידע. תמונה, סרטון, מוזיקה, טקסט או משחק –
+    כולם מיוצגים בסופו של דבר באמצעות ביטים של 0 ו־1.
+  </p>
+</div>
+
+<div class="section">
+  <h2>שפה</h2>
+
+  <p>
+    <span class="term">פרוטוקול = הסכמה כיצד לדבר.</span>
+    מחשבים צריכים שפה משותפת וחוקים ברורים לתקשורת.
+    כאשר מידע עובר ברשת הוא אינו נע חשוף.
+    כדי שמערכות שונות יוכלו להבין, לכוון ולהעביר אותו,
+    <span class="term">המידע נעטף בפרוטוקולים.</span>
+  </p>
+
+  <p>
+    כל שכבה מוסיפה מידע שעוזר לנתונים לנוע בדרך הנכונה.
+    שכבה אחת יכולה לציין מאין המידע הגיע ולאן עליו להגיע.
+    שכבה אחרת יכולה לקבוע כיצד לחלק אותו וכיצד להרכיב אותו מחדש.
+    שכבה נוספת מסייעת להעביר אותו בתוך הרשת המקומית.
+  </p>
+
+  <p>
+    אפשר לחשוב על המידע עצמו כתוכן,
+    ועל הפרוטוקולים כעטיפות שעוזרות לו לעבור בין מערכות.
+  </p>
+
+  <div class="protocol-station">
+    <a href="thinking-station.html" class="next-btn protocol-text-btn">עטוף בפרוטוקולים — כדי שהמידע יוכל לנוע.</a>
+
+    <a href="thinking-station.html"
+       class="thinking-btn"
+       id="stationBtn"
+       aria-label="כניסה לתחנת חשיבה">
+
+      <svg viewBox="0 0 100 100" fill="none" stroke-width="4">
+        <path d="M50 10 L90 75 L10 75 Z" />
+        <path d="M50 10 L38 55 L62 55 Z" />
+        <path d="M20 68 L38 55 L50 80" />
+        <path d="M80 68 L62 55 L50 80" />
+      </svg>
+
+    </a>
+  </div>
+</div>
+</div>
+
+<div class="section">
+  <h2>הדרך</h2>
+
+  <p>
+    <span class="term">Route = דרך או נתיב.</span>
+    <span class="term">Router = המכשיר שמכוון את דרכו של המידע בין רשתות.</span>
+    הנתב מחבר בין הרשת המקומית בבית לבין רשת האינטרנט הגדולה,
+    ועוזר למידע לצאת מהרשת המקומית ולהגיע לרשתות אחרות.
+  </p>
+
+  <p>
+    הנתב יכול גם להעביר מידע בין כמה רשתות בתוך בית, משרד או ארגון.
+    הוא מאפשר למכשירים שונים לתקשר זה עם זה ולהתחבר לאינטרנט.
+  </p>
+
+  <p>
+    אפשר לחשוב על הנתב גם כעל שער יציאה –
+    <span class="term">Gateway.</span>
+    כאשר מידע צריך לצאת מהרשת המקומית אל רשתות אחרות,
+    הוא עובר דרך הנתב.
+  </p>
 </div>
 
 <script>
