@@ -258,11 +258,27 @@ body.soft-entering .soft-fade { animation: softFade 1.4s ease forwards; }
 }
 
 
-.carrier-pigeon {
+.route-image {
+  width: 100%;
+  margin-top: 18px;
+}
+
+.route-image img {
   width: 100%;
   height: auto;
   display: block;
-  margin-top: 18px;
+}
+
+.route-dark {
+  display: none !important;
+}
+
+body.learning-mode .route-light {
+  display: none !important;
+}
+
+body.learning-mode .route-dark {
+  display: block !important;
 }
 
 </style>
@@ -418,7 +434,10 @@ body.soft-entering .soft-fade { animation: softFade 1.4s ease forwards; }
     הוא עובר דרך הנתב.
   </p>
 
-  <img src="carrier-pigeon.png" alt="יונת דואר" class="carrier-pigeon">
+  <div class="route-image">
+    <img src="carrier-pigeon.png" alt="יונת דואר" class="route-light">
+    <img src="medieval-messenger.png" alt="שליח מימי הביניים" class="route-dark">
+  </div>
 </div>
 
 <script>
