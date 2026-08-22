@@ -207,6 +207,18 @@ body.learning-mode .do-mark { color: rgba(220,220,220,0.38); }
   opacity: 0.6;
   background: none;
 }
+
+.thinking-video {
+  display: none;
+  width: 100%;
+  height: auto;
+  margin-top: 18px;
+  border-radius: 8px;
+}
+
+.thinking-video.is-visible {
+  display: block;
+}
 body.learning-mode .next-btn { border: 1px solid rgba(255,255,255,0.25); color: #f2f2f2; background: rgba(255,255,255,0.04); }
 body.learning-mode .next-btn:hover { background: rgba(255,255,255,0.09); }
 
@@ -421,6 +433,11 @@ body.learning-mode .route-dark {
 
       </a>
     </div>
+
+    <video id="thinkingVideo" class="thinking-video" controls playsinline preload="metadata">
+      <source src="thinking-station.mp4" type="video/mp4">
+      הדפדפן שלך אינו תומך בהפעלת וידאו.
+    </video>
   </div>
 
 </div>
@@ -442,6 +459,7 @@ for(let i=0;i<90;i++){
 
 const stationBtn = document.getElementById("stationBtn");
 const protocolTextBtn = document.querySelector(".protocol-text-btn");
+const thinkingVideo = document.getElementById("thinkingVideo");
 
 function goToThinkingStation(event) {
   event.preventDefault();
@@ -454,7 +472,12 @@ function goToThinkingStation(event) {
 }
 
 stationBtn.addEventListener("click", goToThinkingStation);
-protocolTextBtn.addEventListener("click", goToThinkingStation);
+protocolTextBtn.addEventListener("click", (event) => {
+  event.preventDefault();
+  thinkingVideo.classList.add("is-visible");
+  thinkingVideo.play();
+  thinkingVideo.scrollIntoView({ behavior: "smooth", block: "center" });
+});
 
 </script>
 
