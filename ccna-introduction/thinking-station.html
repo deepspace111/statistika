@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>עטוף בפרוטוקולים</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      min-height: 100%;
+      margin: 0;
+      background: #090b0d;
+      color: #f2f2f2;
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      font-family: Arial, sans-serif;
+    }
+
+    .video-page {
+      width: min(100%, 1100px);
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0 0 22px;
+      font-size: clamp(25px, 4vw, 42px);
+      font-weight: 300;
+    }
+
+    video {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 78vh;
+      background: #000;
+      border-radius: 10px;
+      box-shadow: 0 18px 55px rgba(0, 0, 0, 0.55);
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      color: rgba(242, 242, 242, 0.72);
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="video-page">
+    <h1>עטוף בפרוטוקולים</h1>
+
+    <video controls autoplay playsinline preload="metadata">
+      <source src="thinking-station.mp4" type="video/mp4">
+      הדפדפן שלך אינו תומך בהפעלת וידאו.
+    </video>
+
+    <a class="back-link" href="javascript:history.back()">חזרה לדרך רשת</a>
+  </main>
+</body>
+</html>
