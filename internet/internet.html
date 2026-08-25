@@ -16,288 +16,268 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>השכבה הפיזית</title>
+<title>השכבה הפיזית (תצוגה מקדימה)</title>
 
 <style>
 *{ box-sizing:border-box; }
 
-/* טיפוגרפיה ייחודית לדף זה - מרווח אותיות רחב, שורות גבוהות */
 body{
-  text-align:center;
-  line-height:3.05;
+  min-height:100vh;
   transition:background 1.6s ease,color 1.6s ease;
-  font-size:11px;
-  letter-spacing:0.22em;
-  font-weight:300;
   -webkit-font-smoothing:antialiased;
-}
-
-/* רקע ייחודי לדף זה במצב תודעת לימוד - שחור מלא, לא הגרדיאנט המשותף */
-body.learning-mode{
-  background:#000;
-  color:rgba(185,185,185,0.84);
 }
 
 .rain{
   position:fixed;
   inset:0;
-  z-index:2;
+  z-index:1;
   pointer-events:none;
   overflow:hidden;
-  opacity:0.22;
-  transition:opacity 1.4s ease;
-}
-
-body.learning-mode .rain{
-  opacity:0.43;
 }
 
 .drop{
   position:absolute;
-  top:-120vh;
+  top:-120px;
   width:1px;
-  height:78px;
-  background:linear-gradient(
-    to bottom,
-    rgba(110,170,255,0),
-    rgba(110,170,255,0.34),
-    rgba(110,170,255,0)
-  );
+  height:120px;
+  background:linear-gradient(to bottom, rgba(255,255,255,0), rgba(70,90,120,0.12), rgba(255,255,255,0));
   animation:rain linear infinite;
 }
 
+body.learning-mode .drop{
+  background:linear-gradient(to bottom, rgba(255,255,255,0), rgba(130,170,255,0.16), rgba(255,255,255,0));
+}
+
 @keyframes rain{
-  from{ transform:translateY(-20vh); }
-  to{ transform:translateY(150vh); }
+  from{ transform:translateY(-120px); }
+  to{ transform:translateY(120vh); }
 }
-
-.thunder-cloud{
-  position:fixed;
-  top:13vh;
-  left:8vw;
-  width:42vw;
-  height:32vh;
-  background:radial-gradient(
-    circle,
-    rgba(120,170,255,0.13),
-    rgba(80,120,180,0.055),
-    rgba(0,0,0,0)
-  );
-  z-index:3;
-  pointer-events:none;
-  opacity:0;
-  filter:blur(24px);
-  transition:opacity 0.8s ease;
-}
-
-.thunder-cloud.flash{ opacity:1; }
 
 .focus-toggle.scrolling{ opacity:0.18; }
 
-.hero{
+/* ===== זהה למבנה של דף המבוא (ccna-introduction.html): כותרת + Grid של שלוש עמודות ===== */
+
+.page-title{
+  max-width:1200px;
+  margin:0 auto;
+  padding:24px 24px 0;
+  font-size:42px;
+  margin-bottom:0;
+  padding-bottom:18px;
+  font-weight:300;
+  text-align:center;
+}
+
+.container{
   position:relative;
-  min-height:78vh;
+  z-index:5;
+  max-width:1200px;
+  margin:0 auto;
+  padding:24px 24px 70px;
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:0 70px;
+  align-items:start;
+}
+
+.col{
   display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
+  flex-direction:column;
 }
 
-.hero img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:center center;
-  transition:opacity 1.8s ease,filter 1.8s ease;
+.container h2{ font-size:25px; margin:16px 0 8px; font-weight:500; }
+
+.container p{
+  line-height:1.35;
+  margin:8px 0;
 }
 
-.hero img.light-mode{
-  opacity:1;
-  filter:brightness(0.92) grayscale(18%);
-}
-
-.hero img.dark-mode{
-  opacity:0;
-  filter:brightness(0.14) contrast(1.10) saturate(0.75);
-}
-
-body.learning-mode .hero img.light-mode{ opacity:0; }
-body.learning-mode .hero img.dark-mode{ opacity:1; }
-
-.overlay{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(
-    to bottom,
-    rgba(210,205,196,0.12),
-    rgba(210,205,196,0.78)
-  );
-  transition:background 1.6s ease;
-}
-
-body.learning-mode .overlay{
-  background:linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.04),
-    rgba(0,0,0,1)
-  );
-}
-
-.hero-content{
+.section{
   position:relative;
-  z-index:5;
-  max-width:760px;
-  padding:40px 24px;
+  border-top:1px solid rgba(0,0,0,0.14);
+  padding-top:6px;
+  padding-bottom:8px;
 }
 
-.hero-content h1{
-  font-size:30px;
-  margin:0 0 38px;
-  font-weight:normal;
-  color:rgba(82,68,54,0.96);
+.section > h2:first-child,
+.section > p:first-child{
+  margin-top:0;
 }
 
-.content h2,
-.content h3{
-  font-size:24px;
-  margin:42px 0 22px;
-  font-weight:normal;
-  color:rgba(82,68,54,0.96);
+.section > :last-child{
+  margin-bottom:0;
 }
 
-body.learning-mode .hero-content h1,
-body.learning-mode .content h2,
-body.learning-mode .content h3{
-  color:rgba(185,185,185,0.84);
+.col > .section:last-child{
+  border-bottom:1px solid rgba(0,0,0,0.14);
+  padding-bottom:12px;
 }
 
-.network-title{
-  font-size:40px;
-  margin-top:-18px;
-  margin-bottom:18px;
+body.learning-mode .col > .section:last-child{
+  border-bottom:1px solid rgba(255,255,255,0.14);
 }
 
-.hero-content p,
-.content p{
+body.learning-mode .section{ border-top:1px solid rgba(255,255,255,0.14); }
+
+.final-line{
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 24px 60px;
+  text-align:center;
+  margin-top:20px;
+  font-size:23px;
+}
+
+.next-btn{
+  display:inline-block;
+  margin-top:34px;
+  padding:9px 28px;
+  border-radius:22px;
+  border:1px solid rgba(0,0,0,0.22);
+  color:#111;
+  text-decoration:none;
   font-size:18px;
-  color:rgba(82,68,54,0.96);
-  margin:0 0 28px;
+  background:rgba(0,0,0,0.035);
+  transition:0.3s ease;
 }
 
-body.learning-mode .hero-content p,
-body.learning-mode .content p{
-  color:rgba(185,185,185,0.82);
+.next-btn:hover{ background:rgba(0,0,0,0.08); }
+
+body.learning-mode .next-btn{ border:1px solid rgba(255,255,255,0.25); color:#f2f2f2; background:rgba(255,255,255,0.04); }
+body.learning-mode .next-btn:hover{ background:rgba(255,255,255,0.09); }
+
+/* ===== תרשים אות חי: מתח לאורך זמן + ביטים ===== */
+
+.signal-demo{
+  margin:34px auto;
+  max-width:300px;
 }
 
-.highlight{
-  font-size:21px;
-  color:rgba(82,68,54,0.96);
-  margin:40px 0;
-}
-
-body.learning-mode .highlight{
-  color:rgba(195,195,195,0.86);
-}
-
-.content{
-  position:relative;
-  z-index:5;
-  max-width:900px;
-  margin:auto;
-  padding:8px 24px 120px;
-}
-
-.cable-reveal{
-  position:relative;
-  width:min(92vw,980px);
-  aspect-ratio:16 / 9;
-  margin:46px auto 54px;
-  opacity:0;
-  transform:translateY(35px);
-  filter:blur(6px);
-  transition:1.6s ease;
-  overflow:hidden;
-  border-radius:18px;
-}
-
-.cable-reveal.visible{
-  opacity:1;
-  transform:translateY(0);
-  filter:blur(0);
-}
-
-.cable-reveal img{
-  position:absolute;
-  inset:0;
+.signal-demo svg{
   width:100%;
-  height:100%;
+  height:auto;
   display:block;
-  object-fit:cover;
-  object-position:center center;
-  transition:opacity 1.8s ease,filter 1.8s ease;
 }
 
-.cable-dark{
+.axis-line{ stroke:rgba(0,0,0,0.35); stroke-width:1; }
+.axis-arrow{ fill:rgba(0,0,0,0.35); }
+
+.axis-label{
+  font-size:11px;
+  font-family:Arial,sans-serif;
+  fill:rgba(0,0,0,0.55);
+}
+
+.signal-path{
+  fill:none;
+  stroke:#000;
+  stroke-width:2;
+  stroke-linejoin:round;
+}
+
+.tick{ stroke:rgba(0,0,0,0.3); stroke-width:1; }
+
+.bit-label{
+  font-size:13px;
+  font-weight:600;
+  font-family:Arial,sans-serif;
+  text-anchor:middle;
+  fill:rgba(0,0,0,0.75);
+}
+
+.bit-glow{
+  font-size:13px;
+  font-weight:700;
+  font-family:Arial,sans-serif;
+  text-anchor:middle;
+  fill:#1a7f4c;
   opacity:0;
-  filter:brightness(0.62) contrast(1.10) saturate(1.08);
+  transition:opacity 0.15s linear;
 }
 
-body.learning-mode .cable-light{ opacity:0; }
-body.learning-mode .cable-dark{ opacity:1; }
-
-.footer-line{
-  font-size:16px;
-  margin-top:90px;
-  color:rgba(82,68,54,0.88);
+.signal-caption{
+  text-align:center;
+  font-size:13px;
+  margin-top:8px;
+  opacity:0.65;
 }
 
-body.learning-mode .footer-line{
-  color:rgba(185,185,185,0.80);
+.signal-note{
+  text-align:center;
+  font-size:11px;
+  line-height:1.4;
+  margin-top:4px;
+  opacity:0.5;
 }
 
-@media (max-width:768px){
-  body{ line-height:2.3; }
+.bridge-flow{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
+  margin:20px 0 6px;
+  font-size:13px;
+}
 
-  .hero-content h1{ font-size:26px; }
+.bridge-flow span{
+  padding:4px 10px;
+  border:1px solid rgba(0,0,0,0.18);
+  border-radius:14px;
+  color:rgba(0,0,0,0.75);
+}
 
-  .content h2,
-  .content h3{ font-size:22px; }
+.bridge-flow .arrow{
+  border:none;
+  padding:0;
+  opacity:0.45;
+}
 
-  .network-title{
-    font-size:34px;
-    margin-top:-14px;
-    margin-bottom:16px;
-  }
+.bridge-flow .bridge-next{
+  font-weight:600;
+  border-color:rgba(0,0,0,0.35);
+}
 
-  .hero-content p,
-  .content p{ font-size:17px; }
+body.learning-mode .bridge-flow span{
+  border-color:rgba(255,255,255,0.22);
+  color:rgba(255,255,255,0.85);
+}
 
-  .highlight{
-    font-size:19px;
-    margin:32px 0;
-  }
+body.learning-mode .bridge-flow .bridge-next{
+  border-color:rgba(255,255,255,0.4);
+}
 
-  .footer-line{ font-size:15px; }
+.read-marker{
+  fill:#1a7f4c;
+  opacity:0;
+  transition:cx 0.25s ease, cy 0.25s ease;
+}
 
-  .content{
-    padding:8px 20px 100px;
-  }
+body.learning-mode .axis-line{ stroke:rgba(255,255,255,0.35); }
+body.learning-mode .axis-arrow{ fill:rgba(255,255,255,0.35); }
+body.learning-mode .axis-label{ fill:rgba(255,255,255,0.6); }
+body.learning-mode .signal-path{
+  stroke:#00ff41;
+  filter:drop-shadow(0 0 3px rgba(0,255,65,0.85)) drop-shadow(0 0 9px rgba(0,255,65,0.5));
+}
+body.learning-mode .tick{ stroke:rgba(255,255,255,0.3); }
+body.learning-mode .bit-label{ fill:rgba(255,255,255,0.85); }
 
-  .cable-reveal{
-    width:92vw;
-    aspect-ratio:4 / 5;
-    margin:42px auto 50px;
-    border-radius:14px;
-  }
+body.learning-mode .bit-glow{
+  fill:#00ff41;
+}
 
-  .thunder-cloud{
-    top:16vh;
-    left:5vw;
-    width:60vw;
-    height:28vh;
-  }
+body.learning-mode .read-marker{
+  opacity:1;
+  fill:#00ff41;
+}
+
+@media (max-width:600px){
+  .container{ grid-template-columns:1fr; }
+  .page-title{ font-size:34px; }
+  .container h2{ font-size:22px; }
+  .container p{ font-size:18px; }
+  .next-btn{ font-size:17px; padding:8px 24px; }
 }
 </style>
 </head>
@@ -305,7 +285,6 @@ body.learning-mode .footer-line{
 <body>
 
 <div class="rain" id="rain"></div>
-<div class="thunder-cloud" id="thunderCloud"></div>
 
 <script>window.waytoseeSkipFocusSetup = true;</script>
 <script>window.waytoseeHomeOverride = "../intro.html";</script>
@@ -323,117 +302,166 @@ body.learning-mode .footer-line{
   <source src="../rain.mp3" type="audio/mpeg">
 </audio>
 
-<audio id="thunderSound" preload="auto">
-  <source src="../thunder.mp3" type="audio/mpeg">
-</audio>
+<h1 class="page-title">השכבה הפיזית</h1>
 
-<section class="hero" id="hero">
+<div class="container">
 
-  <img src="mantis-network.png" class="light-mode" alt="Mantis">
-  <img src="spider-network.png" class="dark-mode" alt="Spider Network">
+<div class="col">
 
-  <div class="overlay"></div>
-
-  <div class="hero-content">
-    <h1>מראה עיניים</h1>
-
-    <p>מחשבה הופכת תנועת מידע</p>
-
-    <p>
-      מסר נשלח הופך אותות חשמליים.<br>
-      הם מתגבשים מחדש ביעד.
-    </p>
+  <div class="section">
+    <h2>רשת</h2>
+    <p>רשת מחברת בין נקודות כדי לאפשר העברת מידע.</p>
+    <p>אבל מידע אינו יכול לעבור בכבל כפי שאנחנו רואים אותו על המסך.</p>
+    <p>טקסט, תמונה, קול או סרטון צריכים לקבל ייצוג פיזי.</p>
   </div>
 
-</section>
-
-<div class="content">
-
-  <h2 class="network-title">רשת</h2>
-
-  <p>
-    מחברת בין נקודות להעברת מידע.
-  </p>
-
-  <div class="highlight">
-    <br>
+  <div class="section">
+    <h2>הכבל</h2>
+    <p>בתוך כבל רשת נמצאים ארבעה זוגות של חוטי נחושת.</p>
+    <p>החוטים בכל זוג שזורים זה בזה כדי לצמצם הפרעות לאות החשמלי.</p>
+    <p>דרך חוטי הנחושת עוברים אותות חשמליים.</p>
+    <p>לא מילים. לא תמונות. ולא אפסים ואחדים ממש. חשמל.</p>
   </div>
 
-  <h3>הכבל</h3>
-
-  <p>
-    בתוכו שזורים ארבעה זוגות חוטי נחושת<br>
-    כדי לאפשר העברת מידע מהירה יותר.
-  </p>
-
-  <p>
-    האותות החשמליים שעוברים בכבל<br>
-    מייצגים מידע: 0 ו־1
-  </p>
-
-  <div class="cable-reveal">
-    <img src="cable-light.png" class="cable-light" alt="Light Cable">
-    <img src="cable.png" class="cable-dark" alt="Dark Cable">
+  <div class="section">
+    <h2>ממתח למידע</h2>
+    <p>מתח חשמלי הוא הפרש פוטנציאלים בין שתי נקודות.</p>
+    <p>כאשר המתח משתנה, משתנה גם האות החשמלי שעובר בכבל.</p>
+    <p>השינויים האלה אינם אקראיים. הם נוצרים בצורה מוסכמת כך שהצד המקבל יוכל לפרש אותם.</p>
+    <p>האות הפיזי יכול לייצג את הביטים: 0 ו־1.</p>
+    <p>כלומר: הביט הוא מידע. האות החשמלי הוא הייצוג הפיזי שלו.</p>
+    <p>אבל 0 אינו פשוט "אין מתח". קל לדמיין: מתח = 1, אין מתח = 0. אבל ברשתות מודרניות המציאות מורכבת יותר.</p>
+    <p>המידע יכול להיות מיוצג באמצעות רמות מתח שונות ושינויים ביניהן.</p>
+    <p>לכן המקלט אינו רק שואל "יש מתח או אין מתח?" הוא בוחן את האות ומפענח מה הוא מייצג.</p>
   </div>
 
-  <h3>RJ45</h3>
+</div>
 
-  <p>
-    בקצה הכבל נמצא מחבר בשם RJ45.
-  </p>
+<div class="col">
 
-  <p>
-    Registered — תקן מוסכם<br>
-    Jack — מחבר / שקע<br>
-    45 — מספר התקן
-  </p>
-
-  <p>
-    זהו החיבור הפיזי<br>
-    של כבל הרשת.
-  </p>
-
-  <p>
-    כאשר הכבל מתחבר למכשיר,<br>
-    האותות מגיעים אל כרטיס הרשת.
-  </p>
-
-  <p>
-    כרטיס הרשת:<br><br>
-    • מקבל אותות<br>
-    • שולח אותות<br>
-    • ויודע להבין את שפת הרשת
-  </p>
-
-  <div class="highlight">
-    Ethernet היא שפת התקשורת<br>
-    של כרטיסי הרשת<br>
-    בתוך רשת מקומית.
+  <div class="section">
+    <h2>עוצמת המתח</h2>
+    <p>גם עוצמת המתח חשובה. האות צריך להגיע אל המקלט בצורה שניתן לזהות.</p>
+    <p>אם האות נחלש יותר מדי, או אם רעש חשמלי משנה אותו, המקלט עלול להתקשות להבחין בין המצבים שהמשדר התכוון לשלוח.</p>
+    <p>וכאן משהו פיזי לחלוטין, מתח חשמלי, יכול להשפיע על משהו מופשט לחלוטין, הביטים שאנחנו מקבלים.</p>
+    <p>שינוי באות עלול להפוך מידע שנקלט בצורה שגויה.</p>
   </div>
 
-  <p>
-    הכבל מעביר בה אותות.
-  </p>
+  <div class="signal-demo">
+    <svg viewBox="0 0 320 130" preserveAspectRatio="xMidYMid meet" role="img" aria-label="תרשים אות מתח לאורך זמן, עם אוקטטה (8 ביטים): 0 0 1 1 1 0 1 0">
 
-  <p>
-    Ethernet נותנת לאותות משמעות.
-  </p>
+      <line x1="15" y1="90" x2="308" y2="90" class="axis-line" />
+      <polygon points="308,90 300,86 300,94" class="axis-arrow" />
 
-  <p>
-    והפרוטוקולים הם החוקים<br>
-    של השפה הזאת.
-  </p>
+      <line x1="15" y1="90" x2="15" y2="25" class="axis-line" />
+      <polygon points="15,25 11,33 19,33" class="axis-arrow" />
 
-  <p>
-    כך מכשירים מצליחים<br>
-    להבין אחד את השני.
-  </p>
+      <text x="20" y="20" class="axis-label">מתח</text>
+      <text x="300" y="106" class="axis-label" text-anchor="end">זמן</text>
 
-  <div class="footer-line">
-    כשמבינים את הדרך בה נע המידע<br>
-    מתחילים לראות המערכת
+      <path d="M20,80 H90 V40 H195 V80 H230 V40 H265 V80 H300" class="signal-path" />
+
+      <line x1="37.5" y1="90" x2="37.5" y2="96" class="tick" />
+      <line x1="72.5" y1="90" x2="72.5" y2="96" class="tick" />
+      <line x1="107.5" y1="90" x2="107.5" y2="96" class="tick" />
+      <line x1="142.5" y1="90" x2="142.5" y2="96" class="tick" />
+      <line x1="177.5" y1="90" x2="177.5" y2="96" class="tick" />
+      <line x1="212.5" y1="90" x2="212.5" y2="96" class="tick" />
+      <line x1="247.5" y1="90" x2="247.5" y2="96" class="tick" />
+      <line x1="282.5" y1="90" x2="282.5" y2="96" class="tick" />
+
+      <text x="37.5" y="115" class="bit-label">0</text>
+      <text x="37.5" y="115" class="bit-glow">0</text>
+
+      <text x="72.5" y="115" class="bit-label">0</text>
+      <text x="72.5" y="115" class="bit-glow">0</text>
+
+      <text x="107.5" y="115" class="bit-label">1</text>
+      <text x="107.5" y="115" class="bit-glow">1</text>
+
+      <text x="142.5" y="115" class="bit-label">1</text>
+      <text x="142.5" y="115" class="bit-glow">1</text>
+
+      <text x="177.5" y="115" class="bit-label">1</text>
+      <text x="177.5" y="115" class="bit-glow">1</text>
+
+      <text x="212.5" y="115" class="bit-label">0</text>
+      <text x="212.5" y="115" class="bit-glow">0</text>
+
+      <text x="247.5" y="115" class="bit-label">1</text>
+      <text x="247.5" y="115" class="bit-glow">1</text>
+
+      <text x="282.5" y="115" class="bit-label">0</text>
+      <text x="282.5" y="115" class="bit-glow">0</text>
+
+      <circle id="signalMarker" cx="37.5" cy="80" r="4" class="read-marker" />
+
+    </svg>
+
+    <div class="signal-caption">אוקטטה</div>
+    <div class="signal-note">המחשה עקרונית של ייצוג ביטים באות, לא צורת האיתות של תקן Ethernet מסוים.</div>
   </div>
 
+  <div class="section">
+    <h2>משמעת הביטים</h2>
+    <p>הביטים אינם נשלחים מתי שמתחשק להם. המשדר והמקלט חייבים לעבוד לפי כללים מוסכמים.</p>
+    <p>מתי האות משתנה. כיצד שינוי באות מייצג מידע. ובאיזה קצב האות מועבר.</p>
+    <p>לא רק רמת המתח חשובה, גם הרגע שבו היא משתנה. המקלט צריך לדעת מתי לקרוא את האות כדי לזהות את רצף הביטים נכון.</p>
+    <p>אפשר לחשוב על זה כעל משמעת הביטים.</p>
+    <p>בלי המשמעת הזאת, רצף של אותות חשמליים היה רק פעילות חשמלית. עם כללים מוסכמים אפשר להפוך אותו למידע.</p>
+  </div>
+
+  <div class="section">
+    <h2>הכבל אינו מבין</h2>
+    <p>וזו נקודה חשובה: הכבל אינו יודע שהוא מעביר אתר אינטרנט.</p>
+    <p>הוא אינו יודע שהאות מייצג תמונה. הוא אפילו אינו יודע מהו 0 ומהו 1.</p>
+    <p>מבחינתו יש רק תופעה פיזית המשתנה בזמן. אנחנו נותנים לה משמעות.</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>RJ45</h2>
+    <p>בקצה כבל Ethernet מנחושת נמצא המחבר שאנו רגילים לכנות RJ45.</p>
+    <p>דרכו מתחבר הכבל לציוד הרשת. המחבר מספק את החיבור הפיזי בין הכבל לבין המכשיר.</p>
+    <p>ומשם מגיע האות אל כרטיס הרשת.</p>
+  </div>
+
+  <div class="section">
+    <h2>כרטיס הרשת</h2>
+    <p>כרטיס הרשת הוא נקודת המפגש בין המחשב לבין הרשת. הוא מסוגל לשלוח אותות ולקבל אותות.</p>
+    <p>בצד השולח, מידע הופך לייצוג פיזי המתאים לתווך. בצד המקבל, האות הפיזי מפוענח בחזרה לרצף ביטים.</p>
+    <p>עד כאן, כל מה שעבר בכבל היה תופעה פיזית בלבד, מתח משתנה בזמן. עכשיו הביטים חוזרים להיות זמינים למערכת.</p>
+    <p>ומהרגע הזה, המידע כבר לא רק "עובר". הוא מתחיל לטפס בשכבות.</p>
+
+    <div class="bridge-flow">
+      <span>אות פיזי</span>
+      <span class="arrow">←</span>
+      <span>כרטיס רשת</span>
+      <span class="arrow">←</span>
+      <span>ביטים</span>
+      <span class="arrow">←</span>
+      <span class="bridge-next">Data Link</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Ethernet וגבול השכבה הפיזית</h2>
+    <p>Ethernet מגדירה כיצד תקשורת מתבצעת ברשת מקומית. חלק ממנה נוגע לצד הפיזי: כיצד המידע מועבר על גבי התווך.</p>
+    <p>וחלק אחר כבר עוסק בדברים שהשכבה הפיזית אינה צריכה להבין: מי שלח? למי המידע מיועד? כיצד מזהים יחידת מידע? אלה כבר שאלות של השכבה הבאה.</p>
+    <p>השכבה הפיזית עוסקת בדרך שבה ביטים מקבלים קיום בעולם הפיזי: בכבל נחושת כאות חשמלי, בסיב אופטי כאור, בתקשורת אלחוטית כגלים אלקטרומגנטיים.</p>
+    <p>התווך משתנה. העיקרון נשאר: מידע זקוק לייצוג פיזי כדי לעבור ממקום למקום.</p>
+    <p>השכבה הפיזית העבירה את האות. אבל היא עדיין אינה יודעת מי שלח אותו, למי הוא מיועד, ומה צריך לעשות איתו. בשביל זה צריך לעלות שכבה.</p>
+  </div>
+
+</div>
+
+</div>
+
+<div class="final-line">
+  כשמבינים את הדרך שבה נע המידע<br>מתחילים לראות את המערכת.
 </div>
 
 <script>
@@ -441,22 +469,24 @@ const rain = document.getElementById("rain");
 const focusBtn = document.getElementById("focusBtn");
 const brownNoise = document.getElementById("brownNoise");
 const rainSound = document.getElementById("rainSound");
-const thunderSound = document.getElementById("thunderSound");
-const thunderCloud = document.getElementById("thunderCloud");
+const signalMarker = document.getElementById("signalMarker");
+const bitGlows = document.querySelectorAll(".bit-glow");
+const signalBitX = [37.5, 72.5, 107.5, 142.5, 177.5, 212.5, 247.5, 282.5];
+const signalBits = [0, 0, 1, 1, 1, 0, 1, 0];
+const SIGNAL_LOW_Y = 80;
+const SIGNAL_HIGH_Y = 40;
 
 let soundAllowed = false;
-let thunderTimer = null;
+let signalRAF = null;
+let signalStart = null;
 
-for(let i = 0; i < 170; i++){
+for(let i = 0; i < 90; i++){
   const drop = document.createElement("div");
   drop.classList.add("drop");
 
   drop.style.left = Math.random() * 100 + "vw";
-  drop.style.top = Math.random() * -120 + "vh";
-  drop.style.animationDuration = (5.2 + Math.random() * 7.2) + "s";
-  drop.style.opacity = 0.08 + Math.random() * 0.16;
-  drop.style.height = 46 + Math.random() * 100 + "px";
-  drop.style.animationDelay = Math.random() * -8 + "s";
+  drop.style.animationDuration = (4 + Math.random() * 7) + "s";
+  drop.style.opacity = 0.10 + Math.random() * 0.20;
 
   rain.appendChild(drop);
 }
@@ -510,52 +540,38 @@ function stopRainSound(){
   fadeAudio(rainSound, 0, 900);
 }
 
-function thunderFlash(){
-  if(!soundAllowed) return;
-  if(!document.body.classList.contains("learning-mode")) return;
+function stepSignal(ts){
+  if(signalStart === null) signalStart = ts;
 
-  thunderCloud.classList.add("flash");
+  const slotDuration = 1000; // כל ביט "נקרא" למשך שנייה שלמה
+  const cycle = slotDuration * signalBitX.length;
+  const elapsed = (ts - signalStart) % cycle;
+  const idx = Math.floor(elapsed / slotDuration);
 
-  setTimeout(function(){
-    thunderCloud.classList.remove("flash");
-  }, 420);
-
-  thunderSound.volume = 0.16;
-  thunderSound.currentTime = 0;
-  thunderSound.play().catch(function(){});
-}
-
-function startThunderLoop(){
-  if(thunderTimer) return;
-
-  function scheduleThunder(){
-    const delay = 14000 + Math.random() * 26000;
-
-    thunderTimer = setTimeout(function(){
-      thunderTimer = null;
-
-      if(
-        soundAllowed &&
-        document.body.classList.contains("learning-mode")
-      ){
-        thunderFlash();
-        scheduleThunder();
-      }
-    }, delay);
+  if(signalMarker){
+    signalMarker.setAttribute("cx", signalBitX[idx]);
+    signalMarker.setAttribute("cy", signalBits[idx] === 1 ? SIGNAL_HIGH_Y : SIGNAL_LOW_Y);
   }
 
-  scheduleThunder();
+  bitGlows.forEach(function(g, i){
+    g.style.opacity = (i === idx) ? 1 : 0;
+  });
+
+  signalRAF = requestAnimationFrame(stepSignal);
 }
 
-function stopThunderLoop(){
-  if(thunderTimer){
-    clearTimeout(thunderTimer);
-    thunderTimer = null;
-  }
+function startSignalDemo(){
+  if(signalRAF) return;
+  signalStart = null;
+  signalRAF = requestAnimationFrame(stepSignal);
+}
 
-  thunderCloud.classList.remove("flash");
-  thunderSound.pause();
-  thunderSound.currentTime = 0;
+function stopSignalDemo(){
+  if(signalRAF){
+    cancelAnimationFrame(signalRAF);
+    signalRAF = null;
+  }
+  bitGlows.forEach(function(g){ g.style.opacity = 0; });
 }
 
 focusBtn.addEventListener("click", function(){
@@ -567,16 +583,11 @@ focusBtn.addEventListener("click", function(){
   if(soundAllowed){
     startBrownNoise();
     startRainSound();
-    startThunderLoop();
-
-    setTimeout(function(){
-      thunderFlash();
-    }, 1800);
-
+    startSignalDemo();
   } else {
     stopBrownNoise();
     stopRainSound();
-    stopThunderLoop();
+    stopSignalDemo();
   }
 });
 
@@ -592,20 +603,6 @@ window.addEventListener("scroll", function(){
       focusBtn.classList.remove("scrolling");
     }, 650);
   }
-});
-
-const cableReveals = document.querySelectorAll(".cable-reveal");
-
-const observer = new IntersectionObserver(function(entries){
-  entries.forEach(function(entry){
-    if(entry.isIntersecting){
-      entry.target.classList.add("visible");
-    }
-  });
-},{ threshold:0.25 });
-
-cableReveals.forEach(function(item){
-  observer.observe(item);
 });
 </script>
 
