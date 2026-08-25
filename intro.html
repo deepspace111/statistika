@@ -170,7 +170,7 @@ body.learning-mode .next-btn:hover{ background:rgba(255,255,255,0.09); }
 
 .signal-path{
   fill:none;
-  stroke:#1a7f4c;
+  stroke:#000;
   stroke-width:2;
   stroke-linejoin:round;
 }
@@ -256,17 +256,20 @@ body.learning-mode .bridge-flow .bridge-next{
 body.learning-mode .axis-line{ stroke:rgba(255,255,255,0.35); }
 body.learning-mode .axis-arrow{ fill:rgba(255,255,255,0.35); }
 body.learning-mode .axis-label{ fill:rgba(255,255,255,0.6); }
-body.learning-mode .signal-path{ stroke:#00ff66; filter:drop-shadow(0 0 3px rgba(0,255,102,0.55)); }
+body.learning-mode .signal-path{
+  stroke:#00ff41;
+  filter:drop-shadow(0 0 3px rgba(0,255,65,0.85)) drop-shadow(0 0 9px rgba(0,255,65,0.5));
+}
 body.learning-mode .tick{ stroke:rgba(255,255,255,0.3); }
 body.learning-mode .bit-label{ fill:rgba(255,255,255,0.85); }
 
 body.learning-mode .bit-glow{
-  fill:#00ff66;
+  fill:#00ff41;
 }
 
 body.learning-mode .read-marker{
   opacity:1;
-  fill:#00ff66;
+  fill:#00ff41;
 }
 
 @media (max-width:600px){
