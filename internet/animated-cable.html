@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>אנקפסולציה ודה-אנקפסולציה | דרך הרשת</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#070b14;
+    --panel:#0e1524;
+    --panel-2:#111b30;
+    --line:#1f2c46;
+    --text:#e8ecf6;
+    --text-dim:#8a93ad;
+    --tcp:#f5a623;
+    --ip:#2ed3c6;
+    --eth:#c158e0;
+    --data:#f3f6ff;
+    --radius:18px;
+    font-size:16px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 15% 0%, rgba(197,88,224,0.08), transparent 40%),
+      radial-gradient(circle at 85% 100%, rgba(46,211,198,0.08), transparent 40%),
+      var(--bg);
+    color:var(--text);
+    font-family:'Rubik',system-ui,sans-serif;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px 12px;
+  }
+  .app{
+    width:100%;
+    max-width:920px;
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+  }
+  header{ text-align:center; }
+  header h1{
+    margin:0 0 4px;
+    font-size:clamp(1.25rem,3.4vw,1.7rem);
+    font-weight:800;
+    letter-spacing:-0.01em;
+  }
+  header p{
+    margin:0;
+    color:var(--text-dim);
+    font-size:0.92rem;
+  }
+  .legend{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px 16px;
+    justify-content:center;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:8px 18px;
+    margin:0 auto;
+  }
+  .legend .item{ display:flex; align-items:center; gap:6px; font-size:0.8rem; color:var(--text-dim); }
+  .legend .dot{ width:10px; height:10px; border-radius:50%; flex:none; }
+  .legend .dot.data{ background:var(--data); }
+  .legend .dot.tcp{ background:var(--tcp); }
+  .legend .dot.ip{ background:var(--ip); }
+  .legend .dot.eth{ background:var(--eth); }
+
+  .medium-toggle{
+    display:flex;
+    justify-content:center;
+    gap:6px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:5px;
+    width:fit-content;
+    margin:0 auto;
+  }
+  .medium-toggle button{
+    border:none;
+    background:transparent;
+    color:var(--text-dim);
+    font-family:inherit;
+    font-size:0.82rem;
+    padding:7px 16px;
+    border-radius:999px;
+    cursor:pointer;
+    transition:background .2s, color .2s;
+  }
+  .medium-toggle button.active{
+    background:var(--panel-2);
+    color:var(--text);
+    box-shadow:0 0 0 1px var(--line) inset;
+  }
+
+  .stage-panel{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:14px 16px;
+    text-align:center;
+  }
+  .stage-label{ font-size:0.95rem; font-weight:500; min-height:1.4em; }
+  .dots{ display:flex; justify-content:center; gap:6px; margin-top:10px; }
+  .dots span{ width:7px; height:7px; border-radius:50%; background:var(--line); transition:background .25s, transform .25s; }
+  .dots span.on{ background:var(--eth); transform:scale(1.25); }
+
+  .stage-row{
+    position:relative;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:22px 14px;
+    min-height:230px;
+  }
+  .side{
+    flex:0 0 auto;
+    width:clamp(96px,26vw,168px);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+  }
+  .side .capsule-title{ font-size:0.78rem; color:var(--text-dim); font-weight:500; }
+  .capsule-wrap{ position:relative; width:100%; aspect-ratio:1/1; transition:opacity .35s; }
+  .capsule-wrap.empty{ opacity:.28; }
+  .capsule-wrap svg{ width:100%; height:100%; overflow:visible; }
+  .layer{ fill-opacity:0.22; stroke-width:2.5; transform-box:fill-box; transform-origin:center; transform:scale(0); opacity:0; transition:transform .5s cubic-bezier(.34,1.4,.4,1), opacity .5s; }
+  .layer.show{ transform:scale(1); opacity:1; }
+  .layer-eth{ fill:var(--eth); stroke:var(--eth); }
+  .layer-ip{ fill:var(--ip); stroke:var(--ip); }
+  .layer-tcp{ fill:var(--tcp); stroke:var(--tcp); }
+  .tab{ fill-opacity:0.85; }
+  .tab text{ font-family:'JetBrains Mono',monospace; font-size:11px; fill:#07101c; font-weight:700; }
+  .bit{ fill:var(--data); opacity:.9; }
+  .bit.off{ opacity:.15; }
+
+  .empty-msg{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    text-align:center; font-size:0.72rem; color:var(--text-dim); padding:8px;
+    opacity:0; transition:opacity .3s; pointer-events:none;
+  }
+  .capsule-wrap.empty .empty-msg{ opacity:1; }
+
+  .chip-stack{ display:flex; flex-direction:column; gap:4px; width:100%; min-height:24px; }
+  .chip{
+    font-size:0.66rem; font-family:'JetBrains Mono',monospace; font-weight:700;
+    text-align:center; padding:3px 6px; border-radius:6px; color:#07101c;
+    animation:chipIn .3s ease;
+  }
+  .chip.tcp{ background:var(--tcp); }
+  .chip.ip{ background:var(--ip); }
+  .chip.eth{ background:var(--eth); }
+  @keyframes chipIn{ from{ opacity:0; transform:translateY(-4px);} to{opacity:1; transform:translateY(0);} }
+
+  .cable-track{
+    flex:1 1 auto;
+    position:relative;
+    height:54px;
+    border-radius:999px;
+    overflow:hidden;
+    align-self:center;
+  }
+  .cable-track.fiber{
+    background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(46,211,198,0.10), rgba(255,255,255,0.06));
+    border:1px solid rgba(46,211,198,0.35);
+  }
+  .cable-track.copper{
+    background:repeating-linear-gradient(90deg, #6b4a2a 0 10px, #8a5f34 10px 20px);
+    border:1px solid #4a3320;
+  }
+  .cable-track .shimmer{
+    position:absolute; inset:0;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+    width:40%;
+    animation:shimmer 2.6s linear infinite;
+  }
+  .cable-track.copper .shimmer{ display:none; }
+  @keyframes shimmer{ from{ transform:translateX(-120%);} to{ transform:translateX(340%);} }
+
+  canvas#fx{
+    position:absolute; inset:0; width:100%; height:100%;
+    pointer-events:none; opacity:0; transition:opacity .15s;
+    z-index:5;
+  }
+  canvas#fx.active{ opacity:1; }
+
+  .controls{
+    display:flex; justify-content:center; gap:10px; flex-wrap:wrap;
+  }
+  .controls button{
+    font-family:inherit; font-size:0.86rem; font-weight:500;
+    border-radius:12px; padding:10px 18px; cursor:pointer;
+    border:1px solid var(--line); background:var(--panel-2); color:var(--text);
+    transition:transform .15s, background .2s;
+  }
+  .controls button:hover{ transform:translateY(-1px); }
+  .controls button:active{ transform:translateY(0); }
+  .controls button.primary{ background:linear-gradient(135deg,var(--tcp),var(--eth)); color:#0a0710; border:none; font-weight:700; }
+  .controls button:disabled{ opacity:.4; cursor:default; transform:none; }
+
+  @media (prefers-reduced-motion: reduce){
+    .layer, .capsule-wrap, canvas#fx{ transition-duration:0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>אנקפסולציה ודה-אנקפסולציה</h1>
+    <p>עוקבים אחרי ביט אחד של מידע — מהעטיפה בפרוטוקולים ועד המסע בתוך הכבל</p>
+  </header>
+
+  <div class="legend">
+    <div class="item"><span class="dot data"></span>Data (האוקטט המקורי)</div>
+    <div class="item"><span class="dot tcp"></span>TCP Header</div>
+    <div class="item"><span class="dot ip"></span>IP Header</div>
+    <div class="item"><span class="dot eth"></span>Ethernet Header/Trailer</div>
+  </div>
+
+  <div class="medium-toggle" id="mediumToggle">
+    <button data-medium="fiber" class="active">🔆 סיב אופטי</button>
+    <button data-medium="copper">🔌 כבל נחושת</button>
+  </div>
+
+  <div class="stage-panel">
+    <div class="stage-label" id="stageLabel"></div>
+    <div class="dots" id="dots"></div>
+  </div>
+
+  <div class="stage-row" id="stageRow">
+    <div class="side">
+      <div class="capsule-title">מחשב שולח</div>
+      <div class="capsule-wrap" id="senderWrap">
+        <div id="senderSvgHost"></div>
+        <div class="empty-msg">✔ הנתונים נשלחו</div>
+      </div>
+      <div class="chip-stack" id="senderChips"></div>
+    </div>
+
+    <div class="cable-track fiber" id="cableTrack"><div class="shimmer"></div></div>
+
+    <div class="side">
+      <div class="capsule-title">מחשב מקבל</div>
+      <div class="capsule-wrap empty" id="receiverWrap">
+        <div id="receiverSvgHost"></div>
+        <div class="empty-msg">ממתין לנתונים…</div>
+      </div>
+      <div class="chip-stack" id="receiverChips"></div>
+    </div>
+
+    <canvas id="fx"></canvas>
+  </div>
+
+  <div class="controls">
+    <button id="btnReset">↺ איפוס</button>
+    <button id="btnAuto">▶ הפעלה אוטומטית</button>
+    <button id="btnNext" class="primary">הבא ←</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function capsuleSVG(p){
+    return `<svg viewBox="0 0 200 200">
+      <rect id="${p}-eth" class="layer layer-eth" x="8" y="8" width="184" height="184" rx="30"/>
+      <rect id="${p}-eth-h" class="layer layer-eth tab" x="-2" y="90" width="22" height="20" rx="5"/>
+      <text id="${p}-eth-h-t" class="layer layer-eth" x="9" y="104" text-anchor="middle" style="font:700 10px monospace;fill:#07101c;">H</text>
+      <rect id="${p}-eth-t" class="layer layer-eth tab" x="180" y="90" width="22" height="20" rx="5"/>
+      <text id="${p}-eth-t-t" class="layer layer-eth" x="191" y="104" text-anchor="middle" style="font:700 10px monospace;fill:#07101c;">T</text>
+      <rect id="${p}-ip" class="layer layer-ip" x="34" y="34" width="132" height="132" rx="22"/>
+      <rect id="${p}-tcp" class="layer layer-tcp" x="60" y="60" width="80" height="80" rx="16"/>
+      <g id="${p}-data">
+        ${octetDots(100,100)}
+      </g>
+    </svg>`;
+  }
+  function octetDots(cx,cy){
+    let s='';
+    const bits=[1,0,1,1,0,1,0,0];
+    let i=0;
+    for(let r=0;r<2;r++){
+      for(let c=0;c<4;c++){
+        const x = cx-27 + c*18;
+        const y = cy-9 + r*18;
+        s += `<circle class="bit ${bits[i]?'':'off'}" data-bit="${i}" cx="${x}" cy="${y}" r="5.5"/>`;
+        i++;
+      }
+    }
+    return s;
+  }
+
+  document.getElementById('senderSvgHost').innerHTML = capsuleSVG('s');
+  document.getElementById('receiverSvgHost').innerHTML = capsuleSVG('r');
+
+  const $ = id => document.getElementById(id);
+  const senderWrap = $('senderWrap'), receiverWrap = $('receiverWrap');
+  const senderChips = $('senderChips'), receiverChips = $('receiverChips');
+  const stageLabel = $('stageLabel'), dotsEl = $('dots');
+  const btnNext = $('btnNext'), btnAuto = $('btnAuto'), btnReset = $('btnReset');
+  const cableTrack = $('cableTrack');
+  const canvas = $('fx'); const ctx = canvas.getContext('2d');
+
+  let medium = 'fiber';
+  document.getElementById('mediumToggle').addEventListener('click', e=>{
+    const b = e.target.closest('button'); if(!b) return;
+    medium = b.dataset.medium;
+    document.querySelectorAll('#mediumToggle button').forEach(x=>x.classList.toggle('active', x===b));
+    cableTrack.className = 'cable-track ' + medium;
+    if(medium==='fiber' && !cableTrack.querySelector('.shimmer')){
+      cableTrack.innerHTML = '<div class="shimmer"></div>';
+    }
+  });
+
+  const STAGES = [
+    "הנתונים המקוריים (אוקטט) ממתינים בצד השולח",
+    "שלב 1 — עטיפה בכותרת TCP",
+    "שלב 2 — עטיפה בכותרת IP",
+    "שלב 3 — עטיפה במסגרת Ethernet (Header + Trailer)",
+    "🚀 שליחה! הפאקטה מתפרקת לביטים בינאריים וזורמת בכבל",
+    "דה-אנקפסולציה — מסירים את מסגרת ה-Ethernet",
+    "דה-אנקפסולציה — מסירים את כותרת ה-IP",
+    "דה-אנקפסולציה — מסירים את כותרת ה-TCP: הנתונים הגיעו! 🎉"
+  ];
+
+  let stage = 0;
+  let autoplay = false;
+  let busy = false;
+
+  function renderDots(){
+    dotsEl.innerHTML = STAGES.map((_,i)=>`<span class="${i<=stage?'on':''}"></span>`).join('');
+  }
+  function setLabel(){ stageLabel.textContent = STAGES[stage]; }
+
+  function setLayer(prefix, name, show){
+    const ids = name==='eth' ? [`${prefix}-eth`,`${prefix}-eth-h`,`${prefix}-eth-h-t`,`${prefix}-eth-t`,`${prefix}-eth-t-t`] : [`${prefix}-${name}`];
+    ids.forEach(id=>{ const el = document.getElementById(id); if(el) el.classList.toggle('show', show); });
+  }
+
+  function addChip(host, name, cls){
+    const d = document.createElement('div');
+    d.className = 'chip ' + cls;
+    d.textContent = name;
+    d.dataset.cls = cls;
+    host.appendChild(d);
+  }
+  function removeChip(host, cls){
+    const el = host.querySelector('.chip.'+cls);
+    if(el) el.remove();
+  }
+
+  function wait(ms){ return new Promise(res=>setTimeout(res, REDUCED?10:ms)); }
+
+  function centerOf(el, refEl){
+    const r = el.getBoundingClientRect();
+    const ref = refEl.getBoundingClientRect();
+    return { x: r.left + r.width/2 - ref.left, y: r.top + r.height/2 - ref.top };
+  }
+
+  function resizeCanvas(){
+    const r = document.getElementById('stageRow').getBoundingClientRect();
+    canvas.width = r.width * devicePixelRatio;
+    canvas.height = r.height * devicePixelRatio;
+    canvas.style.width = r.width+'px';
+    canvas.style.height = r.height+'px';
+    ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+  }
+  window.addEventListener('resize', resizeCanvas);
+
+  function makeParticles(from, to){
+    const groups = [
+      {cls:'data', color:getVar('--data'), n:8},
+      {cls:'tcp', color:getVar('--tcp'), n:10},
+      {cls:'ip', color:getVar('--ip'), n:14},
+      {cls:'eth', color:getVar('--eth'), n:16},
+    ];
+    const list = [];
+    groups.forEach(g=>{
+      for(let i=0;i<g.n;i++){
+        list.push({
+          color:g.color,
+          digit: Math.random()>0.5?'1':'0',
+          flip: Math.random()*400+120,
+          lastFlip:0,
+          jitterA: Math.random()*10+4,
+          jitterF: Math.random()*2+1,
+          phase: Math.random()*Math.PI*2,
+          rowOffset: (Math.random()-0.5)* (from.spread||18),
+          spawnDelay: Math.random()*120
+        });
+      }
+    });
+    return list;
+  }
+  function getVar(name){
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  }
+
+  function easeInOutQuad(t){ return t<0.5 ? 2*t*t : 1-Math.pow(-2*t+2,2)/2; }
+
+  function runTransit(){
+    return new Promise(resolve=>{
+      const stageRow = document.getElementById('stageRow');
+      resizeCanvas();
+      const from = centerOf(senderWrap, stageRow);
+      const to = centerOf(receiverWrap, stageRow);
+      const particles = makeParticles(from, to);
+      canvas.classList.add('active');
+      senderWrap.style.opacity = '0';
+
+      const DISSOLVE = REDUCED?10:450, TRAVEL = REDUCED?10:1300, REFORM = REDUCED?10:420;
+      const total = DISSOLVE+TRAVEL+REFORM;
+      const start = performance.now();
+
+      function frame(now){
+        const t = now - start;
+        ctx.clearRect(0,0,canvas.width/devicePixelRatio, canvas.height/devicePixelRatio);
+
+        let travelProgress = 0;
+        let burstAmt = 0;
+        let fadeOut = 1;
+
+        if(t < DISSOLVE){
+          burstAmt = t/DISSOLVE;
+        } else if(t < DISSOLVE+TRAVEL){
+          burstAmt = 1;
+          travelProgress = easeInOutQuad((t-DISSOLVE)/TRAVEL);
+        } else if(t < total){
+          burstAmt = 1;
+          travelProgress = 1;
+          fadeOut = 1 - (t-DISSOLVE-TRAVEL)/REFORM;
+        } else {
+          travelProgress = 1; fadeOut = 0;
+        }
+
+        particles.forEach(p=>{
+          if(now - p.lastFlip > p.flip){ p.digit = p.digit==='1'?'0':'1'; p.lastFlip = now; }
+          const x = from.x + (to.x - from.x) * travelProgress;
+          const wig = medium==='copper'
+            ? Math.sin((t/140)+p.phase) * p.jitterA
+            : Math.sin((t/90)+p.phase) * (p.jitterA*0.35);
+          const spread = (1-travelProgress) * p.rowOffset;
+          const y = from.y + (to.y-from.y)*travelProgress + wig + spread;
+
+          const alpha = Math.max(0, Math.min(1, burstAmt)) * Math.max(0, fadeOut);
+          if(alpha<=0.02) return;
+          ctx.globalAlpha = alpha;
+          ctx.fillStyle = p.color;
+          if(medium==='fiber'){
+            ctx.shadowColor = p.color;
+            ctx.shadowBlur = 8;
+          } else {
+            ctx.shadowBlur = 0;
+          }
+          ctx.font = "700 11px 'JetBrains Mono', monospace";
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(p.digit, x, y);
+        });
+        ctx.globalAlpha = 1;
+        ctx.shadowBlur = 0;
+
+        if(t < total){
+          requestAnimationFrame(frame);
+        } else {
+          canvas.classList.remove('active');
+          ctx.clearRect(0,0,canvas.width,canvas.height);
+          senderWrap.style.opacity = '';
+          senderWrap.classList.add('empty');
+          senderChips.innerHTML = '';
+          receiverWrap.classList.remove('empty');
+          ['eth','ip','tcp'].forEach(n=>setLayer('r', n, true));
+          addChip(receiverChips,'Ethernet Header/Trailer','eth');
+          addChip(receiverChips,'IP Header','ip');
+          addChip(receiverChips,'TCP Header','tcp');
+          resolve();
+        }
+      }
+      requestAnimationFrame(frame);
+    });
+  }
+
+  async function applyStage(n, animate){
+    busy = true;
+    if(n===1){ setLayer('s','tcp',true); addChip(senderChips,'TCP Header','tcp'); }
+    else if(n===2){ setLayer('s','ip',true); addChip(senderChips,'IP Header','ip'); }
+    else if(n===3){ setLayer('s','eth',true); addChip(senderChips,'Ethernet Header/Trailer','eth'); }
+    else if(n===4){ await runTransit(); }
+    else if(n===5){ setLayer('r','eth',false); removeChip(receiverChips,'eth'); }
+    else if(n===6){ setLayer('r','ip',false); removeChip(receiverChips,'ip'); }
+    else if(n===7){ setLayer('r','tcp',false); removeChip(receiverChips,'tcp'); }
+    if(animate && n!==4) await wait(400);
+    busy = false;
+  }
+
+  function resetAll(){
+    stage = 0;
+    ['eth','ip','tcp'].forEach(n=>setLayer('s', n, false));
+    ['eth','ip','tcp'].forEach(n=>setLayer('r', n, false));
+    senderChips.innerHTML=''; receiverChips.innerHTML='';
+    senderWrap.classList.remove('empty');
+    receiverWrap.classList.add('empty');
+    canvas.classList.remove('active');
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    setLabel(); renderDots();
+    btnNext.textContent = 'הבא ←';
+    btnNext.disabled = false;
+  }
+
+  async function goNext(){
+    if(busy) return;
+    if(stage >= STAGES.length-1){ resetAll(); return; }
+    stage++;
+    setLabel(); renderDots();
+    btnNext.disabled = true;
+    await applyStage(stage, true);
+    btnNext.disabled = false;
+    btnNext.textContent = stage>=STAGES.length-1 ? 'סבב חדש ↺' : (stage===3 ? 'שלח דרך הרשת 🚀' : 'הבא ←');
+  }
+
+  btnNext.addEventListener('click', goNext);
+  btnReset.addEventListener('click', ()=>{ autoplay=false; btnAuto.textContent='▶ הפעלה אוטומטית'; resetAll(); });
+
+  btnAuto.addEventListener('click', async ()=>{
+    autoplay = !autoplay;
+    btnAuto.textContent = autoplay ? '⏸ עצירה' : '▶ הפעלה אוטומטית';
+    while(autoplay){
+      if(!busy){
+        if(stage >= STAGES.length-1){ resetAll(); await wait(700); }
+        await goNext();
+        await wait(600);
+      } else {
+        await wait(150);
+      }
+    }
+  });
+
+  resizeCanvas();
+  setLabel(); renderDots();
+})();
+</script>
+</body>
+</html>
+מהS
