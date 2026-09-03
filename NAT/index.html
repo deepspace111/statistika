@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FTM28BMBXC');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NAT — סיכום ברור</title>
+
+<link rel="stylesheet" href="../waytosee.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  /* אותה פלטה כמו בדף ה-Subnet: ברירת מחדל = אור מערכת העצבים המרכזית, body.learning-mode = "טיפת המים" הכהה.
+     --network (כתום) ו-- host (כחול) מקבלים כאן משמעות חדשה: כתובת פרטית / כתובת ציבורית. */
+  :root{
+    --panel: rgba(255,255,255,0.55);
+    --panel-border: rgba(82,68,54,0.16);
+    --text: rgba(82,68,54,0.94);
+    --text-dim: rgba(82,68,54,0.62);
+    --accent: #2f6fb3;
+    --accent-2: #1f8f7c;
+    --private: #b5591f;
+    --public: #2f6fb3;
+    --code-bg: rgba(255,255,255,0.6);
+  }
+  body.learning-mode{
+    background: radial-gradient(1200px 600px at 50% -10%, #16233d 0%, #0b1220 55%);
+    --panel: #131f36;
+    --panel-border: #22314f;
+    --text: #e8edf7;
+    --text-dim: #9fb0cc;
+    --accent: #4fb3ff;
+    --accent-2: #7ce0d3;
+    --private: #ff9f6e;
+    --public: #4fb3ff;
+    --code-bg: #0d1626;
+  }
+  *{box-sizing:border-box;}
+  body{ font-family: 'Heebo', system-ui, -apple-system, 'Segoe UI', sans-serif; }
+  .container{
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 96px 24px 80px;
+    line-height: 1.85;
+    font-size: 17px;
+  }
+  .container h1{
+    font-size: clamp(28px, 4vw, 38px);
+    font-weight: 800;
+    margin: 0 0 8px;
+    color: var(--text);
+  }
+  body.learning-mode .container h1{
+    background: linear-gradient(90deg, #fff, var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .subtitle{ color: var(--text-dim); margin-bottom: 40px; font-size: 15px; }
+  .container h2{
+    font-size: 22px;
+    font-weight: 700;
+    margin: 56px 0 16px;
+    padding-inline-start: 14px;
+    border-inline-start: 4px solid var(--accent);
+    color: var(--text);
+  }
+  .container p{ margin: 0 0 16px; color: var(--text); }
+  .container strong{ color: var(--text); font-weight: 700; }
+  .val, .container code{
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--code-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-size: 0.92em;
+    color: var(--accent-2);
+    direction: ltr;
+    display: inline-block;
+    unicode-bidi: isolate;
+  }
+  .block-val{
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--code-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    color: var(--accent-2);
+    direction: ltr;
+    text-align: center;
+    margin: 14px 0;
+    letter-spacing: 0.5px;
+    overflow-x: auto;
+  }
+  .note{
+    background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 10%, transparent), color-mix(in srgb, var(--accent) 2%, transparent));
+    border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin: 18px 0;
+    font-size: 15.5px;
+    color: var(--text);
+  }
+  .note b{ color: var(--accent); }
+  .container hr{ border: none; border-top: 1px solid var(--panel-border); margin: 48px 0; }
+
+  /* ---- demo (זרימת NAT) ---- */
+  .demo{
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-radius: 18px;
+    padding: 30px 20px 26px;
+    margin: 26px 0 30px;
+    position: relative;
+    overflow: hidden;
+  }
+  .demo::before{
+    content:"";
+    position:absolute; inset:0;
+    background: radial-gradient(400px 200px at 50% 0%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%);
+    pointer-events:none;
+  }
+
+  .nat-track{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 110px;
+    z-index: 1;
+  }
+  .nat-track::before{
+    content:"";
+    position: absolute;
+    top: 26px; left: 8%; right: 8%;
+    height: 2px;
+    background: var(--panel-border);
+  }
+  .nat-node{
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    width: 92px;
+  }
+  .nat-node-icon{
+    font-size: 26px;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .nat-node-label{ font-size: 12.5px; color: var(--text-dim); margin-bottom: 2px; }
+  .nat-node-ip{
+    font-family:'JetBrains Mono',monospace; direction:ltr; unicode-bidi:isolate;
+    font-size: 12px; color: var(--text); font-weight: 600;
+  }
+
+  .packet{
+    position: absolute;
+    top: 20px;
+    left: 8%;
+    transform: translateX(-50%);
+    background: var(--private);
+    color: #fff;
+    font-family:'JetBrains Mono',monospace; direction:ltr; unicode-bidi:isolate;
+    font-size: 11.5px;
+    padding: 5px 9px;
+    border-radius: 999px;
+    white-space: nowrap;
+    box-shadow: 0 0 10px color-mix(in srgb, var(--private) 55%, transparent);
+    transition: left 0.9s ease, background-color .3s ease, box-shadow .3s ease;
+    z-index: 3;
+  }
+  .packet.at-router{ left: 50%; }
+  .packet.translated{
+    left: 92%;
+    background: var(--public);
+    box-shadow: 0 0 10px color-mix(in srgb, var(--public) 55%, transparent);
+  }
+
+  .nat-controls{
+    display:flex; justify-content:center; align-items:center; gap: 10px;
+    margin-top: 8px; position: relative; z-index: 1;
+  }
+  .hint{ color: var(--text-dim); font-size: 12.5px; }
+
+  .nat-reveal{
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height .6s ease, opacity .6s ease .1s, margin .6s ease;
+    position: relative; z-index: 1;
+    text-align: center;
+  }
+  .nat-reveal.shown{ max-height: 220px; opacity: 1; margin-top: 20px; }
+  .nat-mapping{
+    display:flex; justify-content:center; align-items:center; gap: 10px; flex-wrap:wrap;
+    margin-bottom: 10px;
+  }
+  .nat-mapping .val{ font-size: 14px; }
+  .nat-mapping .arrow-icon{ color: var(--text-dim); font-size: 16px; }
+
+  .role-caption{
+    font-size: 12.5px; color: var(--text-dim);
+    margin-bottom: 14px;
+  }
+  .role-caption .priv-word{ color: var(--private); font-weight:600; }
+  .role-caption .pub-word{ color: var(--public); font-weight:600; }
+
+  .legend{
+    display:flex; justify-content:center; gap:18px; margin-top: 4px;
+    font-size: 12.5px; color: var(--text-dim); flex-wrap:wrap;
+  }
+  .legend span{ display:inline-flex; align-items:center; gap:6px; }
+  .swatch{ width:10px; height:10px; border-radius:3px; display:inline-block; }
+  .swatch.priv{ background: var(--private); }
+  .swatch.pub{ background: var(--public); }
+
+  .replay{
+    background: transparent;
+    border: 1px solid var(--panel-border);
+    color: var(--text-dim);
+    border-radius: 999px;
+    padding: 6px 16px;
+    font-family:'Heebo',sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all .2s ease;
+  }
+  .replay:hover{ color: var(--text); border-color: var(--accent); }
+
+  /* ---- טבלת דוגמה (כמה מכשירים / PAT) ---- */
+  .port-example{
+    display:flex; flex-direction:column; gap:8px;
+    font-family:'JetBrains Mono',monospace; direction:ltr; unicode-bidi:isolate;
+    background: var(--code-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 14px 0;
+    font-size: 14px;
+    color: var(--text);
+    overflow-x: auto;
+  }
+  .port-example span.priv{ color: var(--private); }
+  .port-example span.pub{ color: var(--public); }
+
+  /* ---- טבלת סוגי NAT ---- */
+  .nat-types{
+    width: 100%;
+    border-collapse: collapse;
+    margin: 18px 0;
+    font-size: 15px;
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .nat-types th, .nat-types td{
+    padding: 12px 16px;
+    text-align: right;
+    border-bottom: 1px solid var(--panel-border);
+    color: var(--text);
+  }
+  .nat-types tr:last-child td{ border-bottom: none; }
+  .nat-types th{
+    color: var(--text-dim);
+    font-weight: 600;
+    font-size: 13px;
+  }
+  .nat-types td:first-child{ font-weight: 700; color: var(--accent-2); white-space: nowrap; }
+
+  .page-footer{ text-align:center; color: var(--text-dim); font-size: 13px; margin-top: 60px; }
+
+  @media (max-width: 600px){
+    .container{ padding: 88px 18px 70px; }
+    .nat-node{ width: 74px; }
+    .nat-node-label{ font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+<main class="page-content">
+<div class="container">
+
+  <h1>NAT — סיכום ברור</h1>
+  <p class="subtitle">איך כתובת פרטית אחת שברשת הבית הופכת, בדרך החוצה, לכתובת ציבורית — ואיך הנתב זוכר להחזיר את התשובה למכשיר הנכון.</p>
+
+  <p><strong>NAT</strong> הוא תרגום כתובות IP. הנתב מחליף כתובת אחת באחרת כאשר חבילה עוברת בין הרשת הפרטית לאינטרנט.</p>
+
+  <p>לדוגמה, המחשב בבית שולח חבילה:</p>
+  <div class="block-val">מקור: 192.168.1.8:50000<br>יעד: &nbsp;&nbsp;8.8.8.8:53</div>
+
+  <p>הכתובת <span class="val">192.168.1.8</span> היא פרטית ואינה יכולה לעבור באינטרנט. לכן הנתב מחליף אותה בכתובת הציבורית שלו:</p>
+  <div class="block-val">מקור: 84.110.20.5:62001<br>יעד: &nbsp;&nbsp;8.8.8.8:53</div>
+
+  <p>הנתב שומר בטבלת NAT את הקשר:</p>
+  <div class="block-val">192.168.1.8:50000 ↔ 84.110.20.5:62001</div>
+
+  <p>כשהתשובה חוזרת אל <span class="val">84.110.20.5:62001</span>, הנתב בודק את הטבלה, מבין שהתשובה שייכת ל־<span class="val">192.168.1.8:50000</span>, מתרגם בחזרה ומעביר אותה למחשב הנכון.</p>
+
+  <!-- ===== DEMO: זרימת NAT ===== -->
+  <div class="demo" data-demo="nat">
+    <div class="nat-track">
+      <div class="nat-node">
+        <div class="nat-node-icon">🖥️</div>
+        <div class="nat-node-label">מחשב הבית</div>
+        <div class="nat-node-ip">192.168.1.8</div>
+      </div>
+      <div class="nat-node">
+        <div class="nat-node-icon">📡</div>
+        <div class="nat-node-label">נתב · NAT</div>
+        <div class="nat-node-ip">84.110.20.5</div>
+      </div>
+      <div class="nat-node">
+        <div class="nat-node-icon">🌐</div>
+        <div class="nat-node-label">אינטרנט</div>
+        <div class="nat-node-ip">8.8.8.8:53</div>
+      </div>
+      <div class="packet">192.168.1.8:50000</div>
+    </div>
+    <div class="nat-controls"><span class="hint">לחצו כדי לשלוח את החבילה</span></div>
+    <div class="nat-reveal">
+      <div class="nat-mapping">
+        <span class="val">192.168.1.8:50000</span>
+        <span class="arrow-icon">↔</span>
+        <span class="val">84.110.20.5:62001</span>
+      </div>
+      <div class="role-caption">הנתב לא "שכח" את המחשב — הוא רשם את ההתאמה הזו בטבלה, כדי לדעת בדיוק למי להחזיר את התשובה כשהיא תגיע.</div>
+      <div class="legend">
+        <span><span class="swatch priv"></span> כתובת פרטית (בתוך הרשת)</span>
+        <span><span class="swatch pub"></span> כתובת ציבורית (אחרי התרגום)</span>
+      </div>
+      <div style="margin-top:14px;"><button class="replay">שלח שוב</button></div>
+    </div>
+  </div>
+
+  <hr>
+
+  <h2>למה צריך גם מספרי פורטים?</h2>
+  <p>בבית יכולים להיות מכשירים רבים, אבל לכולם יש בדרך כלל כתובת ציבורית אחת. הפורטים מאפשרים לנתב להבדיל בין החיבורים:</p>
+
+  <div class="port-example">
+    <div><span class="priv">192.168.1.8:50000</span>&nbsp;&nbsp;→&nbsp;&nbsp;<span class="pub">84.110.20.5:62001</span></div>
+    <div><span class="priv">192.168.1.20:51000</span>&nbsp;→&nbsp;&nbsp;<span class="pub">84.110.20.5:62002</span></div>
+  </div>
+
+  <p>זה נקרא <strong>PAT</strong> (Port Address Translation) או <strong>NAT Overload</strong> — הצורה הנפוצה בבתים.</p>
+
+  <hr>
+
+  <h2>הסוגים העיקריים</h2>
+  <table class="nat-types">
+    <thead>
+      <tr><th>סוג</th><th>משמעות</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Static NAT</td><td>כתובת פרטית אחת מתורגמת תמיד לכתובת ציבורית קבועה</td></tr>
+      <tr><td>Dynamic NAT</td><td>כתובת ציבורית נבחרת ממאגר כתובות</td></tr>
+      <tr><td>PAT</td><td>מכשירים רבים חולקים כתובת ציבורית אחת באמצעות פורטים</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note"><b>הרעיון החשוב:</b> NAT אינו שולח את כל המחשבים כישות אחת. הוא מנהל טבלת התאמות שמאפשרת לו לזכור מאיזה מכשיר ומאיזה חיבור יצאה כל תקשורת.</div>
+
+  <p><strong>במשפט אחד:</strong> NAT מחליף את זהות המקור הפרטית בזהות ציבורית בדרך החוצה — וזוכר כיצד להחזיר את התשובה למכשיר הנכון.</p>
+
+  <p class="page-footer">WayToSee · דרך הרשת</p>
+
+</div>
+</main>
+
+<script>
+(function(){
+  var demo = document.querySelector('[data-demo="nat"]');
+  if(!demo) return;
+  var packet = demo.querySelector('.packet');
+  var hint = demo.querySelector('.hint');
+  var reveal = demo.querySelector('.nat-reveal');
+  var replay = demo.querySelector('.replay');
+  var track = demo.querySelector('.nat-track');
+
+  function play(){
+    packet.classList.remove('at-router', 'translated');
+    packet.textContent = '192.168.1.8:50000';
+    void packet.offsetWidth;
+    hint.style.visibility = 'hidden';
+
+    packet.classList.add('at-router');
+    setTimeout(function(){
+      packet.textContent = '84.110.20.5:62001';
+      packet.classList.add('translated');
+    }, 900);
+    setTimeout(function(){
+      reveal.classList.add('shown');
+    }, 1900);
+  }
+
+  function reset(){
+    packet.classList.remove('at-router', 'translated');
+    packet.textContent = '192.168.1.8:50000';
+    reveal.classList.remove('shown');
+    hint.style.visibility = 'visible';
+  }
+
+  track.addEventListener('click', function(){
+    if(reveal.classList.contains('shown')) return;
+    play();
+  });
+  replay.addEventListener('click', function(){
+    reset();
+    setTimeout(play, 250);
+  });
+
+  var played = false;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting && !played){
+        played = true;
+        setTimeout(play, 500);
+      }
+    });
+  }, { threshold: 0.5 });
+  io.observe(demo);
+})();
+</script>
+
+<!-- מערכת העצבים המרכזית: כפתור בית, מצב תודעת לימוד, רעש חום, הבהוב טורקיז -->
+<script>window.waytoseeHomeOverride = "../intro.html";</script>
+<script src="../waytosee.js"></script>
+</body>
+</html>
