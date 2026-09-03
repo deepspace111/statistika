@@ -1,16 +1,45 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FTM28BMBXC');
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Subnet — גבולות הרשת המקומית</title>
+
+<link rel="stylesheet" href="../waytosee.css">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
 <style>
+  /* טיפוגרפיה וצבעים ייחודיים לדף זה. במצב רגיל — פלטת האור של מערכת העצבים המרכזית.
+     במצב תודעת לימוד — פלטת "טיפת המים" הכהה, שמוחלפת אוטומטית דרך body.learning-mode. */
   :root{
-    --bg: #0b1220;
-    --bg-soft: #101a2e;
+    --panel: rgba(255,255,255,0.55);
+    --panel-border: rgba(82,68,54,0.16);
+    --text: rgba(82,68,54,0.94);
+    --text-dim: rgba(82,68,54,0.62);
+    --accent: #2f6fb3;
+    --accent-2: #1f8f7c;
+    --network: #b5591f;
+    --host: #2f6fb3;
+    --drop-glow: #4f96d1;
+    --code-bg: rgba(255,255,255,0.6);
+  }
+  body.learning-mode{
+    background:
+      radial-gradient(1200px 600px at 50% -10%, #16233d 0%, #0b1220 55%);
     --panel: #131f36;
     --panel-border: #22314f;
     --text: #e8edf7;
@@ -20,46 +49,42 @@
     --network: #ff9f6e;
     --host: #4fb3ff;
     --drop-glow: #6fd4ff;
-    --good: #7ce0d3;
     --code-bg: #0d1626;
   }
   *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
-  body{
-    background: radial-gradient(1200px 600px at 50% -10%, #16233d 0%, var(--bg) 55%);
-    color: var(--text);
-    font-family: 'Heebo', system-ui, -apple-system, 'Segoe UI', sans-serif;
-    line-height: 1.85;
-    font-size: 17px;
-    padding: 0 0 80px;
-  }
-  .wrap{
+  body{ font-family: 'Heebo', system-ui, -apple-system, 'Segoe UI', sans-serif; }
+  .container{
     max-width: 760px;
     margin: 0 auto;
-    padding: 56px 24px 0;
+    padding: 96px 24px 80px;
+    line-height: 1.85;
+    font-size: 17px;
   }
-  h1{
+  .container h1{
     font-size: clamp(28px, 4vw, 38px);
     font-weight: 800;
     margin: 0 0 8px;
+    color: var(--text);
+  }
+  body.learning-mode .container h1{
     background: linear-gradient(90deg, #fff, var(--accent-2));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
   .subtitle{ color: var(--text-dim); margin-bottom: 40px; font-size: 15px; }
-  h2{
+  .container h2{
     font-size: 22px;
     font-weight: 700;
     margin: 56px 0 16px;
     padding-inline-start: 14px;
     border-inline-start: 4px solid var(--accent);
+    color: var(--text);
   }
-  h3{ font-size: 18px; font-weight: 700; margin: 28px 0 10px; color: var(--accent-2); }
-  p{ margin: 0 0 16px; color: var(--text); }
-  .dim{ color: var(--text-dim); }
-  strong{ color: #fff; }
-  .val, code{
+  .container h3{ font-size: 18px; font-weight: 700; margin: 28px 0 10px; color: var(--accent-2); }
+  .container p{ margin: 0 0 16px; color: var(--text); }
+  .container strong{ color: var(--text); font-weight: 700; }
+  .val, .container code{
     font-family: 'JetBrains Mono', monospace;
     background: var(--code-bg);
     border: 1px solid var(--panel-border);
@@ -85,17 +110,16 @@
     overflow-x: auto;
   }
   .note{
-    background: linear-gradient(180deg, rgba(79,179,255,0.08), rgba(79,179,255,0.02));
-    border: 1px solid rgba(79,179,255,0.3);
+    background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 10%, transparent), color-mix(in srgb, var(--accent) 2%, transparent));
+    border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
     border-radius: 12px;
     padding: 16px 18px;
     margin: 18px 0;
     font-size: 15.5px;
+    color: var(--text);
   }
   .note b{ color: var(--accent); }
-  ul{ margin: 0 0 16px; padding-inline-start: 22px; color: var(--text); }
-  li{ margin-bottom: 6px; }
-  hr{ border: none; border-top: 1px solid var(--panel-border); margin: 48px 0; }
+  .container hr{ border: none; border-top: 1px solid var(--panel-border); margin: 48px 0; }
 
   /* ---- subnet result table ---- */
   .subnets{
@@ -114,9 +138,9 @@
   .subnet-card h4{ margin:0 0 10px; font-size:15px; color: var(--accent-2); }
   .subnet-card dl{ margin:0; font-size: 14.5px; }
   .subnet-card dt{ color: var(--text-dim); margin-top:8px; }
-  .subnet-card dd{ margin: 2px 0 0; font-family:'JetBrains Mono',monospace; direction:ltr; text-align:right; color:#fff; }
+  .subnet-card dd{ margin: 2px 0 0; font-family:'JetBrains Mono',monospace; direction:ltr; text-align:right; color: var(--text); }
 
-  /* ---- demo section ---- */
+  /* ---- demo section (טיפת המים) ---- */
   .demo{
     background: var(--panel);
     border: 1px solid var(--panel-border);
@@ -130,7 +154,7 @@
   .demo::before{
     content:"";
     position:absolute; inset:0;
-    background: radial-gradient(400px 200px at 50% 0%, rgba(79,179,255,0.12), transparent 70%);
+    background: radial-gradient(400px 200px at 50% 0%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%);
     pointer-events:none;
   }
   .demo-decimal{
@@ -140,7 +164,7 @@
   }
   .demo-decimal .item{ text-align:center; }
   .demo-decimal .label{ display:block; font-family:'Heebo',sans-serif; direction:rtl; color:var(--text-dim); font-size:12.5px; margin-bottom:4px; }
-  .demo-decimal .num{ font-size: 18px; color:#fff; font-weight:600; }
+  .demo-decimal .num{ font-size: 18px; color: var(--text); font-weight:600; }
 
   .drop-stage{
     height: 130px;
@@ -210,7 +234,7 @@
     width: 15px; text-align:center; color: var(--host);
     transition: color .3s ease, text-shadow .3s ease;
   }
-  .bit.net{ color: var(--network); font-weight:700; text-shadow: 0 0 10px rgba(255,159,110,0.6); }
+  .bit.net{ color: var(--network); font-weight:700; text-shadow: 0 0 10px color-mix(in srgb, var(--network) 60%, transparent); }
   .octet + .octet::before{ content:"."; color: var(--text-dim); margin: 0 2px; }
 
   .role-caption{
@@ -232,7 +256,7 @@
     margin-top: 6px;
     transition: all .2s ease;
   }
-  .replay:hover{ color:#fff; border-color: var(--accent); }
+  .replay:hover{ color: var(--text); border-color: var(--accent); }
 
   .legend{
     display:flex; justify-content:center; gap:18px; margin-top: 14px;
@@ -243,11 +267,16 @@
   .swatch.net{ background: var(--network); }
   .swatch.host{ background: var(--host); }
 
-  footer{ text-align:center; color: var(--text-dim); font-size: 13px; margin-top: 60px; }
+  .page-footer{ text-align:center; color: var(--text-dim); font-size: 13px; margin-top: 60px; }
+
+  @media (max-width: 600px){
+    .container{ padding: 88px 18px 70px; }
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
+<main class="page-content">
+<div class="container">
 
   <h1>Subnet — גבולות הרשת המקומית</h1>
   <p class="subtitle">איך מחשב מחליט מי "קרוב" ומי "רחוק" ברשת — ולמה זה תלוי כולו במסכה.</p>
@@ -391,8 +420,10 @@
   <p>אם היעד נמצא בתוך אותה רשת — <strong>ARP</strong> נכנס לפעולה, והמחשב מנסה לגלות את כתובת ה־MAC של היעד המקומי. אבל אם היעד שייך לרשת אחרת — צריך לפנות אל ה־<strong>Gateway</strong>.</p>
   <div class="note">שני מכשירים, <span class="val">192.168.1.8</span> ו־<span class="val">192.168.1.140</span> למשל, נחשבים "באותה רשת" תחת מסכת ‎/24 (<span class="val">255.255.255.0</span>), אבל נחשבים לשתי רשתות נפרדות תחת מסכת ‎/25 (<span class="val">255.255.255.128</span>) — כי <b>המסכה</b> היא זו שקובעת היכן עובר הגבול, לא הכתובות עצמן.</div>
 
-  <footer>WayToSee · דרך הרשת</footer>
+  <p class="page-footer">WayToSee · דרך הרשת</p>
+
 </div>
+</main>
 
 <script>
 (function(){
@@ -405,7 +436,6 @@
 
     function play(){
       drop.classList.remove('falling');
-      // force reflow so animation can restart
       void drop.offsetWidth;
       drop.classList.add('falling');
       ripple.classList.remove('show');
@@ -436,7 +466,6 @@
       setTimeout(play, 250);
     });
 
-    // auto-play once when scrolled into view
     var played = false;
     var io = new IntersectionObserver(function(entries){
       entries.forEach(function(entry){
@@ -450,5 +479,9 @@
   });
 })();
 </script>
+
+<!-- מערכת העצבים המרכזית: כפתור בית, מצב תודעת לימוד, רעש חום, הבהוב טורקיז -->
+<script>window.waytoseeHomeOverride = "../intro.html";</script>
+<script src="../waytosee.js"></script>
 </body>
 </html>
