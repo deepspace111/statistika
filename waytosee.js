@@ -18,6 +18,28 @@ document.addEventListener("DOMContentLoaded", () => {
     <polygon points="78.58,63.50 61.43,33.80 56.41,39.60 66.02,56.25" opacity="0.78"/>
   </svg>`;
   homeButton.href = homeAddress;
+
+  // כפתור מעבר לעמוד "המרחב" - בכל עמוד חוץ מעמוד הנושאים (intro.html) ומהמרחב עצמו
+  const currentFile = (location.pathname.split("/").pop() || "").toLowerCase();
+  const spaceExcluded = ["intro.html", "merchav.html"];
+  if (!spaceExcluded.includes(currentFile)) {
+    let spaceButton = document.getElementById("spaceBtn");
+    if (!spaceButton) {
+      spaceButton = document.createElement("a");
+      spaceButton.id = "spaceBtn";
+      spaceButton.setAttribute("aria-label", "המרחב");
+      spaceButton.innerHTML = `<svg viewBox="0 0 64 24" width="30" height="14" aria-hidden="true">
+        <circle cx="10" cy="12" r="5" opacity="0.35"/>
+        <circle cx="32" cy="12" r="5" opacity="0.65"/>
+        <circle cx="54" cy="12" r="5" opacity="1"/>
+      </svg>`;
+      document.body.appendChild(spaceButton);
+    }
+    spaceButton.href = mainScript
+      ? new URL("merchav.html", mainScript.src).href
+      : "../merchav.html";
+  }
+
   if (skipFocusSetup) return;
   let focusButton = document.getElementById("focusBtn");
   if (!focusButton) {

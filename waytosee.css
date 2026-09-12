@@ -122,6 +122,35 @@ body.learning-mode #homeBtn {
   color: rgba(240, 240, 240, 0.88);
 }
 
+/* כפתור מעבר לעמוד "המרחב" */
+
+#spaceBtn {
+  position: fixed;
+  bottom: 16px;
+  right: 26px;
+
+  display: block;
+  color: rgba(20, 20, 20, 0.68);
+  transition: color 0.8s ease, transform 0.3s ease;
+
+  text-decoration: none;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+#spaceBtn svg {
+  display: block;
+  fill: currentColor;
+}
+
+#spaceBtn:hover {
+  transform: scale(1.12);
+}
+
+body.learning-mode #spaceBtn {
+  color: rgba(240, 240, 240, 0.88);
+}
+
 
 /* ========================================
    פריסת עיתון רספונסיבית
@@ -268,5 +297,9 @@ p {
   }
   .focus-toggle {
     right: 6px !important;
+  }
+  #spaceBtn {
+    right: 6px;
+    bottom: 10px;
   }
 }
