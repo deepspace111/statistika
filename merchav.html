@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FTM28BMBXC');
+</script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>המרחב | way to see</title>
+
+  <link rel="stylesheet" href="waytosee.css">
+
+  <style>
+
+    body{
+      padding: 0;
+    }
+
+    .space-page{
+      position: relative;
+      z-index: 5;
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 100px 22px 70px;
+    }
+
+    .space-title{
+      text-align: center;
+      font-size: 15px;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      font-weight: 300;
+      margin-bottom: 10px;
+      color: rgba(82,68,54,0.96);
+      opacity: 0;
+      animation: spaceReveal 1.6s ease-out forwards;
+    }
+
+    body.learning-mode .space-title{ color: rgba(240,240,240,0.92); }
+
+    .space-subtitle{
+      text-align: center;
+      font-size: 20px;
+      line-height: 1.6;
+      margin-bottom: 10px;
+      color: rgba(82,68,54,0.9);
+      opacity: 0;
+      animation: spaceReveal 2s ease-out forwards;
+      animation-delay: 0.15s;
+    }
+
+    body.learning-mode .space-subtitle{ color: rgba(225,225,225,0.9); }
+
+    .space-note{
+      text-align: center;
+      font-size: 14px;
+      line-height: 1.9;
+      max-width: 420px;
+      margin: 0 auto 46px;
+      color: rgba(82,68,54,0.55);
+      opacity: 0;
+      animation: spaceReveal 2.2s ease-out forwards;
+      animation-delay: 0.3s;
+    }
+
+    body.learning-mode .space-note{ color: rgba(200,200,200,0.55); }
+
+    @keyframes spaceReveal{
+      from{ opacity: 0; filter: blur(4px); transform: translateY(6px); }
+      to{ opacity: 1; filter: blur(0); transform: translateY(0); }
+    }
+
+    .space-status{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: rgba(82,68,54,0.62);
+      margin-bottom: 34px;
+    }
+
+    body.learning-mode .space-status{ color: rgba(200,200,200,0.62); }
+
+    .space-status .dot{
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #6fbf73;
+      box-shadow: 0 0 8px rgba(111,191,115,0.7);
+      animation: dotPulse 2.4s ease-in-out infinite;
+    }
+
+    @keyframes dotPulse{
+      0%,100%{ opacity: 0.55; }
+      50%{ opacity: 1; }
+    }
+
+    .space-compose{
+      background: rgba(255,255,255,0.6);
+      border: 1px solid rgba(82,68,54,0.14);
+      border-radius: 22px;
+      padding: 22px;
+      margin-bottom: 54px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      transition: 0.4s ease;
+    }
+
+    body.learning-mode .space-compose{
+      background: rgba(255,255,255,0.04);
+      border-color: rgba(255,255,255,0.1);
+      box-shadow: none;
+    }
+
+    .space-compose textarea{
+      width: 100%;
+      min-height: 92px;
+      resize: vertical;
+      border: none;
+      background: transparent;
+      outline: none;
+      font-family: inherit;
+      font-size: 17px;
+      line-height: 1.7;
+      color: rgba(40,34,28,0.92);
+      box-sizing: border-box;
+    }
+
+    body.learning-mode .space-compose textarea{
+      color: rgba(235,235,235,0.92);
+    }
+
+    .space-compose textarea::placeholder{
+      color: rgba(82,68,54,0.4);
+    }
+
+    body.learning-mode .space-compose textarea::placeholder{
+      color: rgba(200,200,200,0.35);
+    }
+
+    .space-compose-row{
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .space-send{
+      display: inline-block;
+      min-width: 100px;
+      padding: 11px 26px;
+      border: none;
+      border-radius: 999px;
+      font-size: 16px;
+      font-weight: bold;
+      font-family: inherit;
+      background: linear-gradient(135deg, #111, #333);
+      color: white;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.22);
+      cursor: pointer;
+      transition: 0.25s ease;
+    }
+
+    .space-send:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(0,0,0,0.3);
+    }
+
+    body.learning-mode .space-send{
+      background: linear-gradient(135deg, #e8e8e8, #ffffff);
+      color: #111;
+      box-shadow: 0 8px 22px rgba(255,255,255,0.1);
+    }
+
+    .space-feed-title{
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 400;
+      color: rgba(82,68,54,0.45);
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(82,68,54,0.14);
+    }
+
+    body.learning-mode .space-feed-title{
+      color: rgba(200,200,200,0.4);
+      border-bottom-color: rgba(255,255,255,0.1);
+    }
+
+    .space-feed{
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .space-item{
+      padding: 18px 20px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.5);
+      border: 1px solid rgba(82,68,54,0.1);
+      font-size: 17px;
+      line-height: 1.75;
+      color: rgba(40,34,28,0.9);
+    }
+
+    body.learning-mode .space-item{
+      background: rgba(255,255,255,0.03);
+      border-color: rgba(255,255,255,0.08);
+      color: rgba(230,230,230,0.88);
+    }
+
+    .space-item.is-new{
+      animation: itemArrive 0.5s ease-out;
+    }
+
+    @keyframes itemArrive{
+      from{ opacity: 0; transform: translateY(-8px); }
+      to{ opacity: 1; transform: translateY(0); }
+    }
+
+    .space-item time{
+      display: block;
+      margin-top: 10px;
+      font-size: 12px;
+      color: rgba(82,68,54,0.42);
+    }
+
+    body.learning-mode .space-item time{
+      color: rgba(200,200,200,0.4);
+    }
+
+    .space-footer{
+      text-align: center;
+      font-size: 13px;
+      line-height: 2;
+      color: rgba(82,68,54,0.4);
+      margin-top: 50px;
+    }
+
+    body.learning-mode .space-footer{
+      color: rgba(200,200,200,0.4);
+    }
+
+    @media (max-width: 600px){
+      .space-page{ padding: 86px 16px 50px; }
+      .space-subtitle{ font-size: 17px; }
+      .space-compose{ padding: 16px; border-radius: 18px; }
+      .space-item{ padding: 15px 16px; font-size: 16px; }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="space-page">
+
+    <div class="space-title">המרחב</div>
+    <div class="space-subtitle">24 שעות לומר הכול. תובנה אחת נשארת.</div>
+    <div class="space-note">בלי שם משתמש, בלי לייקים, בלי תגובות. רק מה שרצית להגיד — וה־AI בודק רק שאין גזענות, איומים, אלימות או עידוד לעבירה.</div>
+
+    <div class="space-status">
+      <span class="dot"></span>
+      <span>הכתיבה פתוחה · נסגרת בעוד <span id="countdown">6:42:11</span></span>
+    </div>
+
+    <div class="space-compose">
+      <textarea id="spaceInput" maxlength="400" placeholder="תכתוב מה שבא לך"></textarea>
+      <div class="space-compose-row">
+        <button class="space-send" id="spaceSend">לשלוח</button>
+      </div>
+    </div>
+
+    <div class="space-feed-title">מה שנכתב היום</div>
+
+    <div class="space-feed" id="spaceFeed">
+      <div class="space-item"><span>מישהו כתוב יותר טוב מהמרצה שלי ב-CCNA האמיתי. תודה.</span><time>לפני 6 דקות</time></div>
+      <div class="space-item"><span>לא הבנתי כלום בעמוד על subnet, ואני לא בטוח שזו אשמתי.</span><time>לפני 24 דקות</time></div>
+      <div class="space-item"><span>האתר הזה חרא, תעדכנו כבר את העיצוב של דף הבית.</span><time>לפני 41 דקות</time></div>
+      <div class="space-item" style="opacity:0.78"><span>מוזר לכתוב משהו שיודע שייעלם. דווקא נעים.</span><time>לפני שעה וחצי</time></div>
+      <div class="space-item" style="opacity:0.62"><span>מישהו יודע אם NAT באמת יעלם עם IPv6 או שזה עוד יישאר איתנו עשרים שנה?</span><time>לפני 3 שעות</time></div>
+      <div class="space-item" style="opacity:0.45"><span>סתם רציתי לכתוב פה משהו בלי שאף אחד ידע שזה אני.</span><time>לפני 5 שעות</time></div>
+    </div>
+
+    <div class="space-footer">
+      ההודעות נמחקות אוטומטית אחרי 24 שעות.<br>
+      בסוף השבוע נשארת מהן תובנה אחת — אם נולדה כזו.
+    </div>
+
+  </div>
+
+<script>
+  document.getElementById("spaceSend").addEventListener("click", () => {
+    const input = document.getElementById("spaceInput");
+    const text = input.value.trim();
+    if (!text) return;
+    const feed = document.getElementById("spaceFeed");
+    const item = document.createElement("div");
+    item.className = "space-item is-new";
+    item.innerHTML = `<span></span><time>לפני רגע</time>`;
+    item.querySelector("span").textContent = text;
+    feed.insertBefore(item, feed.firstChild);
+    input.value = "";
+  });
+</script>
+
+<script src="waytosee.js"></script>
+
+</body>
+</html>
