@@ -1,0 +1,150 @@
+<!--
+  זה לא קובץ שלם - אלה שני חלקים שצריך להכניס בעצמך ל-merchav.html הקיים אצלך.
+  אני לא נגעתי בקובץ האמיתי בתיקייה שלך, כמו שביקשת.
+
+  ============================================================
+  חלק 1: להוסיף בתוך ה-<head>, אחרי שורת ה-<link rel="stylesheet" href="waytosee.css">
+  ============================================================
+-->
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+
+<!--
+  ============================================================
+  חלק 2: בתוך ה-<div class="space-compose">, מוסיפים שורה אחת חדשה
+  בין ה-textarea לבין ה-space-compose-row (כלומר: מעל כפתור "לשלוח")
+  ============================================================
+-->
+
+<div id="turnstileBox" class="cf-turnstile"
+     data-sitekey="PASTE_YOUR_TURNSTILE_SITE_KEY_HERE"
+     data-action="post_message"
+     data-callback="onTurnstileToken"
+     data-expired-callback="onTurnstileExpired"
+     data-error-callback="onTurnstileError"></div>
+
+
+<!--
+  ============================================================
+  חלק 3: מחליפים לגמרי את בלוק ה-<script> שנמצא לפני
+  <script src="waytosee.js"></script> בסוף הקובץ - בקוד הבא:
+  ============================================================
+-->
+
+<script>
+  // כתובת ה-Worker שקיבלת מ-Cloudflare (Workers & Pages -> ה-Worker שלך -> Copy)
+  const WORKER_URL = "PASTE_YOUR_WORKER_URL_HERE";
+
+  function getClientId() {
+    let id = localStorage.getItem("spaceClientId");
+    if (!id) {
+      id = crypto.randomUUID();
+      localStorage.setItem("spaceClientId", id);
+    }
+    return id;
+  }
+
+  let currentTurnstileToken = "";
+  function onTurnstileToken(token) {
+    currentTurnstileToken = token;
+  }
+  // הטוקן פוקע אחרי כמה דקות, ולפעמים הבדיקה עצמה נכשלת (רשת וכו') -
+  // בשני המקרים מאפסים כדי שהכפתור ידע שהאימות כבר לא תקף ויבקש אימות מחדש
+  function onTurnstileExpired() {
+    currentTurnstileToken = "";
+  }
+  function onTurnstileError() {
+    currentTurnstileToken = "";
+  }
+
+  function formatRelativeTime(ms) {
+    const diff = Date.now() - ms;
+    const minutes = Math.floor(diff / 60000);
+    if (minutes < 1) return "לפני רגע";
+    if (minutes < 60) return `לפני ${minutes} דקות`;
+    const hours = Math.floor(minutes / 60);
+    return `לפני ${hours} שעות`;
+  }
+
+  function renderFeed(messages) {
+    const feed = document.getElementById("spaceFeed");
+    feed.replaceChildren();
+    messages.forEach((m) => {
+      const item = document.createElement("div");
+      item.className = "space-item";
+      const span = document.createElement("span");
+      span.textContent = m.content;
+      const time = document.createElement("time");
+      time.textContent = formatRelativeTime(m.created_at);
+      item.appendChild(span);
+      item.appendChild(time);
+      feed.appendChild(item);
+    });
+  }
+
+  async function loadFeed() {
+    try {
+      const res = await fetch(`${WORKER_URL}/messages`);
+      const data = await res.json();
+      renderFeed(data.messages || []);
+    } catch (e) {
+      console.warn("שגיאה בטעינת הפיד:", e);
+    }
+  }
+
+  document.getElementById("spaceSend").addEventListener("click", async () => {
+    const input = document.getElementById("spaceInput");
+    const text = input.value.trim();
+    if (!text) return;
+
+    if (!currentTurnstileToken) {
+      alert("רגע - האימות עדיין לא הושלם, נסה שוב בעוד שנייה.");
+      return;
+    }
+
+    const button = document.getElementById("spaceSend");
+    button.disabled = true;
+
+    try {
+      const res = await fetch(`${WORKER_URL}/messages`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Space-Client": getClientId() },
+        body: JSON.stringify({
+          text,
+          turnstileToken: currentTurnstileToken,
+          clientId: getClientId(),
+        }),
+      });
+      const data = await res.json();
+
+      if (data.status === "published") {
+        input.value = "";
+        loadFeed();
+      } else if (data.status === "blocked") {
+        alert("ההודעה לא פורסמה - היא נחסמה על ידי המודרציה.");
+      } else if (data.reason === "rate_limited" || data.reason === "rate_limited_strict") {
+        alert("שלחת יותר מדי הודעות בשעה האחרונה - נסה שוב מאוחר יותר.");
+      } else {
+        alert("משהו השתבש, נסה שוב.");
+      }
+    } catch (e) {
+      alert("לא הצלחנו להתחבר לשרת. נסה שוב בעוד רגע.");
+    } finally {
+      button.disabled = false;
+      if (window.turnstile) window.turnstile.reset();
+      currentTurnstileToken = "";
+    }
+  });
+
+  loadFeed();
+  setInterval(loadFeed, 60000); // רענון הפיד כל דקה
+</script>
+
+<!--
+  ============================================================
+  חלק 4: אפשר למחוק לגמרי את שש שורות ה-HTML הקבועות
+  (<div class="space-item">...) שהיו בתוך space-feed בגרסת המוקאפ -
+  הן יוחלפו אוטומטית בהודעות האמיתיות מהשרת ברגע שהעמוד נטען.
+  ============================================================
+-->
