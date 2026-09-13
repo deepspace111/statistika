@@ -19,8 +19,21 @@ document.addEventListener("DOMContentLoaded", () => {
   </svg>`;
   homeButton.href = homeAddress;
 
-  // כפתור מעבר לעמוד "המרחב" - בכל עמוד חוץ מעמוד הנושאים (intro.html) ומהמרחב עצמו
   const currentFile = (location.pathname.split("/").pop() || "").toLowerCase();
+
+  // בעמוד "המרחב" - לחיצה על כפתור הבית חוזרת לעמוד הקודם (במקום לעמוד הבית)
+  if (currentFile === "merchav.html") {
+    homeButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.location.href = homeAddress;
+      }
+    });
+  }
+
+  // כפתור מעבר לעמוד "המרחב" - בכל עמוד חוץ מעמוד הנושאים (intro.html) ומהמרחב עצמו
   const spaceExcluded = ["intro.html", "merchav.html"];
   if (!spaceExcluded.includes(currentFile)) {
     let spaceButton = document.getElementById("spaceBtn");
