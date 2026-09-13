@@ -18,6 +18,8 @@
 
   <link rel="stylesheet" href="waytosee.css">
 
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
   <style>
 
     body{
@@ -265,8 +267,7 @@
 
   <div class="space-page">
 
-    <div class="space-title"<מרחב התודעה></div>
-    <div class="space-subtitle">24 שעות לומר הכול. תובנה אחת נשארת.</div>
+    <div class="space-title">המרחב</div>
     <div class="space-note">בלי שם משתמש, בלי לייקים, בלי תגובות. רק מה שרצית להגיד — וה־AI בודק רק שאין גזענות, איומים, אלימות או עידוד לעבירה.</div>
 
     <div class="space-status">
@@ -276,6 +277,12 @@
 
     <div class="space-compose">
       <textarea id="spaceInput" maxlength="400" placeholder="תכתוב מה שבא לך"></textarea>
+      <div id="turnstileBox" class="cf-turnstile"
+           data-sitekey="0x4AAAAAAEyVwzWvL5D8ur4H"
+           data-action="post_message"
+           data-callback="onTurnstileToken"
+           data-expired-callback="onTurnstileExpired"
+           data-error-callback="onTurnstileError"></div>
       <div class="space-compose-row">
         <button class="space-send" id="spaceSend">לשלוח</button>
       </div>
@@ -284,34 +291,117 @@
     <div class="space-feed-title">מה שנכתב היום</div>
 
     <div class="space-feed" id="spaceFeed">
-      <div class="space-item"><span>מישהו כותב יותר טוב מהמרצה שלי ב-CCNA האמיתי. תודה.</span><time>לפני 6 דקות</time></div>
-      <div class="space-item"><span>לא הבנתי כלום בעמוד על subnet,י.</span><time>לפני 24 דקות</time></div>
-      <div class="space-item"><span>האתר הזה חרא, תעדכנו כבר את העיצוב ת.</span><time>לפני 41 דקות</time></div>
-      <div class="space-item" style="opacity:0.78"><span>מוזר לכתוב משהו שיודע שייעלם. דווקא נעים.</span><time>לפני שעה וחצי</time></div>
-      <div class="space-item" style="opacity:0.62"><span>מישהו יודע אם NAT באמת יעלם עם IPv6 או שזה עוד יישאר איתנו עשרים שנה?</span><time>לפני 3 שעות</time></div>
-      <div class="space-item" style="opacity:0.45"><span>סתם רציתי לכתוב פה משהו בלי שאף אחד ידע שזה אני.</span><time>לפני 5 שעות</time></div>
-    </div>
-
-    <div class="space-footer">
-      ההודעות נמחקות אוטומטית אחרי 24 שעות.<br>
-      בסוף השבוע נשארת מהן תובנה אחת — אם נולדה כזו.
     </div>
 
   </div>
 
 <script>
-  document.getElementById("spaceSend").addEventListener("click", () => {
+  // כתובת ה-Worker שקיבלת מ-Cloudflare (Workers & Pages -> ה-Worker שלך -> Copy)
+  const WORKER_URL = "https://red-salad-5a6d.nyceve.workers.dev";
+
+  function getClientId() {
+    let id = localStorage.getItem("spaceClientId");
+    if (!id) {
+      id = crypto.randomUUID();
+      localStorage.setItem("spaceClientId", id);
+    }
+    return id;
+  }
+
+  let currentTurnstileToken = "";
+  function onTurnstileToken(token) {
+    currentTurnstileToken = token;
+  }
+  // הטוקן פוקע אחרי כמה דקות, ולפעמים הבדיקה עצמה נכשלת (רשת וכו') -
+  // בשני המקרים מאפסים כדי שהכפתור ידע שהאימות כבר לא תקף ויבקש אימות מחדש
+  function onTurnstileExpired() {
+    currentTurnstileToken = "";
+  }
+  function onTurnstileError() {
+    currentTurnstileToken = "";
+  }
+
+  function formatRelativeTime(ms) {
+    const diff = Date.now() - ms;
+    const minutes = Math.floor(diff / 60000);
+    if (minutes < 1) return "לפני רגע";
+    if (minutes < 60) return `לפני ${minutes} דקות`;
+    const hours = Math.floor(minutes / 60);
+    return `לפני ${hours} שעות`;
+  }
+
+  function renderFeed(messages) {
+    const feed = document.getElementById("spaceFeed");
+    feed.replaceChildren();
+    messages.forEach((m) => {
+      const item = document.createElement("div");
+      item.className = "space-item";
+      const span = document.createElement("span");
+      span.textContent = m.content;
+      const time = document.createElement("time");
+      time.textContent = formatRelativeTime(m.created_at);
+      item.appendChild(span);
+      item.appendChild(time);
+      feed.appendChild(item);
+    });
+  }
+
+  async function loadFeed() {
+    try {
+      const res = await fetch(`${WORKER_URL}/messages`);
+      const data = await res.json();
+      renderFeed(data.messages || []);
+    } catch (e) {
+      console.warn("שגיאה בטעינת הפיד:", e);
+    }
+  }
+
+  document.getElementById("spaceSend").addEventListener("click", async () => {
     const input = document.getElementById("spaceInput");
     const text = input.value.trim();
     if (!text) return;
-    const feed = document.getElementById("spaceFeed");
-    const item = document.createElement("div");
-    item.className = "space-item is-new";
-    item.innerHTML = `<span></span><time>לפני רגע</time>`;
-    item.querySelector("span").textContent = text;
-    feed.insertBefore(item, feed.firstChild);
-    input.value = "";
+
+    if (!currentTurnstileToken) {
+      alert("רגע - האימות עדיין לא הושלם, נסה שוב בעוד שנייה.");
+      return;
+    }
+
+    const button = document.getElementById("spaceSend");
+    button.disabled = true;
+
+    try {
+      const res = await fetch(`${WORKER_URL}/messages`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Space-Client": getClientId() },
+        body: JSON.stringify({
+          text,
+          turnstileToken: currentTurnstileToken,
+          clientId: getClientId(),
+        }),
+      });
+      const data = await res.json();
+
+      if (data.status === "published") {
+        input.value = "";
+        loadFeed();
+      } else if (data.status === "blocked") {
+        alert("ההודעה לא פורסמה - היא נחסמה על ידי המודרציה.");
+      } else if (data.reason === "rate_limited" || data.reason === "rate_limited_strict") {
+        alert("שלחת יותר מדי הודעות בשעה האחרונה - נסה שוב מאוחר יותר.");
+      } else {
+        alert("משהו השתבש, נסה שוב.");
+      }
+    } catch (e) {
+      alert("לא הצלחנו להתחבר לשרת. נסה שוב בעוד רגע.");
+    } finally {
+      button.disabled = false;
+      if (window.turnstile) window.turnstile.reset();
+      currentTurnstileToken = "";
+    }
   });
+
+  loadFeed();
+  setInterval(loadFeed, 60000); // רענון הפיד כל דקה
 </script>
 
 <script src="waytosee.js"></script>
