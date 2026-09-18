@@ -241,6 +241,120 @@
       color: rgba(200,200,200,0.4);
     }
 
+    .space-item-actions{
+      margin-top: 10px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .space-reply-toggle{
+      background: none;
+      border: none;
+      padding: 0;
+      font-family: inherit;
+      font-size: 13px;
+      color: rgba(82,68,54,0.5);
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    body.learning-mode .space-reply-toggle{ color: rgba(200,200,200,0.5); }
+
+    .space-reply-compose{
+      display: none;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(82,68,54,0.1);
+    }
+
+    body.learning-mode .space-reply-compose{ border-top-color: rgba(255,255,255,0.08); }
+
+    .space-reply-compose.is-open{ display: block; }
+
+    .space-reply-compose textarea{
+      width: 100%;
+      min-height: 56px;
+      resize: vertical;
+      border: 1px solid rgba(82,68,54,0.14);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.5);
+      outline: none;
+      font-family: inherit;
+      font-size: 15px;
+      line-height: 1.6;
+      color: rgba(40,34,28,0.92);
+      padding: 10px 12px;
+      box-sizing: border-box;
+    }
+
+    body.learning-mode .space-reply-compose textarea{
+      background: rgba(255,255,255,0.04);
+      border-color: rgba(255,255,255,0.1);
+      color: rgba(235,235,235,0.92);
+    }
+
+    .space-reply-compose-row{
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 8px;
+    }
+
+    .space-reply-send{
+      padding: 7px 18px;
+      border: none;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: bold;
+      font-family: inherit;
+      background: linear-gradient(135deg, #111, #333);
+      color: white;
+      cursor: pointer;
+    }
+
+    body.learning-mode .space-reply-send{
+      background: linear-gradient(135deg, #e8e8e8, #ffffff);
+      color: #111;
+    }
+
+    .space-replies{
+      margin-top: 14px;
+      padding-right: 18px;
+      border-right: 2px solid rgba(82,68,54,0.12);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    body.learning-mode .space-replies{ border-right-color: rgba(255,255,255,0.1); }
+
+    .space-reply-item{
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.35);
+      border: 1px solid rgba(82,68,54,0.08);
+      font-size: 15px;
+      line-height: 1.65;
+      color: rgba(40,34,28,0.88);
+    }
+
+    body.learning-mode .space-reply-item{
+      background: rgba(255,255,255,0.025);
+      border-color: rgba(255,255,255,0.06);
+      color: rgba(225,225,225,0.85);
+    }
+
+    .space-reply-item time{
+      display: block;
+      margin-top: 6px;
+      font-size: 11px;
+      color: rgba(82,68,54,0.4);
+    }
+
+    body.learning-mode .space-reply-item time{
+      color: rgba(200,200,200,0.38);
+    }
+
     .space-footer{
       text-align: center;
       font-size: 13px;
@@ -268,7 +382,7 @@
   <div class="space-page">
 
     <div class="space-title">המרחב</div>
-    <div class="space-note">בלי שם משתמש, בלי לייקים, בלי תגובות. רק מה שרצית להגיד — וה־AI בודק רק שאין גזענות, איומים, אלימות או עידוד לעבירה.</div>
+    <div class="space-note">בלי שם משתמש, בלי לייקים. רק מה שרצית להגיד, ואפשר גם להגיב למה שאחרים כתבו — וה־AI בודק רק שאין גזענות, איומים, אלימות או עידוד לעבירה.</div>
 
     <div class="space-status">
       <span class="dot"></span>
@@ -330,20 +444,81 @@
     return `לפני ${hours} שעות`;
   }
 
+  // בונה את ה-DOM של הודעה בודדת. תמיד בונים את תוכן ההודעה עם textContent
+  // (לא innerHTML) - כי זה טקסט שמשתמשים כתבו, וזה מה ששומר עלינו מ-XSS.
+  // רק הודעות ראשיות (isReply=false) מקבלות כפתור "הגב", תיבת תגובות ואת
+  // תיבת ההגבה עצמה - כי מגבילים בכוונה לרמת הגבה אחת בלבד.
+  function buildMessageEl(m, isReply) {
+    const item = document.createElement("div");
+    item.className = isReply ? "space-reply-item" : "space-item";
+    item.dataset.id = m.id;
+
+    const span = document.createElement("span");
+    span.textContent = m.content;
+    item.appendChild(span);
+
+    const time = document.createElement("time");
+    time.textContent = formatRelativeTime(m.created_at);
+    item.appendChild(time);
+
+    if (isReply) return item;
+
+    const actions = document.createElement("div");
+    actions.className = "space-item-actions";
+    const toggle = document.createElement("button");
+    toggle.type = "button";
+    toggle.className = "space-reply-toggle";
+    toggle.textContent = "הגב";
+    actions.appendChild(toggle);
+    item.appendChild(actions);
+
+    if (m.replies && m.replies.length) {
+      const repliesBox = document.createElement("div");
+      repliesBox.className = "space-replies";
+      m.replies.forEach((r) => repliesBox.appendChild(buildMessageEl(r, true)));
+      item.appendChild(repliesBox);
+    }
+
+    const compose = document.createElement("div");
+    compose.className = "space-reply-compose";
+
+    const textarea = document.createElement("textarea");
+    textarea.maxLength = 400;
+    textarea.placeholder = "כתוב תגובה...";
+    compose.appendChild(textarea);
+
+    const row = document.createElement("div");
+    row.className = "space-reply-compose-row";
+    const sendBtn = document.createElement("button");
+    sendBtn.type = "button";
+    sendBtn.className = "space-reply-send";
+    sendBtn.textContent = "שלח תגובה";
+    row.appendChild(sendBtn);
+    compose.appendChild(row);
+    item.appendChild(compose);
+
+    toggle.addEventListener("click", () => {
+      compose.classList.toggle("is-open");
+      if (compose.classList.contains("is-open")) textarea.focus();
+    });
+
+    sendBtn.addEventListener("click", async () => {
+      const text = textarea.value.trim();
+      if (!text) return;
+      const ok = await sendMessage(text, m.id, sendBtn);
+      if (ok) {
+        textarea.value = "";
+        compose.classList.remove("is-open");
+      }
+    });
+
+    return item;
+  }
+
   function renderFeed(messages) {
     const feed = document.getElementById("spaceFeed");
     feed.replaceChildren();
-    messages.forEach((m) => {
-      const item = document.createElement("div");
-      item.className = "space-item";
-      const span = document.createElement("span");
-      span.textContent = m.content;
-      const time = document.createElement("time");
-      time.textContent = formatRelativeTime(m.created_at);
-      item.appendChild(span);
-      item.appendChild(time);
-      feed.appendChild(item);
-    });
+    messages.forEach((m) => feed.appendChild(buildMessageEl(m, false)));
   }
 
   async function loadFeed() {
@@ -356,18 +531,18 @@
     }
   }
 
-  document.getElementById("spaceSend").addEventListener("click", async () => {
-    const input = document.getElementById("spaceInput");
-    const text = input.value.trim();
-    if (!text) return;
-
+  // שולח הודעה ראשית (parentId ריק) או תגובה (parentId = מזהה ההודעה שעליה מגיבים).
+  // אותה לוגיקה בדיוק משמשת גם את תיבת הכתיבה הראשית וגם כל תיבת "הגב" - הן חולקות
+  // את אותו טוקן Turnstile יחיד שבעמוד. מחזיר true/false כדי שהקורא ידע אם לנקות
+  // את תיבת הטקסט שלו.
+  async function sendMessage(text, parentId, button) {
     if (!currentTurnstileToken) {
       alert("רגע - האימות עדיין לא הושלם, נסה שוב בעוד שנייה.");
-      return;
+      return false;
     }
 
-    const button = document.getElementById("spaceSend");
-    button.disabled = true;
+    if (button) button.disabled = true;
+    let success = false;
 
     try {
       const res = await fetch(`${WORKER_URL}/messages`, {
@@ -375,6 +550,7 @@
         headers: { "Content-Type": "application/json", "X-Space-Client": getClientId() },
         body: JSON.stringify({
           text,
+          parentId: parentId || null,
           turnstileToken: currentTurnstileToken,
           clientId: getClientId(),
         }),
@@ -382,22 +558,35 @@
       const data = await res.json();
 
       if (data.status === "published") {
-        input.value = "";
+        success = true;
         loadFeed();
       } else if (data.status === "blocked") {
         alert("ההודעה לא פורסמה - היא נחסמה על ידי המודרציה.");
       } else if (data.reason === "rate_limited" || data.reason === "rate_limited_strict") {
         alert("שלחת יותר מדי הודעות בשעה האחרונה - נסה שוב מאוחר יותר.");
+      } else if (data.reason === "parent_not_found") {
+        alert("ההודעה שהגבת עליה כבר לא קיימת (כנראה נמחקה אחרי 24 שעות).");
       } else {
         alert("משהו השתבש, נסה שוב.");
       }
     } catch (e) {
       alert("לא הצלחנו להתחבר לשרת. נסה שוב בעוד רגע.");
     } finally {
-      button.disabled = false;
+      if (button) button.disabled = false;
       if (window.turnstile) window.turnstile.reset();
       currentTurnstileToken = "";
     }
+
+    return success;
+  }
+
+  document.getElementById("spaceSend").addEventListener("click", async () => {
+    const input = document.getElementById("spaceInput");
+    const text = input.value.trim();
+    if (!text) return;
+    const button = document.getElementById("spaceSend");
+    const ok = await sendMessage(text, null, button);
+    if (ok) input.value = "";
   });
 
   loadFeed();

@@ -1,6 +1,9 @@
 // space-worker.js - הקוד המלא של ה-Worker עבור "המרחב"
 // להדביק בעורך הקוד של ה-Worker בדשבורד של Cloudflare (Workers & Pages -> ה-Worker שלך -> Edit code)
 //
+// לפני שמדביקים: צריך להריץ קודם את space-schema.sql המעודכן (עמודת parent_id) על ה-D1,
+// אחרת ה-INSERT למטה ייכשל כי העמודה עוד לא קיימת.
+//
 // דורש שלושה bindings בהגדרות ה-Worker (Settings -> Bindings):
 //   DB          -> D1 database (זה שיצרת והרצת עליו את space-schema.sql)
 //   RATE_LIMIT  -> KV namespace (ליצור namespace חדש וריק, בלי צורך בהגדרה נוספת)
@@ -43,6 +46,7 @@ export default {
   },
 
   // רץ אוטומטית לפי ה-Cron Trigger שתגדיר בדשבורד - מוחק הודעות בנות יותר מ-24 שעות
+  // (כולל תגובות - הן שורות רגילות באותה טבלה, אז נמחקות באותו תנאי בדיוק)
   async scheduled(event, env, ctx) {
     const cutoff = Date.now() - 24 * 60 * 60 * 1000;
     await env.DB.prepare("DELETE FROM messages WHERE created_at < ?").bind(cutoff).run();
@@ -51,11 +55,34 @@ export default {
 
 async function handleGetMessages(env, corsHeaders) {
   const cutoff = Date.now() - 24 * 60 * 60 * 1000;
+
+  // שולפים גם הודעות ראשיות וגם תגובות בשאילתה אחת (כולן באותה טבלה),
+  // ואז מקבצים בזיכרון את התגובות מתחת להודעת האב שלהן
   const { results } = await env.DB.prepare(
-    "SELECT id, content, created_at FROM messages WHERE created_at > ? ORDER BY created_at DESC LIMIT 200"
+    "SELECT id, content, created_at, parent_id FROM messages WHERE created_at > ? ORDER BY created_at ASC LIMIT 500"
   ).bind(cutoff).all();
 
-  return new Response(JSON.stringify({ messages: results }), {
+  const byId = new Map();
+  const roots = [];
+  for (const row of results) {
+    row.replies = [];
+    byId.set(row.id, row);
+  }
+  for (const row of results) {
+    if (row.parent_id) {
+      const parent = byId.get(row.parent_id);
+      // אם האב לא נמצא ברשימה (למשל נמחק בדיוק על הגבול של 24 שעות) - פשוט מתעלמים
+      // מהתגובה הבודדת הזו, במקום לקרוס או להציג תגובה יתומה
+      if (parent) parent.replies.push(row);
+    } else {
+      roots.push(row);
+    }
+  }
+
+  roots.sort((a, b) => b.created_at - a.created_at); // הודעות ראשיות: חדש למעלה, כמו קודם
+  const messages = roots.slice(0, 200);
+
+  return new Response(JSON.stringify({ messages }), {
     headers: { ...corsHeaders, "Content-Type": "application/json" },
   });
 }
@@ -89,8 +116,17 @@ async function handlePostMessage(request, env, corsHeaders) {
   const turnstileToken = body.turnstileToken || "";
   const clientId = (body.clientId || "unknown").toString().slice(0, 64);
 
+  // parentId מגיע רק כשמדובר בתגובה. אותה בדיקת טיפוס כמו text - קלט זדוני יכול לשלוח
+  // כל דבר כאן, ולא רוצים ש-.trim() יקרוס על ערך שאינו מחרוזת
+  const parentId = typeof body.parentId === "string" ? body.parentId.trim() : null;
+
   if (!text || text.length > 400) {
     return new Response(JSON.stringify({ status: "error", reason: "invalid_length" }), { status: 400, headers: jsonHeaders });
+  }
+
+  // בדיקת סבירות זולה על מזהה ה-parentId (הוא תמיד UUID) - לפני שפונים בכלל ל-D1
+  if (parentId && (parentId.length < 10 || parentId.length > 64)) {
+    return new Response(JSON.stringify({ status: "error", reason: "bad_request" }), { status: 400, headers: jsonHeaders });
   }
 
   // שלב 1: אימות אנושיות (Turnstile) - נבדק כאן, בצד השרת, ולא רק בדפדפן.
@@ -127,16 +163,31 @@ async function handlePostMessage(request, env, corsHeaders) {
   await env.RATE_LIMIT.put(perClientKey, String(clientCount + 1), { expirationTtl: 3600 });
   await env.RATE_LIMIT.put(perIpKey, String(ipCount + 1), { expirationTtl: 3600 });
 
-  // שלב 3: מודרציה מול OpenAI, לפי מדיניות מותאמת אישית (לא ברירת המחדל הכללית שלהם)
+  // שלב 3: אם זו תגובה - מוודאים שההודעה המקורית עדיין קיימת (לא פגה תוקף/נמחקה),
+  // ושהיא עצמה אינה תגובה. מגבילים בכוונה לרמת הגבה אחת בלבד, כדי לשמור את "המרחב"
+  // קריא ופשוט (בלי שרשורים מקוננים) - בודקים את זה לפני קריאת המודרציה היקרה,
+  // כדי לא לבזבז קריאת API על בקשה שממילא תידחה.
+  if (parentId) {
+    const parent = await env.DB.prepare("SELECT parent_id FROM messages WHERE id = ?").bind(parentId).first();
+    if (!parent) {
+      return new Response(JSON.stringify({ status: "error", reason: "parent_not_found" }), { status: 400, headers: jsonHeaders });
+    }
+    if (parent.parent_id) {
+      return new Response(JSON.stringify({ status: "error", reason: "nested_reply_not_allowed" }), { status: 400, headers: jsonHeaders });
+    }
+  }
+
+  // שלב 4: מודרציה מול OpenAI, לפי מדיניות מותאמת אישית (לא ברירת המחדל הכללית שלהם)
   const moderation = await moderateText(text, env.OPENAI_API_KEY);
   if (!moderation.allowed) {
     return new Response(JSON.stringify({ status: "blocked", reason: moderation.reason }), { headers: jsonHeaders });
   }
 
-  // שלב 4: שמירה זמנית ב-D1
+  // שלב 5: שמירה זמנית ב-D1 (parentId הוא NULL אצל הודעה רגילה, ומזהה ההודעה שעליה
+  // מגיבים אצל תגובה)
   const id = crypto.randomUUID();
-  await env.DB.prepare("INSERT INTO messages (id, content, created_at) VALUES (?, ?, ?)")
-    .bind(id, text, Date.now())
+  await env.DB.prepare("INSERT INTO messages (id, content, created_at, parent_id) VALUES (?, ?, ?, ?)")
+    .bind(id, text, Date.now(), parentId)
     .run();
 
   return new Response(JSON.stringify({ status: "published" }), { headers: jsonHeaders });
