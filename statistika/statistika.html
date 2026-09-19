@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>השכבה הפיזית</title>
 
+<link rel="stylesheet" href="../waytosee.css">
 <link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap" rel="stylesheet">
 
 <style>
@@ -50,44 +51,6 @@ body{
 @keyframes rain{
   from{ transform:translateY(-20vh); }
   to{ transform:translateY(150vh); }
-}
-
-/* כפתורים */
-
-#homeBtn{
-  position:fixed;
-  top:14px;
-  left:14px;
-  text-decoration:none;
-  font-family:'Yuji Mai', serif;
-  font-size:28px;
-  color:rgba(210,210,210,0.42);
-  z-index:20;
-}
-
-#focusBtn{
-  position:fixed;
-  top:14px;
-  right:14px;
-  border:1px solid rgba(255,255,255,0.16);
-  background:rgba(255,255,255,0.035);
-  color:rgba(220,220,220,0.66);
-  padding:7px 12px;
-  border-radius:18px;
-  font-size:13px;
-  cursor:pointer;
-  z-index:20;
-  transition:0.4s ease;
-}
-
-#focusBtn.active{
-  background:rgba(120,255,190,0.10);
-  color:rgba(220,255,235,0.88);
-  border-color:rgba(120,255,190,0.28);
-}
-
-#focusBtn.scrolling{
-  opacity:0.18;
 }
 
 /* מצב תודעת לימוד */
@@ -263,21 +226,6 @@ p{
     font-size:26px;
   }
 
-  #homeBtn{
-    font-size:26px;
-  }
-
-  #focusBtn{
-    top:70px;
-    right:10px;
-    writing-mode:vertical-rl;
-    text-orientation:mixed;
-    font-size:12px;
-    padding:12px 7px;
-    border-radius:18px;
-    line-height:1.3;
-  }
-
   .cable-reveal{
     width:94vw;
     margin:70px auto 80px;
@@ -295,16 +243,9 @@ p{
 
 <div class="rain" id="rain"></div>
 
-<a href="index.html" id="homeBtn">道</a>
-<button id="focusBtn">תודעת לימוד</button>
-
-<audio id="brownNoise" loop>
-  <source src="brown-noise.mp3" type="audio/mpeg">
-</audio>
-
 <section class="hero">
 
-  <img src="spider-network.png" alt="Spider Network">
+  <img src="../internet/spider-network.png" alt="Spider Network">
 
   <div class="overlay"></div>
 
@@ -355,11 +296,11 @@ p{
 
     <br><br>
 
-    <a href="thinking-station.html" class="thinking-symbol">☯</a>
+    <a href="../thinking-station.html" class="thinking-symbol">☯</a>
   </div>
 
   <div class="cable-reveal" id="cableReveal">
-    <img src="cable.jpg" alt="כבל רשת בשכבה הפיזית">
+    <img src="../internet/cable.png" alt="כבל רשת בשכבה הפיזית">
   </div>
 
   <h3>הכבל</h3>
@@ -462,41 +403,6 @@ for(let i = 0; i < 110; i++){
   rain.appendChild(drop);
 }
 
-const focusBtn = document.getElementById("focusBtn");
-const brownNoise = document.getElementById("brownNoise");
-
-focusBtn.addEventListener("click", function(){
-  document.body.classList.toggle("learning-mode");
-  focusBtn.classList.toggle("active");
-
-  if(document.body.classList.contains("learning-mode")){
-    focusBtn.textContent = "מצב לימוד פעיל";
-  } else {
-    focusBtn.textContent = "תודעת לימוד";
-  }
-
-  if(brownNoise.paused){
-    brownNoise.volume = 0.16;
-    brownNoise.play().catch(() => {});
-  } else {
-    brownNoise.pause();
-  }
-});
-
-let scrollTimer;
-
-window.addEventListener("scroll", function(){
-  if(window.innerWidth <= 768){
-    focusBtn.classList.add("scrolling");
-
-    clearTimeout(scrollTimer);
-
-    scrollTimer = setTimeout(function(){
-      focusBtn.classList.remove("scrolling");
-    }, 650);
-  }
-});
-
 const cableReveal = document.getElementById("cableReveal");
 
 const observer = new IntersectionObserver(function(entries){
@@ -510,6 +416,8 @@ const observer = new IntersectionObserver(function(entries){
 observer.observe(cableReveal);
 
 </script>
+
+<script src="../waytosee.js"></script>
 
 </body>
 </html>

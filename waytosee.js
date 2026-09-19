@@ -33,9 +33,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // כפתור מעבר לעמוד "המרחב" - בכל עמוד חוץ מעמוד הנושאים (intro.html) ומהמרחב עצמו
-  const spaceExcluded = ["intro.html", "merchav.html"];
-  if (!spaceExcluded.includes(currentFile)) {
+  // כפתור מעבר לעמוד "המרחב" - בכל עמוד חוץ מעמוד הנושאים (intro.html)
+  // בתוך המרחב עצמו - אותו כפתור (שלוש הנקודות) נשאר מוצג, אבל לחיצה עליו חוזרת אחורה
+  // בדיוק כמו כפתור הבית - כניסה למרחב ויציאה ממנו באותו כפתור
+  if (currentFile !== "intro.html") {
     let spaceButton = document.getElementById("spaceBtn");
     if (!spaceButton) {
       spaceButton = document.createElement("a");
@@ -48,9 +49,21 @@ document.addEventListener("DOMContentLoaded", () => {
       </svg>`;
       document.body.appendChild(spaceButton);
     }
-    spaceButton.href = mainScript
-      ? new URL("merchav.html", mainScript.src).href
-      : "../merchav.html";
+    if (currentFile === "merchav.html") {
+      spaceButton.href = homeAddress;
+      spaceButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (window.history.length > 1) {
+          window.history.back();
+        } else {
+          window.location.href = homeAddress;
+        }
+      });
+    } else {
+      spaceButton.href = mainScript
+        ? new URL("merchav.html", mainScript.src).href
+        : "../merchav.html";
+    }
   }
 
   if (skipFocusSetup) return;
