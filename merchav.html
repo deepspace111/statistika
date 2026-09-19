@@ -18,7 +18,7 @@
 
   <link rel="stylesheet" href="waytosee.css">
 
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoad&render=explicit" async defer></script>
 
   <style>
 
@@ -391,12 +391,7 @@
 
     <div class="space-compose">
       <textarea id="spaceInput" maxlength="400" placeholder="תכתוב מה שבא לך"></textarea>
-      <div id="turnstileBox" class="cf-turnstile"
-           data-sitekey="0x4AAAAAAEyVwzWvL5D8ur4H"
-           data-action="post_message"
-           data-callback="onTurnstileToken"
-           data-expired-callback="onTurnstileExpired"
-           data-error-callback="onTurnstileError"></div>
+      <div id="turnstileBox"></div>
       <div class="space-compose-row">
         <button class="space-send" id="spaceSend">שלח</button>
       </div>
@@ -433,6 +428,41 @@
   }
   function onTurnstileError() {
     currentTurnstileToken = "";
+  }
+
+  let turnstileWidgetId = null;
+
+  function currentTurnstileTheme() {
+    return document.body.classList.contains("learning-mode") ? "dark" : "light";
+  }
+
+  function renderTurnstile() {
+    if (!window.turnstile) return;
+    if (turnstileWidgetId !== null) {
+      turnstile.remove(turnstileWidgetId);
+      currentTurnstileToken = "";
+    }
+    turnstileWidgetId = turnstile.render("#turnstileBox", {
+      sitekey: "0x4AAAAAAEyVwzWvL5D8ur4H",
+      action: "post_message",
+      theme: currentTurnstileTheme(),
+      callback: onTurnstileToken,
+      "expired-callback": onTurnstileExpired,
+      "error-callback": onTurnstileError,
+    });
+  }
+
+  function onTurnstileLoad() {
+    renderTurnstile();
+    renderTurnstile.lastTheme = currentTurnstileTheme();
+    const observer = new MutationObserver(() => {
+      const wanted = currentTurnstileTheme();
+      if (renderTurnstile.lastTheme !== wanted) {
+        renderTurnstile.lastTheme = wanted;
+        renderTurnstile();
+      }
+    });
+    observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
   }
 
   function formatRelativeTime(ms) {
@@ -561,7 +591,7 @@
         success = true;
         loadFeed();
       } else if (data.status === "blocked") {
-        alert("ההודעה לא פורסמה - היא נחסמה על ידי המודרציה.");
+        alert("ההודעה לא פורסמה - היא נחסמה על ידי המודרציה. (סיבה: " + data.reason + ")");
       } else if (data.reason === "rate_limited" || data.reason === "rate_limited_strict") {
         alert("שלחת יותר מדי הודעות בשעה האחרונה - נסה שוב מאוחר יותר.");
       } else if (data.reason === "parent_not_found") {
