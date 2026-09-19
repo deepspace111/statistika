@@ -277,13 +277,18 @@ async function moderateText(text, apiKey) {
   });
 
   if (!res.ok) {
-    // אם יש תקלה מול OpenAI - עדיף לחסום ולא לפרסם בטעות
+    // אם יש תקלה מול OpenAI - עדיף לחסום ולא לפרסם בטעות. מתעדים את הסטטוס ואת גוף
+    // התשובה בלוגים (Observability -> Logs) כדי שאפשר יהיה לאבחן למה זה נכשל
+    // (מפתח לא תקין, חריגה ממכסה, שינוי בשם המודל וכו') - בלי לחשוף את מפתח ה-API עצמו.
+    const errBody = await res.text().catch(() => "");
+    console.error({ message: "moderation_api_error", status: res.status, body: errBody.slice(0, 500) });
     return { allowed: false, reason: "moderation_error" };
   }
 
   const data = await res.json();
   const result = data.results && data.results[0];
   if (!result) {
+    console.error({ message: "moderation_unexpected_response", body: JSON.stringify(data).slice(0, 500) });
     return { allowed: false, reason: "moderation_error" };
   }
 
