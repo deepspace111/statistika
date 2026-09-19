@@ -561,7 +561,7 @@
         success = true;
         loadFeed();
       } else if (data.status === "blocked") {
-        alert("ההודעה לא פורסמה - היא נחסמה על ידי המודרציה. (סיבה: " + data.reason + ")");
+        alert("ההודעה לא פורסמה - היא נחסמה על ידי המודרציה.");
       } else if (data.reason === "rate_limited" || data.reason === "rate_limited_strict") {
         alert("שלחת יותר מדי הודעות בשעה האחרונה - נסה שוב מאוחר יותר.");
       } else if (data.reason === "parent_not_found") {
