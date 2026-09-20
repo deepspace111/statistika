@@ -1,423 +1,178 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>השכבה הפיזית</title>
 
-<link rel="stylesheet" href="../waytosee.css">
-<link href="https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-<style>
-*{
-  box-sizing:border-box;
+  gtag('config', 'G-FTM28BMBXC');
+</script>
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Descriptive Statistics</title>
+  <link rel="stylesheet" href="../waytosee.css">
+  <style>
+/* רקע ייחודי לדף זה - רק במצב תודעת לימוד. במצב רגיל, הרקע הרגיל של מערכת העצבים המרכזית (waytosee.css) חל כרגיל */
+body.learning-mode{
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(90,140,220,0.08),
+      transparent 42%
+    ),
+    linear-gradient(
+      to bottom,
+      #05070a,
+      #000814 45%,
+      #000 100%
+    );
+  color:rgba(205,205,205,0.82);
 }
 
-body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:#000;
-  color:#fff;
-  text-align:center;
-  line-height:2.1;
-  overflow-x:hidden;
-}
-
-/* גשם עדין - ירקרק מטריקס */
-
-.rain{
-  position:fixed;
-  inset:0;
+.container{
+  position:relative;
   z-index:2;
-  pointer-events:none;
-  overflow:hidden;
-  opacity:0.22;
-}
-
-.drop{
-  position:absolute;
-  top:-120vh;
-  width:1px;
-  height:70px;
-  background:linear-gradient(
-    to bottom,
-    rgba(120,255,190,0),
-    rgba(120,255,190,0.20),
-    rgba(120,255,190,0)
-  );
-  animation:rain linear infinite;
-}
-
-@keyframes rain{
-  from{ transform:translateY(-20vh); }
-  to{ transform:translateY(150vh); }
-}
-
-/* מצב תודעת לימוד */
-
-body.learning-mode .rain{
-  opacity:0.32;
-}
-
-body.learning-mode .hero img{
-  filter:brightness(0.28) contrast(1.08) saturate(0.9);
-}
-
-/* פתיח */
-
-.hero{
-  position:relative;
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-}
-
-.hero img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:center center;
-  filter:brightness(0.34);
-}
-
-.overlay{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.35),
-    rgba(0,0,0,0.96)
-  );
-}
-
-.hero-content{
-  position:relative;
-  z-index:5;
-  max-width:760px;
-  padding:80px 24px;
-}
-
-/* טיפוגרפיה */
-
-h1{
-  font-size:42px;
-  margin:0 0 40px;
-  font-weight:normal;
-  color:rgba(215,215,215,0.74);
-}
-
-h3{
-  font-size:32px;
-  margin:100px 0 40px;
-  font-weight:normal;
-  color:#fff;
-}
-
-p{
-  font-size:24px;
-  color:#fff;
-  margin:0 0 34px;
-}
-
-.hero-content p{
-  color:rgba(190,190,190,0.76);
-}
-
-.highlight{
-  font-size:30px;
-  color:#fff;
-  margin:80px 0;
-}
-
-.hero-content .highlight{
-  color:rgba(205,205,205,0.78);
-}
-
-/* תוכן */
-
-.content{
-  position:relative;
-  z-index:5;
-  max-width:900px;
-  margin:auto;
-  padding:80px 24px 140px;
-}
-
-/* תמונת הכבל */
-
-.cable-reveal{
-  width:min(96vw, 1400px);
-  margin:90px auto 100px;
-  opacity:0;
-  transform:translateY(40px);
-  filter:blur(6px);
-  transition:1.8s ease;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
-
-.cable-reveal.visible{
-  opacity:1;
-  transform:translateY(0);
-  filter:blur(0);
-}
-
-.cable-reveal img{
-  width:100%;
-  max-width:100%;
-  display:block;
+  max-width:980px;
   margin:0 auto;
-  border-radius:18px;
-  filter:brightness(0.98) contrast(1.08);
-  object-fit:cover;
-  object-position:center center;
+  padding:92px 22px 60px;
+  text-align:center;
 }
 
-.thinking-symbol{
+.container h1{
+  font-size:14px;
+  letter-spacing:6px;
+  line-height:2.2;
+  margin-bottom:18px;
+  font-weight:300;
+  text-transform:uppercase;
+  color:#111;
+}
+
+body.learning-mode .container h1{
+  color:rgba(225,225,225,0.86);
+}
+
+.subtitle{
+  color:rgba(50,50,50,0.62);
+  margin-bottom:38px;
+  font-size:17px;
+}
+
+body.learning-mode .subtitle{
+  color:#9aa4b5;
+}
+
+.topic-list{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+}
+
+.topic{
+  display:block;
+  padding:18px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.78);
+  color:#111;
   text-decoration:none;
-  color:rgba(210,210,210,0.72);
+  font-size:19px;
+  border:1px solid rgba(0,0,0,0.18);
+  box-shadow:0 8px 24px rgba(0,0,0,0.06);
+  backdrop-filter:blur(3px);
+  transition:0.4s ease;
+  animation:signalPulse 7s ease-in-out infinite;
+}
+
+body.learning-mode .topic{
+  background:rgba(10,15,25,0.72);
+  color:#f2f2f2;
+  border-color:rgba(120,170,255,0.12);
+}
+
+.topic:nth-child(2){ animation-delay:0.6s; }
+.topic:nth-child(3){ animation-delay:1.2s; }
+.topic:nth-child(4){ animation-delay:1.8s; }
+.topic:nth-child(5){ animation-delay:2.4s; }
+.topic:nth-child(6){ animation-delay:3s; }
+.topic:nth-child(7){ animation-delay:3.6s; }
+.topic:nth-child(8){ animation-delay:4.2s; }
+.topic:nth-child(9){ animation-delay:4.8s; }
+.topic:nth-child(10){ animation-delay:5.4s; }
+.topic:nth-child(11){ animation-delay:6s; }
+
+@keyframes signalPulse{
+  0%{ opacity:0.78; box-shadow:none; text-shadow:none; }
+  50%{ opacity:1; box-shadow:0 0 18px rgba(120,170,255,0.08); text-shadow:0 0 10px rgba(120,170,255,0.16); }
+  100%{ opacity:0.78; box-shadow:none; text-shadow:none; }
+}
+
+.topic:hover{
+  transform:translateY(-2px);
+  background:rgba(120,170,255,0.08);
+  border-color:rgba(120,170,255,0.25);
+}
+
+.topic small{
+  display:block;
+  margin-top:8px;
+  line-height:1.8;
+  font-size:14px;
+  color:rgba(60,60,60,0.68);
+}
+
+body.learning-mode .topic small{
+  color:#aeb7c7;
+}
+
+.english{
+  direction:ltr;
+  unicode-bidi:isolate;
   display:inline-block;
-  margin-top:34px;
-  font-size:46px;
-  transition:0.4s;
 }
 
-.thinking-symbol:hover{
-  opacity:0.7;
-  transform:scale(1.08);
+.first-letter{
+  color:#8db8ff;
+  font-weight:bold;
 }
 
-.footer-line{
-  font-size:30px;
-  margin-top:140px;
-  color:#fff;
-}
-
-/* מובייל */
-
-@media (max-width:768px){
-
-  body{
-    line-height:2;
-  }
-
-  h1{
-    font-size:34px;
-  }
-
-  h3{
-    font-size:28px;
-  }
-
-  p{
-    font-size:21px;
-  }
-
-  .highlight{
-    font-size:27px;
-  }
-
-  .footer-line{
-    font-size:26px;
-  }
-
-  .cable-reveal{
-    width:94vw;
-    margin:70px auto 80px;
-  }
-
-  .cable-reveal img{
-    border-radius:14px;
-    object-position:center center;
-  }
+@media (max-width:700px){
+  .topic-list{ grid-template-columns:1fr; }
+  .container{ padding:88px 18px 50px; }
+  .container h1{ font-size:30px; }
+  .topic{ font-size:17px; padding:16px; }
 }
 </style>
 </head>
-
 <body>
+<main class="page-content">
+  <div class="container">
 
-<div class="rain" id="rain"></div>
+<h1>
+Descriptive Statistics
+</h1>
 
-<section class="hero">
-
-  <img src="../internet/spider-network.png" alt="Spider Network">
-
-  <div class="overlay"></div>
-
-  <div class="hero-content">
-
-    <h1>מראה עיניים</h1>
-
-    <p>איך מחשבה הופכת לתנועת מידע?</p>
-
-    <p>
-      מסר נשלח והופך לאותות חשמליים הנעים דרך כבלים,
-      בסיבים אופטיים וגלים באוויר,
-      מתגבשים מחדש ביעד.
-    </p>
-
-    <div class="highlight">
-      מחשבה אחת קטנה<br>
-      מתחילה לנוע בעולם הרשתות.
-    </div>
-
-  </div>
-
-</section>
-
-<div class="content">
-
-  <h3>רשת</h3>
-
-  <p>יש הרבה רשתות בעולם.</p>
-
-  <p>
-    יש רשתות שתופסות.<br>
-    ויש רשתות שמחברות בין נקודות.
-  </p>
-
-  <p>
-    המידע נע בין אינספור חיבורים,<br>
-    ומחפש את דרכו.
-  </p>
-
-  <div class="highlight">
-    רשת מחברת בין נקודות.
-  </div>
-
-  <div class="highlight">
-    כדי להבין רשת<br>
-    נעצור.
-
-    <br><br>
-
-    <a href="../thinking-station.html" class="thinking-symbol">☯</a>
-  </div>
-
-  <div class="cable-reveal" id="cableReveal">
-    <img src="../internet/cable.png" alt="כבל רשת בשכבה הפיזית">
-  </div>
-
-  <h3>הכבל</h3>
-
-  <p>
-    בתוכו גידים דקים מנחושת<br>
-    שדרכם נעים אותות חשמליים.
-  </p>
-
-  <p>
-    הם שזורים זה סביב זה,<br>
-    כדי לעזור לאות<br>
-    להמשיך לנוע<br>
-    גם בתוך הפרעות ורעש.
-  </p>
-
-  <p>
-    יש ארבעה זוגות,<br>
-    כדי לאפשר העברת מידע<br>
-    מהירה יותר.
-  </p>
-
-  <div class="highlight">
-    האותות החשמליים שעוברים בכבל<br>
-    מייצגים מידע:<br><br>
-    0 ו־1
-  </div>
-
-  <h3>RJ45</h3>
-
-  <p>בקצה הכבל נמצא מחבר בשם RJ45.</p>
-
-  <p>
-    Registered — תקן מוסכם<br>
-    Jack — מחבר / שקע<br>
-    45 — מספר התקן
-  </p>
-
-  <p>
-    זהו החיבור הפיזי<br>
-    של כבל הרשת.
-  </p>
-
-  <h3>כרטיס רשת ו־Ethernet</h3>
-
-  <p>
-    כאשר הכבל מתחבר למכשיר,<br>
-    האותות מגיעים אל כרטיס הרשת.
-  </p>
-
-  <p>
-    כרטיס הרשת:<br><br>
-    • מקבל אותות<br>
-    • שולח אותות<br>
-    • ויודע להבין את שפת הרשת
-  </p>
-
-  <div class="highlight">
-    Ethernet היא שפת התקשורת<br>
-    של כרטיסי הרשת<br>
-    בתוך רשת מקומית.
-  </div>
-
-  <p>הכבל מעביר אותות.</p>
-
-  <p>Ethernet נותנת לאותות משמעות.</p>
-
-  <p>
-    והפרוטוקולים הם החוקים<br>
-    של השפה הזאת.
-  </p>
-
-  <p>
-    כך מכשירים מצליחים<br>
-    להבין אחד את השני.
-  </p>
-
-  <div class="footer-line">
-    וכשמבינים את הדרך שבה מידע נע —<br>
-    מתחילים לראות את המערכת. 🌌
-  </div>
-
+<div class="subtitle">
+כשמבינים נתונים — רואים
 </div>
 
-<script>
+<div class="topic-list">
 
-const rain = document.getElementById("rain");
+<a class="topic" href="statistika-introduction.html">
+מבוא
+<small>
+לפני שמתחילים —
+להבין את השפה
+</small>
+</a>
 
-for(let i = 0; i < 110; i++){
-  const drop = document.createElement("div");
-  drop.classList.add("drop");
-
-  drop.style.left = Math.random() * 100 + "vw";
-  drop.style.top = Math.random() * -120 + "vh";
-  drop.style.animationDuration = (6 + Math.random() * 8) + "s";
-  drop.style.opacity = 0.05 + Math.random() * 0.11;
-  drop.style.height = 35 + Math.random() * 85 + "px";
-  drop.style.animationDelay = Math.random() * -8 + "s";
-
-  rain.appendChild(drop);
-}
-
-const cableReveal = document.getElementById("cableReveal");
-
-const observer = new IntersectionObserver(function(entries){
-  entries.forEach(function(entry){
-    if(entry.isIntersecting){
-      cableReveal.classList.add("visible");
-    }
-  });
-},{ threshold:0.25 });
-
-observer.observe(cableReveal);
-
-</script>
-
+</div>
+</div>
+</main>
 <script src="../waytosee.js"></script>
-
 </body>
 </html>
