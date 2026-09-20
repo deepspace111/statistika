@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FTM28BMBXC');
+</script>
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>מקצועות — way to see</title>
+  <link rel="stylesheet" href="waytosee.css">
+  <style>
+/* אין רקע ייחודי לעמוד זה - הוא מחובר למערכת העצבים המרכזית (waytosee.css) ומשתמש ברקע הרגיל שלה, גם במצב תודעת לימוד */
+
+.container{
+  position:relative;
+  z-index:2;
+  max-width:980px;
+  margin:0 auto;
+  padding:92px 22px 60px;
+  text-align:center;
+}
+
+.container h1{
+  font-size:14px;
+  letter-spacing:6px;
+  line-height:2.2;
+  margin-bottom:18px;
+  font-weight:300;
+  text-transform:uppercase;
+  color:#111;
+}
+
+body.learning-mode .container h1{
+  color:rgba(225,225,225,0.86);
+}
+
+.subtitle{
+  color:rgba(50,50,50,0.62);
+  margin-bottom:38px;
+  font-size:17px;
+}
+
+body.learning-mode .subtitle{
+  color:#9aa4b5;
+}
+
+.topic-list{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+}
+
+.topic{
+  display:block;
+  padding:18px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.78);
+  color:#111;
+  text-decoration:none;
+  font-size:19px;
+  border:1px solid rgba(0,0,0,0.18);
+  box-shadow:0 8px 24px rgba(0,0,0,0.06);
+  backdrop-filter:blur(3px);
+  transition:0.4s ease;
+  animation:signalPulse 7s ease-in-out infinite;
+}
+
+body.learning-mode .topic{
+  background:rgba(10,15,25,0.72);
+  color:#f2f2f2;
+  border-color:rgba(120,170,255,0.12);
+}
+
+.topic:nth-child(2){ animation-delay:0.6s; }
+.topic:nth-child(3){ animation-delay:1.2s; }
+.topic:nth-child(4){ animation-delay:1.8s; }
+.topic:nth-child(5){ animation-delay:2.4s; }
+.topic:nth-child(6){ animation-delay:3s; }
+.topic:nth-child(7){ animation-delay:3.6s; }
+.topic:nth-child(8){ animation-delay:4.2s; }
+.topic:nth-child(9){ animation-delay:4.8s; }
+.topic:nth-child(10){ animation-delay:5.4s; }
+.topic:nth-child(11){ animation-delay:6s; }
+
+@keyframes signalPulse{
+  0%{ opacity:0.78; box-shadow:none; text-shadow:none; }
+  50%{ opacity:1; box-shadow:0 0 18px rgba(120,170,255,0.08); text-shadow:0 0 10px rgba(120,170,255,0.16); }
+  100%{ opacity:0.78; box-shadow:none; text-shadow:none; }
+}
+
+.topic:hover{
+  transform:translateY(-2px);
+  background:rgba(120,170,255,0.08);
+  border-color:rgba(120,170,255,0.25);
+}
+
+.topic small{
+  display:block;
+  margin-top:8px;
+  line-height:1.8;
+  font-size:14px;
+  color:rgba(60,60,60,0.68);
+}
+
+body.learning-mode .topic small{
+  color:#aeb7c7;
+}
+
+@media (max-width:700px){
+  .topic-list{ grid-template-columns:1fr; }
+  .container{ padding:88px 18px 50px; }
+  .container h1{ font-size:30px; }
+  .topic{ font-size:17px; padding:16px; }
+}
+</style>
+</head>
+<body>
+<main class="page-content">
+  <div class="container">
+
+<h1>
+כשמבינים — רואים
+</h1>
+
+<div class="subtitle">
+מקצועות
+</div>
+
+<div class="topic-list">
+
+<a class="topic" href="intro.html">
+Networking
+<small>
+Cisco Certified Network Associate
+</small>
+</a>
+
+<a class="topic" href="statistika/statistika.html">
+סטטיסטיקה
+<small>
+Descriptive Statistics
+</small>
+</a>
+
+</div>
+</div>
+</main>
+<script src="waytosee.js"></script>
+</body>
+</html>

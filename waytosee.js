@@ -33,10 +33,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // כפתור מעבר לעמוד "המרחב" - בכל עמוד חוץ מעמוד הנושאים (intro.html)
+  // כפתור מעבר לעמוד "המרחב" - בכל עמוד חוץ מעמוד הנושאים (intro.html) ועמוד המקצועות (professions.html)
   // בתוך המרחב עצמו - אותו כפתור (שלוש הנקודות) נשאר מוצג, אבל לחיצה עליו חוזרת אחורה
   // בדיוק כמו כפתור הבית - כניסה למרחב ויציאה ממנו באותו כפתור
-  if (currentFile !== "intro.html") {
+  if (currentFile !== "intro.html" && currentFile !== "professions.html") {
     let spaceButton = document.getElementById("spaceBtn");
     if (!spaceButton) {
       spaceButton = document.createElement("a");
@@ -123,9 +123,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!brownNoise) return;
     fadeAudio(brownNoise, 0, 900);
   }
- 
+
   let flickerTimeout = null;
- 
+
   function scheduleFlicker() {
     const container = document.querySelector(".container");
     if (!container) return;
@@ -134,14 +134,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const nextDelay = 2000 + Math.random() * 6000; // בין 2 ל-8 שניות
     flickerTimeout = setTimeout(scheduleFlicker, nextDelay);
   }
- 
+
   function stopFlicker() {
     if (flickerTimeout) {
       clearTimeout(flickerTimeout);
       flickerTimeout = null;
     }
   }
- 
+
   if (localStorage.getItem("waytoseeLearningMode") === "on") {
     document.body.classList.add("learning-mode");
     focusButton.classList.add("active");
@@ -162,4 +162,3 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
- 

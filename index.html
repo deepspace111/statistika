@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
- 
+
  <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
 <script>
@@ -11,7 +11,7 @@
 
   gtag('config', 'G-FTM28BMBXC');
 </script>
- 
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>way to see</title>
@@ -185,6 +185,45 @@
       opacity: 0.96;
     }
 
+    .enter-link {
+      display: inline-block;
+      margin-top: 34px;
+      font-size: 15px;
+      letter-spacing: 0.08em;
+      color: rgba(82,68,54,0.55);
+      text-decoration: none;
+      opacity: 0.75;
+      transition: opacity 0.5s ease, transform 0.3s ease, color 0.8s ease;
+    }
+
+    .enter-link:hover {
+      opacity: 1;
+      transform: translateY(-1px);
+    }
+
+    body.learning-mode .enter-link {
+      color: rgba(240,240,240,0.7);
+    }
+
+    .minimal-construction {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 14px;
+      text-align: center;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.35;
+      color: rgba(82,68,54,0.7);
+      transition: color 0.8s ease, opacity 0.5s ease;
+      pointer-events: none;
+    }
+
+    body.learning-mode .minimal-construction {
+      color: rgba(240,240,240,0.55);
+    }
+
     @media (max-width: 600px), (max-height: 850px) {
       body { padding: 14px 12px; }
       .brand { margin-bottom: 14px; }
@@ -206,6 +245,8 @@
       .thinking-note { margin-top: 3px; font-size: 14px; }
       .construction-wrapper { margin-top: 12px; }
       #constructionSign { width: min(400px, 80vw, 25vh); }
+      .enter-link { margin-top: 18px; font-size: 14px; }
+      .minimal-construction { bottom: 8px; font-size: 9px; }
     }
   </style>
 </head>
@@ -225,8 +266,10 @@
 
   <audio id="brownNoise" src="brown-noise.mp3" loop></audio>
 
-  <a class="btn" href="statistika/statistika.html">סטטיסטיקה</a>
-  <a class="btn" href="intro.html">Networking</a>
+  <a class="enter-link" href="professions.html">מקצועות</a>
+
+  <!--
+  קטע הפילוסופיה - מוסתר בכוונה, לא נמחק. להחזרה: להוציא מההערה הזו.
 
   <div class="philosophy">
 
@@ -247,6 +290,9 @@
     </div>
 
   </div>
+  -->
+
+  <div class="minimal-construction">under construction</div>
 
 </div>
 
