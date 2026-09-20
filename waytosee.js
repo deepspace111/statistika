@@ -19,19 +19,18 @@ document.addEventListener("DOMContentLoaded", () => {
   </svg>`;
   homeButton.href = homeAddress;
 
-  const currentFile = (location.pathname.split("/").pop() || "").toLowerCase();
+  // כפתור הבית חוזר עמוד אחד אחורה בהיסטוריית הדפדפן (כמו breadcrumb),
+  // ורק אם אין לאן לחזור (נכנסו ישר לעמוד) - קופץ לעמוד הבית
+  homeButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (window.history.length > 1) {
+      window.history.back();
+    } else {
+      window.location.href = homeAddress;
+    }
+  });
 
-  // בעמוד "המרחב" - לחיצה על כפתור הבית חוזרת לעמוד הקודם (במקום לעמוד הבית)
-  if (currentFile === "merchav.html") {
-    homeButton.addEventListener("click", (e) => {
-      e.preventDefault();
-      if (window.history.length > 1) {
-        window.history.back();
-      } else {
-        window.location.href = homeAddress;
-      }
-    });
-  }
+  const currentFile = (location.pathname.split("/").pop() || "").toLowerCase();
 
   // כפתור מעבר לעמוד "המרחב" - בכל עמוד חוץ מעמוד הנושאים (intro.html) ועמוד המקצועות (professions.html)
   // בתוך המרחב עצמו - אותו כפתור (שלוש הנקודות) נשאר מוצג, אבל לחיצה עליו חוזרת אחורה
