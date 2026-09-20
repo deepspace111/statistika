@@ -188,21 +188,9 @@
     .enter-link {
       display: inline-block;
       margin-top: 34px;
-      font-size: 15px;
-      letter-spacing: 0.08em;
-      color: rgba(6,7,8,0.55);
-      text-decoration: none;
-      opacity: 0.75;
-      transition: opacity 0.5s ease, transform 0.3s ease, color 0.8s ease;
-    }
-
-    .enter-link:hover {
-      opacity: 1;
-      transform: translateY(-1px);
-    }
-
-    body.learning-mode .enter-link {
-      color: rgba(240,240,240,0.7);
+      width: 70px;
+      height: 26px;
+      cursor: pointer;
     }
 
     .minimal-construction {
@@ -245,7 +233,7 @@
       .thinking-note { margin-top: 3px; font-size: 14px; }
       .construction-wrapper { margin-top: 12px; }
       #constructionSign { width: min(400px, 80vw, 25vh); }
-      .enter-link { margin-top: 18px; font-size: 14px; }
+      .enter-link { margin-top: 18px; }
       .minimal-construction { bottom: 8px; font-size: 9px; }
     }
   </style>
@@ -266,7 +254,7 @@
 
   <audio id="brownNoise" src="brown-noise.mp3" loop></audio>
 
-  <a class="enter-link" href="professions.html">תחומי דעת</a>
+  <a class="enter-link" href="professions.html" aria-label="תחומי דעת"></a>
 
   <!--
   קטע הפילוסופיה - מוסתר בכוונה, לא נמחק. להחזרה: להוציא מההערה הזו.
@@ -322,6 +310,22 @@
     applyLearningMode(isLearningMode);
     localStorage.setItem("waytoseeLearningMode", isLearningMode ? "on" : "off");
   });
+
+  // כפתור נסתר (בלי טקסט גלוי): לחיצה ראשונה הופכת צבעים כמו הלוגו,
+  // לחיצה נוספת אחריה מעבירה לעמוד תחומי דעת
+  const enterLink = document.querySelector(".enter-link");
+  let enterLinkArmed = false;
+  if (enterLink) {
+    enterLink.addEventListener("click", (e) => {
+      if (!enterLinkArmed) {
+        e.preventDefault();
+        enterLinkArmed = true;
+        const isLearningMode = !document.body.classList.contains("learning-mode");
+        applyLearningMode(isLearningMode);
+        localStorage.setItem("waytoseeLearningMode", isLearningMode ? "on" : "off");
+      }
+    });
+  }
 </script>
 
 </body>
