@@ -300,16 +300,27 @@
   const focusBtn = document.getElementById("focusBtn");
   const brownNoise = document.getElementById("brownNoise");
 
-  focusBtn.addEventListener("click", () => {
-    document.body.classList.toggle("learning-mode");
-
-    if (document.body.classList.contains("learning-mode")) {
+  function applyLearningMode(isOn) {
+    document.body.classList.toggle("learning-mode", isOn);
+    if (isOn) {
       brownNoise.volume = 0.25;
       brownNoise.play().catch(() => {});
     } else {
       brownNoise.pause();
       brownNoise.currentTime = 0;
     }
+  }
+
+  // שומר על אותו מצב (בהיר/כהה) כמו בשאר העמודים באתר, לפי אותו מפתח
+  // שמירה (waytoseeLearningMode) שגם waytosee.js משתמש בו
+  if (localStorage.getItem("waytoseeLearningMode") === "on") {
+    applyLearningMode(true);
+  }
+
+  focusBtn.addEventListener("click", () => {
+    const isLearningMode = !document.body.classList.contains("learning-mode");
+    applyLearningMode(isLearningMode);
+    localStorage.setItem("waytoseeLearningMode", isLearningMode ? "on" : "off");
   });
 </script>
 
