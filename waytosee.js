@@ -19,11 +19,44 @@ document.addEventListener("DOMContentLoaded", () => {
   </svg>`;
   homeButton.href = homeAddress;
 
-  // כפתור הבית חוזר עמוד אחד אחורה בהיסטוריית הדפדפן (כמו breadcrumb),
-  // ורק אם אין לאן לחזור (נכנסו ישר לעמוד) - קופץ לעמוד הבית
+  // מפת ההורים של כל דף במבנה האתר - מרוכזת כאן במקום אחד ("מערכת העצבים
+  // המרכזית") במקום שכל דף יצטרך להצהיר על ההורה שלו בנפרד. המפתח הוא
+  // הנתיב היחסי לתיקיית השורש של האתר (איפה ש-waytosee.js נמצא, באותיות
+  // קטנות), הערך הוא הנתיב היחסי לאותה תיקיית שורש של דף ה"הורה".
+  const PARENT_MAP = {
+    "professions.html": "index.html",
+    "intro.html": "professions.html",
+    "statistika/statistika.html": "professions.html",
+    "statistika/statistika-introduction.html": "statistika/statistika.html",
+    "arp/arp.html": "intro.html",
+    "ip/ip.html": "intro.html",
+    "subnet/index.html": "intro.html",
+    "nat/index.html": "intro.html",
+    "internet/internet.html": "intro.html",
+    "ccna-introduction/ccna-introduction.html": "intro.html",
+  };
+
+  // נתיב הדף הנוכחי יחסית לתיקיית השורש של האתר
+  const rootDirURL = mainScript ? new URL(".", mainScript.src) : null;
+  const currentRelativePath = rootDirURL
+    ? decodeURIComponent(location.pathname.slice(rootDirURL.pathname.length)).toLowerCase()
+    : "";
+
+  // כפתור הבית עולה שלב אחד קבוע במבנה האתר (לא תלוי בהיסטוריית דפדפן,
+  // כדי שזה יעבוד תמיד באותו אופן, גם אם נכנסו ישר לעמוד). ההורה נקבע
+  // לפי PARENT_MAP למעלה, או לפי window.waytoseeParentOverride אם הוצהר
+  // ידנית בעמוד מסוים (נתיב יחסי לשורש האתר). אם אין הורה ידוע - חוזרים
+  // להיסטוריית הדפדפן כברירת מחדל (למשל בעמוד "המרחב").
+  const parentRelativePath =
+    window.waytoseeParentOverride || PARENT_MAP[currentRelativePath] || null;
+  const parentAddress = parentRelativePath
+    ? (rootDirURL ? new URL(parentRelativePath, rootDirURL).href : parentRelativePath)
+    : null;
   homeButton.addEventListener("click", (e) => {
     e.preventDefault();
-    if (window.history.length > 1) {
+    if (parentAddress) {
+      window.location.href = parentAddress;
+    } else if (window.history.length > 1) {
       window.history.back();
     } else {
       window.location.href = homeAddress;
