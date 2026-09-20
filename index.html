@@ -245,7 +245,7 @@
 
   <div id="focusBtn" class="brand">
     <div class="brand-en">way to see</div>
-    <div class="brand-he">כשמבינים — רואים</div>
+    <div class="brand-he">כשמבינים רואים</div>
     <div class="dao-wrap">
       <span class="dao-mark">道</span>
       <span class="clef-inline"></span>
@@ -312,17 +312,22 @@
   });
 
   // כפתור נסתר (בלי טקסט גלוי): לחיצה ראשונה הופכת צבעים כמו הלוגו,
-  // לחיצה נוספת אחריה מעבירה לעמוד תחומי דעת
+  // לחיצה נוספת אחריה מעבירה לעמוד תחומי דעת.
+  // מסירים את ה-href מראש כדי שלא תהיה שום ניווט אוטומטי של הדפדפן -
+  // הניווט בלחיצה השנייה נעשה ידנית ב-JS, כדי שההתנהגות תהיה עקבית.
   const enterLink = document.querySelector(".enter-link");
-  let enterLinkArmed = false;
   if (enterLink) {
-    enterLink.addEventListener("click", (e) => {
+    const enterTarget = enterLink.getAttribute("href");
+    enterLink.removeAttribute("href");
+    let enterLinkArmed = false;
+    enterLink.addEventListener("click", () => {
       if (!enterLinkArmed) {
-        e.preventDefault();
         enterLinkArmed = true;
         const isLearningMode = !document.body.classList.contains("learning-mode");
         applyLearningMode(isLearningMode);
         localStorage.setItem("waytoseeLearningMode", isLearningMode ? "on" : "off");
+      } else {
+        window.location.href = enterTarget;
       }
     });
   }
