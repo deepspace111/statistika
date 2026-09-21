@@ -187,6 +187,8 @@
 
     .enter-link {
       display: inline-block;
+      position: relative;
+      z-index: 50;
       margin-top: 34px;
       width: 240px;
       max-width: 90vw;
@@ -322,12 +324,15 @@
     enterLink.removeAttribute("href");
     let enterLinkArmed = false;
     enterLink.addEventListener("click", () => {
+      console.log("[enter-link] click received, armed =", enterLinkArmed);
       if (!enterLinkArmed) {
         enterLinkArmed = true;
         const isLearningMode = !document.body.classList.contains("learning-mode");
         applyLearningMode(isLearningMode);
         localStorage.setItem("waytoseeLearningMode", isLearningMode ? "on" : "off");
+        console.log("[enter-link] toggled color, waiting for second click");
       } else {
+        console.log("[enter-link] navigating to", enterTarget);
         window.location.href = enterTarget;
       }
     });
