@@ -216,14 +216,14 @@
     .drop {
       position: absolute;
       top: -120px;
-      width: 1px;
+      width: 0.25px;
       height: 120px;
-      background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(70,90,120,0.12), rgba(255,255,255,0));
+      background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(70,90,120,0.07), rgba(255,255,255,0));
       animation: rain linear infinite;
     }
 
     body.learning-mode .drop {
-      background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(130,170,255,0.16), rgba(255,255,255,0));
+      background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(130,170,255,0.37), rgba(255,255,255,0));
     }
 
     @keyframes rain {
@@ -313,7 +313,7 @@
     drop.classList.add("drop");
     drop.style.left = Math.random() * 100 + "vw";
     drop.style.animationDuration = (4 + Math.random() * 7) + "s";
-    drop.style.opacity = 0.10 + Math.random() * 0.20;
+    drop.style.opacity = 0.12 + Math.random() * 0.25;
     rain.appendChild(drop);
   }
 
@@ -340,7 +340,15 @@
       const isLearningMode = !document.body.classList.contains("learning-mode");
       applyLearningMode(isLearningMode);
       localStorage.setItem("waytoseeLearningMode", isLearningMode ? "on" : "off");
+      // מעקב: כמה אנשים בכלל מגלים שהלוגו לוחץ (לחיצה ראשונה - הפיכת צבעים)
+      if (typeof gtag === "function") {
+        gtag("event", "homepage_logo_reveal", { event_category: "engagement" });
+      }
     } else {
+      // מעקב: כמה מתוכם ממשיכים בפועל לעמוד תחומי דעת (לחיצה שנייה)
+      if (typeof gtag === "function") {
+        gtag("event", "homepage_continue_to_topics", { event_category: "engagement" });
+      }
       window.location.href = "professions.html";
     }
   });
