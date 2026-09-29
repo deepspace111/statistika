@@ -50,6 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "statistika/statistika-scales.html": "statistika/statistika.html",
     "statistika/statistika-data-display.html": "statistika/statistika.html",
     "arp/arp.html": "intro.html",
+    "tcp/tcp.html": "intro.html",
     "dhcp/dhcp.html": "intro.html",
     "ip/ip.html": "intro.html",
     "subnet/index.html": "intro.html",
