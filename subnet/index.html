@@ -14,7 +14,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Subnet — גבולות הרשת המקומית</title>
+<title>Subnet - גבולות הרשת המקומית</title>
 
 <link rel="stylesheet" href="../waytosee.css">
 
@@ -23,8 +23,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-  /* טיפוגרפיה וצבעים ייחודיים לדף זה. במצב רגיל — פלטת האור של מערכת העצבים המרכזית.
-     במצב תודעת לימוד — פלטת "טיפת המים" הכהה, שמוחלפת אוטומטית דרך body.learning-mode. */
+  /* טיפוגרפיה וצבעים ייחודיים לדף זה. במצב רגיל: פלטת האור של מערכת העצבים המרכזית.
+     במצב תודעת לימוד: פלטת "טיפת המים" הכהה, שמוחלפת אוטומטית דרך body.learning-mode. */
   :root{
     --panel: rgba(255,255,255,0.55);
     --panel-border: rgba(82,68,54,0.16);
@@ -53,38 +53,56 @@
   }
   *{box-sizing:border-box;}
   body{ font-family: 'Heebo', system-ui, -apple-system, 'Segoe UI', sans-serif; }
-  .container{
-    max-width: 760px;
+
+  /* ---- כותרת עמוד (מעל הרשת התלת-עמודתית) ---- */
+  .page-header{
+    max-width: 900px;
     margin: 0 auto;
-    padding: 96px 24px 80px;
-    line-height: 1.85;
-    font-size: 17px;
+    padding: 96px 24px 8px;
+    text-align: center;
   }
-  .container h1{
+  .page-title{
     font-size: clamp(28px, 4vw, 38px);
     font-weight: 800;
     margin: 0 0 8px;
     color: var(--text);
   }
-  body.learning-mode .container h1{
+  body.learning-mode .page-title{
     background: linear-gradient(90deg, #fff, var(--accent-2));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
-  .subtitle{ color: var(--text-dim); margin-bottom: 40px; font-size: 15px; }
-  .container h2{
-    font-size: 22px;
+  .subtitle{ color: var(--text-dim); margin: 0 auto; font-size: 15px; max-width: 620px; }
+
+  /* ---- הרשת התלת-עמודתית ---- */
+  .grid{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 24px 80px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 56px;
+    line-height: 1.85;
+    font-size: 16px;
+  }
+  .col{ display:flex; flex-direction:column; min-width:0; }
+  .section{ padding-top: 26px; margin-top: 26px; border-top: 1px solid var(--panel-border); }
+  .col .section:first-child{ padding-top:0; margin-top:0; border-top:none; }
+
+  .grid h2{
+    font-size: 19px;
     font-weight: 700;
-    margin: 56px 0 16px;
-    padding-inline-start: 14px;
+    margin: 0 0 14px;
+    padding-inline-start: 12px;
     border-inline-start: 4px solid var(--accent);
     color: var(--text);
   }
-  .container h3{ font-size: 18px; font-weight: 700; margin: 28px 0 10px; color: var(--accent-2); }
-  .container p{ margin: 0 0 16px; color: var(--text); }
-  .container strong{ color: var(--text); font-weight: 700; }
-  .val, .container code{
+  .grid h3{ font-size: 15.5px; font-weight: 700; margin: 22px 0 8px; color: var(--accent-2); }
+  .grid p{ margin: 0 0 14px; color: var(--text); }
+  .grid strong{ color: var(--text); font-weight: 700; }
+
+  .val, .grid code{
     font-family: 'JetBrains Mono', monospace;
     background: var(--code-bg);
     border: 1px solid var(--panel-border);
@@ -101,43 +119,43 @@
     background: var(--code-bg);
     border: 1px solid var(--panel-border);
     border-radius: 10px;
-    padding: 14px 18px;
+    padding: 12px 14px;
     color: var(--accent-2);
     direction: ltr;
     text-align: center;
-    margin: 14px 0;
+    margin: 12px 0;
     letter-spacing: 0.5px;
     overflow-x: auto;
+    font-size: 14.5px;
   }
   .note{
     background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 10%, transparent), color-mix(in srgb, var(--accent) 2%, transparent));
     border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
     border-radius: 12px;
-    padding: 16px 18px;
-    margin: 18px 0;
-    font-size: 15.5px;
+    padding: 14px 16px;
+    margin: 14px 0;
+    font-size: 14.5px;
     color: var(--text);
   }
   .note b{ color: var(--accent); }
-  .container hr{ border: none; border-top: 1px solid var(--panel-border); margin: 48px 0; }
 
-  /* ---- subnet result table ---- */
+  /* ---- טבלת תוצאות סאבנט ---- */
   .subnets{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 14px;
-    margin: 18px 0;
+    gap: 10px;
+    margin: 14px 0;
   }
-  @media (max-width: 620px){ .subnets{ grid-template-columns: 1fr; } }
+  @media (max-width: 1080px){ .subnets{ grid-template-columns: 1fr; } }
   .subnet-card{
     background: var(--panel);
     border: 1px solid var(--panel-border);
     border-radius: 12px;
-    padding: 16px 18px;
+    padding: 12px 14px;
   }
-  .subnet-card h4{ margin:0 0 10px; font-size:15px; color: var(--accent-2); }
-  .subnet-card dl{ margin:0; font-size: 14.5px; }
-  .subnet-card dt{ color: var(--text-dim); margin-top:8px; }
+  .subnet-card h4{ margin:0 0 8px; font-size:14px; color: var(--accent-2); }
+  .subnet-card dl{ margin:0; font-size: 13.5px; }
+  .subnet-card dt{ color: var(--text-dim); margin-top:6px; }
   .subnet-card dd{ margin: 2px 0 0; font-family:'JetBrains Mono',monospace; direction:ltr; text-align:right; color: var(--text); }
 
   /* ---- demo section (טיפת המים) ---- */
@@ -145,8 +163,8 @@
     background: var(--panel);
     border: 1px solid var(--panel-border);
     border-radius: 18px;
-    padding: 32px 20px 26px;
-    margin: 26px 0 30px;
+    padding: 26px 14px 22px;
+    margin: 18px 0 20px;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -158,13 +176,13 @@
     pointer-events:none;
   }
   .demo-decimal{
-    display:flex; justify-content:center; gap: 26px; flex-wrap:wrap;
-    font-family:'JetBrains Mono',monospace; direction:ltr; font-size: 15px;
+    display:flex; justify-content:center; gap: 18px; flex-wrap:wrap;
+    font-family:'JetBrains Mono',monospace; direction:ltr; font-size: 13.5px;
     margin-bottom: 6px; position:relative; z-index:1;
   }
   .demo-decimal .item{ text-align:center; }
-  .demo-decimal .label{ display:block; font-family:'Heebo',sans-serif; direction:rtl; color:var(--text-dim); font-size:12.5px; margin-bottom:4px; }
-  .demo-decimal .num{ font-size: 18px; color: var(--text); font-weight:600; }
+  .demo-decimal .label{ display:block; font-family:'Heebo',sans-serif; direction:rtl; color:var(--text-dim); font-size:11.5px; margin-bottom:4px; }
+  .demo-decimal .num{ font-size: 15.5px; color: var(--text); font-weight:600; }
 
   .drop-stage{
     height: 130px;
@@ -206,7 +224,7 @@
   }
   .hint{
     color: var(--text-dim);
-    font-size: 12.5px;
+    font-size: 12px;
     margin-bottom: 4px;
     min-height: 16px;
   }
@@ -221,25 +239,25 @@
   .binary-reveal.shown{
     max-height: 400px;
     opacity: 1;
-    margin-top: 18px;
+    margin-top: 16px;
   }
   .bin-row{
-    display:flex; justify-content:center; gap: 8px; flex-wrap:wrap;
-    font-family:'JetBrains Mono',monospace; direction:ltr; font-size: 15px;
-    margin-bottom: 14px;
+    display:flex; justify-content:center; gap: 6px; flex-wrap:wrap;
+    font-family:'JetBrains Mono',monospace; direction:ltr; font-size: 13.5px;
+    margin-bottom: 12px;
   }
-  .bin-row .rlabel{ font-family:'Heebo',sans-serif; direction:rtl; color:var(--text-dim); font-size:12.5px; align-self:center; min-width:44px; }
+  .bin-row .rlabel{ font-family:'Heebo',sans-serif; direction:rtl; color:var(--text-dim); font-size:11.5px; align-self:center; min-width:40px; }
   .octet{ display:inline-flex; }
   .bit{
-    width: 15px; text-align:center; color: var(--host);
+    width: 14px; text-align:center; color: var(--host);
     transition: color .3s ease, text-shadow .3s ease;
   }
   .bit.net{ color: var(--network); font-weight:700; text-shadow: 0 0 10px color-mix(in srgb, var(--network) 60%, transparent); }
   .octet + .octet::before{ content:"."; color: var(--text-dim); margin: 0 2px; }
 
   .role-caption{
-    font-family:'Heebo',sans-serif; font-size: 12.5px; color: var(--text-dim);
-    margin-top: -6px; margin-bottom: 14px;
+    font-family:'Heebo',sans-serif; font-size: 12px; color: var(--text-dim);
+    margin-top: -4px; margin-bottom: 12px;
   }
   .role-caption .net-word{ color: var(--network); font-weight:600; }
   .role-caption .host-word{ color: var(--host); font-weight:600; }
@@ -259,170 +277,202 @@
   .replay:hover{ color: var(--text); border-color: var(--accent); }
 
   .legend{
-    display:flex; justify-content:center; gap:18px; margin-top: 14px;
-    font-size: 12.5px; color: var(--text-dim); flex-wrap:wrap;
+    display:flex; justify-content:center; gap:14px; margin-top: 12px;
+    font-size: 12px; color: var(--text-dim); flex-wrap:wrap;
   }
   .legend span{ display:inline-flex; align-items:center; gap:6px; }
   .swatch{ width:10px; height:10px; border-radius:3px; display:inline-block; }
   .swatch.net{ background: var(--network); }
   .swatch.host{ background: var(--host); }
 
-  .page-footer{ text-align:center; color: var(--text-dim); font-size: 13px; margin-top: 60px; }
+  .page-footer{ text-align:center; color: var(--text-dim); font-size: 13px; margin-top: 20px; padding-bottom:60px; }
 
+  @media (max-width: 900px){
+    .grid{ grid-template-columns: 1fr; gap:0; max-width:640px; }
+    .col .section{ padding-top:26px; margin-top:26px; border-top:1px solid var(--panel-border); }
+    .col .section:first-child{ padding-top:26px; margin-top:26px; border-top:1px solid var(--panel-border); }
+    .grid > .col:first-child > .section:first-child{ padding-top:0; margin-top:0; border-top:none; }
+  }
   @media (max-width: 600px){
-    .container{ padding: 88px 18px 70px; }
+    .page-header{ padding: 88px 18px 8px; }
+    .grid{ padding: 24px 18px 70px; }
   }
 </style>
 </head>
 <body>
 <main class="page-content">
-<div class="container">
 
-  <h1>Subnet — גבולות הרשת המקומית</h1>
-  <p class="subtitle">איך מחשב מחליט מי "קרוב" ומי "רחוק" ברשת — ולמה זה תלוי כולו במסכה.</p>
-
-  <h2>למה בכלל צריך את זה</h2>
-  <p>ברשתות תקשורת, מכשירים שונים נמצאים במרחבי כתובות שונים. כל רשת מקבלת חלק משלה מתוך מרחב כתובות ה־IP.</p>
-  <p>כתובת IP מורכבת משני חלקים:</p>
-  <div class="block-val" style="direction:rtl;">חלק הרשת&nbsp;&nbsp;+&nbsp;&nbsp;חלק ה־Host</div>
-  <p>חלק הרשת מזהה לאיזו רשת המכשיר שייך. חלק ה־Host מזהה את המכשיר בתוך אותה רשת.</p>
-
-  <h3>דוגמה</h3>
-  <div class="block-val">192.168.1.X</div>
-  <p>יכול להיות מרחב כתובות של רשת אחת. ובתוך מרחב הכתובות הזה יכולים להיות מכשירים שונים:</p>
-  <div class="block-val">192.168.1.1&nbsp;&nbsp;192.168.1.8&nbsp;&nbsp;192.168.1.25&nbsp;&nbsp;192.168.1.200</div>
-  <p>אבל איך המחשב יודע איזה חלק מהכתובת שייך לרשת ואיזה חלק שייך למכשיר? כאן נכנס ה־<strong>Subnet Mask</strong>.</p>
-  <div class="block-val">255.255.255.0</div>
-  <p>ה־Mask קובע איזה חלק מהכתובת שייך לרשת. ה־Subnet Mask "חותך" את מרחב הכתובות האפשרי, מקבע את חלק הרשת, ומגדיר איזה טווח כתובות נשאר פנוי ל־Hosts.</p>
-
-  <h2>למה כתוב 255?</h2>
-  <p>אוקטטה אחת בנויה מ־8 ביטים. כל ביט יכול להיות <span class="val">0</span> או <span class="val">1</span>. הערך הגבוה ביותר של אוקטטה הוא:</p>
-  <div class="block-val">11111111 = 255</div>
-  <p>לכן <span class="val">255.255.255.0</span> הוא ייצוג עשרוני של <span class="val">11111111.11111111.11111111.00000000</span>.</p>
-
-  <hr>
-
-  <h2>המצב הראשון — ‎/24</h2>
-  <p>ב־‎/24 שלוש האוקטטות הראשונות שייכות לרשת, וכל שמונת הביטים באוקטטה האחרונה משמשים ל־Host. לכן האוקטטה האחרונה יכולה לעבור בין <span class="val">00000000 = 0</span> ועד <span class="val">11111111 = 255</span>.</p>
-
-  <!-- ===== DEMO /24 ===== -->
-  <div class="demo" data-demo="24">
-    <div class="demo-decimal">
-      <div class="item"><span class="label">כתובת</span><span class="num">192.168.1.8</span></div>
-      <div class="item"><span class="label">מסכה</span><span class="num">255.255.255.0</span></div>
-    </div>
-    <div class="hint">לחצו על הטיפה כדי לחשוף את הבינארי</div>
-    <div class="drop-stage">
-      <div class="drop" role="button" tabindex="0" aria-label="חשוף בינארי">
-        <svg viewBox="0 0 26 34"><path d="M13 0 C13 0 26 18 26 24 A13 13 0 1 1 0 24 C0 18 13 0 13 0 Z" fill="url(#g24)"/><defs><linearGradient id="g24" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8fe0ff"/><stop offset="100%" stop-color="#3fa6ec"/></linearGradient></defs></svg>
-      </div>
-      <div class="ripple"></div>
-    </div>
-    <div class="binary-reveal">
-      <div class="bin-row">
-        <span class="rlabel">כתובת</span>
-        <span class="octet">11000000</span><span class="octet">10101000</span><span class="octet">00000001</span>
-        <span class="octet" data-octet="addr">00001000</span>
-      </div>
-      <div class="bin-row">
-        <span class="rlabel">מסכה</span>
-        <span class="octet">11111111</span><span class="octet">11111111</span><span class="octet">11111111</span>
-        <span class="octet" data-octet="mask">00000000</span>
-      </div>
-      <div class="role-caption">כל 8 הביטים באוקטטה האחרונה הם <span class="host-word">Host</span> — האוקטטה כולה פנויה למכשירים.</div>
-      <button class="replay">הצג שוב</button>
-    </div>
+  <div class="page-header">
+    <h1 class="page-title">Subnet - גבולות הרשת המקומית</h1>
+    <p class="subtitle">איך מחשב מחליט מי "קרוב" ומי "רחוק" ברשת, ולמה זה תלוי כולו במסכה.</p>
   </div>
 
-  <p>הרשת היא <span class="val">192.168.1.0</span>, טווח ההתקנים השמיש הוא <span class="val">192.168.1.1–192.168.1.254</span>, וכתובת ה־Broadcast היא <span class="val">192.168.1.255</span>.</p>
+  <div class="grid">
 
-  <p>עבור המכשיר שלנו, <span class="val">192.168.1.8</span>, עם מסכה <span class="val">255.255.255.0</span>: <span class="val">192.168.1</span> הוא חלק הרשת, ו־<span class="val">8</span> מזהה את המכשיר בתוך אותה רשת.</p>
+    <!-- ===== עמודה 1: הבסיס ===== -->
+    <div class="col">
 
-  <hr>
+      <div class="section">
+        <h2>למה בכלל צריך את זה</h2>
+        <p>ברשתות תקשורת, מכשירים שונים נמצאים במרחבי כתובות שונים. כל רשת מקבלת חלק משלה מתוך מרחב כתובות ה־IP.</p>
+        <p>כתובת IP מורכבת משני חלקים:</p>
+        <div class="block-val" style="direction:rtl;">חלק הרשת&nbsp;&nbsp;+&nbsp;&nbsp;חלק ה־Host</div>
+        <p>חלק הרשת מזהה לאיזו רשת המכשיר שייך. חלק ה־Host מזהה את המכשיר בתוך אותה רשת.</p>
+      </div>
 
-  <h2>מה באמת קורה בסאבנטינג?</h2>
-  <p>הביטים עצמם לא זזים, לא נעלמים ולא "נלקחים". ה־IP נשאר אותו IP בדיוק. מה שמשתנה הוא <strong>המשמעות שלהם</strong> — התפקיד שהם ממלאים.</p>
-  <p>כשעוברים מ־‎/24 ל־‎/25, הביט הראשון משמאל באוקטטה האחרונה — ה־MSB שמשקלו 128 — עובר טרנספורמציה: מביט שמאפשר Hosting הוא הופך לביט שמגדיר מרחבי רשת. הוא לא "יושב שם סתם" — הוא קם ומחלק את מרחב האפשרויות לשני מצבים:</p>
-  <div class="block-val">0XXXXXXX&nbsp;&nbsp;&nbsp;&nbsp;1XXXXXXX</div>
-  <p>הביט הזה מתחיל לתפקד כמו מזהה קבוצה (subnet id), ולכן נוצרות שתי תתי־רשתות.</p>
+      <div class="section">
+        <h2>דוגמה</h2>
+        <div class="block-val">192.168.1.X</div>
+        <p>יכול להיות מרחב כתובות של רשת אחת. ובתוך מרחב הכתובות הזה יכולים להיות מכשירים שונים:</p>
+        <div class="block-val">192.168.1.1&nbsp;&nbsp;192.168.1.8&nbsp;&nbsp;192.168.1.25&nbsp;&nbsp;192.168.1.200</div>
+        <p>אבל איך המחשב יודע איזה חלק מהכתובת שייך לרשת ואיזה חלק שייך למכשיר? כאן נכנס ה־<strong>Subnet Mask</strong>.</p>
+        <div class="block-val">255.255.255.0</div>
+        <p>ה־Mask קובע איזה חלק מהכתובת שייך לרשת. ה־Subnet Mask "חותך" את מרחב הכתובות האפשרי, מקבע את חלק הרשת, ומגדיר איזה טווח כתובות נשאר פנוי ל־Hosts.</p>
+      </div>
 
-  <hr>
+      <div class="section">
+        <h2>למה כתוב 255?</h2>
+        <p>אוקטטה אחת בנויה מ־8 ביטים. כל ביט יכול להיות <span class="val">0</span> או <span class="val">1</span>. הערך הגבוה ביותר של אוקטטה הוא:</p>
+        <div class="block-val">11111111 = 255</div>
+        <p>לכן <span class="val">255.255.255.0</span> הוא ייצוג עשרוני של <span class="val">11111111.11111111.11111111.00000000</span>.</p>
+      </div>
 
-  <h2>המצב השני — ‎/25</h2>
-  <p>כדי לראות למה המסכה מקבלת דווקא את הערך 128, מסתכלים על משקלי הביטים באוקטטה, תמיד משמאל לימין:</p>
-  <div class="block-val">128&nbsp;&nbsp;64&nbsp;&nbsp;32&nbsp;&nbsp;16&nbsp;&nbsp;8&nbsp;&nbsp;4&nbsp;&nbsp;2&nbsp;&nbsp;1<br>1&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0</div>
-  <p>כלומר <span class="val">10000000 = 128</span>. זו הסיבה שהמסכה היא <span class="val">255.255.255.128</span> ולא <span class="val">255.255.255.127</span>.</p>
-
-  <div class="note"><b>נקודה קריטית:</b> המסכה אינה מציינת את סוף טווח הכתובות. היא מסמנת אילו ביטים שייכים לרשת. מכיוון שהביט השמאלי שמשקלו 128 דולק במסכה, ערך האוקטטה של המסכה הוא 128. לעומת זאת <span class="val">01111111 = 127</span> — כאן הביט השמאלי הוא 0, וכל שבעת ביטי ה־Host דולקים. לכן 127 הוא הערך <em>האחרון</em> במרחב הראשון, לא ערך המסכה.</div>
-
-  <!-- ===== DEMO /25 ===== -->
-  <div class="demo" data-demo="25">
-    <div class="demo-decimal">
-      <div class="item"><span class="label">כתובת</span><span class="num">192.168.1.8</span></div>
-      <div class="item"><span class="label">מסכה</span><span class="num">255.255.255.128</span></div>
     </div>
-    <div class="hint">לחצו על הטיפה כדי לחשוף את הבינארי</div>
-    <div class="drop-stage">
-      <div class="drop" role="button" tabindex="0" aria-label="חשוף בינארי">
-        <svg viewBox="0 0 26 34"><path d="M13 0 C13 0 26 18 26 24 A13 13 0 1 1 0 24 C0 18 13 0 13 0 Z" fill="url(#g25)"/><defs><linearGradient id="g25" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8fe0ff"/><stop offset="100%" stop-color="#3fa6ec"/></linearGradient></defs></svg>
+
+    <!-- ===== עמודה 2: /24 ומה שקורה בפועל ===== -->
+    <div class="col">
+
+      <div class="section">
+        <h2>המצב הראשון - ‎/24</h2>
+        <p>ב־‎/24 שלוש האוקטטות הראשונות שייכות לרשת, וכל שמונת הביטים באוקטטה האחרונה משמשים ל־Host. לכן האוקטטה האחרונה יכולה לעבור בין <span class="val">00000000 = 0</span> ועד <span class="val">11111111 = 255</span>.</p>
+
+        <!-- ===== DEMO /24 ===== -->
+        <div class="demo" data-demo="24">
+          <div class="demo-decimal">
+            <div class="item"><span class="label">כתובת</span><span class="num">192.168.1.8</span></div>
+            <div class="item"><span class="label">מסכה</span><span class="num">255.255.255.0</span></div>
+          </div>
+          <div class="hint">לחצו על הטיפה כדי לחשוף את הבינארי</div>
+          <div class="drop-stage">
+            <div class="drop" role="button" tabindex="0" aria-label="חשוף בינארי">
+              <svg viewBox="0 0 26 34"><path d="M13 0 C13 0 26 18 26 24 A13 13 0 1 1 0 24 C0 18 13 0 13 0 Z" fill="url(#g24)"/><defs><linearGradient id="g24" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8fe0ff"/><stop offset="100%" stop-color="#3fa6ec"/></linearGradient></defs></svg>
+            </div>
+            <div class="ripple"></div>
+          </div>
+          <div class="binary-reveal">
+            <div class="bin-row">
+              <span class="rlabel">כתובת</span>
+              <span class="octet">11000000</span><span class="octet">10101000</span><span class="octet">00000001</span>
+              <span class="octet" data-octet="addr">00001000</span>
+            </div>
+            <div class="bin-row">
+              <span class="rlabel">מסכה</span>
+              <span class="octet">11111111</span><span class="octet">11111111</span><span class="octet">11111111</span>
+              <span class="octet" data-octet="mask">00000000</span>
+            </div>
+            <div class="role-caption">כל 8 הביטים באוקטטה האחרונה הם <span class="host-word">Host</span>. האוקטטה כולה פנויה למכשירים.</div>
+            <button class="replay">הצג שוב</button>
+          </div>
+        </div>
+
+        <p>הרשת היא <span class="val">192.168.1.0</span>, טווח ההתקנים השמיש הוא <span class="val">192.168.1.1–192.168.1.254</span>, וכתובת ה־Broadcast היא <span class="val">192.168.1.255</span>.</p>
+
+        <p>עבור המכשיר שלנו, <span class="val">192.168.1.8</span>, עם מסכה <span class="val">255.255.255.0</span>: <span class="val">192.168.1</span> הוא חלק הרשת, ו־<span class="val">8</span> מזהה את המכשיר בתוך אותה רשת.</p>
       </div>
-      <div class="ripple"></div>
+
+      <div class="section">
+        <h2>מה באמת קורה בסאבנטינג?</h2>
+        <p>הביטים עצמם לא זזים, לא נעלמים ולא "נלקחים". ה־IP נשאר אותו IP בדיוק. מה שמשתנה הוא <strong>המשמעות שלהם</strong>: התפקיד שהם ממלאים.</p>
+        <p>כשעוברים מ־‎/24 ל־‎/25, הביט הראשון משמאל באוקטטה האחרונה, ה־MSB שמשקלו 128, עובר טרנספורמציה: מביט שמאפשר Hosting הוא הופך לביט שמגדיר מרחבי רשת. הוא לא "יושב שם סתם", הוא קם ומחלק את מרחב האפשרויות לשני מצבים:</p>
+        <div class="block-val">0XXXXXXX&nbsp;&nbsp;&nbsp;&nbsp;1XXXXXXX</div>
+        <p>הביט הזה מתחיל לתפקד כמו מזהה קבוצה (subnet id), ולכן נוצרות שתי תתי־רשתות.</p>
+      </div>
+
     </div>
-    <div class="binary-reveal">
-      <div class="bin-row">
-        <span class="rlabel">כתובת</span>
-        <span class="octet">11000000</span><span class="octet">10101000</span><span class="octet">00000001</span>
-        <span class="octet" data-octet="addr25"><span class="bit" data-msb>0</span>0001000</span>
+
+    <!-- ===== עמודה 3: /25 והמשמעות בפועל ===== -->
+    <div class="col">
+
+      <div class="section">
+        <h2>המצב השני - ‎/25</h2>
+        <p>כדי לראות למה המסכה מקבלת דווקא את הערך 128, מסתכלים על משקלי הביטים באוקטטה, תמיד משמאל לימין:</p>
+        <div class="block-val">128&nbsp;&nbsp;64&nbsp;&nbsp;32&nbsp;&nbsp;16&nbsp;&nbsp;8&nbsp;&nbsp;4&nbsp;&nbsp;2&nbsp;&nbsp;1<br>1&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0</div>
+        <p>כלומר <span class="val">10000000 = 128</span>. זו הסיבה שהמסכה היא <span class="val">255.255.255.128</span> ולא <span class="val">255.255.255.127</span>.</p>
+
+        <div class="note"><b>נקודה קריטית:</b> המסכה אינה מציינת את סוף טווח הכתובות. היא מסמנת אילו ביטים שייכים לרשת. מכיוון שהביט השמאלי שמשקלו 128 דולק במסכה, ערך האוקטטה של המסכה הוא 128. לעומת זאת <span class="val">01111111 = 127</span>: כאן הביט השמאלי הוא 0, וכל שבעת ביטי ה־Host דולקים. לכן 127 הוא הערך <em>האחרון</em> במרחב הראשון, לא ערך המסכה.</div>
+
+        <!-- ===== DEMO /25 ===== -->
+        <div class="demo" data-demo="25">
+          <div class="demo-decimal">
+            <div class="item"><span class="label">כתובת</span><span class="num">192.168.1.8</span></div>
+            <div class="item"><span class="label">מסכה</span><span class="num">255.255.255.128</span></div>
+          </div>
+          <div class="hint">לחצו על הטיפה כדי לחשוף את הבינארי</div>
+          <div class="drop-stage">
+            <div class="drop" role="button" tabindex="0" aria-label="חשוף בינארי">
+              <svg viewBox="0 0 26 34"><path d="M13 0 C13 0 26 18 26 24 A13 13 0 1 1 0 24 C0 18 13 0 13 0 Z" fill="url(#g25)"/><defs><linearGradient id="g25" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8fe0ff"/><stop offset="100%" stop-color="#3fa6ec"/></linearGradient></defs></svg>
+            </div>
+            <div class="ripple"></div>
+          </div>
+          <div class="binary-reveal">
+            <div class="bin-row">
+              <span class="rlabel">כתובת</span>
+              <span class="octet">11000000</span><span class="octet">10101000</span><span class="octet">00000001</span>
+              <span class="octet" data-octet="addr25"><span class="bit" data-msb>0</span>0001000</span>
+            </div>
+            <div class="bin-row">
+              <span class="rlabel">מסכה</span>
+              <span class="octet">11111111</span><span class="octet">11111111</span><span class="octet">11111111</span>
+              <span class="octet" data-octet="mask25"><span class="bit net" data-msb>1</span>0000000</span>
+            </div>
+            <div class="role-caption">הביט הראשון באוקטטה האחרונה <span class="net-word">שינה תפקיד</span> ל־Network; שבעת האחרים נשארו <span class="host-word">Host</span>. הכתובת שלנו, ‎0‎ במקום הזה, נופלת במרחב 0–127.</div>
+            <div class="legend">
+              <span><span class="swatch net"></span> ביט רשת (transformed)</span>
+              <span><span class="swatch host"></span> ביט Host</span>
+            </div>
+            <button class="replay">הצג שוב</button>
+          </div>
+        </div>
+
+        <p><strong>ההבחנה המרכזית:</strong> מסכה: <span class="val">1|0000000 = 128</span>. סוף המרחב הראשון: <span class="val">0|1111111 = 127</span>. הביט ששינה תפקיד מאפשר שני מצבים: <span class="val">0|xxxxxxx</span> (המרחב 0–127) ו־<span class="val">1|xxxxxxx</span> (המרחב 128–255). ולכן ‎/25 מפצל את מרחב הכתובות לשתי תתי־רשתות:</p>
+
+        <div class="subnets">
+          <div class="subnet-card">
+            <h4>תת־הרשת הראשונה</h4>
+            <dl>
+              <dt>כתובת רשת</dt><dd>192.168.1.0</dd>
+              <dt>טווח התקנים</dt><dd>192.168.1.1–192.168.1.126</dd>
+              <dt>Broadcast</dt><dd>192.168.1.127</dd>
+            </dl>
+          </div>
+          <div class="subnet-card">
+            <h4>תת־הרשת השנייה</h4>
+            <dl>
+              <dt>כתובת רשת</dt><dd>192.168.1.128</dd>
+              <dt>טווח התקנים</dt><dd>192.168.1.129–192.168.1.254</dd>
+              <dt>Broadcast</dt><dd>192.168.1.255</dd>
+            </dl>
+          </div>
+        </div>
+
+        <p>בכל תת־רשת יש 128 כתובות בסך הכול, אך רק 126 כתובות שמישות להתקנים, מפני שכתובת הרשת וכתובת ה־Broadcast אינן ניתנות להקצאה למכשיר.</p>
+
+        <p>המכשיר שלנו, <span class="val">192.168.1.8</span>, בבינארי באוקטטה האחרונה: <span class="val">00001000</span>. הביט השמאלי שלו הוא 0, ולכן הכתובת נמצאת בתת־הרשת הראשונה, במרחב 0–127, בדיוק כמו שהייתה גם ב־‎/24, רק שעכשיו יש לה "שכנה" (<span class="val">192.168.1.128/25</span>) שלא הייתה קיימת קודם.</p>
       </div>
-      <div class="bin-row">
-        <span class="rlabel">מסכה</span>
-        <span class="octet">11111111</span><span class="octet">11111111</span><span class="octet">11111111</span>
-        <span class="octet" data-octet="mask25"><span class="bit net" data-msb>1</span>0000000</span>
+
+      <div class="section">
+        <h2>למה זה חשוב בפועל?</h2>
+        <p>עכשיו המחשב יכול להבין מי נמצא בתוך הרשת המקומית, ומי שייך לרשת אחרת. המחשב משווה בין כתובת היעד לבין כתובת הרשת שלו (לפי המסכה שלו). אם חלק הרשת זהה, היעד מקומי. אם חלק הרשת שונה, היעד שייך לרשת אחרת.</p>
+        <p>אם היעד נמצא בתוך אותה רשת, <strong>ARP</strong> נכנס לפעולה, והמחשב מנסה לגלות את כתובת ה־MAC של היעד המקומי. אבל אם היעד שייך לרשת אחרת, צריך לפנות אל ה־<strong>Gateway</strong>.</p>
+        <div class="note">שני מכשירים, <span class="val">192.168.1.8</span> ו־<span class="val">192.168.1.140</span> למשל, נחשבים "באותה רשת" תחת מסכת ‎/24 (<span class="val">255.255.255.0</span>), אבל נחשבים לשתי רשתות נפרדות תחת מסכת ‎/25 (<span class="val">255.255.255.128</span>), כי <b>המסכה</b> היא זו שקובעת היכן עובר הגבול, לא הכתובות עצמן.</div>
       </div>
-      <div class="role-caption">הביט הראשון באוקטטה האחרונה <span class="net-word">שינה תפקיד</span> ל־Network; שבעת האחרים נשארו <span class="host-word">Host</span>. הכתובת שלנו — ‎0‎ במקום הזה — נופלת במרחב 0–127.</div>
-      <div class="legend">
-        <span><span class="swatch net"></span> ביט רשת (transformed)</span>
-        <span><span class="swatch host"></span> ביט Host</span>
-      </div>
-      <button class="replay">הצג שוב</button>
+
     </div>
+
   </div>
-
-  <p><strong>ההבחנה המרכזית:</strong> מסכה — <span class="val">1|0000000 = 128</span>. סוף המרחב הראשון — <span class="val">0|1111111 = 127</span>. הביט ששינה תפקיד מאפשר שני מצבים: <span class="val">0|xxxxxxx</span> (המרחב 0–127) ו־<span class="val">1|xxxxxxx</span> (המרחב 128–255). ולכן ‎/25 מפצל את מרחב הכתובות לשתי תתי־רשתות:</p>
-
-  <div class="subnets">
-    <div class="subnet-card">
-      <h4>תת־הרשת הראשונה</h4>
-      <dl>
-        <dt>כתובת רשת</dt><dd>192.168.1.0</dd>
-        <dt>טווח התקנים</dt><dd>192.168.1.1–192.168.1.126</dd>
-        <dt>Broadcast</dt><dd>192.168.1.127</dd>
-      </dl>
-    </div>
-    <div class="subnet-card">
-      <h4>תת־הרשת השנייה</h4>
-      <dl>
-        <dt>כתובת רשת</dt><dd>192.168.1.128</dd>
-        <dt>טווח התקנים</dt><dd>192.168.1.129–192.168.1.254</dd>
-        <dt>Broadcast</dt><dd>192.168.1.255</dd>
-      </dl>
-    </div>
-  </div>
-
-  <p>בכל תת־רשת יש 128 כתובות בסך הכול, אך רק 126 כתובות שמישות להתקנים — מפני שכתובת הרשת וכתובת ה־Broadcast אינן ניתנות להקצאה למכשיר.</p>
-
-  <p>המכשיר שלנו, <span class="val">192.168.1.8</span>, בבינארי באוקטטה האחרונה: <span class="val">00001000</span>. הביט השמאלי שלו הוא 0, ולכן הכתובת נמצאת בתת־הרשת הראשונה, במרחב 0–127 — בדיוק כמו שהייתה גם ב־‎/24, רק שעכשיו יש לה "שכנה" (<span class="val">192.168.1.128/25</span>) שלא הייתה קיימת קודם.</p>
-
-  <hr>
-
-  <h2>למה זה חשוב בפועל?</h2>
-  <p>עכשיו המחשב יכול להבין מי נמצא בתוך הרשת המקומית, ומי שייך לרשת אחרת. המחשב משווה בין כתובת היעד לבין כתובת הרשת שלו (לפי המסכה שלו). אם חלק הרשת זהה — היעד מקומי. אם חלק הרשת שונה — היעד שייך לרשת אחרת.</p>
-  <p>אם היעד נמצא בתוך אותה רשת — <strong>ARP</strong> נכנס לפעולה, והמחשב מנסה לגלות את כתובת ה־MAC של היעד המקומי. אבל אם היעד שייך לרשת אחרת — צריך לפנות אל ה־<strong>Gateway</strong>.</p>
-  <div class="note">שני מכשירים, <span class="val">192.168.1.8</span> ו־<span class="val">192.168.1.140</span> למשל, נחשבים "באותה רשת" תחת מסכת ‎/24 (<span class="val">255.255.255.0</span>), אבל נחשבים לשתי רשתות נפרדות תחת מסכת ‎/25 (<span class="val">255.255.255.128</span>) — כי <b>המסכה</b> היא זו שקובעת היכן עובר הגבול, לא הכתובות עצמן.</div>
 
   <p class="page-footer">WayToSee · דרך הרשת</p>
 
-</div>
 </main>
 
 <script>
@@ -481,7 +531,7 @@
 </script>
 
 <!-- מערכת העצבים המרכזית: כפתור בית, מצב תודעת לימוד, רעש חום, הבהוב טורקיז -->
-<script>window.waytoseeHomeOverride = "../intro.html";</script>
+<!-- ההורה של העמוד הזה כבר מוגדר ב-PARENT_MAP שב-waytosee.js, אין צורך ב-override ידני -->
 <script src="../waytosee.js"></script>
 </body>
 </html>
