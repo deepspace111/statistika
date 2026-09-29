@@ -21,34 +21,6 @@
 
 <style>
 
-/* ===== גשם – כמו בדף המבוא ===== */
-
-.rain {
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.drop {
-  position: absolute;
-  top: -120px;
-  width: 1px;
-  height: 120px;
-  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(70,90,120,0.12), rgba(255,255,255,0));
-  animation: rain linear infinite;
-}
-
-body.learning-mode .drop {
-  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(130,170,255,0.16), rgba(255,255,255,0));
-}
-
-@keyframes rain {
-  from { transform: translateY(-120px); }
-  to { transform: translateY(120vh); }
-}
-
 /* ===== פריסה – כמו בדף המבוא: שלוש עמודות ===== */
 /* כל העמודות נמתחות לאותו גובה, והמקטעים מתפרסים בתוכן, */
 /* כך שהקו התחתון של שלוש העמודות נמצא באותו גובה בדיוק */
@@ -171,6 +143,12 @@ body.learning-mode .calc {
   font-size: 21px;
 }
 
+.ltr {
+  direction: ltr;
+  unicode-bidi: isolate;
+  display: inline-block;
+}
+
 .pause {
   font-style: italic;
   opacity: 0.6;
@@ -272,10 +250,10 @@ body.learning-mode .calc {
     <p>השאלה "מה המספר הזה מייצג?" היא כל כך חשובה, שלתשובות לה יש שמות. קוראים להן <strong>סולמות מדידה</strong>. כל סולם מוסיף יכולת על הסולם שלפניו:</p>
     <table class="data-table">
       <tr><th>סולם</th><th>דוגמה</th><th>מה אפשר לעשות</th></tr>
-      <tr><td><strong>שמי</strong><small>שם של קטגוריה</small></td><td>צבע עיניים, עיר מגורים</td><td>לספור, אחוזים, שכיח</td></tr>
-      <tr><td><strong>סדר</strong><small>מיקום בדירוג</small></td><td>שביעות רצון 1–5, מקום בתחרות</td><td>+ חציון, "יותר/פחות"</td></tr>
-      <tr><td><strong>רווח</strong><small>מרחקים שווים</small></td><td>טמפרטורה בצלזיוס</td><td>+ ממוצע, הפרשים</td></tr>
-      <tr><td><strong>מנה</strong><small>כמות עם אפס אמיתי</small></td><td>גובה, משקל, זמן</td><td>+ יחסים ("פי 2")</td></tr>
+      <tr><td><strong>שמי</strong> <small>שם של קטגוריה</small></td><td>צבע עיניים, עיר מגורים</td><td>לספור, אחוזים, שכיח</td></tr>
+      <tr><td><strong>סדר</strong> <small>מיקום בדירוג</small></td><td>שביעות רצון <span class="ltr">1–5</span>, מקום בתחרות</td><td>+ חציון, "יותר/פחות"</td></tr>
+      <tr><td><strong>רווח</strong> <small>מרחקים שווים</small></td><td>טמפרטורה בצלזיוס</td><td>+ ממוצע, הפרשים</td></tr>
+      <tr><td><strong>מנה</strong> <small>כמות עם אפס אמיתי</small></td><td>גובה, משקל, זמן</td><td>+ יחסים ("פי 2")</td></tr>
     </table>
   </div>
 
@@ -296,18 +274,6 @@ body.learning-mode .calc {
 </div>
 
 </div>
-
-<script>
-const rain = document.getElementById("rain");
-for (let i = 0; i < 90; i++) {
-  const drop = document.createElement("div");
-  drop.classList.add("drop");
-  drop.style.left = Math.random() * 100 + "vw";
-  drop.style.animationDuration = (4 + Math.random() * 7) + "s";
-  drop.style.opacity = 0.10 + Math.random() * 0.20;
-  rain.appendChild(drop);
-}
-</script>
 
 <script src="../waytosee.js"></script>
 </body>

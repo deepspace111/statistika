@@ -47,6 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "intro.html": "professions.html",
     "statistika/statistika.html": "professions.html",
     "statistika/statistika-introduction.html": "statistika/statistika.html",
+    "statistika/statistika-scales.html": "statistika/statistika.html",
+    "statistika/statistika-data-display.html": "statistika/statistika.html",
     "arp/arp.html": "intro.html",
     "dhcp/dhcp.html": "intro.html",
     "ip/ip.html": "intro.html",
