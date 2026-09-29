@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FTM28BMBXC');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>מה המספר הזה אומר? – סולמות מדידה</title>
+
+<link rel="stylesheet" href="../waytosee.css">
+
+<style>
+
+/* ===== גשם – כמו בדף המבוא ===== */
+
+.rain {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.drop {
+  position: absolute;
+  top: -120px;
+  width: 1px;
+  height: 120px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(70,90,120,0.12), rgba(255,255,255,0));
+  animation: rain linear infinite;
+}
+
+body.learning-mode .drop {
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(130,170,255,0.16), rgba(255,255,255,0));
+}
+
+@keyframes rain {
+  from { transform: translateY(-120px); }
+  to { transform: translateY(120vh); }
+}
+
+/* ===== פריסה – כמו בדף המבוא: שלוש עמודות ===== */
+/* כל העמודות נמתחות לאותו גובה, והמקטעים מתפרסים בתוכן, */
+/* כך שהקו התחתון של שלוש העמודות נמצא באותו גובה בדיוק */
+
+.page-title {
+  position: relative;
+  z-index: 5;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 24px 0;
+  font-size: 42px;
+  font-weight: 300;
+  text-align: center;
+}
+
+.page-subtitle {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  font-size: 19px;
+  margin: 6px 0 18px;
+  opacity: 0.65;
+}
+
+.container {
+  position: relative;
+  z-index: 5;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 24px 70px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0 70px;
+  align-items: stretch;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.container h2 { font-size: 25px; margin: 0 0 8px; font-weight: 500; }
+
+.container p {
+  line-height: 1.45;
+  margin: 8px 0;
+}
+
+.section {
+  position: relative;
+  border-top: 1px solid rgba(0,0,0,0.14);
+  padding-top: 10px;
+  padding-bottom: 8px;
+  margin-bottom: 0;
+}
+
+.section > :last-child {
+  margin-bottom: 0;
+}
+
+.col > .section:last-child {
+  border-bottom: 1px solid rgba(0,0,0,0.14);
+  padding-bottom: 12px;
+}
+
+body.learning-mode .section { border-top: 1px solid rgba(255,255,255,0.14); }
+body.learning-mode .col > .section:last-child { border-bottom: 1px solid rgba(255,255,255,0.14); }
+
+/* טבלאות, חישובים וציטוט */
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: right;
+}
+
+.data-table th,
+.data-table td {
+  padding: 7px 6px;
+  border-bottom: 1px solid rgba(0,0,0,0.12);
+  vertical-align: top;
+}
+
+.data-table th {
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+.data-table td small {
+  display: block;
+  opacity: 0.65;
+  font-size: 14px;
+}
+
+body.learning-mode .data-table th,
+body.learning-mode .data-table td {
+  border-bottom-color: rgba(255,255,255,0.12);
+}
+
+.calc {
+  direction: ltr;
+  text-align: center;
+  font-size: 18px;
+  margin: 14px 0;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.035);
+}
+
+body.learning-mode .calc {
+  background: rgba(255,255,255,0.05);
+}
+
+.calc strong {
+  font-size: 21px;
+}
+
+.pause {
+  font-style: italic;
+  opacity: 0.6;
+}
+
+.container .quote {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 300;
+  margin: 22px 0;
+}
+
+.next-line {
+  margin-top: 22px;
+  opacity: 0.7;
+}
+
+@media (max-width: 600px) {
+  .container { grid-template-columns: 1fr; }
+  .col { gap: 0; }
+  .col > .section:last-child { border-bottom: none; }
+  .container > .col:last-child > .section:last-child { border-bottom: 1px solid rgba(0,0,0,0.14); }
+  body.learning-mode .container > .col:last-child > .section:last-child { border-bottom-color: rgba(255,255,255,0.14); }
+  .page-title { font-size: 34px; }
+  .container h2 { font-size: 22px; }
+  .container p { font-size: 18px; }
+  .data-table { font-size: 15px; }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="rain" id="rain"></div>
+
+<h1 class="page-title">מה המספר הזה אומר?</h1>
+<p class="page-subtitle">סולמות מדידה</p>
+
+<div class="container">
+
+<div class="col">
+
+  <div class="section">
+    <h2>שאלה אחת לפני שמתחילים</h2>
+    <p>בקבוצה של 100 אנשים, ל־37 יש עיניים חומות, ל־46 כחולות ול־17 ירוקות.</p>
+    <p><strong>אפשר לחשב ממוצע של צבע עיניים?</strong></p>
+    <p class="pause">עצרו רגע ותענו לעצמכם לפני שממשיכים.</p>
+  </div>
+
+  <div class="section">
+    <h2>ניסיון ראשון: נהפוך צבעים למספרים</h2>
+    <p>מחשב לא מבין "חום" או "כחול", אז ניתן לכל צבע מספר:</p>
+    <table class="data-table">
+      <tr><th>צבע</th><th>קוד</th><th>כמה אנשים</th></tr>
+      <tr><td>חום</td><td>1</td><td>37</td></tr>
+      <tr><td>כחול</td><td>2</td><td>46</td></tr>
+      <tr><td>ירוק</td><td>3</td><td>17</td></tr>
+    </table>
+    <p>עכשיו אפשר לחשב:</p>
+    <div class="calc">(37×1 + 46×2 + 17×3) ÷ 100 = <strong>1.80</strong></div>
+    <p>הממוצע הוא 1.80. אבל מה זה אומר? צבע עיניים שהוא "קצת פחות מכחול"?</p>
+    <p>ננסה קידוד אחר: כחול=1, ירוק=2, חום=3. עכשיו הממוצע יוצא <strong>1.91</strong>.</p>
+    <p>אותם אנשים ואותן עיניים, ובכל זאת מספר אחר. זה קורה כי המספרים כאן הם רק <strong>תוויות</strong>, כמו מספר על חולצה של שחקן כדורגל. שחקן מספר 10 הוא לא "פי שניים" משחקן מספר 5.</p>
+    <p>אז התשובה היא לא, אי אפשר?</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>הטוויסט</h2>
+    <p>נשאל שאלה אחרת. במקום "איזה צבע?", נשאל כל אחד: <strong>"יש לך עיניים חומות?"</strong></p>
+    <p>כן = 1 &nbsp;·&nbsp; לא = 0</p>
+    <p>עכשיו יש לנו 37 אחדות ו־63 אפסים:</p>
+    <div class="calc">(37×1 + 63×0) ÷ 100 = <strong>0.37</strong></div>
+    <p>והפעם למספר יש משמעות: <strong>37% מהאנשים הם בעלי עיניים חומות.</strong></p>
+    <p>הממוצע של משתנה כן/לא הוא בדיוק <strong>האחוז</strong>. שני דברים שנראו כמו כלים נפרדים, ממוצע ואחוז, הם בעצם אותו כלי.</p>
+    <p>ואם נהפוך את הקידוד (לא חום=1, חום=0)? נקבל 0.63, כלומר 63% הם בעלי עיניים שאינן חומות. זו לא טעות, זו תשובה נכונה <strong>לשאלה אחרת</strong>. הבחירה מי יהיה 1 לא הורסת את המידע, אבל היא קובעת על מה הממוצע עונה.</p>
+  </div>
+
+  <div class="section">
+    <h2>אז מה השתנה?</h2>
+    <p>האנשים לא השתנו, העיניים לא השתנו והחישוב לא השתנה.</p>
+    <p>מה שהשתנה הוא <strong>מה שהמספרים מייצגים.</strong></p>
+    <p>ב־1/2/3 המספרים היו תוויות שרירותיות, ולכן הממוצע היה חסר משמעות.</p>
+    <p>ב־1/0 המספרים סופרים משהו אמיתי: שייך או לא שייך. לכן הממוצע הפך לפרופורציה.</p>
+    <p>ושימו לב ל־0: הוא לא "כלום". הוא אומר <strong>"לא שייך לקבוצה"</strong>, ובלעדיו אי אפשר לחשב את האחוז.</p>
+    <p class="quote">גם 0 הוא מידע.</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>ורק עכשיו: סולמות מדידה</h2>
+    <p>השאלה "מה המספר הזה מייצג?" היא כל כך חשובה, שלתשובות לה יש שמות. קוראים להן <strong>סולמות מדידה</strong>. כל סולם מוסיף יכולת על הסולם שלפניו:</p>
+    <table class="data-table">
+      <tr><th>סולם</th><th>דוגמה</th><th>מה אפשר לעשות</th></tr>
+      <tr><td><strong>שמי</strong><small>שם של קטגוריה</small></td><td>צבע עיניים, עיר מגורים</td><td>לספור, אחוזים, שכיח</td></tr>
+      <tr><td><strong>סדר</strong><small>מיקום בדירוג</small></td><td>שביעות רצון 1–5, מקום בתחרות</td><td>+ חציון, "יותר/פחות"</td></tr>
+      <tr><td><strong>רווח</strong><small>מרחקים שווים</small></td><td>טמפרטורה בצלזיוס</td><td>+ ממוצע, הפרשים</td></tr>
+      <tr><td><strong>מנה</strong><small>כמות עם אפס אמיתי</small></td><td>גובה, משקל, זמן</td><td>+ יחסים ("פי 2")</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>מה ההבדל בין רווח למנה?</h2>
+    <p>שוב, זו שאלה של מה ה־0 אומר.</p>
+    <p>ב־0°C עדיין יש טמפרטורה. האפס נבחר שרירותית (נקודת הקיפאון של מים), ולכן 20° <strong>אינו</strong> "פי שניים חם" מ־10°.</p>
+    <p>ב־0 ק"ג אין משקל בכלל. זה אפס אמיתי, ולכן 20 ק"ג <strong>הם</strong> פי שניים מ־10 ק"ג.</p>
+  </div>
+
+  <div class="section">
+    <h2>לסיכום</h2>
+    <p>לפני שמחשבים משהו, שואלים: <strong>מה המספר הזה מייצג?</strong></p>
+    <p>התשובה קובעת אילו חישובים יהיו בעלי משמעות, ואילו יפיקו מספר שנראה מדויק ולא אומר כלום.</p>
+    <p class="next-line">בדף הבא: יודעים מה יש לנו, עכשיו רוצים לראות את זה ← הצגת נתונים</p>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+const rain = document.getElementById("rain");
+for (let i = 0; i < 90; i++) {
+  const drop = document.createElement("div");
+  drop.classList.add("drop");
+  drop.style.left = Math.random() * 100 + "vw";
+  drop.style.animationDuration = (4 + Math.random() * 7) + "s";
+  drop.style.opacity = 0.10 + Math.random() * 0.20;
+  rain.appendChild(drop);
+}
+</script>
+
+<script src="../waytosee.js"></script>
+</body>
+</html>
