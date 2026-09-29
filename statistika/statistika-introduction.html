@@ -25,32 +25,6 @@ body.soft-entering {
   animation: softPageFade 1.4s ease forwards;
 }
 
-.rain {
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.drop {
-  position: absolute;
-  top: -120px;
-  width: 1px;
-  height: 120px;
-  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(70,90,120,0.12), rgba(255,255,255,0));
-  animation: rain linear infinite;
-}
-
-body.learning-mode .drop {
-  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(130,170,255,0.16), rgba(255,255,255,0));
-}
-
-@keyframes rain {
-  from { transform: translateY(-120px); }
-  to { transform: translateY(120vh); }
-}
-
 .page-title {
   max-width: 1200px;
   margin: 0 auto;
@@ -320,18 +294,6 @@ body.learning-mode .route-dark {
 </div>
 
 </div>
-
-<script>
-const rain = document.getElementById("rain");
-for (let i = 0; i < 90; i++) {
-  const drop = document.createElement("div");
-  drop.classList.add("drop");
-  drop.style.left = Math.random() * 100 + "vw";
-  drop.style.animationDuration = (4 + Math.random() * 7) + "s";
-  drop.style.opacity = 0.10 + Math.random() * 0.20;
-  rain.appendChild(drop);
-}
-</script>
 
 <script src="../waytosee.js"></script>
 </body>
