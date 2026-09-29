@@ -67,29 +67,62 @@ body.learning-mode .rain{
   to{ transform:translateY(150vh); }
 }
 
-.container{
+/* כותרת העמוד - מעל הרשת, כמו בעמוד המבוא */
+
+.page-title{
   position:relative;
   z-index:5;
-  max-width:840px;
-  margin:auto;
-  padding:96px 24px 100px;
-}
-
-.container h1{
+  max-width:1200px;
+  margin:0 auto;
+  padding:96px 24px 0;
   font-size:36px;
-  margin:0 0 38px;
   font-weight:normal;
+  text-align:center;
   color:#05070a;
 }
 
-body.learning-mode .container h1{
+body.learning-mode .page-title{
   color:rgba(215,215,215,0.74);
 }
 
+.subtitle{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:10px auto 0;
+  padding:0 24px;
+  text-align:center;
+  font-size:18px;
+  color:rgba(5,7,10,0.62);
+}
+
+body.learning-mode .subtitle{
+  color:#9aa4b5;
+}
+
+/* פריסת Grid - שלוש עמודות, כמו בעמוד המבוא */
+
+.container{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:0 auto;
+  padding:34px 24px 100px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0 60px;
+  align-items:start;
+}
+
+.col{
+  display:flex;
+  flex-direction:column;
+}
+
 .container h2{
-  font-size:28px;
-  margin:42px 0 22px;
-  font-weight:normal;
+  font-size:25px;
+  margin:16px 0 8px;
+  font-weight:500;
   color:#05070a;
 }
 
@@ -97,41 +130,53 @@ body.learning-mode .container h2{
   color:rgba(225,225,225,0.88);
 }
 
-.container h3{
-  font-size:20px;
-  margin:-12px 0 24px;
-  font-weight:normal;
-  color:rgba(5,7,10,0.70);
-}
-
-body.learning-mode .container h3{
-  color:rgba(160,170,185,0.74);
-}
-
 .container p{
-  font-size:20px;
+  font-size:18px;
+  line-height:1.6;
   color:rgba(5,7,10,0.82);
-  margin:0;
+  margin:10px 0;
 }
 
 body.learning-mode .container p{
   color:rgba(205,205,205,0.82);
 }
 
-.line{
-  width:62%;
-  height:1px;
-  background:rgba(0,0,0,0.16);
-  margin:32px auto;
+.section{
+  position:relative;
+  border-top:1px solid rgba(0,0,0,0.14);
+  padding-top:10px;
+  padding-bottom:8px;
 }
 
-body.learning-mode .line{
-  background:rgba(255,255,255,0.12);
+body.learning-mode .section{
+  border-top:1px solid rgba(255,255,255,0.14);
+}
+
+.section > h2:first-child,
+.section > p:first-child{
+  margin-top:0;
+}
+
+.section > :last-child{
+  margin-bottom:0;
+}
+
+.col > .section:last-child{
+  border-bottom:1px solid rgba(0,0,0,0.14);
+  padding-bottom:12px;
+}
+
+body.learning-mode .col > .section:last-child{
+  border-bottom:1px solid rgba(255,255,255,0.14);
+}
+
+.term{
+  font-weight:bold;
 }
 
 .meaning-signal{
-  margin:34px auto 38px;
-  padding:24px 18px 28px;
+  margin:16px 0;
+  padding:20px 18px 22px;
   border-radius:22px;
   border:1px solid rgba(0,0,0,0.12);
   background:rgba(255,255,255,0.30);
@@ -141,6 +186,18 @@ body.learning-mode .meaning-signal{
   border:1px solid rgba(110,170,255,0.12);
   background:rgba(255,255,255,0.025);
   box-shadow:0 0 34px rgba(80,130,220,0.045);
+}
+
+.meaning-signal p{
+  margin:10px 0;
+}
+
+.meaning-signal p:first-child{
+  margin-top:0;
+}
+
+.meaning-signal p:last-child{
+  margin-bottom:0;
 }
 
 .morse-word{
@@ -189,9 +246,9 @@ body.learning-mode .morse-word:hover{
 .mac-example{
   direction:ltr;
   display:inline-block;
-  margin-top:18px;
+  margin-top:6px;
   padding:10px 16px;
-  font-size:22px;
+  font-size:20px;
   letter-spacing:2px;
   color:rgba(5,7,10,0.88);
   border:1px solid rgba(0,0,0,0.14);
@@ -207,9 +264,8 @@ body.learning-mode .mac-example{
 
 .binary-map{
   direction:ltr;
-  max-width:620px;
-  margin:22px auto 0;
-  padding:18px 16px;
+  margin:14px 0 0;
+  padding:16px 14px;
   border-radius:18px;
   border:1px solid rgba(0,0,0,0.10);
   background:rgba(255,255,255,0.22);
@@ -223,11 +279,11 @@ body.learning-mode .binary-map{
 
 .bit-row{
   display:grid;
-  grid-template-columns:70px 1fr;
-  gap:14px;
+  grid-template-columns:54px 1fr;
+  gap:10px;
   align-items:center;
-  margin:6px 0;
-  font-size:16px;
+  margin:5px 0;
+  font-size:14px;
   color:rgba(5,7,10,0.76);
 }
 
@@ -240,15 +296,15 @@ body.learning-mode .bit-row{
 }
 
 .bit-part{
-  letter-spacing:2px;
+  letter-spacing:1px;
 }
 
 .broadcast-example{
   direction:ltr;
   display:inline-block;
-  margin-top:18px;
+  margin-top:6px;
   padding:10px 16px;
-  font-size:21px;
+  font-size:19px;
   letter-spacing:2px;
   color:rgba(5,7,10,0.88);
   border:1px solid rgba(0,0,0,0.14);
@@ -264,8 +320,7 @@ body.learning-mode .broadcast-example{
 
 .thinking-button{
   display:inline-block;
-  margin-top:34px;
-  margin-bottom:60px;
+  margin-top:16px;
   padding:12px 24px;
   color:rgba(5,7,10,0.70);
   text-decoration:none;
@@ -296,65 +351,40 @@ body.learning-mode .thinking-button:hover{
   box-shadow:0 0 24px rgba(110,170,255,0.10);
 }
 
-.yin-yang-image{
-  width:220px;
-  max-width:72%;
-  display:block;
-  margin:26px auto;
-  opacity:0.94;
-  transition:0.5s ease;
-  filter:
-    drop-shadow(
-      0 0 18px
-      rgba(110,170,255,0.10)
-    );
-}
-
-.yin-yang-image:hover{
-  transform:scale(1.03);
-  filter:
-    drop-shadow(
-      0 0 26px
-      rgba(110,170,255,0.16)
-    );
+@media (max-width:900px){
+  .container{
+    grid-template-columns:1fr;
+    max-width:620px;
+  }
 }
 
 @media (max-width:768px){
 
-  .container{
-    padding:90px 22px 90px;
+  .page-title{
+    padding-top:88px;
+    font-size:28px;
   }
 
-  .container h1{
-    font-size:30px;
+  .subtitle{
+    font-size:16px;
+  }
+
+  .container{
+    padding:24px 22px 90px;
   }
 
   .container h2{
-    font-size:24px;
-    margin:36px 0 18px;
-  }
-
-  .container h3{
-    font-size:18px;
+    font-size:22px;
   }
 
   .container p{
-    font-size:18px;
-  }
-
-  .line{
-    width:72%;
-    margin:28px auto;
+    font-size:17px;
   }
 
   .bit-row{
-    grid-template-columns:58px 1fr;
-    gap:10px;
-    font-size:14px;
-  }
-
-  .bit-part{
-    letter-spacing:1px;
+    grid-template-columns:48px 1fr;
+    gap:8px;
+    font-size:13px;
   }
 
   .broadcast-example{
@@ -366,6 +396,8 @@ body.learning-mode .thinking-button:hover{
 </head>
 
 <body>
+
+<div class="rain" id="rain"></div>
 
 <script>window.waytoseeSkipFocusSetup = true;</script>
 <script>window.waytoseeHomeOverride = "../intro.html";</script>
@@ -381,494 +413,137 @@ body.learning-mode .thinking-button:hover{
   <source src="../brown-noise.mp3" type="audio/mpeg">
 </audio>
 
+<h1 class="page-title">MAC Address test</h1>
+<div class="subtitle">Media Access Control Address — הזהות המקומית של כרטיס הרשת</div>
+
 <div class="container">
 
-<h1>MAC Address test</h1>
-<h3>
-Media Access Control Address
-</h3>
-<p>
-הזהות המקומית<br>
-של כרטיס הרשת.
-</p>
+<div class="col">
 
-<div class="line"></div>
-
-<p>
-הרשת לא מורכבת<br>
-רק ממידע שנע.
-</p>
-
-<p>
-היא מורכבת גם<br>
-ממערכות שמקשיבות.
-</p>
-
-<div class="line"></div>
-
-<p>
-כרטיס הרשת<br>
-הוא המקום<br>
-שדרכו המחשב מתחבר לרשת.
-</p>
-
-<section id="ethernet-meaning" class="meaning-signal">
-
-<p>
-כרטיס הרשת שולח ומקבל אותות,<br>
-מפענח אותם ונותן להם משמעות.
-</p>
-
-<div class="line"></div>
-
-<p>
-Ethernet היא השפה<br>
-שנותנת משמעות<br>
-לאימפולסים החשמליים,
-</p>
-
-<p>
-בדומה לקוד
-<span id="morseBtn" class="morse-word">מורס</span>.
-</p>
-
-<p>
-בה נקישות פשוטות<br>
-מייצגות מסר.
-</p>
-
-<div class="line"></div>
-
-<p>
-כאשר המידע נעטף<br>
-לצורך תנועה בתוך הרשת המקומית,
-</p>
-
-<p>
-פרוטוקול <strong>Ethernet</strong><br>
-יוצר יחידת מידע<br>
-שנקראת <strong>Frame</strong>.
-</p>
-
-<p>
-<strong>Frame</strong> = יחידת מידע<br>
-ברשת המקומית.
-</p>
-
-<p>
-כדי שמידע יוכל לנוע ברשת,<br>
-הוא צריך לדעת פיזית<br>
-לאן להישלח.
-</p>
-
-<p>
-בתוך ה־<strong>Frame</strong><br>
-נמצא המידע עצמו,
-</p>
-
-<p>
-וגם הכתובת הפיזית<br>
-של כרטיס הרשת המבוקש.
-</p>
-
-<p>
-כתובת ה־MAC<br>
-עוזרת למידע לדעת<br>
-פיזית לאן להגיע<br>
-בתוך הרשת המקומית.
-</p>
-
-</section>
-
-<p>
-בתוך הרשת המקומית,<br>
-המחשב צריך גם לדעת<br>
-למי המידע שייך.
-</p>
-
-<div class="line"></div>
-
-<p>
-לכן לכל כרטיס רשת<br>
-יש זהות מקומית משלו.
-</p>
-
-<h2>MAC Address</h2>
-
-<p>
-היא רצף של מספרים<br>
-הקסה־דצימליים,
-</p>
-
-<p>
-המוטבעים על כרטיס הרשת<br>
-כבר מהמפעל שבו יוצר.
-</p>
-
-<div class="mac-example">
-00:1A:2B:3C:4D:5E
-</div>
-
-<div class="binary-map">
-
-<div class="bit-row">
-<span class="hex-part">00</span>
-<span class="bit-part">00000000</span>
-</div>
-
-<div class="bit-row">
-<span class="hex-part">1A</span>
-<span class="bit-part">00011010</span>
-</div>
-
-<div class="bit-row">
-<span class="hex-part">2B</span>
-<span class="bit-part">00101011</span>
-</div>
-
-<div class="bit-row">
-<span class="hex-part">3C</span>
-<span class="bit-part">00111100</span>
-</div>
-
-<div class="bit-row">
-<span class="hex-part">4D</span>
-<span class="bit-part">01001101</span>
-</div>
-
-<div class="bit-row">
-<span class="hex-part">5E</span>
-<span class="bit-part">01011110</span>
-</div>
+  <div class="section">
+    <h2>Ethernet ו-Frame</h2>
+    <p>
+      הרשת לא מורכבת רק ממידע שנע, אלא גם ממערכות שמקשיבות.
+      כרטיס הרשת הוא המקום שדרכו המחשב מתחבר לרשת — הוא שולח ומקבל אותות, מפענח אותם ונותן להם משמעות.
+    </p>
+    <p>
+      Ethernet היא השפה שנותנת משמעות לאימפולסים החשמליים, בדומה לקוד
+      <span id="morseBtn" class="morse-word">מורס</span>,
+      שבו נקישות פשוטות מייצגות מסר.
+    </p>
+    <p>
+      כאשר המידע נעטף לצורך תנועה בתוך הרשת המקומית, פרוטוקול <strong>Ethernet</strong> יוצר יחידת מידע שנקראת <strong>Frame</strong>.
+      <span class="term">Frame = יחידת מידע ברשת המקומית.</span>
+    </p>
+    <p>
+      כדי שמידע יוכל לנוע ברשת, הוא צריך לדעת פיזית לאן להישלח.
+      בתוך ה-<strong>Frame</strong> נמצא המידע עצמו, וגם הכתובת הפיזית של כרטיס הרשת המבוקש —
+      כתובת ה-MAC עוזרת למידע לדעת פיזית לאן להגיע בתוך הרשת המקומית.
+    </p>
+  </div>
 
 </div>
 
-<div class="line"></div>
+<div class="col">
 
-<p>
-כל זוג הקסה־דצימלי<br>
-מייצג אוקטטה אחת.
-</p>
+  <div class="section">
+    <h2>MAC Address</h2>
+    <p>
+      בתוך הרשת המקומית, המחשב צריך גם לדעת למי המידע שייך — לכן לכל כרטיס רשת יש זהות מקומית משלו.
+      כתובת ה-MAC היא רצף של מספרים הקסה־דצימליים, המוטבעים על כרטיס הרשת כבר מהמפעל שבו יוצר.
+    </p>
 
-<p>
-כל אוקטטה<br>
-היא שמונה ביטים.
-</p>
+    <div class="mac-example">00:1A:2B:3C:4D:5E</div>
 
-<div class="line"></div>
+    <div class="binary-map">
+      <div class="bit-row"><span class="hex-part">00</span><span class="bit-part">00000000</span></div>
+      <div class="bit-row"><span class="hex-part">1A</span><span class="bit-part">00011010</span></div>
+      <div class="bit-row"><span class="hex-part">2B</span><span class="bit-part">00101011</span></div>
+      <div class="bit-row"><span class="hex-part">3C</span><span class="bit-part">00111100</span></div>
+      <div class="bit-row"><span class="hex-part">4D</span><span class="bit-part">01001101</span></div>
+      <div class="bit-row"><span class="hex-part">5E</span><span class="bit-part">01011110</span></div>
+    </div>
 
-<p>
-כדי שמידע ינוע ברשת,<br>
-המחשב חייב למצוא<br>
-את היעד הנכון.
-</p>
+    <p>
+      כל זוג הקסה־דצימלי מייצג אוקטטה אחת, וכל אוקטטה היא שמונה ביטים.
+    </p>
+  </div>
 
-<div class="line"></div>
+  <div class="section">
+    <h2>Broadcast</h2>
+    <p>
+      כדי שמידע ינוע ברשת, המחשב חייב למצוא את היעד הנכון.
+      כאשר מחשב או התקן מחפש מכשיר מסוים, הוא שולח בקשת גילוי מסוג <strong>Broadcast</strong> — שידור לכל הרשת המקומית.
+    </p>
 
-<p>
-כאשר מחשב או התקן<br>
-מחפש מכשיר מסוים,
-</p>
+    <div class="broadcast-example">FF:FF:FF:FF:FF:FF</div>
 
-<p>
-הוא שולח בקשת גילוי<br>
-מסוג Broadcast<br>
-לכל הרשת המקומית.
-</p>
+    <div class="binary-map">
+      <div class="bit-row"><span class="hex-part">FF</span><span class="bit-part">11111111</span></div>
+      <div class="bit-row"><span class="hex-part">FF</span><span class="bit-part">11111111</span></div>
+      <div class="bit-row"><span class="hex-part">FF</span><span class="bit-part">11111111</span></div>
+      <div class="bit-row"><span class="hex-part">FF</span><span class="bit-part">11111111</span></div>
+      <div class="bit-row"><span class="hex-part">FF</span><span class="bit-part">11111111</span></div>
+      <div class="bit-row"><span class="hex-part">FF</span><span class="bit-part">11111111</span></div>
+    </div>
 
-<div class="line"></div>
-
-<h2>Broadcast</h2>
-
-<p>
-שידור לכל הרשת המקומית.
-</p>
-
-<div class="broadcast-example">
-FF:FF:FF:FF:FF:FF
-</div>
-
-<div class="binary-map">
-
-<div class="bit-row">
-<span class="hex-part">FF</span>
-<span class="bit-part">11111111</span>
-</div>
-
-<div class="bit-row">
-<span class="hex-part">FF</span>
-<span class="bit-part">11111111</span>
-</div>
-
-<div class="bit-row">
-<span class="hex-part">FF</span>
-<span class="bit-part">11111111</span>
-</div>
-
-<div class="bit-row">
-<span class="hex-part">FF</span>
-<span class="bit-part">11111111</span>
-</div>
-
-<div class="bit-row">
-<span class="hex-part">FF</span>
-<span class="bit-part">11111111</span>
-</div>
-
-<div class="bit-row">
-<span class="hex-part">FF</span>
-<span class="bit-part">11111111</span>
-</div>
+    <p>
+      כל הביטים דלוקים. זו לא כתובת של כרטיס רשת אחד, אלא פנייה לכולם בתוך הרשת המקומית — כך שאף אחד בתוך ה־LAN לא מתפספס.
+    </p>
+    <p>
+      כל המכשירים שומעים וכולם מקבלים את השאלה. ה־Broadcast מופץ בתוך הרשת המקומית וכל כרטיסי הרשת מקבלים את הבקשה,
+      אך רק המכשיר המיועד משיב — ורק עכשיו המידע יכול להתחיל לנוע.
+    </p>
+  </div>
 
 </div>
 
-<div class="line"></div>
+<div class="col">
 
-<p>
-כל הביטים דלוקים.
-</p>
+  <div class="section">
+    <h2>ARP</h2>
+    <p><span class="term">Address Resolution Protocol.</span></p>
+    <p>
+      ARP היא הדרך של מחשבים לגלות מי הוא היעד המקומי. הוא משתמש ב־Broadcast כדי למצוא יעד בתוך הרשת המקומית.
+    </p>
 
-<p>
-זו לא כתובת<br>
-של כרטיס רשת אחד.
-</p>
+    <div class="meaning-signal">
+      <p>
+        ARP הוא באמת "אזור מעבר" בין <strong>IP Address</strong> לבין <strong>MAC Address</strong>.
+        המחשב יודע: "אני רוצה להגיע ל־IP הזה" — אבל בתוך הרשת המקומית, <strong>Ethernet</strong> לא עובד עם IP, הוא צריך כתובת MAC.
+      </p>
+      <p>
+        ה־IP עדיין עוזר להבין מי הוא היעד המבוקש, אבל בתוך ה־LAN, Ethernet מתמקד בכתובת ה־MAC
+        כדי להעביר את ה־Frame ליעד הפיזי המתאים. לכן המחשב צריך לגלות איזה MAC שייך לאותו IP.
+      </p>
+      <p>
+        אז בעצם ה־Broadcast שואל: "מי מחזיק ב־IP הזה? מי הוא 192.168.1.8?" — והמכשיר המתאים עונה:
+        "זה אני, וה־MAC שלי הוא XX:XX:XX:XX:XX:XX".
+      </p>
+      <p>
+        בתוך הרשת המקומית, ARP עוזר לחבר בין כתובת ה־IP לבין כתובת ה־MAC. ה־IP עוזר לזהות מי הוא היעד המבוקש,
+        אבל התנועה הפיזית עצמה בתוך ה־LAN מתבצעת באמצעות MAC Address.
+        ARP מחבר בין העולם הלוגי (IP) לבין העולם הפיזי־מקומי (MAC / Ethernet / Frame).
+      </p>
+    </div>
+  </div>
 
-<p>
-זו פנייה לכולם<br>
-בתוך הרשת המקומית.
-</p>
+  <div class="section">
+    <h2>מה פירוש השם?</h2>
+    <p>
+      <span class="term">Address — כתובת / יעד.</span>
+      <span class="term">Resolution — בירור / גילוי / זיהוי.</span>
+      <span class="term">Protocol — דרך מסודרת שבה מחשבים מתקשרים.</span>
+    </p>
+    <p>
+      הפרוטוקול שעוזר לברר מי הוא היעד בתוך הרשת המקומית. ARP מחבר בין שכבה 3 לבין שכבה 2 —
+      הוא משתמש בכתובת IP של היעד המבוקש, כדי לגלות איזו כתובת MAC שייכת אליו.
+    </p>
 
-<p>
-כך אף אחד בתוך ה־LAN<br>
-לא מתפספס.
-</p>
+    <a href="broadcast.html" class="thinking-button">מי זה X ?</a>
+  </div>
 
-<div class="line"></div>
-
-<p>
-כל המכשירים שומעים.
-</p>
-
-<p>
-כולם מקבלים את השאלה.
-</p>
-
-<div class="line"></div>
-
-<p>
-ה־Broadcast<br>
-מופץ בתוך הרשת המקומית.
-</p>
-
-<p>
-כל כרטיסי הרשת<br>
-מקבלים את הבקשה.
-</p>
-
-<div class="line"></div>
-
-<p>
-רק המכשיר המיועד<br>
-משיב.
-</p>
-
-<div class="line"></div>
-
-<p>
-ורק עכשיו<br>
-המידע יכול להתחיל לנוע.
-</p>
-
-<div class="line"></div>
-
-<h2>ARP</h2>
-
-<h3>
-Address Resolution Protocol
-</h3>
-
-<p>
-ARP היא הדרך של מחשבים<br>
-לגלות<br>
-מי הוא היעד המקומי.
-</p>
-
-<div class="line"></div>
-
-<p>
-ARP משתמש ב־Broadcast<br>
-כדי למצוא יעד<br>
-בתוך הרשת המקומית.
-</p>
-
-<section class="meaning-signal">
-
-<p>
-ARP הוא באמת “אזור מעבר”<br>
-בין <strong>IP Address</strong><br>
-לבין <strong>MAC Address</strong>.
-</p>
-
-<div class="line"></div>
-
-<p>
-המחשב יודע:
-</p>
-
-<p>
-“אני רוצה להגיע ל־IP הזה”
-</p>
-
-<div class="line"></div>
-
-<p>
-אבל בתוך הרשת המקומית,<br>
-<strong>Ethernet</strong> לא עובד עם IP.
-</p>
-
-<p>
-הוא צריך כתובת MAC.
-</p>
-
-<div class="line"></div>
-
-<p>
-ה־IP עדיין עוזר להבין<br>
-מי הוא היעד המבוקש.
-</p>
-
-<p>
-אבל בתוך ה־LAN,<br>
-Ethernet מתמקד<br>
-בכתובת ה־MAC
-</p>
-
-<p>
-כדי להעביר את ה־Frame<br>
-ליעד הפיזי המתאים.
-</p>
-
-<div class="line"></div>
-
-<p>
-לכן המחשב צריך לגלות<br>
-איזה MAC שייך<br>
-לאותו IP.
-</p>
-<p>
-הוא צריך כתובת MAC.
-</p>
-
-<div class="line"></div>
-
-<p>
-אז בעצם ה־Broadcast שואל:
-</p>
-
-<p>
-“מי מחזיק ב־IP הזה?”<br>
-“מי הוא 192.168.1.8 ?”
-</p>
-
-<div class="line"></div>
-
-<p>
-והמכשיר המתאים עונה:
-</p>
-
-<p>
-“זה אני —<br>
-וה־MAC שלי הוא<br>
-XX:XX:XX:XX:XX:XX”
-</p>
-
-<div class="line"></div>
-
-<p>
-בתוך הרשת המקומית,<br>
-ARP עוזר לחבר<br>
-בין כתובת ה־IP<br>
-לבין כתובת ה־MAC.
-</p>
-
-<p>
-ה־IP עוזר לזהות<br>
-מי הוא היעד המבוקש,
-</p>
-
-<p>
-אבל התנועה הפיזית עצמה<br>
-בתוך ה־LAN<br>
-מתבצעת באמצעות MAC Address.
-</p>
-
-<div class="line"></div>
-
-<p>
-ARP מחבר<br>
-בין העולם הלוגי (IP)<br>
-לבין העולם הפיזי־מקומי<br>
-(MAC / Ethernet / Frame).
-</p>
-
-<div class="line"></div>
-
-<img
-  src="ipmacyinyang.png"
-  class="yin-yang-image"
-  alt="IP and MAC Yin Yang"
->
-
-</section>
-
-<div class="line"></div>
-
-<h2>מה פירוש השם?</h2>
-
-<p>
-Address — כתובת / יעד
-</p>
-
-<div class="line"></div>
-
-<p>
-Resolution — בירור / גילוי / זיהוי
-</p>
-
-<div class="line"></div>
-
-<p>
-Protocol — דרך מסודרת<br>
-שבה מחשבים מתקשרים
-</p>
-
-<div class="line"></div>
-
-<p>
-הפרוטוקול שעוזר לברר<br>
-מי הוא היעד בתוך הרשת המקומית.
-<p>
-ARP מחבר<br>
-בין שכבה 3<br>
-לבין שכבה 2.
-</p>
-
-<p>
-הוא משתמש בכתובת IP<br>
-של היעד המבוקש,
-</p>
-
-<p>
-כדי לגלות<br>
-איזו כתובת MAC<br>
-שייכת אליו.
-</p>
-
-<div class="line"></div>
-
-<a href="broadcast.html" class="thinking-button">
-מי זה X ?
-</a>
+</div>
 
 </div>
 
