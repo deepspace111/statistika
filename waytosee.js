@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "statistika/statistika.html": "professions.html",
     "statistika/statistika-introduction.html": "statistika/statistika.html",
     "arp/arp.html": "intro.html",
+    "dhcp/dhcp.html": "intro.html",
     "ip/ip.html": "intro.html",
     "subnet/index.html": "intro.html",
     "nat/index.html": "intro.html",

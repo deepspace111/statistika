@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FTM28BMBXC');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DHCP</title>
+
+<link rel="stylesheet" href="../waytosee.css">
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  font-family:Arial, sans-serif;
+}
+
+body.learning-mode{
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(90,140,220,0.08),
+      transparent 42%
+    ),
+    linear-gradient(
+      to bottom,
+      #05070a,
+      #000814 45%,
+      #000 100%
+    );
+  color:rgba(205,205,205,0.78);
+}
+
+.rain{
+  position:fixed;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  overflow:hidden;
+  opacity:0;
+  transition:opacity 1.4s ease;
+}
+
+body.learning-mode .rain{
+  opacity:0.34;
+}
+
+.drop{
+  position:absolute;
+  top:-120vh;
+  width:1px;
+  height:78px;
+  background:linear-gradient(
+    to bottom,
+    rgba(110,170,255,0),
+    rgba(110,170,255,0.34),
+    rgba(110,170,255,0)
+  );
+  animation:rain linear infinite;
+}
+
+@keyframes rain{
+  from{ transform:translateY(-20vh); }
+  to{ transform:translateY(150vh); }
+}
+
+.page-title{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:0 auto;
+  padding:96px 24px 0;
+  font-size:36px;
+  font-weight:normal;
+  text-align:center;
+  color:#05070a;
+}
+
+body.learning-mode .page-title{
+  color:rgba(215,215,215,0.74);
+}
+
+.subtitle{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:10px auto 0;
+  padding:0 24px;
+  text-align:center;
+  font-size:18px;
+  color:rgba(5,7,10,0.62);
+}
+
+body.learning-mode .subtitle{
+  color:#9aa4b5;
+}
+
+.container{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:0 auto;
+  padding:34px 24px 100px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0 60px;
+  align-items:start;
+}
+
+.col{
+  display:flex;
+  flex-direction:column;
+}
+
+.container h2{
+  font-size:25px;
+  margin:16px 0 8px;
+  font-weight:500;
+  color:#05070a;
+}
+
+body.learning-mode .container h2{
+  color:rgba(225,225,225,0.88);
+}
+
+.container p{
+  font-size:18px;
+  line-height:1.6;
+  color:rgba(5,7,10,0.82);
+  margin:10px 0;
+}
+
+body.learning-mode .container p{
+  color:rgba(205,205,205,0.82);
+}
+
+.section{
+  position:relative;
+  border-top:1px solid rgba(0,0,0,0.14);
+  padding-top:10px;
+  padding-bottom:8px;
+}
+
+body.learning-mode .section{
+  border-top:1px solid rgba(255,255,255,0.14);
+}
+
+.section > h2:first-child,
+.section > p:first-child{
+  margin-top:0;
+}
+
+.section > :last-child{
+  margin-bottom:0;
+}
+
+.col > .section:last-child{
+  border-bottom:1px solid rgba(0,0,0,0.14);
+  padding-bottom:12px;
+}
+
+body.learning-mode .col > .section:last-child{
+  border-bottom:1px solid rgba(255,255,255,0.14);
+}
+
+.term{
+  font-weight:bold;
+}
+
+.meaning-signal{
+  margin:16px 0;
+  padding:20px 18px 22px;
+  border-radius:22px;
+  border:1px solid rgba(0,0,0,0.12);
+  background:rgba(255,255,255,0.30);
+}
+
+body.learning-mode .meaning-signal{
+  border:1px solid rgba(110,170,255,0.12);
+  background:rgba(255,255,255,0.025);
+  box-shadow:0 0 34px rgba(80,130,220,0.045);
+}
+
+.meaning-signal p{
+  margin:10px 0;
+}
+
+.meaning-signal p:first-child{
+  margin-top:0;
+}
+
+.meaning-signal p:last-child{
+  margin-bottom:0;
+}
+
+.info-box{
+  direction:ltr;
+  margin:14px 0 0;
+  padding:16px 18px;
+  border-radius:18px;
+  border:1px solid rgba(0,0,0,0.10);
+  background:rgba(255,255,255,0.22);
+  font-family:Arial, sans-serif;
+}
+
+body.learning-mode .info-box{
+  border:1px solid rgba(255,255,255,0.10);
+  background:rgba(255,255,255,0.025);
+}
+
+.info-row{
+  display:grid;
+  grid-template-columns:120px 1fr;
+  gap:10px;
+  align-items:center;
+  margin:7px 0;
+  font-size:15px;
+  color:rgba(5,7,10,0.76);
+}
+
+body.learning-mode .info-row{
+  color:rgba(220,220,220,0.76);
+}
+
+.info-label{
+  opacity:0.7;
+}
+
+.info-value{
+  font-weight:bold;
+  letter-spacing:0.5px;
+}
+
+.info-box.term-box{
+  direction:rtl;
+}
+
+.info-box.term-box .info-row{
+  grid-template-columns:110px 1fr;
+}
+
+.info-box.term-box .info-value{
+  font-weight:normal;
+  letter-spacing:normal;
+}
+
+.dora-row{
+  display:grid;
+  grid-template-columns:78px 54px 1fr;
+  align-items:baseline;
+  gap:10px;
+  margin:9px 0;
+}
+
+.dora-step{
+  direction:ltr;
+  unicode-bidi:isolate;
+  font-weight:bold;
+  font-size:13px;
+  letter-spacing:0.5px;
+  opacity:0.65;
+}
+
+.dora-actor{
+  font-size:13px;
+  opacity:0.55;
+}
+
+.dora-line{
+}
+
+@media (max-width:900px){
+  .container{
+    grid-template-columns:1fr;
+    max-width:620px;
+  }
+}
+
+@media (max-width:768px){
+
+  .page-title{
+    padding-top:88px;
+    font-size:28px;
+  }
+
+  .subtitle{
+    font-size:16px;
+  }
+
+  .container{
+    padding:24px 22px 90px;
+  }
+
+  .container h2{
+    font-size:22px;
+  }
+
+  .container p{
+    font-size:17px;
+  }
+
+  .info-row{
+    grid-template-columns:100px 1fr;
+    font-size:14px;
+  }
+
+  .info-box.term-box .info-row{
+    grid-template-columns:1fr;
+    gap:2px;
+  }
+
+  .dora-row{
+    grid-template-columns:66px 46px 1fr;
+    gap:8px;
+  }
+
+  .dora-step,
+  .dora-actor{
+    font-size:12px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="rain" id="rain"></div>
+
+<h1 class="page-title">DHCP</h1>
+<div class="subtitle">Dynamic Host Configuration Protocol - קבלת הגדרות רשת באופן אוטומטי</div>
+
+<div class="container">
+
+<div class="col">
+
+  <div class="section">
+    <h2>הצורך בהגדרה אוטומטית</h2>
+    <p>
+      כדי שמכשיר יוכל לתקשר ברשת, הוא צריך כמה פרטי הגדרה: כתובת IP משלו, מסכת רשת שמגדירה את גבולות הרשת המקומית,
+      כתובת שער (Gateway) שמובילה אל מחוץ לרשת, וכתובת שרת DNS שמתרגם שמות מתחם לכתובות IP.
+    </p>
+    <p>
+      כשמכשיר בודד מתחבר לרשת, אפשר להגדיר את כל הפרטים האלה ידנית. אבל בבית עם כמה מכשירים, ובוודאי בארגון עם מאות
+      או אלפי מכשירים, הגדרה ידנית הופכת במהירות למסורבלת ולא מעשית. קל לטעות, קל לשכפל בטעות את אותה כתובת IP לשני מכשירים,
+      וכל מכשיר חדש שמצטרף דורש עוד הגדרה.
+    </p>
+    <p>
+      הפתרון הוא פרוטוקול שדואג להגדרה הזאת באופן אוטומטי. במקום שכל מכשיר יזדקק להגדרה ידנית,
+      שרת אחד ברשת מחזיק מאגר כתובות פנויות ומחלק אותן לפי הצורך.
+    </p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>תהליך הגילוי</h2>
+    <p>
+      כשמכשיר מתחבר לרשת בפעם הראשונה, הוא עדיין לא מכיר אף כתובת, גם לא את כתובת שרת ה-DHCP.
+      בדיוק כמו ב-Broadcast שלמדנו בעמוד ARP, הפנייה הראשונה שלו, <span class="term">DHCP Discover</span>,
+      נשלחת לכל הרשת המקומית ולא ליעד מסוים, כי הוא לא יודע עדיין למי לפנות.
+    </p>
+
+    <div class="meaning-signal">
+      <div class="dora-row"><span class="dora-step">Discover</span><span class="dora-actor">לקוח</span><span class="dora-line">"יש למישהו כתובת בשבילי?"</span></div>
+      <div class="dora-row"><span class="dora-step">Offer</span><span class="dora-actor">שרת</span><span class="dora-line">"יש לי 192.168.1.42, מעוניין?"</span></div>
+      <div class="dora-row"><span class="dora-step">Request</span><span class="dora-actor">לקוח</span><span class="dora-line">"כן, אני מבקש את הכתובת הזאת."</span></div>
+      <div class="dora-row"><span class="dora-step">ACK</span><span class="dora-actor">שרת</span><span class="dora-line">"מאושר. 192.168.1.42 הוקצתה לך."</span></div>
+    </div>
+
+    <p>
+      התהליך מתרחש בדרך כלל במהירות רבה, בלי שהמשתמש מבחין בכלל שהתרחשה שיחה שלמה בין המכשיר לשרת. ארבעת השלבים האלה,
+      השיחה שממנה מקבל המכשיר את כל הגדרות הרשת שלו, נקראים בקצרה <span class="term">DORA: Discover, Offer, Request, Acknowledge.</span>
+    </p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>DHCP ו-Lease</h2>
+    <p>
+      DHCP הוא הפרוטוקול שמנהל את כל התהליך הזה. הוא לא רק נותן כתובת IP, אלא מוסר למכשיר בפעולה אחת
+      גם את מסכת הרשת, כתובת השער וכתובת שרת ה-DNS.
+    </p>
+
+    <div class="info-box">
+      <div class="info-row"><span class="info-label">IP Address</span><span class="info-value">192.168.1.42</span></div>
+      <div class="info-row"><span class="info-label">Subnet Mask</span><span class="info-value">255.255.255.0</span></div>
+      <div class="info-row"><span class="info-label">Gateway</span><span class="info-value">192.168.1.1</span></div>
+      <div class="info-row"><span class="info-label">DNS</span><span class="info-value">192.168.1.1</span></div>
+      <div class="info-row"><span class="info-label">Lease Time</span><span class="info-value">24h</span></div>
+    </div>
+
+    <p>
+      הכתובת שקיבל המכשיר אינה שלו לתמיד. שרת ה-DHCP מקצה אותה לפרק זמן מוגבל, החכירה (Lease),
+      ולפני שהזמן מסתיים המכשיר מבקש לחדש אותה. אם המכשיר מתנתק ולא מחדש, הכתובת חוזרת למאגר הפנוי
+      ויכולה להינתן למכשיר אחר.
+    </p>
+    <p>
+      כך כתובות שאינן בשימוש אינן נשארות תפוסות, ויכולות לחזור למאגר ולהינתן למכשירים אחרים.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>מה פירוש השם</h2>
+
+    <div class="info-box term-box">
+      <div class="info-row"><span class="info-label">Dynamic</span><span class="info-value">דינמי, כתובת שיכולה להשתנות ולא קבועה</span></div>
+      <div class="info-row"><span class="info-label">Host</span><span class="info-value">מכשיר ברשת</span></div>
+      <div class="info-row"><span class="info-label">Configuration</span><span class="info-value">הגדרה</span></div>
+      <div class="info-row"><span class="info-label">Protocol</span><span class="info-value">דרך מסודרת שבה מחשבים מתקשרים</span></div>
+    </div>
+
+    <p>
+      השם המלא מתאר בדיוק מה שקורה: פרוטוקול שמגדיר עבור מכשיר את פרטי ההתחברות שלו,
+      בצורה דינמית שמתחדשת, ולא בקביעות ידנית חד פעמית.
+    </p>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+const rain = document.getElementById("rain");
+
+for(let i = 0; i < 150; i++){
+
+  const drop = document.createElement("div");
+
+  drop.classList.add("drop");
+
+  drop.style.left = Math.random() * 100 + "vw";
+  drop.style.top = Math.random() * -120 + "vh";
+
+  drop.style.animationDuration =
+  (5.2 + Math.random() * 7.2) + "s";
+
+  drop.style.opacity =
+  0.07 + Math.random() * 0.14;
+
+  drop.style.height =
+  46 + Math.random() * 95 + "px";
+
+  drop.style.animationDelay =
+  Math.random() * -8 + "s";
+
+  rain.appendChild(drop);
+}
+</script>
+
+<script src="../waytosee.js"></script>
+
+</body>
+</html>
