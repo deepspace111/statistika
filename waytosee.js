@@ -53,6 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "arp/arp.html": "intro.html",
     "tcp/tcp.html": "intro.html",
     "gateway/gateway.html": "intro.html",
+    "icmp/icmp.html": "intro.html",
     "dhcp/dhcp.html": "intro.html",
     "ip/ip.html": "intro.html",
     "subnet/index.html": "intro.html",
