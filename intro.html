@@ -135,6 +135,20 @@ body.learning-mode .topic small{
   display:inline-block;
 }
 
+.topic-title{
+  display:flex;
+  align-items:baseline;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.topic-acronym{
+  direction:ltr;
+  unicode-bidi:isolate;
+  opacity:0.75;
+  font-size:0.85em;
+}
+
 .first-letter{
   color:#8db8ff;
   font-weight:bold;
@@ -179,12 +193,14 @@ Cisco Certified Network Associate
 </a>
 
 <a class="topic" href="ARP/arp.html">
+<span class="topic-title">
 <span class="english">
 <span class="first-letter">A</span>ddress
 <span class="first-letter">R</span>esolution
 <span class="first-letter">P</span>rotocol
 </span>
-(ARP)
+<span class="topic-acronym">(ARP)</span>
+</span>
 <small>תרגום כתובת IP לכתובת MAC
 <span class="english">
 <span class="first-letter">M</span>edia
@@ -212,13 +228,15 @@ Subnet
 </a>
 
 <a class="topic" href="DHCP/dhcp.html">
+<span class="topic-title">
 <span class="english">
 <span class="first-letter">D</span>ynamic
 <span class="first-letter">H</span>ost
 <span class="first-letter">C</span>onfiguration
 <span class="first-letter">P</span>rotocol
 </span>
-(DHCP)
+<span class="topic-acronym">(DHCP)</span>
+</span>
 <small>
 קבלת הגדרות רשת
 באופן אוטומטי
@@ -234,7 +252,10 @@ Gateway
 </a>
 
 <a class="topic" href="#">
-Domain Name System (DNS)
+<span class="topic-title">
+<span>Domain Name System</span>
+<span class="topic-acronym">(DNS)</span>
+</span>
 <small>
 תרגום שם כמו google.com
 לכתובת Internet Protocol Address
@@ -242,7 +263,10 @@ Domain Name System (DNS)
 </a>
 
 <a class="topic" href="#">
-Internet Control Message Protocol (ICMP)
+<span class="topic-title">
+<span>Internet Control Message Protocol</span>
+<span class="topic-acronym">(ICMP)</span>
+</span>
 <small>
 בדיקת תקשורת באמצעות
 Echo Request
@@ -251,7 +275,10 @@ Echo Request
 </a>
 
 <a class="topic" href="#">
-Transmission Control Protocol (TCP)
+<span class="topic-title">
+<span>Transmission Control Protocol</span>
+<span class="topic-acronym">(TCP)</span>
+</span>
 <small>
 תקשורת אמינה ומסודרת
 בין מחשבים
@@ -259,7 +286,10 @@ Transmission Control Protocol (TCP)
 </a>
 
 <a class="topic" href="#">
-User Datagram Protocol (UDP)
+<span class="topic-title">
+<span>User Datagram Protocol</span>
+<span class="topic-acronym">(UDP)</span>
+</span>
 <small>
 תקשורת מהירה
 ללא בדיקת הגעה
@@ -275,7 +305,10 @@ Ports
 </a>
 
 <a class="topic" href="NAT/">
-Network Address Translation (NAT)
+<span class="topic-title">
+<span>Network Address Translation</span>
+<span class="topic-acronym">(NAT)</span>
+</span>
 <small>
 איך כמה מכשירים בבית
 יוצאים לאינטרנט
