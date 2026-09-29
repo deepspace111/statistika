@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FTM28BMBXC');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gateway</title>
+
+<link rel="stylesheet" href="../waytosee.css">
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  font-family:Arial, sans-serif;
+}
+
+body.learning-mode{
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(90,140,220,0.08),
+      transparent 42%
+    ),
+    linear-gradient(
+      to bottom,
+      #05070a,
+      #000814 45%,
+      #000 100%
+    );
+  color:rgba(205,205,205,0.78);
+}
+
+/* רקע ה"גשם" (.rain / .drop / @keyframes rain) גר ב-waytosee.css המשותף */
+
+.page-title{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:0 auto;
+  padding:96px 24px 0;
+  font-size:36px;
+  font-weight:normal;
+  text-align:center;
+  color:#05070a;
+}
+
+body.learning-mode .page-title{
+  color:rgba(215,215,215,0.74);
+}
+
+.subtitle{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:10px auto 0;
+  padding:0 24px;
+  text-align:center;
+  font-size:18px;
+  color:rgba(5,7,10,0.62);
+}
+
+body.learning-mode .subtitle{
+  color:#9aa4b5;
+}
+
+.container{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:0 auto;
+  padding:34px 24px 100px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0 60px;
+  align-items:start;
+}
+
+.col{
+  display:flex;
+  flex-direction:column;
+}
+
+.container h2{
+  font-size:25px;
+  margin:16px 0 8px;
+  font-weight:500;
+  color:#05070a;
+}
+
+body.learning-mode .container h2{
+  color:rgba(225,225,225,0.88);
+}
+
+.container p{
+  font-size:18px;
+  line-height:1.6;
+  color:rgba(5,7,10,0.82);
+  margin:10px 0;
+}
+
+body.learning-mode .container p{
+  color:rgba(205,205,205,0.82);
+}
+
+.section{
+  position:relative;
+  border-top:1px solid rgba(0,0,0,0.14);
+  padding-top:10px;
+  padding-bottom:8px;
+}
+
+body.learning-mode .section{
+  border-top:1px solid rgba(255,255,255,0.14);
+}
+
+.section > h2:first-child,
+.section > p:first-child{
+  margin-top:0;
+}
+
+.section > :last-child{
+  margin-bottom:0;
+}
+
+.col > .section:last-child{
+  border-bottom:1px solid rgba(0,0,0,0.14);
+  padding-bottom:12px;
+}
+
+body.learning-mode .col > .section:last-child{
+  border-bottom:1px solid rgba(255,255,255,0.14);
+}
+
+.term{
+  font-weight:bold;
+}
+
+.meaning-signal{
+  margin:16px 0;
+  padding:20px 18px 22px;
+  border-radius:22px;
+  border:1px solid rgba(0,0,0,0.12);
+  background:rgba(255,255,255,0.30);
+}
+
+body.learning-mode .meaning-signal{
+  border:1px solid rgba(110,170,255,0.12);
+  background:rgba(255,255,255,0.025);
+  box-shadow:0 0 34px rgba(80,130,220,0.045);
+}
+
+.meaning-signal p{
+  margin:10px 0;
+}
+
+.meaning-signal p:first-child{
+  margin-top:0;
+}
+
+.meaning-signal p:last-child{
+  margin-bottom:0;
+}
+
+.info-box{
+  direction:ltr;
+  margin:14px 0 0;
+  padding:16px 18px;
+  border-radius:18px;
+  border:1px solid rgba(0,0,0,0.10);
+  background:rgba(255,255,255,0.22);
+  font-family:Arial, sans-serif;
+}
+
+body.learning-mode .info-box{
+  border:1px solid rgba(255,255,255,0.10);
+  background:rgba(255,255,255,0.025);
+}
+
+.info-row{
+  display:grid;
+  grid-template-columns:120px 1fr;
+  gap:10px;
+  align-items:center;
+  margin:7px 0;
+  font-size:15px;
+  color:rgba(5,7,10,0.76);
+}
+
+body.learning-mode .info-row{
+  color:rgba(220,220,220,0.76);
+}
+
+.info-label{
+  opacity:0.7;
+}
+
+.info-value{
+  font-weight:bold;
+  letter-spacing:0.5px;
+}
+
+.info-box.term-box{
+  direction:rtl;
+}
+
+.info-box.term-box .info-row{
+  grid-template-columns:70px 1fr;
+}
+
+.info-box.term-box .info-value{
+  font-weight:normal;
+  letter-spacing:normal;
+}
+
+@media (max-width:900px){
+  .container{
+    grid-template-columns:1fr;
+    max-width:620px;
+  }
+}
+
+@media (max-width:768px){
+
+  .page-title{
+    padding-top:88px;
+    font-size:28px;
+  }
+
+  .subtitle{
+    font-size:16px;
+  }
+
+  .container{
+    padding:24px 22px 90px;
+  }
+
+  .container h2{
+    font-size:22px;
+  }
+
+  .container p{
+    font-size:17px;
+  }
+
+  .info-row{
+    grid-template-columns:100px 1fr;
+    font-size:14px;
+  }
+
+  .info-box.term-box .info-row{
+    grid-template-columns:1fr;
+    gap:2px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="rain" id="rain"></div>
+
+<h1 class="page-title">Gateway</h1>
+<div class="subtitle">הדרך אל מחוץ לרשת המקומית</div>
+
+<div class="container">
+
+<div class="col">
+
+  <div class="section">
+    <h2>לאן אני רוצה להגיע?</h2>
+    <p>
+      מחשב ברשת יודע את כתובת ה-IP שלו ואת מסכת הרשת שלו. שני הפרטים האלה מאפשרים לו לענות על שאלה חשובה מאוד:
+      <span class="term">האם היעד נמצא ברשת המקומית שלי, או במקום אחר?</span>
+    </p>
+    <p>
+      אם המחשב רוצה לשלוח מידע לכתובת שנמצאת באותה רשת, הוא יכול לתקשר איתה ישירות. הוא משתמש ב-ARP כדי למצוא את כתובת ה-MAC של היעד ושולח אליו את ה-Frame.
+    </p>
+    <p>
+      אבל מה קורה כשהכתובת נמצאת מחוץ לרשת המקומית?
+    </p>
+
+    <div class="info-box">
+      <div class="info-row"><span class="info-label">המחשב שלנו</span><span class="info-value">192.168.1.42</span></div>
+      <div class="info-row"><span class="info-label">רוצה להגיע ל</span><span class="info-value">8.8.8.8</span></div>
+    </div>
+
+    <p>
+      לפי מסכת הרשת שלו, המחשב מבין שהכתובת 8.8.8.8 אינה חלק מהרשת המקומית. הוא יודע לאן הוא רוצה להגיע, אבל היעד אינו נמצא לידו.
+      עכשיו הוא צריך לדעת למי למסור את המידע כדי שיוכל לצאת מהרשת המקומית.
+    </p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>אני לא צריך לדעת את כל הדרך</h2>
+    <p>
+      המחשב אינו צריך לדעת כיצד להגיע בעצמו ל-8.8.8.8. הוא צריך לדעת רק דבר אחד: <span class="term">מה הצעד הבא?</span>
+      בשביל זה קיימת כתובת ה-Gateway.
+    </p>
+
+    <div class="info-box">
+      <div class="info-row"><span class="info-label">Computer</span><span class="info-value">192.168.1.42</span></div>
+      <div class="info-row"><span class="info-label">Gateway</span><span class="info-value">192.168.1.1</span></div>
+      <div class="info-row"><span class="info-label">Destination</span><span class="info-value">8.8.8.8</span></div>
+    </div>
+
+    <p>
+      המחשב רואה שהיעד אינו מקומי ולכן הוא מוסר את ה-Frame ל-Gateway. ה-Gateway הוא בדרך כלל ממשק של נתב שנמצא באותה רשת מקומית של המחשב.
+      הנתב מקבל את המידע ומחליט לאן להעביר אותו הלאה.
+    </p>
+    <p>
+      המחשב לא צריך להכיר את כל הנתבים שבדרך. מבחינתו: אם היעד לא כאן, אני שולח ל-Gateway.
+    </p>
+    <p>
+      <strong>נקודה חשובה:</strong> כתובת ה-IP של היעד עדיין נשארת 8.8.8.8. המחשב אינו משנה את יעד ה-IP לכתובת של ה-Gateway.
+      <span class="term">מה שמשתנה ברשת המקומית הוא יעד ה-Ethernet Frame: המחשב שולח את ה-Frame אל כתובת ה-MAC של ה-Gateway.</span>
+      לכן, לפני שהוא יכול לשלוח, הוא עשוי להשתמש ב-ARP כדי לגלות את כתובת ה-MAC של ה-Gateway.
+    </p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>Gateway</h2>
+    <p>
+      Gateway הוא נקודת היציאה של המכשיר מהרשת המקומית אל רשתות אחרות.
+    </p>
+    <p>
+      כאשר היעד נמצא בתוך הרשת המקומית, אין צורך ב-Default Gateway לצורך ההגעה אליו. כאשר היעד נמצא מחוץ לרשת המקומית,
+      המחשב שולח את המידע ל-Default Gateway, והנתב ממשיך משם.
+    </p>
+
+    <div class="info-box">
+      <div class="info-row"><span class="info-label">יעד מקומי</span><span class="info-value">שולחים ישירות ליעד</span></div>
+      <div class="info-row"><span class="info-label">יעד מרוחק</span><span class="info-value">שולחים ל-Gateway</span></div>
+    </div>
+
+    <p>
+      וזה גם מסביר מדוע DHCP נותן למחשב לא רק כתובת IP ומסכת רשת, אלא גם את כתובת ה-Gateway.
+      בלי כתובת IP המחשב לא יודע מי הוא. בלי מסכת רשת הוא לא יודע מה נחשב מקומי. ובלי Gateway הוא יכול לדבר עם הרשת המקומית,
+      אבל אינו יודע מהו הצעד הראשון בדרך אל מחוץ לה.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>מה פירוש השם</h2>
+
+    <div class="info-box term-box">
+      <div class="info-row"><span class="info-label">Gate</span><span class="info-value">שער</span></div>
+      <div class="info-row"><span class="info-label">Way</span><span class="info-value">דרך</span></div>
+    </div>
+
+    <p>
+      Gateway הוא, מילולית, השער אל הדרך החוצה.
+    </p>
+
+    <div class="meaning-signal">
+      <p>המחשב לא צריך לדעת את כל הדרך. הוא צריך לדעת רק איפה השער.</p>
+    </div>
+  </div>
+
+</div>
+
+</div>
+
+<script src="../waytosee.js"></script>
+
+</body>
+</html>
