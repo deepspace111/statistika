@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FTM28BMBXC');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>מדדי פיזור — אותו ממוצע, עולם אחר</title>
+
+<link rel="stylesheet" href="../waytosee.css">
+
+<style>
+
+/* ===== פריסה – כמו בדף המבוא: שלוש עמודות ===== */
+/* כל העמודות נמתחות לאותו גובה, והמקטעים מתפרסים בתוכן, */
+/* כך שהקו התחתון של שלוש העמודות נמצא באותו גובה בדיוק */
+
+.page-title {
+  position: relative;
+  z-index: 5;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 24px 0;
+  font-size: 42px;
+  font-weight: 300;
+  text-align: center;
+}
+
+.page-subtitle {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  font-size: 19px;
+  margin: 6px 0 18px;
+  opacity: 0.65;
+}
+
+.container {
+  position: relative;
+  z-index: 5;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 24px 70px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0 70px;
+  align-items: stretch;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.container h2 { font-size: 25px; margin: 0 0 8px; font-weight: 500; }
+
+.container p {
+  line-height: 1.45;
+  margin: 8px 0;
+}
+
+.section {
+  position: relative;
+  border-top: 1px solid rgba(0,0,0,0.14);
+  padding-top: 10px;
+  padding-bottom: 8px;
+  margin-bottom: 0;
+}
+
+.section > :last-child {
+  margin-bottom: 0;
+}
+
+.col > .section:last-child {
+  border-bottom: 1px solid rgba(0,0,0,0.14);
+  padding-bottom: 12px;
+}
+
+body.learning-mode .section { border-top: 1px solid rgba(255,255,255,0.14); }
+body.learning-mode .col > .section:last-child { border-bottom: 1px solid rgba(255,255,255,0.14); }
+
+/* טבלאות, חישובים וציטוט */
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: right;
+}
+
+.data-table th,
+.data-table td {
+  padding: 7px 6px;
+  border-bottom: 1px solid rgba(0,0,0,0.12);
+  vertical-align: top;
+}
+
+.data-table th {
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+.data-table td small {
+  display: block;
+  opacity: 0.65;
+  font-size: 14px;
+}
+
+body.learning-mode .data-table th,
+body.learning-mode .data-table td {
+  border-bottom-color: rgba(255,255,255,0.12);
+}
+
+.calc {
+  direction: ltr;
+  text-align: center;
+  font-size: 18px;
+  margin: 14px 0;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.035);
+}
+
+body.learning-mode .calc {
+  background: rgba(255,255,255,0.05);
+}
+
+.calc strong {
+  font-size: 21px;
+}
+
+.pause {
+  font-style: italic;
+  opacity: 0.6;
+}
+
+.container .quote {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 300;
+  margin: 22px 0;
+}
+
+.next-line {
+  margin-top: 22px;
+  opacity: 0.7;
+}
+
+@media (max-width: 600px) {
+  .container { grid-template-columns: 1fr; }
+  .col { gap: 0; }
+  .col > .section:last-child { border-bottom: none; }
+  .container > .col:last-child > .section:last-child { border-bottom: 1px solid rgba(0,0,0,0.14); }
+  body.learning-mode .container > .col:last-child > .section:last-child { border-bottom-color: rgba(255,255,255,0.14); }
+  .page-title { font-size: 34px; }
+  .container h2 { font-size: 22px; }
+  .container p { font-size: 18px; }
+  .data-table { font-size: 15px; }
+}
+
+
+/* ===== היסטוגרמות ===== */
+
+.hist {
+  display: block;
+  width: 100%;
+  height: auto;
+  direction: ltr;
+  margin: 14px 0 6px;
+}
+
+.hist .bar path {
+  fill: currentColor;
+  opacity: 0.55;
+  transition: opacity 0.2s ease;
+}
+
+.hist .bar:hover path {
+  opacity: 0.85;
+}
+
+.hist .axis {
+  stroke: currentColor;
+  stroke-width: 1;
+  opacity: 0.35;
+}
+
+.hist text {
+  fill: currentColor;
+  text-anchor: middle;
+  font-family: Arial, sans-serif;
+}
+
+.hist .val { font-size: 13px; font-weight: bold; opacity: 0.85; }
+.hist .lbl { font-size: 12px; opacity: 0.6; }
+.hist.small .val { font-size: 13px; }
+.hist.small .lbl { font-size: 12px; }
+
+.hist-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 14px 0 6px;
+}
+
+.hist-pair figure {
+  margin: 0;
+}
+
+.hist-pair figcaption {
+  text-align: center;
+  font-size: 14px;
+  opacity: 0.65;
+}
+
+.hist-pair .hist {
+  margin: 0 0 4px;
+}
+
+.ltr {
+  direction: ltr;
+  unicode-bidi: isolate;
+  display: inline-block;
+}
+
+.numbers {
+  direction: ltr;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.7;
+  margin: 12px 0;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.035);
+  word-spacing: 2px;
+}
+
+body.learning-mode .numbers {
+  background: rgba(255,255,255,0.05);
+}
+
+
+.hist .bar.mode path { opacity: 0.9; }
+.check-table td, .check-table th { text-align: center; }
+.check-table td:first-child, .check-table th:first-child { text-align: right; }
+
+
+/* ===== מדדי פיזור ===== */
+
+.numbers.lines {
+  line-height: 1.9;
+}
+
+.formula {
+  text-align: center;
+  font-size: 19px;
+  margin: 12px 0;
+}
+
+.center-table td, .center-table th { text-align: center; }
+.center-table td:first-child, .center-table th:first-child { text-align: right; }
+
+.big-contrast td strong { font-size: 19px; }
+
+.dots .dot { fill: currentColor; opacity: 0.7; }
+.dots .dot:hover { opacity: 1; }
+.dots .mean { stroke: currentColor; stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.5; }
+.dots .meanlbl { font-size: 11px; opacity: 0.65; }
+.dots .rowlbl { font-size: 13px; text-anchor: start; direction: rtl; opacity: 0.8; }
+
+</style>
+</head>
+
+<body>
+
+<div class="rain" id="rain"></div>
+
+<h1 class="page-title">אותו ממוצע, עולם אחר</h1>
+<p class="page-subtitle">מדדי פיזור</p>
+
+<div class="container">
+
+<div class="col">
+
+  <div class="section">
+    <h2>שאלה אחת לפני שמתחילים</h2>
+    <p>שתי כיתות ניגשו לאותו מבחן.</p>
+    <p><strong>כיתה א׳:</strong></p>
+    <div class="numbers">78, 79, 80, 80, 80, 81, 82</div>
+    <p><strong>כיתה ב׳:</strong></p>
+    <div class="numbers">50, 60, 70, 80, 90, 100, 110</div>
+    <p>בשתי הכיתות הממוצע הוא בדיוק 80.</p>
+    <svg class="hist dots" viewBox="0 0 320 190" role="img" aria-label="הציונים של שתי הכיתות על ציר אחד. כיתה א׳: 78 עד 82. כיתה ב׳: 50 עד 110. בשתיהן הממוצע 80.">
+<line class="mean" x1="136.0" y1="14" x2="136.0" y2="152"/>
+<text class="meanlbl" x="136.0" y="10">ממוצע 80</text>
+<line class="axis" x1="16" y1="62" x2="256" y2="62"/>
+<text class="rowlbl" x="316" y="67">כיתה א׳</text>
+<circle class="dot" cx="129.1" cy="55" r="4.5"><title>כיתה א׳: 78</title></circle>
+<circle class="dot" cx="132.6" cy="55" r="4.5"><title>כיתה א׳: 79</title></circle>
+<circle class="dot" cx="136.0" cy="55" r="4.5"><title>כיתה א׳: 80</title></circle>
+<circle class="dot" cx="136.0" cy="44" r="4.5"><title>כיתה א׳: 80</title></circle>
+<circle class="dot" cx="136.0" cy="33" r="4.5"><title>כיתה א׳: 80</title></circle>
+<circle class="dot" cx="139.4" cy="55" r="4.5"><title>כיתה א׳: 81</title></circle>
+<circle class="dot" cx="142.9" cy="55" r="4.5"><title>כיתה א׳: 82</title></circle>
+<line class="axis" x1="16" y1="128" x2="256" y2="128"/>
+<text class="rowlbl" x="316" y="133">כיתה ב׳</text>
+<circle class="dot" cx="33.1" cy="121" r="4.5"><title>כיתה ב׳: 50</title></circle>
+<circle class="dot" cx="67.4" cy="121" r="4.5"><title>כיתה ב׳: 60</title></circle>
+<circle class="dot" cx="101.7" cy="121" r="4.5"><title>כיתה ב׳: 70</title></circle>
+<circle class="dot" cx="136.0" cy="121" r="4.5"><title>כיתה ב׳: 80</title></circle>
+<circle class="dot" cx="170.3" cy="121" r="4.5"><title>כיתה ב׳: 90</title></circle>
+<circle class="dot" cx="204.6" cy="121" r="4.5"><title>כיתה ב׳: 100</title></circle>
+<circle class="dot" cx="238.9" cy="121" r="4.5"><title>כיתה ב׳: 110</title></circle>
+<text class="lbl" x="33.1" y="172">50</text>
+<text class="lbl" x="67.4" y="172">60</text>
+<text class="lbl" x="101.7" y="172">70</text>
+<text class="lbl" x="136.0" y="172">80</text>
+<text class="lbl" x="170.3" y="172">90</text>
+<text class="lbl" x="204.6" y="172">100</text>
+<text class="lbl" x="238.9" y="172">110</text>
+</svg>
+    <p><strong>אז האם הכיתות דומות?</strong></p>
+    <p>ממש לא. בכיתה א׳ כמעט כולם נמצאים ליד 80. בכיתה ב׳ הציונים מפוזרים על פני טווח עצום.</p>
+    <p>הממוצע רואה את המרכז. הוא לא רואה מה קורה מסביב למרכז.</p>
+  </div>
+
+  <div class="section">
+    <h2>כאן נכנס הפיזור</h2>
+    <p><strong>מדדי פיזור</strong> מתארים עד כמה הנתונים רחוקים זה מזה, ועד כמה הם מתרחקים מהמרכז.</p>
+    <p>ככל שהפיזור קטן יותר, הנתונים מרוכזים יותר. ככל שהפיזור גדול יותר, הנתונים פרושים יותר.</p>
+    <p>לכן שני מערכי נתונים יכולים לקבל אותו ממוצע ולהיות שונים לחלוטין.</p>
+  </div>
+
+  <div class="section">
+    <h2>המדד הפשוט ביותר: טווח</h2>
+    <p>הדרך הכי פשוטה למדוד פיזור היא לבדוק את המרחק בין הערך הגבוה ביותר לנמוך ביותר.</p>
+    <p class="formula"><strong>טווח = מקסימום − מינימום</strong></p>
+    <p>בכיתה א׳: <span class="ltr">82 − 78 = 4</span></p>
+    <p>בכיתה ב׳: <span class="ltr">110 − 50 = 60</span></p>
+    <p>פתאום ההבדל שהממוצע הסתיר נעשה גלוי. אותו ממוצע: 80. טווח 4 לעומת טווח 60.</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>אבל לטווח יש בעיה</h2>
+    <p>ניקח את הנתונים:</p>
+    <div class="numbers">78, 79, 80, 80, 80, 81, 82</div>
+    <p>ונשנה רק ציון אחד:</p>
+    <div class="numbers">78, 79, 80, 80, 80, 81, 150</div>
+    <p>הטווח קופץ מ־4 ל־72. אבל שישה מתוך שבעת הערכים כמעט לא השתנו.</p>
+    <p>הטווח מסתכל רק על שני ערכים: הנמוך ביותר והגבוה ביותר. כל מה שנמצא ביניהם אינו משתתף בחישוב.</p>
+    <p><strong>אנחנו צריכים מדד שמשתמש בכל הנתונים.</strong></p>
+  </div>
+
+  <div class="section">
+    <h2>נמדוד מרחק מהממוצע</h2>
+    <p>אם הממוצע הוא 80, אפשר לשאול על כל ערך: <strong>כמה הוא רחוק מ־80?</strong></p>
+    <table class="data-table center-table">
+      <tr><th>ציון</th><td>78</td><td>79</td><td>80</td><td>80</td><td>80</td><td>81</td><td>82</td></tr>
+      <tr><th>סטייה</th><td><span class="ltr">−2</span></td><td><span class="ltr">−1</span></td><td>0</td><td>0</td><td>0</td><td><span class="ltr">+1</span></td><td><span class="ltr">+2</span></td></tr>
+    </table>
+    <p>אלה נקראים <strong>סטיות מהממוצע</strong>.</p>
+    <p>נראה שמצאנו פתרון: נחבר את הסטיות ונחשב את הממוצע שלהן. אבל קורה משהו מוזר:</p>
+    <div class="calc">(−2) + (−1) + 0 + 0 + 0 + 1 + 2 = <strong>0</strong></div>
+    <p>המספרים השליליים והחיוביים מבטלים זה את זה. סכום הסטיות מהממוצע תמיד יהיה 0.</p>
+  </div>
+
+  <div class="section">
+    <h2>שונות</h2>
+    <p>אז איך מונעים מהמרחקים להתבטל? אפשר להפוך את כל המרחקים לחיוביים. אחת הדרכים היא להעלות כל סטייה <strong>בריבוע</strong>:</p>
+    <table class="data-table center-table">
+      <tr><th>סטייה</th><td><span class="ltr">−2</span></td><td><span class="ltr">−1</span></td><td>0</td><td>0</td><td>0</td><td><span class="ltr">+1</span></td><td><span class="ltr">+2</span></td></tr>
+      <tr><th>בריבוע</th><td>4</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>4</td></tr>
+    </table>
+    <p>עכשיו המרחקים כבר לא יכולים לבטל זה את זה. מחשבים את הממוצע של הסטיות בריבוע, ולמדד הזה קוראים <strong>שונות</strong>:</p>
+    <div class="calc">(4 + 1 + 0 + 0 + 0 + 1 + 4) ÷ 7 ≈ <strong>1.43</strong></div>
+    <p>פיזור קטן → שונות קטנה. פיזור גדול → שונות גדולה.</p>
+    <p>אבל נוצרה לנו בעיה חדשה. אם הציונים נמדדים בנקודות, השונות נמדדת ב<strong>נקודות בריבוע</strong>. קשה לפרש את זה. אנחנו רוצים לחזור ליחידות המקוריות.</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>סטיית תקן</h2>
+    <p>לוקחים את <strong>השורש הריבועי</strong> של השונות, וזו סטיית התקן.</p>
+    <p>כך אנחנו חוזרים ליחידות שבהן נמדדו הנתונים מלכתחילה. אם מדדנו גובה בסנטימטרים, סטיית התקן בסנטימטרים. אם מדדנו ציונים בנקודות, סטיית התקן בנקודות.</p>
+    <p>סטיית התקן היא השונות שהוחזרה לשפה של הנתונים.</p>
+    <p>ועכשיו, שתי הכיתות מההתחלה:</p>
+    <table class="data-table center-table big-contrast">
+      <tr><th></th><th>ממוצע</th><th>שונות</th><th>סטיית תקן</th></tr>
+      <tr><td>כיתה א׳</td><td>80</td><td>1.43</td><td><strong>1.2</strong> נקודות</td></tr>
+      <tr><td>כיתה ב׳</td><td>80</td><td>400</td><td><strong>20</strong> נקודות</td></tr>
+    </table>
+    <p><strong>אותו ממוצע, עולם אחר.</strong> עכשיו זה כבר לא רק רעיון: 1.2 מול 20.</p>
+  </div>
+
+  <div class="section">
+    <h2>מה סטיית התקן בעצם אומרת?</h2>
+    <p>אפשר לחשוב עליה כעל מדד לגודל הטיפוסי של המרחק מהממוצע.</p>
+    <p>סטיית תקן קטנה אומרת שהערכים נוטים להיות קרובים לממוצע. סטיית תקן גדולה אומרת שהם מפוזרים רחוק ממנו.</p>
+    <p>לכן הממוצע וסטיית התקן מספרים שני חלקים שונים של אותו סיפור: <strong>הממוצע אומר איפה המרכז. סטיית התקן אומרת כמה העולם שסביבו מפוזר.</strong></p>
+  </div>
+
+  <div class="section">
+    <h2>לסיכום</h2>
+    <p>התחלנו משתי כיתות עם אותו ממוצע. הממוצע לבדו גרם להן להיראות זהות.</p>
+    <p>הטווח חשף שיש ביניהן הבדל, אבל הסתכל רק על הקצוות. ניסינו למדוד את המרחק של כל ערך מהממוצע, וגילינו שהסטיות מתבטלות. העלינו אותן בריבוע וקיבלנו שונות. הוצאנו שורש כדי לחזור ליחידות המקוריות וקיבלנו סטיית תקן.</p>
+    <p>כלומר: <strong>מרכז אומר לנו איפה הנתונים נמצאים. פיזור אומר לנו איך הם נמצאים שם.</strong></p>
+    <p class="next-line">בדף הבא: קיבלת 80 במבחן. זה ציון טוב? בלי לדעת איך שאר הכיתה קיבלה, אין לנו דרך לדעת ← מיקום יחסי: איפה אני ביחס לאחרים?</p>
+  </div>
+
+</div>
+
+</div>
+
+<script src="../waytosee.js"></script>
+</body>
+</html>
