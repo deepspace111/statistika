@@ -1,5 +1,24 @@
 
 document.addEventListener("DOMContentLoaded", () => {
+  // רקע "גשם" עדין - רק בעמודים שכוללים ב-HTML <div class="rain" id="rain">.
+  // ה-CSS (.rain / .drop / @keyframes rain) גר ב-waytosee.css; כאן רק יוצרים
+  // את 150 הטיפות בפעם הראשונה שהעמוד נטען.
+  const rainContainer = document.getElementById("rain");
+  if (rainContainer && !rainContainer.dataset.waytoseeRainReady) {
+    rainContainer.dataset.waytoseeRainReady = "true";
+    for (let i = 0; i < 150; i++) {
+      const drop = document.createElement("div");
+      drop.classList.add("drop");
+      drop.style.left = Math.random() * 100 + "vw";
+      drop.style.top = Math.random() * -120 + "vh";
+      drop.style.animationDuration = (5.2 + Math.random() * 7.2) + "s";
+      drop.style.opacity = 0.07 + Math.random() * 0.14;
+      drop.style.height = 46 + Math.random() * 95 + "px";
+      drop.style.animationDelay = Math.random() * -8 + "s";
+      rainContainer.appendChild(drop);
+    }
+  }
+
   const skipFocusSetup = window.waytoseeSkipFocusSetup === true;
   const mainScript =
     document.querySelector('script[src$="waytosee.js"]');
@@ -28,7 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
     "intro.html": "professions.html",
     "statistika/statistika.html": "professions.html",
     "statistika/statistika-introduction.html": "statistika/statistika.html",
-    "statistika/statistika-scales.html": "statistika/statistika.html",
     "arp/arp.html": "intro.html",
     "dhcp/dhcp.html": "intro.html",
     "ip/ip.html": "intro.html",
@@ -161,7 +179,9 @@ document.addEventListener("DOMContentLoaded", () => {
   let flickerTimeout = null;
 
   function scheduleFlicker() {
-    const container = document.querySelector(".container");
+    // .container - שם התוכן המרכזי ב-ARP/DHCP. .grid - אותו תפקיד ב-Subnet/NAT
+    // (שם אחר בכוונה, כי הם שומרים על מערכת עיצוב משלהם).
+    const container = document.querySelector(".container, .grid");
     if (!container) return;
     container.classList.add("turquoise-flash");
     setTimeout(() => container.classList.remove("turquoise-flash"), 200);

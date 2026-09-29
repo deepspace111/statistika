@@ -68,6 +68,41 @@ body.learning-mode{
   color:rgba(240,240,240,0.92);
 }
 
+/* רקע "גשם" עדין - משותף לכל עמוד שמכריז <div class="rain" id="rain">.
+   waytosee.js ממלא אותו אוטומטית ב-150 טיפות כשהוא מזהה את האלמנט. */
+.rain{
+  position:fixed;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  overflow:hidden;
+  opacity:0;
+  transition:opacity 1.4s ease;
+}
+
+body.learning-mode .rain{
+  opacity:0.34;
+}
+
+.rain .drop{
+  position:absolute;
+  top:-120vh;
+  width:1px;
+  height:78px;
+  background:linear-gradient(
+    to bottom,
+    rgba(110,170,255,0),
+    rgba(110,170,255,0.34),
+    rgba(110,170,255,0)
+  );
+  animation:rain linear infinite;
+}
+
+@keyframes rain{
+  from{ transform:translateY(-20vh); }
+  to{ transform:translateY(150vh); }
+}
+
 
 
 /* כפתור דו – חזרה לדף הבית */
