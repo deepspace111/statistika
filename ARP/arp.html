@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MAC Address test</title>
+<title>MAC Address</title>
 
 <link rel="stylesheet" href="../waytosee.css">
 
@@ -413,8 +413,8 @@ body.learning-mode .thinking-button:hover{
   <source src="../brown-noise.mp3" type="audio/mpeg">
 </audio>
 
-<h1 class="page-title">MAC Address test</h1>
-<div class="subtitle">Media Access Control Address — הזהות המקומית של כרטיס הרשת</div>
+<h1 class="page-title">MAC Address</h1>
+<div class="subtitle">Media Access Control Address - הזהות המקומית של כרטיס הרשת</div>
 
 <div class="container">
 
@@ -424,7 +424,7 @@ body.learning-mode .thinking-button:hover{
     <h2>Ethernet ו-Frame</h2>
     <p>
       הרשת לא מורכבת רק ממידע שנע, אלא גם ממערכות שמקשיבות.
-      כרטיס הרשת הוא המקום שדרכו המחשב מתחבר לרשת — הוא שולח ומקבל אותות, מפענח אותם ונותן להם משמעות.
+      כרטיס הרשת הוא המקום שדרכו המחשב מתחבר לרשת. הוא שולח ומקבל אותות, מפענח אותם ונותן להם משמעות.
     </p>
     <p>
       Ethernet היא השפה שנותנת משמעות לאימפולסים החשמליים, בדומה לקוד
@@ -437,7 +437,7 @@ body.learning-mode .thinking-button:hover{
     </p>
     <p>
       כדי שמידע יוכל לנוע ברשת, הוא צריך לדעת פיזית לאן להישלח.
-      בתוך ה-<strong>Frame</strong> נמצא המידע עצמו, וגם הכתובת הפיזית של כרטיס הרשת המבוקש —
+      בתוך ה-<strong>Frame</strong> נמצא המידע עצמו, וגם הכתובת הפיזית של כרטיס הרשת המבוקש.
       כתובת ה-MAC עוזרת למידע לדעת פיזית לאן להגיע בתוך הרשת המקומית.
     </p>
   </div>
@@ -449,7 +449,7 @@ body.learning-mode .thinking-button:hover{
   <div class="section">
     <h2>MAC Address</h2>
     <p>
-      בתוך הרשת המקומית, המחשב צריך גם לדעת למי המידע שייך — לכן לכל כרטיס רשת יש זהות מקומית משלו.
+      בתוך הרשת המקומית, המחשב צריך גם לדעת למי המידע שייך, לכן לכל כרטיס רשת יש זהות מקומית משלו.
       כתובת ה-MAC היא רצף של מספרים הקסה־דצימליים, המוטבעים על כרטיס הרשת כבר מהמפעל שבו יוצר.
     </p>
 
@@ -473,7 +473,7 @@ body.learning-mode .thinking-button:hover{
     <h2>Broadcast</h2>
     <p>
       כדי שמידע ינוע ברשת, המחשב חייב למצוא את היעד הנכון.
-      כאשר מחשב או התקן מחפש מכשיר מסוים, הוא שולח בקשת גילוי מסוג <strong>Broadcast</strong> — שידור לכל הרשת המקומית.
+      כאשר מחשב או התקן מחפש מכשיר מסוים, הוא שולח בקשת גילוי מסוג <strong>Broadcast</strong>, שידור לכל הרשת המקומית.
     </p>
 
     <div class="broadcast-example">FF:FF:FF:FF:FF:FF</div>
@@ -488,11 +488,11 @@ body.learning-mode .thinking-button:hover{
     </div>
 
     <p>
-      כל הביטים דלוקים. זו לא כתובת של כרטיס רשת אחד, אלא פנייה לכולם בתוך הרשת המקומית — כך שאף אחד בתוך ה־LAN לא מתפספס.
+      כל הביטים דלוקים. זו לא כתובת של כרטיס רשת אחד, אלא פנייה לכולם בתוך הרשת המקומית, כך שאף אחד בתוך ה־LAN לא מתפספס.
     </p>
     <p>
       כל המכשירים שומעים וכולם מקבלים את השאלה. ה־Broadcast מופץ בתוך הרשת המקומית וכל כרטיסי הרשת מקבלים את הבקשה,
-      אך רק המכשיר המיועד משיב — ורק עכשיו המידע יכול להתחיל לנוע.
+      אך רק המכשיר המיועד משיב, ורק עכשיו המידע יכול להתחיל לנוע.
     </p>
   </div>
 
@@ -510,14 +510,14 @@ body.learning-mode .thinking-button:hover{
     <div class="meaning-signal">
       <p>
         ARP הוא באמת "אזור מעבר" בין <strong>IP Address</strong> לבין <strong>MAC Address</strong>.
-        המחשב יודע: "אני רוצה להגיע ל־IP הזה" — אבל בתוך הרשת המקומית, <strong>Ethernet</strong> לא עובד עם IP, הוא צריך כתובת MAC.
+        המחשב יודע: "אני רוצה להגיע ל־IP הזה". אבל בתוך הרשת המקומית, <strong>Ethernet</strong> לא עובד עם IP, הוא צריך כתובת MAC.
       </p>
       <p>
         ה־IP עדיין עוזר להבין מי הוא היעד המבוקש, אבל בתוך ה־LAN, Ethernet מתמקד בכתובת ה־MAC
         כדי להעביר את ה־Frame ליעד הפיזי המתאים. לכן המחשב צריך לגלות איזה MAC שייך לאותו IP.
       </p>
       <p>
-        אז בעצם ה־Broadcast שואל: "מי מחזיק ב־IP הזה? מי הוא 192.168.1.8?" — והמכשיר המתאים עונה:
+        אז בעצם ה־Broadcast שואל: "מי מחזיק ב־IP הזה? מי הוא 192.168.1.8?". והמכשיר המתאים עונה:
         "זה אני, וה־MAC שלי הוא XX:XX:XX:XX:XX:XX".
       </p>
       <p>
@@ -531,12 +531,12 @@ body.learning-mode .thinking-button:hover{
   <div class="section">
     <h2>מה פירוש השם?</h2>
     <p>
-      <span class="term">Address — כתובת / יעד.</span>
-      <span class="term">Resolution — בירור / גילוי / זיהוי.</span>
-      <span class="term">Protocol — דרך מסודרת שבה מחשבים מתקשרים.</span>
+      <span class="term">Address = כתובת / יעד.</span>
+      <span class="term">Resolution = בירור / גילוי / זיהוי.</span>
+      <span class="term">Protocol = דרך מסודרת שבה מחשבים מתקשרים.</span>
     </p>
     <p>
-      הפרוטוקול שעוזר לברר מי הוא היעד בתוך הרשת המקומית. ARP מחבר בין שכבה 3 לבין שכבה 2 —
+      הפרוטוקול שעוזר לברר מי הוא היעד בתוך הרשת המקומית. ARP מחבר בין שכבה 3 לבין שכבה 2.
       הוא משתמש בכתובת IP של היעד המבוקש, כדי לגלות איזו כתובת MAC שייכת אליו.
     </p>
 
