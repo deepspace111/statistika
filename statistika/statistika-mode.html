@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FTM28BMBXC');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>שכיח — מה מופיע הכי הרבה?</title>
+
+<link rel="stylesheet" href="../waytosee.css">
+
+<style>
+
+/* ===== פריסה – כמו בדף המבוא: שלוש עמודות ===== */
+/* כל העמודות נמתחות לאותו גובה, והמקטעים מתפרסים בתוכן, */
+/* כך שהקו התחתון של שלוש העמודות נמצא באותו גובה בדיוק */
+
+.page-title {
+  position: relative;
+  z-index: 5;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 24px 0;
+  font-size: 42px;
+  font-weight: 300;
+  text-align: center;
+}
+
+.page-subtitle {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  font-size: 19px;
+  margin: 6px 0 18px;
+  opacity: 0.65;
+}
+
+.container {
+  position: relative;
+  z-index: 5;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 24px 70px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0 70px;
+  align-items: stretch;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.container h2 { font-size: 25px; margin: 0 0 8px; font-weight: 500; }
+
+.container p {
+  line-height: 1.45;
+  margin: 8px 0;
+}
+
+.section {
+  position: relative;
+  border-top: 1px solid rgba(0,0,0,0.14);
+  padding-top: 10px;
+  padding-bottom: 8px;
+  margin-bottom: 0;
+}
+
+.section > :last-child {
+  margin-bottom: 0;
+}
+
+.col > .section:last-child {
+  border-bottom: 1px solid rgba(0,0,0,0.14);
+  padding-bottom: 12px;
+}
+
+body.learning-mode .section { border-top: 1px solid rgba(255,255,255,0.14); }
+body.learning-mode .col > .section:last-child { border-bottom: 1px solid rgba(255,255,255,0.14); }
+
+/* טבלאות, חישובים וציטוט */
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: right;
+}
+
+.data-table th,
+.data-table td {
+  padding: 7px 6px;
+  border-bottom: 1px solid rgba(0,0,0,0.12);
+  vertical-align: top;
+}
+
+.data-table th {
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+.data-table td small {
+  display: block;
+  opacity: 0.65;
+  font-size: 14px;
+}
+
+body.learning-mode .data-table th,
+body.learning-mode .data-table td {
+  border-bottom-color: rgba(255,255,255,0.12);
+}
+
+.calc {
+  direction: ltr;
+  text-align: center;
+  font-size: 18px;
+  margin: 14px 0;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.035);
+}
+
+body.learning-mode .calc {
+  background: rgba(255,255,255,0.05);
+}
+
+.calc strong {
+  font-size: 21px;
+}
+
+.pause {
+  font-style: italic;
+  opacity: 0.6;
+}
+
+.container .quote {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 300;
+  margin: 22px 0;
+}
+
+.next-line {
+  margin-top: 22px;
+  opacity: 0.7;
+}
+
+@media (max-width: 600px) {
+  .container { grid-template-columns: 1fr; }
+  .col { gap: 0; }
+  .col > .section:last-child { border-bottom: none; }
+  .container > .col:last-child > .section:last-child { border-bottom: 1px solid rgba(0,0,0,0.14); }
+  body.learning-mode .container > .col:last-child > .section:last-child { border-bottom-color: rgba(255,255,255,0.14); }
+  .page-title { font-size: 34px; }
+  .container h2 { font-size: 22px; }
+  .container p { font-size: 18px; }
+  .data-table { font-size: 15px; }
+}
+
+
+/* ===== היסטוגרמות ===== */
+
+.hist {
+  display: block;
+  width: 100%;
+  height: auto;
+  direction: ltr;
+  margin: 14px 0 6px;
+}
+
+.hist .bar path {
+  fill: currentColor;
+  opacity: 0.55;
+  transition: opacity 0.2s ease;
+}
+
+.hist .bar:hover path {
+  opacity: 0.85;
+}
+
+.hist .axis {
+  stroke: currentColor;
+  stroke-width: 1;
+  opacity: 0.35;
+}
+
+.hist text {
+  fill: currentColor;
+  text-anchor: middle;
+  font-family: Arial, sans-serif;
+}
+
+.hist .val { font-size: 13px; font-weight: bold; opacity: 0.85; }
+.hist .lbl { font-size: 12px; opacity: 0.6; }
+.hist.small .val { font-size: 13px; }
+.hist.small .lbl { font-size: 12px; }
+
+.hist-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 14px 0 6px;
+}
+
+.hist-pair figure {
+  margin: 0;
+}
+
+.hist-pair figcaption {
+  text-align: center;
+  font-size: 14px;
+  opacity: 0.65;
+}
+
+.hist-pair .hist {
+  margin: 0 0 4px;
+}
+
+.ltr {
+  direction: ltr;
+  unicode-bidi: isolate;
+  display: inline-block;
+}
+
+.numbers {
+  direction: ltr;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.7;
+  margin: 12px 0;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.035);
+  word-spacing: 2px;
+}
+
+body.learning-mode .numbers {
+  background: rgba(255,255,255,0.05);
+}
+
+
+.hist .bar.mode path { opacity: 0.9; }
+.check-table td, .check-table th { text-align: center; }
+.check-table td:first-child, .check-table th:first-child { text-align: right; }
+
+</style>
+</head>
+
+<body>
+
+<div class="rain" id="rain"></div>
+
+<h1 class="page-title">שכיח — מה מופיע הכי הרבה?</h1>
+<p class="page-subtitle">מדדי מרכז</p>
+
+<div class="container">
+
+<div class="col">
+
+  <div class="section">
+    <h2>שאלה אחת לפני שמתחילים</h2>
+    <p>נחזור ל־100 האנשים מדף הסולמות: 37 עם עיניים חומות, 46 כחולות ו־17 ירוקות.</p>
+    <p><strong>מהו צבע העיניים ה"טיפוסי" בקבוצה?</strong></p>
+    <p>ממוצע כבר ראינו שאי אפשר לחשב. ובכל זאת, התשובה ברורה: <strong>כחול</strong>, כי הוא מופיע הכי הרבה פעמים.</p>
+  </div>
+
+  <div class="section">
+    <h2>זה השכיח</h2>
+    <p><strong>השכיח</strong> הוא הערך שמופיע הכי הרבה פעמים.</p>
+    <svg class="hist" viewBox="0 0 300 170" role="img" aria-label="היסטוגרמה: חום: 37, כחול: 46, ירוק: 17">
+<line class="axis" x1="8" y1="136" x2="292" y2="136"/>
+<g class="bar"><title>חום: 37 אנשים</title><path d="M28.0,136 V55.6 Q28.0,51.6 32.0,51.6 H78.7 Q82.7,51.6 82.7,55.6 V136 Z"/><text class="val" x="55.3" y="45.6">37</text><text class="lbl" x="55.3" y="154">חום</text></g>
+<g class="bar mode"><title>כחול: השכיח.: 46 אנשים</title><path d="M122.7,136 V35.1 Q122.7,31.1 126.7,31.1 H173.3 Q177.3,31.1 177.3,35.1 V136 Z"/><text class="val" x="150.0" y="25.1">46</text><text class="lbl" x="150.0" y="154">כחול</text></g>
+<g class="bar"><title>ירוק: 17 אנשים</title><path d="M217.3,136 V101.2 Q217.3,97.2 221.3,97.2 H268.0 Q272.0,97.2 272.0,101.2 V136 Z"/><text class="val" x="244.7" y="91.2">17</text><text class="lbl" x="244.7" y="154">ירוק</text></g>
+</svg>
+    <p>בגרף עמודות, השכיח הוא פשוט העמודה הגבוהה ביותר.</p>
+    <p>כדי למצוא אותו לא צריך לחשב, רק לספור. ולכן הוא מדד המרכז היחיד שעובד גם על קטגוריות, כמו צבעים, ערים או סוגי מוזיקה.</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>למה לפעמים הוא אומר יותר מהממוצע?</h2>
+    <p>חנות נעליים מכרה השבוע 10 זוגות, במידות:</p>
+    <div class="numbers">38, 39, 40, 42, 42, 42, 42, 43, 44, 45</div>
+    <p><strong>הממוצע:</strong> 41.7. אין נעל במידה כזו.</p>
+    <p><strong>השכיח:</strong> 42. ארבעה מתוך עשרת הזוגות שנמכרו היו במידה 42.</p>
+    <p>אם בעל החנות רוצה לדעת איזו מידה להזמין יותר, הממוצע לא יעזור לו. השכיח כן.</p>
+  </div>
+
+  <div class="section">
+    <h2>הטוויסט: כשהשכיח פחות מספר לנו</h2>
+    <p>נחזור לציונים מדף הצגת הנתונים. הציון 85 מופיע שלוש פעמים, ולכן הוא השכיח.</p>
+    <p>אבל רק 3 מתוך 20 תלמידים קיבלו 85. הממוצע הוא 78.2 והחציון 78.5. ואם תלמיד אחד היה מקבל 84 במקום 85, השכיח היה משתנה לגמרי.</p>
+    <p>השכיח לא טועה: 85 באמת הופיע הכי הרבה. אבל כשכמעט כל ערך שונה מהאחרים, התשובה לשאלה "מה הופיע הכי הרבה?" כמעט מקרית, ולא נותנת תמונה שימושית.</p>
+    <p>במקרה כזה עדיף לספור <strong>טווחים</strong>, כמו בהיסטוגרמה. הטווח השכיח הוא <span class="ltr">70–79</span>, עם 7 תלמידים, והוא מספר הרבה יותר על הכיתה.</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>עוד שתי הפתעות</h2>
+    <p><strong>יותר משכיח אחד:</strong> ב־<span class="ltr">2, 3, 3, 5, 7, 7</span> יש שני שכיחים, 3 ו־7. לפעמים זה סימן שיש בנתונים שתי קבוצות שונות.</p>
+    <p><strong>אין שכיח:</strong> ב־<span class="ltr">4, 8, 15, 16, 23</span> כל ערך מופיע פעם אחת.</p>
+  </div>
+
+  <div class="section">
+    <h2>איזה מדד מרכז מתאים?</h2>
+    <table class="data-table check-table">
+      <tr><th>סולם</th><th>שכיח</th><th>חציון</th><th>ממוצע</th></tr>
+      <tr><td>שמי</td><td>✓</td><td></td><td></td></tr>
+      <tr><td>סדר</td><td>✓</td><td>✓</td><td></td></tr>
+      <tr><td>רווח / מנה</td><td>✓</td><td>✓</td><td>✓</td></tr>
+    </table>
+    <p>השכיח הוא היחיד שמתאים לכל הסולמות. אבל "מתאים" לא תמיד אומר "הכי טוב".</p>
+  </div>
+
+  <div class="section">
+    <h2>לסיכום</h2>
+    <p>השכיח עונה על השאלה <strong>"מה הכי נפוץ?"</strong>, ולא על השאלה "איפה האמצע?".</p>
+    <p>הוא מצוין לקטגוריות ולהחלטות מעשיות, ופחות שימושי כשכמעט כל ערך שונה.</p>
+    <p class="next-line">בדף הבא: לשתי כיתות יכול להיות אותו ממוצע, והן בכל זאת שונות לגמרי ← מדדי פיזור: אותו ממוצע, עולם אחר</p>
+  </div>
+
+</div>
+
+</div>
+
+<script src="../waytosee.js"></script>
+</body>
+</html>
