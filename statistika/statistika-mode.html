@@ -258,6 +258,22 @@ body.learning-mode .numbers {
 .check-table td, .check-table th { text-align: center; }
 .check-table td:first-child, .check-table th:first-child { text-align: right; }
 
+
+/* צבעי עיניים בגרפים – כל עמודה בצבע שהיא מייצגת */
+.hist .bar.eye-brown path { fill: #9a6b3f; opacity: 0.9; }
+.hist .bar.eye-blue path  { fill: #3f7fd9; opacity: 0.9; }
+.hist .bar.eye-green path { fill: #3f9d5c; opacity: 0.9; }
+body.learning-mode .hist .bar.eye-brown path { fill: #b8875a; }
+body.learning-mode .hist .bar.eye-blue path  { fill: #6fa3ee; }
+body.learning-mode .hist .bar.eye-green path { fill: #62bd7e; }
+.hist .bar.eye-brown:hover path,
+.hist .bar.eye-blue:hover path,
+.hist .bar.eye-green:hover path { opacity: 1; }
+/* בדף השכיח: הצבעים שאינם השכיח מעט שקופים, כך שהעמודה של השכיח בולטת */
+.hist .bar.eye-brown:not(.mode) path,
+.hist .bar.eye-green:not(.mode) path { opacity: 0.45; }
+.hist .bar.mode path { opacity: 1; }
+
 </style>
 </head>
 
@@ -284,9 +300,9 @@ body.learning-mode .numbers {
     <p><strong>השכיח</strong> הוא הערך שמופיע הכי הרבה פעמים.</p>
     <svg class="hist" viewBox="0 0 300 170" role="img" aria-label="היסטוגרמה: חום: 37, כחול: 46, ירוק: 17">
 <line class="axis" x1="8" y1="136" x2="292" y2="136"/>
-<g class="bar"><title>חום: 37 אנשים</title><path d="M28.0,136 V55.6 Q28.0,51.6 32.0,51.6 H78.7 Q82.7,51.6 82.7,55.6 V136 Z"/><text class="val" x="55.3" y="45.6">37</text><text class="lbl" x="55.3" y="154">חום</text></g>
-<g class="bar mode"><title>כחול: השכיח.: 46 אנשים</title><path d="M122.7,136 V35.1 Q122.7,31.1 126.7,31.1 H173.3 Q177.3,31.1 177.3,35.1 V136 Z"/><text class="val" x="150.0" y="25.1">46</text><text class="lbl" x="150.0" y="154">כחול</text></g>
-<g class="bar"><title>ירוק: 17 אנשים</title><path d="M217.3,136 V101.2 Q217.3,97.2 221.3,97.2 H268.0 Q272.0,97.2 272.0,101.2 V136 Z"/><text class="val" x="244.7" y="91.2">17</text><text class="lbl" x="244.7" y="154">ירוק</text></g>
+<g class="bar eye-brown"><title>חום: 37 אנשים</title><path d="M28.0,136 V55.6 Q28.0,51.6 32.0,51.6 H78.7 Q82.7,51.6 82.7,55.6 V136 Z"/><text class="val" x="55.3" y="45.6">37</text><text class="lbl" x="55.3" y="154">חום</text></g>
+<g class="bar mode eye-blue"><title>כחול: השכיח.: 46 אנשים</title><path d="M122.7,136 V35.1 Q122.7,31.1 126.7,31.1 H173.3 Q177.3,31.1 177.3,35.1 V136 Z"/><text class="val" x="150.0" y="25.1">46</text><text class="lbl" x="150.0" y="154">כחול</text></g>
+<g class="bar eye-green"><title>ירוק: 17 אנשים</title><path d="M217.3,136 V101.2 Q217.3,97.2 221.3,97.2 H268.0 Q272.0,97.2 272.0,101.2 V136 Z"/><text class="val" x="244.7" y="91.2">17</text><text class="lbl" x="244.7" y="154">ירוק</text></g>
 </svg>
     <p>בגרף עמודות, השכיח הוא פשוט העמודה הגבוהה ביותר.</p>
     <p>כדי למצוא אותו לא צריך לחשב, רק לספור. ולכן הוא מדד המרכז היחיד שעובד גם על קטגוריות, כמו צבעים, ערים או סוגי מוזיקה.</p>
