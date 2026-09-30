@@ -126,6 +126,23 @@ body.learning-mode .rain{
 #homeBtn:hover {
   transform: scale(1.08);
 }
+
+/* סבב קבוע של שלושת ערכי השקיפות המקוריים (1 / 0.78 / 0.55) בין צלעות
+   משולש הבית, בכיוון השעון: שמאל -> ימין -> תחתית -> חזרה לשמאל.
+   הערכים עצמם לא משתנים, רק "נוסעים" בין הצלעות. */
+.home-seg{
+  animation: homeShade 3.6s ease-in-out infinite;
+}
+
+.home-seg-1{ animation-delay: 0s; }
+.home-seg-2{ animation-delay: -1.2s; }
+.home-seg-3{ animation-delay: -2.4s; }
+
+@keyframes homeShade{
+  0%, 100%{ opacity: 1; }
+  33.333%{ opacity: 0.55; }
+  66.667%{ opacity: 0.78; }
+}
 /* כפתור כללי – כניסה לתחנת חשיבה */
 
 .thinking-btn {

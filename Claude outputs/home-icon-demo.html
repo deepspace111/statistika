@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>דוגמה - סבב משולש הבית</title>
+<style>
+  body{
+    font-family:Arial, sans-serif;
+    display:flex;
+    gap:60px;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    margin:0;
+  }
+  .demo{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:14px;
+  }
+  .light{ background:#e8e8e8; padding:50px; border-radius:20px; }
+  .dark{ background:#05070a; padding:50px; border-radius:20px; }
+  .light svg{ color:rgba(20,20,20,0.68); }
+  .dark svg{ color:rgba(240,240,240,0.88); }
+  svg{ width:60px; height:48px; }
+  .label{ font-size:14px; color:#555; }
+
+  .home-seg{
+    animation:homeSpin 2.4s ease-in-out infinite;
+  }
+  .home-seg-1{ animation-delay:0s; }
+  .home-seg-3{ animation-delay:0.8s; }
+  .home-seg-2{ animation-delay:1.6s; }
+
+  @keyframes homeSpin{
+    0%{ opacity:1; }
+    20%{ opacity:0.32; }
+    100%{ opacity:0.32; }
+  }
+</style>
+</head>
+<body>
+
+<div class="demo">
+  <div class="light">
+    <svg viewBox="0 0 100 78" fill="currentColor" aria-hidden="true">
+      <polygon class="home-seg home-seg-1" points="50.00,14.00 32.85,43.70 40.39,45.15 50.00,28.50"/>
+      <polygon class="home-seg home-seg-2" points="21.42,63.50 55.72,63.50 53.20,56.25 33.98,56.25"/>
+      <polygon class="home-seg home-seg-3" points="78.58,63.50 61.43,33.80 56.41,39.60 66.02,56.25"/>
+    </svg>
+  </div>
+  <div class="label">מצב רגיל (יום)</div>
+</div>
+
+<div class="demo">
+  <div class="dark">
+    <svg viewBox="0 0 100 78" fill="currentColor" aria-hidden="true">
+      <polygon class="home-seg home-seg-1" points="50.00,14.00 32.85,43.70 40.39,45.15 50.00,28.50"/>
+      <polygon class="home-seg home-seg-2" points="21.42,63.50 55.72,63.50 53.20,56.25 33.98,56.25"/>
+      <polygon class="home-seg home-seg-3" points="78.58,63.50 61.43,33.80 56.41,39.60 66.02,56.25"/>
+    </svg>
+  </div>
+  <div class="label">מצב תודעת לימוד (חושך)</div>
+</div>
+
+</body>
+</html>

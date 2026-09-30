@@ -32,9 +32,9 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.appendChild(homeButton);
   }
   homeButton.innerHTML = `<svg viewBox="0 0 100 78" width="30" height="24" fill="currentColor" aria-hidden="true">
-    <polygon points="50.00,14.00 32.85,43.70 40.39,45.15 50.00,28.50" opacity="1"/>
-    <polygon points="21.42,63.50 55.72,63.50 53.20,56.25 33.98,56.25" opacity="0.55"/>
-    <polygon points="78.58,63.50 61.43,33.80 56.41,39.60 66.02,56.25" opacity="0.78"/>
+    <polygon class="home-seg home-seg-1" points="50.00,14.00 32.85,43.70 40.39,45.15 50.00,28.50"/>
+    <polygon class="home-seg home-seg-2" points="21.42,63.50 55.72,63.50 53.20,56.25 33.98,56.25"/>
+    <polygon class="home-seg home-seg-3" points="78.58,63.50 61.43,33.80 56.41,39.60 66.02,56.25"/>
   </svg>`;
   homeButton.href = homeAddress;
 
@@ -50,6 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "statistika/statistika-scales.html": "statistika/statistika.html",
     "statistika/statistika-data-display.html": "statistika/statistika.html",
     "statistika/statistika-mode.html": "statistika/statistika.html",
+    "statistika/statistika-relative.html": "statistika/statistika.html",
     "statistika/statistika-dispersion.html": "statistika/statistika.html",
     "arp/arp.html": "intro.html",
     "tcp/tcp.html": "intro.html",

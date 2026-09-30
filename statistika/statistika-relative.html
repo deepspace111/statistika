@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FTM28BMBXC');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>מיקום יחסי — איפה אני ביחס לאחרים?</title>
+
+<link rel="stylesheet" href="../waytosee.css">
+
+<style>
+
+/* ===== פריסה – כמו בדף המבוא: שלוש עמודות ===== */
+/* כל העמודות נמתחות לאותו גובה, והמקטעים מתפרסים בתוכן, */
+/* כך שהקו התחתון של שלוש העמודות נמצא באותו גובה בדיוק */
+
+.page-title {
+  position: relative;
+  z-index: 5;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 24px 0;
+  font-size: 42px;
+  font-weight: 300;
+  text-align: center;
+}
+
+.page-subtitle {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  font-size: 19px;
+  margin: 6px 0 18px;
+  opacity: 0.65;
+}
+
+.container {
+  position: relative;
+  z-index: 5;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 24px 70px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0 70px;
+  align-items: stretch;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.container h2 { font-size: 25px; margin: 0 0 8px; font-weight: 500; }
+
+.container p {
+  line-height: 1.45;
+  margin: 8px 0;
+}
+
+.section {
+  position: relative;
+  border-top: 1px solid rgba(0,0,0,0.14);
+  padding-top: 10px;
+  padding-bottom: 8px;
+  margin-bottom: 0;
+}
+
+.section > :last-child {
+  margin-bottom: 0;
+}
+
+.col > .section:last-child {
+  border-bottom: 1px solid rgba(0,0,0,0.14);
+  padding-bottom: 12px;
+}
+
+body.learning-mode .section { border-top: 1px solid rgba(255,255,255,0.14); }
+body.learning-mode .col > .section:last-child { border-bottom: 1px solid rgba(255,255,255,0.14); }
+
+/* טבלאות, חישובים וציטוט */
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: right;
+}
+
+.data-table th,
+.data-table td {
+  padding: 7px 6px;
+  border-bottom: 1px solid rgba(0,0,0,0.12);
+  vertical-align: top;
+}
+
+.data-table th {
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+.data-table td small {
+  display: block;
+  opacity: 0.65;
+  font-size: 14px;
+}
+
+body.learning-mode .data-table th,
+body.learning-mode .data-table td {
+  border-bottom-color: rgba(255,255,255,0.12);
+}
+
+.calc {
+  direction: ltr;
+  text-align: center;
+  font-size: 18px;
+  margin: 14px 0;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.035);
+}
+
+body.learning-mode .calc {
+  background: rgba(255,255,255,0.05);
+}
+
+.calc strong {
+  font-size: 21px;
+}
+
+.pause {
+  font-style: italic;
+  opacity: 0.6;
+}
+
+.container .quote {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 300;
+  margin: 22px 0;
+}
+
+.next-line {
+  margin-top: 22px;
+  opacity: 0.7;
+}
+
+@media (max-width: 600px) {
+  .container { grid-template-columns: 1fr; }
+  .col { gap: 0; }
+  .col > .section:last-child { border-bottom: none; }
+  .container > .col:last-child > .section:last-child { border-bottom: 1px solid rgba(0,0,0,0.14); }
+  body.learning-mode .container > .col:last-child > .section:last-child { border-bottom-color: rgba(255,255,255,0.14); }
+  .page-title { font-size: 34px; }
+  .container h2 { font-size: 22px; }
+  .container p { font-size: 18px; }
+  .data-table { font-size: 15px; }
+}
+
+
+/* ===== היסטוגרמות ===== */
+
+.hist {
+  display: block;
+  width: 100%;
+  height: auto;
+  direction: ltr;
+  margin: 14px 0 6px;
+}
+
+.hist .bar path {
+  fill: currentColor;
+  opacity: 0.55;
+  transition: opacity 0.2s ease;
+}
+
+.hist .bar:hover path {
+  opacity: 0.85;
+}
+
+.hist .axis {
+  stroke: currentColor;
+  stroke-width: 1;
+  opacity: 0.35;
+}
+
+.hist text {
+  fill: currentColor;
+  text-anchor: middle;
+  font-family: Arial, sans-serif;
+}
+
+.hist .val { font-size: 13px; font-weight: bold; opacity: 0.85; }
+.hist .lbl { font-size: 12px; opacity: 0.6; }
+.hist.small .val { font-size: 13px; }
+.hist.small .lbl { font-size: 12px; }
+
+.hist-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 14px 0 6px;
+}
+
+.hist-pair figure {
+  margin: 0;
+}
+
+.hist-pair figcaption {
+  text-align: center;
+  font-size: 14px;
+  opacity: 0.65;
+}
+
+.hist-pair .hist {
+  margin: 0 0 4px;
+}
+
+.ltr {
+  direction: ltr;
+  unicode-bidi: isolate;
+  display: inline-block;
+}
+
+.numbers {
+  direction: ltr;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.7;
+  margin: 12px 0;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.035);
+  word-spacing: 2px;
+}
+
+body.learning-mode .numbers {
+  background: rgba(255,255,255,0.05);
+}
+
+
+.hist .bar.mode path { opacity: 0.9; }
+.check-table td, .check-table th { text-align: center; }
+.check-table td:first-child, .check-table th:first-child { text-align: right; }
+
+
+/* ===== מדדי פיזור ===== */
+
+.numbers.lines {
+  line-height: 1.9;
+}
+
+.formula {
+  text-align: center;
+  font-size: 19px;
+  margin: 12px 0;
+}
+
+.center-table td, .center-table th { text-align: center; }
+.center-table td:first-child, .center-table th:first-child { text-align: right; }
+
+.big-contrast td strong { font-size: 19px; }
+
+.dots .dot { fill: currentColor; opacity: 0.7; }
+.dots .dot:hover { opacity: 1; }
+.dots .mean { stroke: currentColor; stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.5; }
+.dots .meanlbl { font-size: 11px; opacity: 0.65; }
+.dots .rowlbl { font-size: 13px; text-anchor: start; direction: rtl; opacity: 0.8; }
+
+
+.dots .you { fill: none; stroke: currentColor; stroke-width: 2; }
+.dots .youlbl { font-size: 12px; font-weight: bold; text-anchor: start; }
+.dots .zlbl { font-size: 11px; text-anchor: end; direction: rtl; unicode-bidi: plaintext; opacity: 0.7; }
+
+</style>
+</head>
+
+<body>
+
+<div class="rain" id="rain"></div>
+
+<h1 class="page-title">איפה אני ביחס לאחרים?</h1>
+<p class="page-subtitle">מיקום יחסי</p>
+
+<div class="container">
+
+<div class="col">
+
+  <div class="section">
+    <h2>שאלה אחת לפני שמתחילים</h2>
+    <p>קיבלת 80 במבחן. <strong>זה ציון טוב?</strong></p>
+    <p>אי אפשר לדעת. אם כל הכיתה קיבלה 95, זה חלש. אם כולם קיבלו 60, זה מצוין.</p>
+    <p>ציון לבד לא אומר כלום. צריך לדעת <strong>איפה הוא עומד ביחס לאחרים.</strong></p>
+  </div>
+
+  <div class="section">
+    <h2>ניסיון ראשון: דירוג</h2>
+    <p>"הגעתי למקום החמישי."</p>
+    <p>נשמע טוב, אבל מקום חמישי מתוך 7 תלמידים ומקום חמישי מתוך 200 זה לא אותו דבר. הדירוג תלוי בגודל הקבוצה.</p>
+  </div>
+
+  <div class="section">
+    <h2>אחוזון: כמה אחוזים מתחתיי</h2>
+    <p>נחזור לציונים של 20 התלמידים מדף הצגת הנתונים:</p>
+    <div class="numbers">58, 64, 66, 69, 70, 72, 73, 74, 77, 78, 79, 81, 83, 85, 85, 85, 88, 90, 92, 95</div>
+    <p>11 מתוך 20 תלמידים, כלומר 55%, קיבלו פחות מ־80. לכן <strong>80 נמצא מעל 55% מהציונים בכיתה.</strong></p>
+    <p><strong>אחוזון</strong> מתאר את המיקום של ערך ביחס לשאר ההתפלגות.</p>
+    <p>ובניגוד לדירוג, הוא לא תלוי בגודל הקבוצה: "מעל 55% מהציונים" אומר אותו דבר בכיתה של 20 ובכיתה של 200.</p>
+    <p>(ואם זה נשמע מוכר: החציון הוא בדיוק <strong>האחוזון ה־50</strong>.)</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>אבל אחוזון לא רואה מרחקים</h2>
+    <p>אחוזון סופר רק כמה ערכים נמצאים מתחתיך, לא כמה רחוק אתה מהם.</p>
+    <p>בשביל זה צריך את הכלים מהדף הקודם: <strong>ממוצע וסטיית תקן</strong>.</p>
+  </div>
+
+  <div class="section">
+    <h2>הטוויסט: אותו ציון, מקום אחר</h2>
+    <p>נחזור לשתי הכיתות מדף הפיזור. בשתיהן הממוצע הוא 80. נניח שקיבלת <strong>82</strong>:</p>
+    <svg class="hist dots" viewBox="0 0 320 300" role="img" aria-label="הציון 82 בשתי הכיתות. בכיתה א׳ הוא 1.67 סטיות תקן מעל הממוצע, בכיתה ב׳ רק 0.1.">
+<line class="mean" x1="136.0" y1="30" x2="136.0" y2="250"/>
+<text class="meanlbl" x="136.0" y="20">ממוצע 80</text>
+<line class="axis" x1="16" y1="95" x2="256" y2="95"/>
+<text class="rowlbl" x="316" y="100">כיתה א׳</text>
+<circle class="dot" cx="129.1" cy="88" r="4.5"><title>כיתה א׳: 78</title></circle>
+<circle class="dot" cx="132.6" cy="88" r="4.5"><title>כיתה א׳: 79</title></circle>
+<circle class="dot" cx="136.0" cy="88" r="4.5"><title>כיתה א׳: 80</title></circle>
+<circle class="dot" cx="136.0" cy="77" r="4.5"><title>כיתה א׳: 80</title></circle>
+<circle class="dot" cx="136.0" cy="66" r="4.5"><title>כיתה א׳: 80</title></circle>
+<circle class="dot" cx="139.4" cy="88" r="4.5"><title>כיתה א׳: 81</title></circle>
+<circle class="dot" cx="142.9" cy="88" r="4.5"><title>כיתה א׳: 82</title></circle>
+<circle class="you" cx="142.9" cy="109" r="5"><title>כיתה א׳: 82, ציון תקן 1.67</title></circle>
+<text class="youlbl" x="151.9" y="113">82</text>
+<text class="zlbl" x="151.9" y="129">ציון תקן 1.67</text>
+<line class="axis" x1="16" y1="215" x2="256" y2="215"/>
+<text class="rowlbl" x="316" y="220">כיתה ב׳</text>
+<circle class="dot" cx="33.1" cy="208" r="4.5"><title>כיתה ב׳: 50</title></circle>
+<circle class="dot" cx="67.4" cy="208" r="4.5"><title>כיתה ב׳: 60</title></circle>
+<circle class="dot" cx="101.7" cy="208" r="4.5"><title>כיתה ב׳: 70</title></circle>
+<circle class="dot" cx="136.0" cy="208" r="4.5"><title>כיתה ב׳: 80</title></circle>
+<circle class="dot" cx="170.3" cy="208" r="4.5"><title>כיתה ב׳: 90</title></circle>
+<circle class="dot" cx="204.6" cy="208" r="4.5"><title>כיתה ב׳: 100</title></circle>
+<circle class="dot" cx="238.9" cy="208" r="4.5"><title>כיתה ב׳: 110</title></circle>
+<circle class="you" cx="142.9" cy="229" r="5"><title>כיתה ב׳: 82, ציון תקן 0.1</title></circle>
+<text class="youlbl" x="151.9" y="233">82</text>
+<text class="zlbl" x="151.9" y="249">ציון תקן 0.1</text>
+<text class="lbl" x="33.1" y="282">50</text>
+<text class="lbl" x="67.4" y="282">60</text>
+<text class="lbl" x="101.7" y="282">70</text>
+<text class="lbl" x="136.0" y="282">80</text>
+<text class="lbl" x="170.3" y="282">90</text>
+<text class="lbl" x="204.6" y="282">100</text>
+<text class="lbl" x="238.9" y="282">110</text>
+</svg>
+    <p><strong>בכיתה א׳</strong> (סטיית תקן 1.2), 82 נמצא כ־1.67 סטיות תקן מעל הממוצע.</p>
+    <p><strong>בכיתה ב׳</strong> (סטיית תקן 20), אותו 82 נמצא רק 0.1 סטיית תקן מעל הממוצע.</p>
+    <p>אותו ציון ואותו ממוצע, אבל מקום אחר לגמרי. מה שקבע את ההבדל הוא <strong>הפיזור</strong>.</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>ציון תקן</h2>
+    <p>כדי למדוד את זה במספר, שואלים: <strong>כמה סטיות תקן אני רחוק מהממוצע?</strong></p>
+    <p class="formula"><strong>ציון תקן = (הציון − הממוצע) ÷ סטיית התקן</strong></p>
+    <p>כיתה א׳: <span class="ltr">(82 − 80) ÷ 1.2 ≈ 1.67</span></p>
+    <p>כיתה ב׳: <span class="ltr">(82 − 80) ÷ 20 = 0.1</span></p>
+    <p>ציון תקן 0 הוא בדיוק הממוצע. ציון חיובי נמצא מעל הממוצע, וציון שלילי מתחתיו.</p>
+  </div>
+
+  <div class="section">
+    <h2>ועכשיו אפשר להשוות תפוחים לתפוזים</h2>
+    <p>במתמטיקה קיבלת <strong>75</strong>. ממוצע הכיתה 65, סטיית תקן 5.</p>
+    <p>בהיסטוריה קיבלת <strong>85</strong>. ממוצע הכיתה 80, סטיית תקן 10.</p>
+    <p><strong>איפה הצלחת יותר?</strong></p>
+    <p>מתמטיקה: <span class="ltr">(75 − 65) ÷ 5 = 2</span></p>
+    <p>היסטוריה: <span class="ltr">(85 − 80) ÷ 10 = 0.5</span></p>
+    <p>הציון במתמטיקה נמוך יותר, אבל <strong>ההישג גבוה יותר</strong>: שתי סטיות תקן מעל הממוצע, לעומת חצי סטיית תקן.</p>
+  </div>
+
+  <div class="section">
+    <h2>לסיכום</h2>
+    <p>ציון לבד לא אומר כלום, רק ציון ביחס לאחרים.</p>
+    <p><strong>אחוזון</strong> אומר כמה אחוזים מהערכים נמצאים מתחתיך.</p>
+    <p><strong>ציון תקן</strong> אומר כמה סטיות תקן אתה רחוק מהממוצע.</p>
+    <p class="next-line">בדף הבא: ציון תקן 2 הוא הישג נדיר? זה תלוי בצורה של ההתפלגות ← צורת ההתפלגות</p>
+  </div>
+
+</div>
+
+</div>
+
+<script src="../waytosee.js"></script>
+</body>
+</html>
