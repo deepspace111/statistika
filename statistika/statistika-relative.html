@@ -285,6 +285,11 @@ body.learning-mode .numbers {
 
 .dots .you { fill: none; stroke: currentColor; stroke-width: 2; }
 .dots .youlbl { font-size: 12px; font-weight: bold; text-anchor: start; }
+.dots .sd { stroke: currentColor; stroke-width: 1.5; opacity: 0.7; }
+.dots .sdlbl { font-size: 11px; opacity: 0.75; direction: rtl; unicode-bidi: plaintext; }
+.zoom-caption { font-size: 15px; opacity: 0.7; }
+.col > .section:only-child { flex: 1; }
+.dots .ztop { font-size: 11px; text-anchor: middle; direction: rtl; unicode-bidi: plaintext; font-weight: bold; }
 .dots .zlbl { font-size: 11px; text-anchor: end; direction: rtl; unicode-bidi: plaintext; opacity: 0.7; }
 
 </style>
@@ -324,15 +329,15 @@ body.learning-mode .numbers {
     <p>(ואם זה נשמע מוכר: החציון הוא בדיוק <strong>האחוזון ה־50</strong>.)</p>
   </div>
 
-</div>
-
-<div class="col">
-
   <div class="section">
     <h2>אבל אחוזון לא רואה מרחקים</h2>
     <p>אחוזון סופר רק כמה ערכים נמצאים מתחתיך, לא כמה רחוק אתה מהם.</p>
     <p>בשביל זה צריך את הכלים מהדף הקודם: <strong>ממוצע וסטיית תקן</strong>.</p>
   </div>
+
+</div>
+
+<div class="col">
 
   <div class="section">
     <h2>הטוויסט: אותו ציון, מקום אחר</h2>
@@ -373,6 +378,31 @@ body.learning-mode .numbers {
 <text class="lbl" x="238.9" y="282">110</text>
 </svg>
     <p><strong>בכיתה א׳</strong> (סטיית תקן 1.2), 82 נמצא כ־1.67 סטיות תקן מעל הממוצע.</p>
+    <p class="zoom-caption">בציר הרגיל הציונים של כיתה א׳ צפופים מדי, אז הנה הם בהגדלה:</p>
+    <svg class="hist dots zoom" viewBox="0 0 320 150" role="img" aria-label="כיתה א׳ בהגדלה: הציונים 78, 79, שלוש פעמים 80, 81 ו־82. הציון 82 הוא 1.67 סטיות תקן מעל הממוצע.">
+<line class="mean" x1="137.0" y1="14" x2="137.0" y2="82"/>
+<text class="meanlbl" x="137.0" y="10">ממוצע 80</text>
+<line class="axis" x1="24" y1="78" x2="250" y2="78"/>
+<text class="rowlbl" x="316" y="83">כיתה א׳</text>
+<circle class="dot" cx="61.7" cy="70" r="5.5"><title>כיתה א׳: 78</title></circle>
+<circle class="dot" cx="99.3" cy="70" r="5.5"><title>כיתה א׳: 79</title></circle>
+<circle class="dot" cx="137.0" cy="70" r="5.5"><title>כיתה א׳: 80</title></circle>
+<circle class="dot" cx="137.0" cy="57" r="5.5"><title>כיתה א׳: 80</title></circle>
+<circle class="dot" cx="137.0" cy="44" r="5.5"><title>כיתה א׳: 80</title></circle>
+<circle class="dot" cx="174.7" cy="70" r="5.5"><title>כיתה א׳: 81</title></circle>
+<circle class="dot" cx="212.3" cy="70" r="5.5"><title>כיתה א׳: 82</title></circle>
+<circle class="you" cx="212.3" cy="70" r="9"><title>82, ציון תקן 1.67</title></circle>
+<text class="lbl" x="61.7" y="98">78</text>
+<text class="lbl" x="99.3" y="98">79</text>
+<text class="lbl" x="137.0" y="98">80</text>
+<text class="lbl" x="174.7" y="98">81</text>
+<text class="lbl" x="212.3" y="98">82</text>
+<line class="sd" x1="137.0" y1="118" x2="182.2" y2="118"/>
+<line class="sd" x1="137.0" y1="114" x2="137.0" y2="122"/>
+<line class="sd" x1="182.2" y1="114" x2="182.2" y2="122"/>
+<text class="sdlbl" x="159.6" y="136">סטיית תקן אחת = 1.2</text>
+<text class="ztop" x="212.3" y="50">ציון תקן 1.67</text>
+</svg>
     <p><strong>בכיתה ב׳</strong> (סטיית תקן 20), אותו 82 נמצא רק 0.1 סטיית תקן מעל הממוצע.</p>
     <p>אותו ציון ואותו ממוצע, אבל מקום אחר לגמרי. מה שקבע את ההבדל הוא <strong>הפיזור</strong>.</p>
   </div>
