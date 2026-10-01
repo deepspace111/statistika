@@ -383,9 +383,14 @@ p {
    ל"מה פירוש השם". עמוד שצריך לסטות מערך ספציפי (לדוגמה רוחב עמודת
    term-box, ב-.info-box.term-box .info-row) מגדיר מחדש את אותו selector
    ב-<style> המקומי שלו - הוא יגבר כי הוא מגיע אחרי קובץ זה ב-<head>.
+
+   כל הכללים כאן מוגבלים ל-body.proto-page (קלאס שמוגדר ב-<body> של כל אחד
+   מחמשת העמודים האלה) - כדי שלא "ידלפו" לעמודים אחרים באתר שמשתמשים
+   באותם שמות מחלקה כלליים כמו .container/.subtitle/.section (לדוגמה
+   intro.html, עמודי הסטטיסטיקה וכו').
 ======================================== */
 
-.page-title{
+body.proto-page .page-title{
   position:relative;
   z-index:5;
   max-width:1200px;
@@ -397,14 +402,14 @@ p {
   color:var(--text);
 }
 
-body.learning-mode .page-title{
+body.proto-page.learning-mode .page-title{
   background: linear-gradient(90deg, #fff, var(--accent-2));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-.subtitle{
+body.proto-page .subtitle{
   position:relative;
   z-index:5;
   max-width:1200px;
@@ -415,7 +420,7 @@ body.learning-mode .page-title{
   color:var(--text-dim);
 }
 
-.container{
+body.proto-page .container{
   position:relative;
   z-index:5;
   max-width:1200px;
@@ -427,52 +432,52 @@ body.learning-mode .page-title{
   align-items:start;
 }
 
-.col{
+body.proto-page .col{
   display:flex;
   flex-direction:column;
 }
 
-.container h2{
+body.proto-page .container h2{
   font-size:25px;
   margin:16px 0 8px;
   font-weight:700;
   color:var(--text);
 }
 
-.container p{
+body.proto-page .container p{
   font-size:18px;
   line-height:1.6;
   color:var(--text);
   margin:10px 0;
 }
 
-.section{
+body.proto-page .section{
   position:relative;
   border-top:1px solid var(--panel-border);
   padding-top:10px;
   padding-bottom:8px;
 }
 
-.section > h2:first-child,
-.section > p:first-child{
+body.proto-page .section > h2:first-child,
+body.proto-page .section > p:first-child{
   margin-top:0;
 }
 
-.section > :last-child{
+body.proto-page .section > :last-child{
   margin-bottom:0;
 }
 
-.col > .section:last-child{
+body.proto-page .col > .section:last-child{
   border-bottom:1px solid var(--panel-border);
   padding-bottom:12px;
 }
 
-.term{
+body.proto-page .term{
   font-weight:bold;
   color:var(--accent);
 }
 
-.meaning-signal{
+body.proto-page .meaning-signal{
   margin:16px 0;
   padding:20px 18px 22px;
   border-radius:22px;
@@ -480,23 +485,23 @@ body.learning-mode .page-title{
   background:var(--panel);
 }
 
-body.learning-mode .meaning-signal{
+body.proto-page.learning-mode .meaning-signal{
   box-shadow:0 0 34px rgba(79,179,255,0.08);
 }
 
-.meaning-signal p{
+body.proto-page .meaning-signal p{
   margin:10px 0;
 }
 
-.meaning-signal p:first-child{
+body.proto-page .meaning-signal p:first-child{
   margin-top:0;
 }
 
-.meaning-signal p:last-child{
+body.proto-page .meaning-signal p:last-child{
   margin-bottom:0;
 }
 
-.info-box{
+body.proto-page .info-box{
   direction:ltr;
   margin:14px 0 0;
   padding:16px 18px;
@@ -506,7 +511,7 @@ body.learning-mode .meaning-signal{
   font-family:'JetBrains Mono', monospace;
 }
 
-.info-row{
+body.proto-page .info-row{
   display:grid;
   grid-template-columns:120px 1fr;
   gap:10px;
@@ -516,59 +521,59 @@ body.learning-mode .meaning-signal{
   color:var(--text-dim);
 }
 
-.info-label{
+body.proto-page .info-label{
   opacity:0.7;
 }
 
-.info-value{
+body.proto-page .info-value{
   font-weight:bold;
   letter-spacing:0.5px;
   color:var(--accent-2);
 }
 
-.info-box.term-box{
+body.proto-page .info-box.term-box{
   direction:rtl;
   font-family:'Heebo', system-ui, -apple-system, 'Segoe UI', sans-serif;
 }
 
-.info-box.term-box .info-row{
+body.proto-page .info-box.term-box .info-row{
   grid-template-columns:110px 1fr;
 }
 
-.info-box.term-box .info-value{
+body.proto-page .info-box.term-box .info-value{
   font-weight:normal;
   letter-spacing:normal;
 }
 
 @media (max-width:900px){
-  .container{
+  body.proto-page .container{
     grid-template-columns:1fr;
     max-width:620px;
   }
 }
 
 @media (max-width:768px){
-  .page-title{
+  body.proto-page .page-title{
     padding-top:88px;
     font-size:28px;
   }
-  .subtitle{
+  body.proto-page .subtitle{
     font-size:16px;
   }
-  .container{
+  body.proto-page .container{
     padding:24px 22px 90px;
   }
-  .container h2{
+  body.proto-page .container h2{
     font-size:22px;
   }
-  .container p{
+  body.proto-page .container p{
     font-size:17px;
   }
-  .info-row{
+  body.proto-page .info-row{
     grid-template-columns:100px 1fr;
     font-size:14px;
   }
-  .info-box.term-box .info-row{
+  body.proto-page .info-box.term-box .info-row{
     grid-template-columns:1fr;
     gap:2px;
   }
