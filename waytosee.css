@@ -81,13 +81,12 @@ body.learning-mode .focus-toggle {
 body{
   font-family: 'Heebo', system-ui, -apple-system, 'Segoe UI', sans-serif;
   background:#e8e8e8;
-  color:rgba(6,7,8,0.96);
+  color:var(--text);
   transition:background 1.2s ease, color 1.2s ease;
 }
 body.learning-mode{
   background:
     radial-gradient(1200px 600px at 50% -10%, #16233d 0%, #0b1220 55%);
-  color:rgba(240,240,240,0.92);
 }
 
 /* רקע "גשם" עדין - משותף לכל עמוד שמכריז <div class="rain" id="rain">.
@@ -375,5 +374,202 @@ p {
   #spaceBtn {
     right: 6px;
     bottom: 10px;
+  }
+}
+
+/* ========================================
+   שלד עמוד תוכן משותף - ARP / DHCP / TCP / Gateway / ICMP ועמודי תוכן עתידיים
+   באותה צורה: page-title + subtitle + container של 3 עמודות + info-box
+   ל"מה פירוש השם". עמוד שצריך לסטות מערך ספציפי (לדוגמה רוחב עמודת
+   term-box, ב-.info-box.term-box .info-row) מגדיר מחדש את אותו selector
+   ב-<style> המקומי שלו - הוא יגבר כי הוא מגיע אחרי קובץ זה ב-<head>.
+======================================== */
+
+.page-title{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:0 auto;
+  padding:96px 24px 0;
+  font-size:36px;
+  font-weight:800;
+  text-align:center;
+  color:var(--text);
+}
+
+body.learning-mode .page-title{
+  background: linear-gradient(90deg, #fff, var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subtitle{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:10px auto 0;
+  padding:0 24px;
+  text-align:center;
+  font-size:18px;
+  color:var(--text-dim);
+}
+
+.container{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:0 auto;
+  padding:34px 24px 100px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0 60px;
+  align-items:start;
+}
+
+.col{
+  display:flex;
+  flex-direction:column;
+}
+
+.container h2{
+  font-size:25px;
+  margin:16px 0 8px;
+  font-weight:700;
+  color:var(--text);
+}
+
+.container p{
+  font-size:18px;
+  line-height:1.6;
+  color:var(--text);
+  margin:10px 0;
+}
+
+.section{
+  position:relative;
+  border-top:1px solid var(--panel-border);
+  padding-top:10px;
+  padding-bottom:8px;
+}
+
+.section > h2:first-child,
+.section > p:first-child{
+  margin-top:0;
+}
+
+.section > :last-child{
+  margin-bottom:0;
+}
+
+.col > .section:last-child{
+  border-bottom:1px solid var(--panel-border);
+  padding-bottom:12px;
+}
+
+.term{
+  font-weight:bold;
+  color:var(--accent);
+}
+
+.meaning-signal{
+  margin:16px 0;
+  padding:20px 18px 22px;
+  border-radius:22px;
+  border:1px solid var(--panel-border);
+  background:var(--panel);
+}
+
+body.learning-mode .meaning-signal{
+  box-shadow:0 0 34px rgba(79,179,255,0.08);
+}
+
+.meaning-signal p{
+  margin:10px 0;
+}
+
+.meaning-signal p:first-child{
+  margin-top:0;
+}
+
+.meaning-signal p:last-child{
+  margin-bottom:0;
+}
+
+.info-box{
+  direction:ltr;
+  margin:14px 0 0;
+  padding:16px 18px;
+  border-radius:18px;
+  border:1px solid var(--panel-border);
+  background:var(--code-bg);
+  font-family:'JetBrains Mono', monospace;
+}
+
+.info-row{
+  display:grid;
+  grid-template-columns:120px 1fr;
+  gap:10px;
+  align-items:center;
+  margin:7px 0;
+  font-size:15px;
+  color:var(--text-dim);
+}
+
+.info-label{
+  opacity:0.7;
+}
+
+.info-value{
+  font-weight:bold;
+  letter-spacing:0.5px;
+  color:var(--accent-2);
+}
+
+.info-box.term-box{
+  direction:rtl;
+  font-family:'Heebo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+.info-box.term-box .info-row{
+  grid-template-columns:110px 1fr;
+}
+
+.info-box.term-box .info-value{
+  font-weight:normal;
+  letter-spacing:normal;
+}
+
+@media (max-width:900px){
+  .container{
+    grid-template-columns:1fr;
+    max-width:620px;
+  }
+}
+
+@media (max-width:768px){
+  .page-title{
+    padding-top:88px;
+    font-size:28px;
+  }
+  .subtitle{
+    font-size:16px;
+  }
+  .container{
+    padding:24px 22px 90px;
+  }
+  .container h2{
+    font-size:22px;
+  }
+  .container p{
+    font-size:17px;
+  }
+  .info-row{
+    grid-template-columns:100px 1fr;
+    font-size:14px;
+  }
+  .info-box.term-box .info-row{
+    grid-template-columns:1fr;
+    gap:2px;
   }
 }

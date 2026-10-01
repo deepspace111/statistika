@@ -8,135 +8,11 @@
 <link rel="stylesheet" href="../waytosee.css">
 
 <style>
+/* שלד עמוד התוכן (page-title/container/section/meaning-signal וכו') עבר ל-waytosee.css
+   המשותף. כאן נשארות רק המחלקות הספציפיות לעמוד הזה: מורס, דוגמאות MAC/Broadcast,
+   מפת הביטים, וכפתור "מי זה X". ARP לא משתמש ב-info-box כלל. */
 *{
   box-sizing:border-box;
-}
-
-/* גופן וצבעים משותפים - עיצוב Subnet/NAT, דרך משתני waytosee.css */
-body{
-  font-family:'Heebo', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  color:var(--text);
-}
-
-body.learning-mode{
-  background: radial-gradient(1200px 600px at 50% -10%, #16233d 0%, #0b1220 55%);
-}
-
-/* רקע ה"גשם" (.rain / .drop / @keyframes rain) עבר ל-waytosee.css המשותף */
-
-/* כותרת העמוד - מעל הרשת, כמו בעמוד המבוא */
-
-.page-title{
-  position:relative;
-  z-index:5;
-  max-width:1200px;
-  margin:0 auto;
-  padding:96px 24px 0;
-  font-size:36px;
-  font-weight:800;
-  text-align:center;
-  color:var(--text);
-}
-
-body.learning-mode .page-title{
-  background: linear-gradient(90deg, #fff, var(--accent-2));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.subtitle{
-  position:relative;
-  z-index:5;
-  max-width:1200px;
-  margin:10px auto 0;
-  padding:0 24px;
-  text-align:center;
-  font-size:18px;
-  color:var(--text-dim);
-}
-
-/* פריסת Grid - שלוש עמודות, כמו בעמוד המבוא */
-
-.container{
-  position:relative;
-  z-index:5;
-  max-width:1200px;
-  margin:0 auto;
-  padding:34px 24px 100px;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:0 60px;
-  align-items:start;
-}
-
-.col{
-  display:flex;
-  flex-direction:column;
-}
-
-.container h2{
-  font-size:25px;
-  margin:16px 0 8px;
-  font-weight:700;
-  color:var(--text);
-}
-
-.container p{
-  font-size:18px;
-  line-height:1.6;
-  color:var(--text);
-  margin:10px 0;
-}
-
-.section{
-  position:relative;
-  border-top:1px solid var(--panel-border);
-  padding-top:10px;
-  padding-bottom:8px;
-}
-
-.section > h2:first-child,
-.section > p:first-child{
-  margin-top:0;
-}
-
-.section > :last-child{
-  margin-bottom:0;
-}
-
-.col > .section:last-child{
-  border-bottom:1px solid var(--panel-border);
-  padding-bottom:12px;
-}
-
-.term{
-  font-weight:bold;
-  color:var(--accent);
-}
-
-.meaning-signal{
-  margin:16px 0;
-  padding:20px 18px 22px;
-  border-radius:22px;
-  border:1px solid var(--panel-border);
-  background:var(--panel);
-}
-
-body.learning-mode .meaning-signal{
-  box-shadow:0 0 34px rgba(79,179,255,0.08);
-}
-
-.meaning-signal p{
-  margin:10px 0;
-}
-
-.meaning-signal p:first-child{
-  margin-top:0;
-}
-
-.meaning-signal p:last-child{
-  margin-bottom:0;
 }
 
 .morse-word{
@@ -260,35 +136,7 @@ body.learning-mode .thinking-button:hover{
   box-shadow:0 0 24px rgba(79,179,255,0.10);
 }
 
-@media (max-width:900px){
-  .container{
-    grid-template-columns:1fr;
-    max-width:620px;
-  }
-}
-
 @media (max-width:768px){
-
-  .page-title{
-    padding-top:88px;
-    font-size:28px;
-  }
-
-  .subtitle{
-    font-size:16px;
-  }
-
-  .container{
-    padding:24px 22px 90px;
-  }
-
-  .container h2{
-    font-size:22px;
-  }
-
-  .container p{
-    font-size:17px;
-  }
 
   .bit-row{
     grid-template-columns:48px 1fr;

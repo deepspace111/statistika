@@ -33,23 +33,15 @@
   letter-spacing:6px;
   line-height:2.2;
   margin-bottom:18px;
-  font-weight:300;
+  font-weight:700;
   text-transform:uppercase;
-  color:#060708;
-}
-
-body.learning-mode .container h1{
-  color:rgba(225,225,225,0.86);
+  color:var(--text);
 }
 
 .subtitle{
-  color:rgba(6,7,8,0.62);
+  color:var(--text-dim);
   margin-bottom:38px;
   font-size:17px;
-}
-
-body.learning-mode .subtitle{
-  color:#9aa4b5;
 }
 
 .topic-list{
@@ -62,21 +54,15 @@ body.learning-mode .subtitle{
   display:block;
   padding:18px;
   border-radius:20px;
-  background:rgba(255,255,255,0.78);
-  color:#060708;
+  background:var(--panel);
+  color:var(--text);
   text-decoration:none;
   font-size:19px;
-  border:1px solid rgba(0,0,0,0.18);
+  border:1px solid var(--panel-border);
   box-shadow:0 8px 24px rgba(0,0,0,0.06);
   backdrop-filter:blur(3px);
   transition:0.4s ease;
   animation:signalPulse 7s ease-in-out infinite;
-}
-
-body.learning-mode .topic{
-  background:rgba(10,15,25,0.72);
-  color:#f2f2f2;
-  border-color:rgba(120,170,255,0.12);
 }
 
 .topic:nth-child(2){ animation-delay:0.6s; }
@@ -99,7 +85,7 @@ body.learning-mode .topic{
 .topic:hover{
   transform:translateY(-2px);
   background:rgba(120,170,255,0.08);
-  border-color:rgba(120,170,255,0.25);
+  border-color:var(--accent);
 }
 
 .topic small{
@@ -107,11 +93,7 @@ body.learning-mode .topic{
   margin-top:8px;
   line-height:1.8;
   font-size:14px;
-  color:rgba(6,7,8,0.68);
-}
-
-body.learning-mode .topic small{
-  color:#aeb7c7;
+  color:var(--text-dim);
 }
 
 @media (max-width:700px){

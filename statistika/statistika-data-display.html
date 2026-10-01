@@ -32,8 +32,16 @@
   margin: 0 auto;
   padding: 24px 24px 0;
   font-size: 42px;
-  font-weight: 300;
+  font-weight: 800;
   text-align: center;
+  color: var(--text);
+}
+
+body.learning-mode .page-title {
+  background: linear-gradient(90deg, #fff, var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .page-subtitle {
@@ -64,7 +72,7 @@
   gap: 18px;
 }
 
-.container h2 { font-size: 25px; margin: 0 0 8px; font-weight: 500; }
+.container h2 { font-size: 25px; margin: 0 0 8px; font-weight: 700; color: var(--text); }
 
 .container p {
   line-height: 1.45;
@@ -73,7 +81,7 @@
 
 .section {
   position: relative;
-  border-top: 1px solid rgba(0,0,0,0.14);
+  border-top: 1px solid var(--panel-border);
   padding-top: 10px;
   padding-bottom: 8px;
   margin-bottom: 0;
@@ -84,12 +92,9 @@
 }
 
 .col > .section:last-child {
-  border-bottom: 1px solid rgba(0,0,0,0.14);
+  border-bottom: 1px solid var(--panel-border);
   padding-bottom: 12px;
 }
-
-body.learning-mode .section { border-top: 1px solid rgba(255,255,255,0.14); }
-body.learning-mode .col > .section:last-child { border-bottom: 1px solid rgba(255,255,255,0.14); }
 
 /* טבלאות, חישובים וציטוט */
 
@@ -105,7 +110,7 @@ body.learning-mode .col > .section:last-child { border-bottom: 1px solid rgba(25
 .data-table th,
 .data-table td {
   padding: 7px 6px;
-  border-bottom: 1px solid rgba(0,0,0,0.12);
+  border-bottom: 1px solid var(--panel-border);
   vertical-align: top;
 }
 
@@ -120,11 +125,6 @@ body.learning-mode .col > .section:last-child { border-bottom: 1px solid rgba(25
   font-size: 14px;
 }
 
-body.learning-mode .data-table th,
-body.learning-mode .data-table td {
-  border-bottom-color: rgba(255,255,255,0.12);
-}
-
 .calc {
   direction: ltr;
   text-align: center;
@@ -132,11 +132,9 @@ body.learning-mode .data-table td {
   margin: 14px 0;
   padding: 10px;
   border-radius: 10px;
-  background: rgba(0,0,0,0.035);
-}
-
-body.learning-mode .calc {
-  background: rgba(255,255,255,0.05);
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--accent-2);
+  background: var(--code-bg);
 }
 
 .calc strong {
@@ -164,8 +162,7 @@ body.learning-mode .calc {
   .container { grid-template-columns: 1fr; }
   .col { gap: 0; }
   .col > .section:last-child { border-bottom: none; }
-  .container > .col:last-child > .section:last-child { border-bottom: 1px solid rgba(0,0,0,0.14); }
-  body.learning-mode .container > .col:last-child > .section:last-child { border-bottom-color: rgba(255,255,255,0.14); }
+  .container > .col:last-child > .section:last-child { border-bottom: 1px solid var(--panel-border); }
   .page-title { font-size: 34px; }
   .container h2 { font-size: 22px; }
   .container p { font-size: 18px; }
@@ -245,12 +242,10 @@ body.learning-mode .calc {
   margin: 12px 0;
   padding: 10px;
   border-radius: 10px;
-  background: rgba(0,0,0,0.035);
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--accent-2);
+  background: var(--code-bg);
   word-spacing: 2px;
-}
-
-body.learning-mode .numbers {
-  background: rgba(255,255,255,0.05);
 }
 
 

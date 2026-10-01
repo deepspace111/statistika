@@ -41,25 +41,21 @@
       text-transform: uppercase;
       font-weight: 300;
       margin-bottom: 10px;
-      color: rgba(6,7,8,0.96);
+      color: var(--text);
       opacity: 0;
       animation: spaceReveal 1.6s ease-out forwards;
     }
-
-    body.learning-mode .space-title{ color: rgba(240,240,240,0.92); }
 
     .space-subtitle{
       text-align: center;
       font-size: 20px;
       line-height: 1.6;
       margin-bottom: 10px;
-      color: rgba(6,7,8,0.9);
+      color: var(--text);
       opacity: 0;
       animation: spaceReveal 2s ease-out forwards;
       animation-delay: 0.15s;
     }
-
-    body.learning-mode .space-subtitle{ color: rgba(225,225,225,0.9); }
 
     .space-note{
       text-align: center;
@@ -67,13 +63,11 @@
       line-height: 1.9;
       max-width: 420px;
       margin: 0 auto 46px;
-      color: rgba(6,7,8,0.55);
+      color: var(--text-dim);
       opacity: 0;
       animation: spaceReveal 2.2s ease-out forwards;
       animation-delay: 0.3s;
     }
-
-    body.learning-mode .space-note{ color: rgba(200,200,200,0.55); }
 
     @keyframes spaceReveal{
       from{ opacity: 0; filter: blur(4px); transform: translateY(6px); }
@@ -86,11 +80,9 @@
       align-items: center;
       gap: 8px;
       font-size: 13px;
-      color: rgba(6,7,8,0.62);
+      color: var(--text-dim);
       margin-bottom: 34px;
     }
-
-    body.learning-mode .space-status{ color: rgba(200,200,200,0.62); }
 
     .space-status .dot{
       width: 7px;
@@ -107,8 +99,8 @@
     }
 
     .space-compose{
-      background: rgba(255,255,255,0.6);
-      border: 1px solid rgba(82,68,54,0.14);
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
       border-radius: 22px;
       padding: 22px;
       margin-bottom: 54px;
@@ -117,8 +109,6 @@
     }
 
     body.learning-mode .space-compose{
-      background: rgba(255,255,255,0.04);
-      border-color: rgba(255,255,255,0.1);
       box-shadow: none;
     }
 
@@ -132,20 +122,12 @@
       font-family: inherit;
       font-size: 17px;
       line-height: 1.7;
-      color: rgba(40,34,28,0.92);
+      color: var(--text);
       box-sizing: border-box;
     }
 
-    body.learning-mode .space-compose textarea{
-      color: rgba(235,235,235,0.92);
-    }
-
     .space-compose textarea::placeholder{
-      color: rgba(6,7,8,0.4);
-    }
-
-    body.learning-mode .space-compose textarea::placeholder{
-      color: rgba(200,200,200,0.35);
+      color: var(--text-dim);
     }
 
     .space-compose-row{
@@ -188,15 +170,10 @@
       letter-spacing: 2px;
       text-transform: uppercase;
       font-weight: 400;
-      color: rgba(6,7,8,0.45);
+      color: var(--text-dim);
       margin-bottom: 20px;
       padding-bottom: 12px;
-      border-bottom: 1px solid rgba(82,68,54,0.14);
-    }
-
-    body.learning-mode .space-feed-title{
-      color: rgba(200,200,200,0.4);
-      border-bottom-color: rgba(255,255,255,0.1);
+      border-bottom: 1px solid var(--panel-border);
     }
 
     .space-feed{
@@ -208,17 +185,11 @@
     .space-item{
       padding: 18px 20px;
       border-radius: 16px;
-      background: rgba(255,255,255,0.5);
-      border: 1px solid rgba(82,68,54,0.1);
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
       font-size: 17px;
       line-height: 1.75;
-      color: rgba(40,34,28,0.9);
-    }
-
-    body.learning-mode .space-item{
-      background: rgba(255,255,255,0.03);
-      border-color: rgba(255,255,255,0.08);
-      color: rgba(230,230,230,0.88);
+      color: var(--text);
     }
 
     .space-item.is-new{
@@ -234,11 +205,7 @@
       display: block;
       margin-top: 10px;
       font-size: 12px;
-      color: rgba(6,7,8,0.42);
-    }
-
-    body.learning-mode .space-item time{
-      color: rgba(200,200,200,0.4);
+      color: var(--text-dim);
     }
 
     .space-item-actions{
@@ -253,22 +220,18 @@
       padding: 0;
       font-family: inherit;
       font-size: 13px;
-      color: rgba(6,7,8,0.5);
+      color: var(--text-dim);
       cursor: pointer;
       text-decoration: underline;
       text-underline-offset: 3px;
     }
 
-    body.learning-mode .space-reply-toggle{ color: rgba(200,200,200,0.5); }
-
     .space-reply-compose{
       display: none;
       margin-top: 12px;
       padding-top: 12px;
-      border-top: 1px solid rgba(82,68,54,0.1);
+      border-top: 1px solid var(--panel-border);
     }
-
-    body.learning-mode .space-reply-compose{ border-top-color: rgba(255,255,255,0.08); }
 
     .space-reply-compose.is-open{ display: block; }
 
@@ -276,22 +239,16 @@
       width: 100%;
       min-height: 56px;
       resize: vertical;
-      border: 1px solid rgba(82,68,54,0.14);
+      border: 1px solid var(--panel-border);
       border-radius: 12px;
-      background: rgba(255,255,255,0.5);
+      background: var(--panel);
       outline: none;
       font-family: inherit;
       font-size: 15px;
       line-height: 1.6;
-      color: rgba(40,34,28,0.92);
+      color: var(--text);
       padding: 10px 12px;
       box-sizing: border-box;
-    }
-
-    body.learning-mode .space-reply-compose textarea{
-      background: rgba(255,255,255,0.04);
-      border-color: rgba(255,255,255,0.1);
-      color: rgba(235,235,235,0.92);
     }
 
     .space-reply-compose-row{
@@ -320,51 +277,35 @@
     .space-replies{
       margin-top: 14px;
       padding-right: 18px;
-      border-right: 2px solid rgba(82,68,54,0.12);
+      border-right: 2px solid var(--panel-border);
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
 
-    body.learning-mode .space-replies{ border-right-color: rgba(255,255,255,0.1); }
-
     .space-reply-item{
       padding: 12px 14px;
       border-radius: 12px;
-      background: rgba(255,255,255,0.35);
-      border: 1px solid rgba(82,68,54,0.08);
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
       font-size: 15px;
       line-height: 1.65;
-      color: rgba(40,34,28,0.88);
-    }
-
-    body.learning-mode .space-reply-item{
-      background: rgba(255,255,255,0.025);
-      border-color: rgba(255,255,255,0.06);
-      color: rgba(225,225,225,0.85);
+      color: var(--text);
     }
 
     .space-reply-item time{
       display: block;
       margin-top: 6px;
       font-size: 11px;
-      color: rgba(6,7,8,0.4);
-    }
-
-    body.learning-mode .space-reply-item time{
-      color: rgba(200,200,200,0.38);
+      color: var(--text-dim);
     }
 
     .space-footer{
       text-align: center;
       font-size: 13px;
       line-height: 2;
-      color: rgba(6,7,8,0.4);
+      color: var(--text-dim);
       margin-top: 50px;
-    }
-
-    body.learning-mode .space-footer{
-      color: rgba(200,200,200,0.4);
     }
 
     @media (max-width: 600px){

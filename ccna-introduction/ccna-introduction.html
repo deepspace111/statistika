@@ -58,8 +58,16 @@ body.learning-mode .drop {
   font-size: 42px;
   margin-bottom: 0;
   padding-bottom: 18px;
-  font-weight: 300;
+  font-weight: 800;
   text-align: center;
+  color: var(--text);
+}
+
+body.learning-mode .page-title {
+  background: linear-gradient(90deg, #fff, var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 /* ===== פריסת Grid יציבה - שלוש עמודות קבועות ===== */
@@ -81,7 +89,7 @@ body.learning-mode .drop {
   flex-direction: column;
 }
 
-.container h2 { font-size: 25px; margin: 16px 0 8px; font-weight: 500; }
+.container h2 { font-size: 25px; margin: 16px 0 8px; font-weight: 700; color: var(--text); }
 
 .container p {
   line-height: 1.35;
@@ -90,7 +98,7 @@ body.learning-mode .drop {
 
 .section {
   position: relative;
-  border-top: 1px solid rgba(0,0,0,0.14);
+  border-top: 1px solid var(--panel-border);
   padding-top: 6px;
   padding-bottom: 8px;
 }
@@ -105,17 +113,13 @@ body.learning-mode .drop {
 }
 
 .col > .section:last-child {
-  border-bottom: 1px solid rgba(0,0,0,0.14);
+  border-bottom: 1px solid var(--panel-border);
   padding-bottom: 12px;
 }
 
-body.learning-mode .col > .section:last-child {
-  border-bottom: 1px solid rgba(255,255,255,0.14);
-}
-
-body.learning-mode .section { border-top: 1px solid rgba(255,255,255,0.14); }
 .term {
   text-align: right;
+  color: var(--accent);
 }
 
 .protocol-station {
@@ -181,15 +185,15 @@ body.learning-mode .do-mark { color: rgba(220,220,220,0.38); }
   margin-top: 34px;
   padding: 9px 28px;
   border-radius: 22px;
-  border: 1px solid rgba(0,0,0,0.22);
-  color: #060708;
+  border: 1px solid var(--panel-border);
+  color: var(--text-dim);
   text-decoration: none;
   font-size: 18px;
-  background: rgba(0,0,0,0.035);
+  background: var(--panel);
   transition: 0.3s ease;
 }
 
-.next-btn:hover { background: rgba(0,0,0,0.08); }
+.next-btn:hover { color: var(--text); border-color: var(--accent); }
 
 .protocol-text-btn {
   display: inline;
@@ -219,8 +223,7 @@ body.learning-mode .do-mark { color: rgba(220,220,220,0.38); }
 .thinking-video.is-visible {
   display: block;
 }
-body.learning-mode .next-btn { border: 1px solid rgba(255,255,255,0.25); color: #f2f2f2; background: rgba(255,255,255,0.04); }
-body.learning-mode .next-btn:hover { background: rgba(255,255,255,0.09); }
+body.learning-mode .next-btn:hover { box-shadow: 0 0 24px rgba(79,179,255,0.10); }
 
 .soft-fade {
   position: fixed;
