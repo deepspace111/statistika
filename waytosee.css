@@ -589,3 +589,342 @@ body.proto-page .info-box.term-box .info-value{
   unicode-bidi:isolate;
   display:inline-block;
 }
+
+/* כל הספרות באתר בפונט JetBrains Mono (העטיפה נעשית ב-waytosee.js). הצבע נשאר כמו הטקסט שמסביב. */
+.wts-digit{
+  font-family:'JetBrains Mono', monospace;
+}
+
+/* ========================================
+   שלד עמוד "מבוא" משותף - statistika-introduction / ccna-introduction / internet
+   כותרת + Grid של שלוש עמודות, בלי page-subtitle.
+
+   כל הכללים כאן מוגבלים ל-body.overview-page (קלאס שמוגדר ב-<body> של כל אחד
+   מהעמודים האלה) - כדי שלא "ידלפו" לעמודים אחרים באתר שמשתמשים באותם שמות
+   מחלקה כלליים כמו .container/.page-title/.section (לדוגמה intro.html,
+   professions.html, index.html, ip/ip.html, NAT/index.html, subnet/index.html).
+   עמוד שצריך לסטות מערך ספציפי מגדיר מחדש את אותו selector ב-<style> המקומי
+   שלו - הוא יגבר כי הוא מגיע אחרי קובץ זה ב-<head>.
+   ======================================== */
+
+body.overview-page .page-title{
+  max-width:1200px;
+  margin:0 auto;
+  padding:24px 24px 0;
+  font-size:42px;
+  margin-bottom:0;
+  padding-bottom:18px;
+  font-weight:800;
+  text-align:center;
+  color:var(--text);
+}
+
+body.overview-page.learning-mode .page-title{
+  background: linear-gradient(90deg, #fff, var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+body.overview-page .container{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:0 auto;
+  padding:24px 24px 70px;
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:0 70px;
+  align-items:start;
+}
+
+body.overview-page .col{
+  display:flex;
+  flex-direction:column;
+}
+
+body.overview-page .container h2{ font-size:25px; margin:16px 0 8px; font-weight:700; color:var(--text); }
+
+body.overview-page .container p{
+  line-height:1.35;
+  margin:8px 0;
+}
+
+body.overview-page .section{
+  position:relative;
+  border-top:1px solid var(--panel-border);
+  padding-top:6px;
+  padding-bottom:8px;
+}
+
+body.overview-page .section > h2:first-child,
+body.overview-page .section > p:first-child{
+  margin-top:0;
+}
+
+body.overview-page .section > :last-child{
+  margin-bottom:0;
+}
+
+body.overview-page .col > .section:last-child{
+  border-bottom:1px solid var(--panel-border);
+  padding-bottom:12px;
+}
+
+body.overview-page .next-btn{
+  display:inline-block;
+  margin-top:34px;
+  padding:9px 28px;
+  border-radius:22px;
+  border:1px solid var(--panel-border);
+  color:var(--text-dim);
+  text-decoration:none;
+  font-size:18px;
+  background:var(--panel);
+  transition:0.3s ease;
+}
+
+body.overview-page .next-btn:hover{ color:var(--text); border-color:var(--accent); }
+
+body.overview-page.learning-mode .next-btn:hover{ box-shadow:0 0 24px rgba(79,179,255,0.10); }
+
+@media (max-width:600px){
+  body.overview-page .container{ grid-template-columns:1fr; }
+  body.overview-page .page-title{ font-size:34px; }
+  body.overview-page .container h2{ font-size:22px; }
+  body.overview-page .container p{ font-size:18px; }
+  body.overview-page .next-btn{ font-size:17px; padding:8px 24px; }
+}
+
+/* ========================================
+   שלד עמוד "סטטיסטיקה" משותף - statistika-scales / statistika-data-display /
+   statistika-dispersion / statistika-mode / statistika-relative / statistika-shape
+   כותרת + page-subtitle + Grid של שלוש עמודות (align-items:stretch) +
+   טבלאות/חישוב/ציטוט/היסטוגרמות משותפים.
+
+   כל הכללים כאן מוגבלים ל-body.stat-page (קלאס שמוגדר ב-<body> של כל אחד
+   מהעמודים האלה) - כדי שלא "ידלפו" לעמודים אחרים באתר שמשתמשים באותם שמות
+   מחלקה כלליים (לדוגמה statistika/statistika.html, שהוא בעצם מהמשפחה של
+   intro.html ולא מהמשפחה הזו, או thinking-station.html שמשתמש ב-.quote).
+   עמוד שצריך לסטות מערך ספציפי (לדוגמה statistika-relative.html ו-
+   statistika-shape.html עם .col > .section:only-child) מגדיר את זה ב-<style>
+   המקומי שלו.
+   ======================================== */
+
+body.stat-page .page-title{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:0 auto;
+  padding:24px 24px 0;
+  font-size:42px;
+  font-weight:800;
+  text-align:center;
+  color:var(--text);
+}
+
+body.stat-page.learning-mode .page-title{
+  background: linear-gradient(90deg, #fff, var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+body.stat-page .page-subtitle{
+  position:relative;
+  z-index:5;
+  text-align:center;
+  font-size:19px;
+  margin:6px 0 18px;
+  opacity:0.65;
+}
+
+body.stat-page .container{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:0 auto;
+  padding:24px 24px 70px;
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:0 70px;
+  align-items:stretch;
+}
+
+body.stat-page .col{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  gap:18px;
+}
+
+body.stat-page .container h2{ font-size:25px; margin:0 0 8px; font-weight:700; color:var(--text); }
+
+body.stat-page .container p{
+  line-height:1.45;
+  margin:8px 0;
+}
+
+body.stat-page .section{
+  position:relative;
+  border-top:1px solid var(--panel-border);
+  padding-top:10px;
+  padding-bottom:8px;
+  margin-bottom:0;
+}
+
+body.stat-page .section > :last-child{
+  margin-bottom:0;
+}
+
+body.stat-page .col > .section:last-child{
+  border-bottom:1px solid var(--panel-border);
+  padding-bottom:12px;
+}
+
+body.stat-page .data-table{
+  width:100%;
+  border-collapse:collapse;
+  margin:14px 0;
+  font-size:16px;
+  line-height:1.5;
+  text-align:right;
+}
+
+body.stat-page .data-table th,
+body.stat-page .data-table td{
+  padding:7px 6px;
+  border-bottom:1px solid var(--panel-border);
+  vertical-align:top;
+}
+
+body.stat-page .data-table th{
+  font-weight:500;
+  opacity:0.7;
+}
+
+body.stat-page .data-table td small{
+  display:block;
+  opacity:0.65;
+  font-size:14px;
+}
+
+body.stat-page .calc{
+  direction:ltr;
+  text-align:center;
+  font-size:18px;
+  margin:14px 0;
+  padding:10px;
+  border-radius:10px;
+  font-family:'JetBrains Mono', monospace;
+  color:var(--num);
+  background:var(--code-bg);
+}
+
+body.stat-page .calc strong{
+  font-size:21px;
+}
+
+body.stat-page .ltr{
+  direction:ltr;
+  unicode-bidi:isolate;
+  display:inline-block;
+}
+
+body.stat-page .pause{
+  font-style:italic;
+  opacity:0.6;
+}
+
+body.stat-page .container .quote{
+  text-align:center;
+  font-size:22px;
+  font-weight:300;
+  margin:22px 0;
+}
+
+body.stat-page .next-line{
+  margin-top:22px;
+  opacity:0.7;
+}
+
+body.stat-page .hist{
+  display:block;
+  width:100%;
+  height:auto;
+  direction:ltr;
+  margin:14px 0 6px;
+}
+
+body.stat-page .hist .bar path{
+  fill:currentColor;
+  opacity:0.55;
+  transition:opacity 0.2s ease;
+}
+
+body.stat-page .hist .bar:hover path{
+  opacity:0.85;
+}
+
+body.stat-page .hist .axis{
+  stroke:currentColor;
+  stroke-width:1;
+  opacity:0.35;
+}
+
+body.stat-page .hist text{
+  fill:currentColor;
+  text-anchor:middle;
+  font-family:Arial, sans-serif;
+}
+
+body.stat-page .hist .val{ font-size:13px; font-weight:bold; opacity:0.85; }
+body.stat-page .hist .lbl{ font-size:12px; opacity:0.6; }
+body.stat-page .hist.small .val{ font-size:13px; }
+body.stat-page .hist.small .lbl{ font-size:12px; }
+
+body.stat-page .hist-pair{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin:14px 0 6px;
+}
+
+body.stat-page .hist-pair figure{
+  margin:0;
+}
+
+body.stat-page .hist-pair figcaption{
+  text-align:center;
+  font-size:14px;
+  opacity:0.65;
+}
+
+body.stat-page .hist-pair .hist{
+  margin:0 0 4px;
+}
+
+body.stat-page .numbers{
+  direction:ltr;
+  text-align:center;
+  font-size:16px;
+  line-height:1.7;
+  margin:12px 0;
+  padding:10px;
+  border-radius:10px;
+  font-family:'JetBrains Mono', monospace;
+  color:var(--num);
+  background:var(--code-bg);
+  word-spacing:2px;
+}
+
+@media (max-width:600px){
+  body.stat-page .container{ grid-template-columns:1fr; }
+  body.stat-page .col{ gap:0; }
+  body.stat-page .col > .section:last-child{ border-bottom:none; }
+  body.stat-page .container > .col:last-child > .section:last-child{ border-bottom:1px solid var(--panel-border); }
+  body.stat-page .page-title{ font-size:34px; }
+  body.stat-page .container h2{ font-size:22px; }
+  body.stat-page .container p{ font-size:18px; }
+  body.stat-page .data-table{ font-size:15px; }
+}

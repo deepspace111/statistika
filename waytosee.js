@@ -1,5 +1,43 @@
 
 document.addEventListener("DOMContentLoaded", () => {
+  // ספרות בפונט JetBrains Mono בכל האתר - כל רצף ספרות בטקסט עוטף ב-<span class="wts-digit">
+  // (בתוך גרפי SVG - ב-<tspan>). העיצוב עצמו גר ב-waytosee.css (.wts-digit).
+  // לא נוגעים בתוך script / style / textarea / code / pre, ולא עוטפים פעמיים.
+  (function wrapDigits(root) {
+    if (!root) return;
+    const SVG_NS = "http://www.w3.org/2000/svg";
+    const DIGITS = /\d+(?:[.,:]\d+)*%?/g;
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        if (!/\d/.test(node.nodeValue)) return NodeFilter.FILTER_REJECT;
+        const parent = node.parentElement;
+        if (!parent || parent.closest("script, style, textarea, code, pre, noscript, .wts-digit")) {
+          return NodeFilter.FILTER_REJECT;
+        }
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach((node) => {
+      const text = node.nodeValue;
+      const inSvg = node.parentElement.namespaceURI === SVG_NS;
+      const fragment = document.createDocumentFragment();
+      let last = 0;
+      text.replace(DIGITS, (match, offset) => {
+        if (offset > last) fragment.appendChild(document.createTextNode(text.slice(last, offset)));
+        const wrap = inSvg ? document.createElementNS(SVG_NS, "tspan") : document.createElement("span");
+        wrap.setAttribute("class", "wts-digit");
+        wrap.textContent = match;
+        fragment.appendChild(wrap);
+        last = offset + match.length;
+        return match;
+      });
+      if (last < text.length) fragment.appendChild(document.createTextNode(text.slice(last)));
+      node.parentNode.replaceChild(fragment, node);
+    });
+  })(document.body);
+
   // רקע "גשם" עדין - רק בעמודים שכוללים ב-HTML <div class="rain" id="rain">.
   // ה-CSS (.rain / .drop / @keyframes rain) גר ב-waytosee.css; כאן רק יוצרים
   // את 150 הטיפות בפעם הראשונה שהעמוד נטען.

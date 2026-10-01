@@ -55,71 +55,8 @@ body.learning-mode .drop{
 
 .focus-toggle.scrolling{ opacity:0.18; }
 
-/* ===== זהה למבנה של דף המבוא (ccna-introduction.html): כותרת + Grid של שלוש עמודות ===== */
-
-.page-title{
-  max-width:1200px;
-  margin:0 auto;
-  padding:24px 24px 0;
-  font-size:42px;
-  margin-bottom:0;
-  padding-bottom:18px;
-  font-weight:800;
-  text-align:center;
-  color:var(--text);
-}
-
-body.learning-mode .page-title{
-  background: linear-gradient(90deg, #fff, var(--accent-2));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.container{
-  position:relative;
-  z-index:5;
-  max-width:1200px;
-  margin:0 auto;
-  padding:24px 24px 70px;
-  display:grid;
-  grid-template-columns:repeat(3, 1fr);
-  gap:0 70px;
-  align-items:start;
-}
-
-.col{
-  display:flex;
-  flex-direction:column;
-}
-
-.container h2{ font-size:25px; margin:16px 0 8px; font-weight:700; color:var(--text); }
-
-.container p{
-  line-height:1.35;
-  margin:8px 0;
-}
-
-.section{
-  position:relative;
-  border-top:1px solid var(--panel-border);
-  padding-top:6px;
-  padding-bottom:8px;
-}
-
-.section > h2:first-child,
-.section > p:first-child{
-  margin-top:0;
-}
-
-.section > :last-child{
-  margin-bottom:0;
-}
-
-.col > .section:last-child{
-  border-bottom:1px solid var(--panel-border);
-  padding-bottom:12px;
-}
+/* ===== זהה למבנה של דף המבוא (ccna-introduction.html): כותרת + Grid של שלוש עמודות -
+   שלד זה (וגם .next-btn) עבר ל-waytosee.css תחת body.overview-page ===== */
 
 .final-line{
   max-width:1200px;
@@ -129,23 +66,6 @@ body.learning-mode .page-title{
   margin-top:20px;
   font-size:23px;
 }
-
-.next-btn{
-  display:inline-block;
-  margin-top:34px;
-  padding:9px 28px;
-  border-radius:22px;
-  border:1px solid var(--panel-border);
-  color:var(--text-dim);
-  text-decoration:none;
-  font-size:18px;
-  background:var(--panel);
-  transition:0.3s ease;
-}
-
-.next-btn:hover{ color:var(--text); border-color:var(--accent); }
-
-body.learning-mode .next-btn:hover{ box-shadow:0 0 24px rgba(79,179,255,0.10); }
 
 /* ===== תרשים אות חי: מתח לאורך זמן + ביטים ===== */
 
@@ -263,18 +183,10 @@ body.learning-mode .read-marker{
   opacity:1;
   fill:#00ff41;
 }
-
-@media (max-width:600px){
-  .container{ grid-template-columns:1fr; }
-  .page-title{ font-size:34px; }
-  .container h2{ font-size:22px; }
-  .container p{ font-size:18px; }
-  .next-btn{ font-size:17px; padding:8px 24px; }
-}
 </style>
 </head>
 
-<body>
+<body class="overview-page">
 
 <div class="rain" id="rain"></div>
 

@@ -51,72 +51,6 @@ body.learning-mode .drop {
   to { transform: translateY(120vh); }
 }
 
-.page-title {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 24px 24px 0;
-  font-size: 42px;
-  margin-bottom: 0;
-  padding-bottom: 18px;
-  font-weight: 800;
-  text-align: center;
-  color: var(--text);
-}
-
-body.learning-mode .page-title {
-  background: linear-gradient(90deg, #fff, var(--accent-2));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-/* ===== פריסת Grid יציבה - שלוש עמודות קבועות ===== */
-
-.container {
-  position: relative;
-  z-index: 5;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 24px 24px 70px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0 70px;
-  align-items: start;
-}
-
-.col {
-  display: flex;
-  flex-direction: column;
-}
-
-.container h2 { font-size: 25px; margin: 16px 0 8px; font-weight: 700; color: var(--text); }
-
-.container p {
-  line-height: 1.35;
-  margin: 8px 0;
-}
-
-.section {
-  position: relative;
-  border-top: 1px solid var(--panel-border);
-  padding-top: 6px;
-  padding-bottom: 8px;
-}
-
-.section > h2:first-child,
-.section > p:first-child {
-  margin-top: 0;
-}
-
-.section > :last-child {
-  margin-bottom: 0;
-}
-
-.col > .section:last-child {
-  border-bottom: 1px solid var(--panel-border);
-  padding-bottom: 12px;
-}
-
 .term {
   text-align: right;
   color: var(--accent);
@@ -180,21 +114,6 @@ body.learning-mode .do-mark { color: rgba(220,220,220,0.38); }
 
 .final-line { margin-top: 65px; font-size: 23px; }
 
-.next-btn {
-  display: inline-block;
-  margin-top: 34px;
-  padding: 9px 28px;
-  border-radius: 22px;
-  border: 1px solid var(--panel-border);
-  color: var(--text-dim);
-  text-decoration: none;
-  font-size: 18px;
-  background: var(--panel);
-  transition: 0.3s ease;
-}
-
-.next-btn:hover { color: var(--text); border-color: var(--accent); }
-
 .protocol-text-btn {
   display: inline;
   margin-top: 0;
@@ -223,7 +142,6 @@ body.learning-mode .do-mark { color: rgba(220,220,220,0.38); }
 .thinking-video.is-visible {
   display: block;
 }
-body.learning-mode .next-btn:hover { box-shadow: 0 0 24px rgba(79,179,255,0.10); }
 
 .soft-fade {
   position: fixed;
@@ -251,12 +169,7 @@ body.soft-entering .soft-fade { animation: softFade 1.4s ease forwards; }
 @keyframes softPageFade { from { filter: none; } to { filter: brightness(0.35); } }
 
 @media (max-width: 600px) {
-  .container { grid-template-columns: 1fr; }
-  .page-title { font-size: 34px; }
-  .container h2 { font-size: 22px; }
-  .container p { font-size: 18px; }
   .do-mark { font-size: 24px; }
-  .next-btn { font-size: 17px; padding: 8px 24px; }
   .protocol-station { display: block; min-height: auto; margin: 14px 0; }
   .protocol-symbol-link { position: static; transform: none; display: block; width: 180px; margin: 22px auto 0; }
   .protocol-symbol { width: 180px; opacity: 0.78; }
@@ -288,7 +201,7 @@ body.learning-mode .route-dark {
 </style>
 </head>
 
-<body>
+<body class="overview-page">
 
 <div class="rain" id="rain"></div>
 
