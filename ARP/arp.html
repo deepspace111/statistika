@@ -12,60 +12,17 @@
   box-sizing:border-box;
 }
 
-/* פונט מקורי של הדף - חסר במערכת המשותפת */
+/* גופן וצבעים משותפים - עיצוב Subnet/NAT, דרך משתני waytosee.css */
 body{
-  font-family:Arial, sans-serif;
+  font-family:'Heebo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color:var(--text);
 }
 
-/* רקע ייחודי לדף זה - רק במצב תודעת לימוד */
 body.learning-mode{
-  background:
-    radial-gradient(
-      circle at top,
-      rgba(90,140,220,0.08),
-      transparent 42%
-    ),
-    linear-gradient(
-      to bottom,
-      #05070a,
-      #000814 45%,
-      #000 100%
-    );
-  color:rgba(205,205,205,0.78);
+  background: radial-gradient(1200px 600px at 50% -10%, #16233d 0%, #0b1220 55%);
 }
 
-.rain{
-  position:fixed;
-  inset:0;
-  z-index:1;
-  pointer-events:none;
-  overflow:hidden;
-  opacity:0;
-  transition:opacity 1.4s ease;
-}
-
-body.learning-mode .rain{
-  opacity:0.34;
-}
-
-.drop{
-  position:absolute;
-  top:-120vh;
-  width:1px;
-  height:78px;
-  background:linear-gradient(
-    to bottom,
-    rgba(110,170,255,0),
-    rgba(110,170,255,0.34),
-    rgba(110,170,255,0)
-  );
-  animation:rain linear infinite;
-}
-
-@keyframes rain{
-  from{ transform:translateY(-20vh); }
-  to{ transform:translateY(150vh); }
-}
+/* רקע ה"גשם" (.rain / .drop / @keyframes rain) עבר ל-waytosee.css המשותף */
 
 /* כותרת העמוד - מעל הרשת, כמו בעמוד המבוא */
 
@@ -76,13 +33,16 @@ body.learning-mode .rain{
   margin:0 auto;
   padding:96px 24px 0;
   font-size:36px;
-  font-weight:normal;
+  font-weight:800;
   text-align:center;
-  color:#05070a;
+  color:var(--text);
 }
 
 body.learning-mode .page-title{
-  color:rgba(215,215,215,0.74);
+  background: linear-gradient(90deg, #fff, var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .subtitle{
@@ -93,11 +53,7 @@ body.learning-mode .page-title{
   padding:0 24px;
   text-align:center;
   font-size:18px;
-  color:rgba(5,7,10,0.62);
-}
-
-body.learning-mode .subtitle{
-  color:#9aa4b5;
+  color:var(--text-dim);
 }
 
 /* פריסת Grid - שלוש עמודות, כמו בעמוד המבוא */
@@ -122,34 +78,22 @@ body.learning-mode .subtitle{
 .container h2{
   font-size:25px;
   margin:16px 0 8px;
-  font-weight:500;
-  color:#05070a;
-}
-
-body.learning-mode .container h2{
-  color:rgba(225,225,225,0.88);
+  font-weight:700;
+  color:var(--text);
 }
 
 .container p{
   font-size:18px;
   line-height:1.6;
-  color:rgba(5,7,10,0.82);
+  color:var(--text);
   margin:10px 0;
-}
-
-body.learning-mode .container p{
-  color:rgba(205,205,205,0.82);
 }
 
 .section{
   position:relative;
-  border-top:1px solid rgba(0,0,0,0.14);
+  border-top:1px solid var(--panel-border);
   padding-top:10px;
   padding-bottom:8px;
-}
-
-body.learning-mode .section{
-  border-top:1px solid rgba(255,255,255,0.14);
 }
 
 .section > h2:first-child,
@@ -162,30 +106,25 @@ body.learning-mode .section{
 }
 
 .col > .section:last-child{
-  border-bottom:1px solid rgba(0,0,0,0.14);
+  border-bottom:1px solid var(--panel-border);
   padding-bottom:12px;
-}
-
-body.learning-mode .col > .section:last-child{
-  border-bottom:1px solid rgba(255,255,255,0.14);
 }
 
 .term{
   font-weight:bold;
+  color:var(--accent);
 }
 
 .meaning-signal{
   margin:16px 0;
   padding:20px 18px 22px;
   border-radius:22px;
-  border:1px solid rgba(0,0,0,0.12);
-  background:rgba(255,255,255,0.30);
+  border:1px solid var(--panel-border);
+  background:var(--panel);
 }
 
 body.learning-mode .meaning-signal{
-  border:1px solid rgba(110,170,255,0.12);
-  background:rgba(255,255,255,0.025);
-  box-shadow:0 0 34px rgba(80,130,220,0.045);
+  box-shadow:0 0 34px rgba(79,179,255,0.08);
 }
 
 .meaning-signal p{
@@ -206,7 +145,7 @@ body.learning-mode .meaning-signal{
   font-size:1em;
   letter-spacing:1px;
   cursor:pointer;
-  color:rgba(5,7,10,0.86);
+  color:var(--text);
   transition:0.4s ease;
   text-shadow:
     0 0 8px rgba(80,130,220,0.12);
@@ -214,21 +153,18 @@ body.learning-mode .meaning-signal{
 
 .morse-word:hover{
   transform:scale(1.04);
-  color:rgba(5,7,10,0.98);
   text-shadow:
     0 0 12px rgba(80,130,220,0.28),
     0 0 24px rgba(80,130,220,0.18);
 }
 
 body.learning-mode .morse-word{
-  color:rgba(225,235,255,0.86);
   text-shadow:
     0 0 10px rgba(110,170,255,0.24),
     0 0 26px rgba(110,170,255,0.12);
 }
 
 body.learning-mode .morse-word:hover{
-  color:rgba(240,248,255,0.98);
   text-shadow:
     0 0 14px rgba(110,170,255,0.50),
     0 0 34px rgba(110,170,255,0.24),
@@ -236,7 +172,6 @@ body.learning-mode .morse-word:hover{
 }
 
 .morse-word.active{
-  color:rgba(240,248,255,0.98);
   text-shadow:
     0 0 16px rgba(110,170,255,0.65),
     0 0 38px rgba(110,170,255,0.34),
@@ -244,22 +179,17 @@ body.learning-mode .morse-word:hover{
 }
 
 .mac-example{
+  font-family:'JetBrains Mono', monospace;
   direction:ltr;
   display:inline-block;
   margin-top:6px;
   padding:10px 16px;
   font-size:20px;
   letter-spacing:2px;
-  color:rgba(5,7,10,0.88);
-  border:1px solid rgba(0,0,0,0.14);
+  color:var(--accent-2);
+  border:1px solid var(--panel-border);
   border-radius:14px;
-  background:rgba(255,255,255,0.38);
-}
-
-body.learning-mode .mac-example{
-  color:rgba(225,225,225,0.86);
-  border:1px solid rgba(255,255,255,0.13);
-  background:rgba(255,255,255,0.035);
+  background:var(--code-bg);
 }
 
 .binary-map{
@@ -267,14 +197,9 @@ body.learning-mode .mac-example{
   margin:14px 0 0;
   padding:16px 14px;
   border-radius:18px;
-  border:1px solid rgba(0,0,0,0.10);
-  background:rgba(255,255,255,0.22);
-  font-family:Arial, sans-serif;
-}
-
-body.learning-mode .binary-map{
-  border:1px solid rgba(255,255,255,0.10);
-  background:rgba(255,255,255,0.025);
+  border:1px solid var(--panel-border);
+  background:var(--panel);
+  font-family:'Heebo', system-ui, -apple-system, 'Segoe UI', sans-serif;
 }
 
 .bit-row{
@@ -284,15 +209,13 @@ body.learning-mode .binary-map{
   align-items:center;
   margin:5px 0;
   font-size:14px;
-  color:rgba(5,7,10,0.76);
-}
-
-body.learning-mode .bit-row{
-  color:rgba(220,220,220,0.76);
+  color:var(--text-dim);
+  font-family:'JetBrains Mono', monospace;
 }
 
 .hex-part{
   letter-spacing:1px;
+  color:var(--accent-2);
 }
 
 .bit-part{
@@ -300,55 +223,41 @@ body.learning-mode .bit-row{
 }
 
 .broadcast-example{
+  font-family:'JetBrains Mono', monospace;
   direction:ltr;
   display:inline-block;
   margin-top:6px;
   padding:10px 16px;
   font-size:19px;
   letter-spacing:2px;
-  color:rgba(5,7,10,0.88);
-  border:1px solid rgba(0,0,0,0.14);
+  color:var(--accent-2);
+  border:1px solid var(--panel-border);
   border-radius:14px;
-  background:rgba(255,255,255,0.38);
-}
-
-body.learning-mode .broadcast-example{
-  color:rgba(225,225,225,0.86);
-  border:1px solid rgba(255,255,255,0.13);
-  background:rgba(255,255,255,0.035);
+  background:var(--code-bg);
 }
 
 .thinking-button{
   display:inline-block;
   margin-top:16px;
   padding:12px 24px;
-  color:rgba(5,7,10,0.70);
+  color:var(--text-dim);
   text-decoration:none;
-  border:1px solid rgba(0,0,0,0.16);
+  border:1px solid var(--panel-border);
   border-radius:24px;
-  background:rgba(255,255,255,0.32);
+  background:var(--panel);
   transition:0.4s ease;
   font-size:16px;
   backdrop-filter:blur(4px);
 }
 
 .thinking-button:hover{
-  background:rgba(255,255,255,0.55);
-  color:rgba(5,7,10,0.92);
+  color:var(--text);
   box-shadow:0 0 24px rgba(80,130,220,0.12);
 }
 
-body.learning-mode .thinking-button{
-  color:rgba(220,220,220,0.70);
-  border:1px solid rgba(255,255,255,0.14);
-  background:rgba(255,255,255,0.03);
-}
-
 body.learning-mode .thinking-button:hover{
-  background:rgba(110,170,255,0.08);
-  border-color:rgba(110,170,255,0.22);
-  color:rgba(235,235,235,0.92);
-  box-shadow:0 0 24px rgba(110,170,255,0.10);
+  border-color:var(--accent);
+  box-shadow:0 0 24px rgba(79,179,255,0.10);
 }
 
 @media (max-width:900px){
@@ -548,7 +457,6 @@ body.learning-mode .thinking-button:hover{
 </div>
 
 <script>
-const rain = document.getElementById("rain");
 const focusBtn = document.getElementById("focusBtn");
 const brownNoise = document.getElementById("brownNoise");
 const morseBtn = document.getElementById("morseBtn");
@@ -558,29 +466,7 @@ let morseOn = false;
 let audioContext = null;
 let morseTimer = null;
 
-for(let i = 0; i < 150; i++){
-
-  const drop = document.createElement("div");
-
-  drop.classList.add("drop");
-
-  drop.style.left = Math.random() * 100 + "vw";
-  drop.style.top = Math.random() * -120 + "vh";
-
-  drop.style.animationDuration =
-  (5.2 + Math.random() * 7.2) + "s";
-
-  drop.style.opacity =
-  0.07 + Math.random() * 0.14;
-
-  drop.style.height =
-  46 + Math.random() * 95 + "px";
-
-  drop.style.animationDelay =
-  Math.random() * -8 + "s";
-
-  rain.appendChild(drop);
-}
+// יצירת טיפות הגשם עברה ל-waytosee.js המשותף (הוא מזהה את <div id="rain"> אוטומטית)
 
 function fadeAudio(audio, targetVolume, duration){
 
