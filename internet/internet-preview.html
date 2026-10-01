@@ -66,6 +66,7 @@ body.learning-mode .drop{
   padding-bottom:18px;
   font-weight:300;
   text-align:center;
+  color:var(--text);
 }
 
 .container{
@@ -85,7 +86,7 @@ body.learning-mode .drop{
   flex-direction:column;
 }
 
-.container h2{ font-size:25px; margin:16px 0 8px; font-weight:500; }
+.container h2{ font-size:25px; margin:16px 0 8px; font-weight:500; color:var(--text); }
 
 .container p{
   line-height:1.35;
@@ -94,7 +95,7 @@ body.learning-mode .drop{
 
 .section{
   position:relative;
-  border-top:1px solid rgba(0,0,0,0.14);
+  border-top:1px solid var(--panel-border);
   padding-top:6px;
   padding-bottom:8px;
 }
@@ -109,15 +110,9 @@ body.learning-mode .drop{
 }
 
 .col > .section:last-child{
-  border-bottom:1px solid rgba(0,0,0,0.14);
+  border-bottom:1px solid var(--panel-border);
   padding-bottom:12px;
 }
-
-body.learning-mode .col > .section:last-child{
-  border-bottom:1px solid rgba(255,255,255,0.14);
-}
-
-body.learning-mode .section{ border-top:1px solid rgba(255,255,255,0.14); }
 
 .final-line{
   max-width:1200px;
@@ -133,18 +128,17 @@ body.learning-mode .section{ border-top:1px solid rgba(255,255,255,0.14); }
   margin-top:34px;
   padding:9px 28px;
   border-radius:22px;
-  border:1px solid rgba(0,0,0,0.22);
-  color:#111;
+  border:1px solid var(--panel-border);
+  color:var(--text-dim);
   text-decoration:none;
   font-size:18px;
-  background:rgba(0,0,0,0.035);
+  background:var(--panel);
   transition:0.3s ease;
 }
 
-.next-btn:hover{ background:rgba(0,0,0,0.08); }
+.next-btn:hover{ color:var(--text); border-color:var(--accent); }
 
-body.learning-mode .next-btn{ border:1px solid rgba(255,255,255,0.25); color:#f2f2f2; background:rgba(255,255,255,0.04); }
-body.learning-mode .next-btn:hover{ background:rgba(255,255,255,0.09); }
+body.learning-mode .next-btn:hover{ box-shadow:0 0 24px rgba(79,179,255,0.10); }
 
 /* ===== תרשים אות חי: מתח לאורך זמן + ביטים ===== */
 
@@ -222,9 +216,9 @@ body.learning-mode .next-btn:hover{ background:rgba(255,255,255,0.09); }
 
 .bridge-flow span{
   padding:4px 10px;
-  border:1px solid rgba(0,0,0,0.18);
+  border:1px solid var(--panel-border);
   border-radius:14px;
-  color:rgba(0,0,0,0.75);
+  color:var(--text-dim);
 }
 
 .bridge-flow .arrow{
@@ -235,16 +229,7 @@ body.learning-mode .next-btn:hover{ background:rgba(255,255,255,0.09); }
 
 .bridge-flow .bridge-next{
   font-weight:600;
-  border-color:rgba(0,0,0,0.35);
-}
-
-body.learning-mode .bridge-flow span{
-  border-color:rgba(255,255,255,0.22);
-  color:rgba(255,255,255,0.85);
-}
-
-body.learning-mode .bridge-flow .bridge-next{
-  border-color:rgba(255,255,255,0.4);
+  border-color:var(--accent);
 }
 
 .read-marker{

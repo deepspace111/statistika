@@ -11,6 +11,8 @@
   --accent: #2f6fb3;
   --accent-2: #1f8f7c;
   --code-bg: rgba(255,255,255,0.6);
+  /* צבע המספרים: במצב רגיל כמו הטקסט, במצב תודעת לימוד ירוק */
+  --num: var(--text);
 }
 body.learning-mode{
   --panel: #131f36;
@@ -20,6 +22,7 @@ body.learning-mode{
   --accent: #4fb3ff;
   --accent-2: #7ce0d3;
   --code-bg: #0d1626;
+  --num: var(--accent-2);
 }
 
 html{
@@ -528,7 +531,7 @@ body.proto-page .info-label{
 body.proto-page .info-value{
   font-weight:bold;
   letter-spacing:0.5px;
-  color:var(--accent-2);
+  color:var(--num);
 }
 
 body.proto-page .info-box.term-box{
@@ -577,4 +580,12 @@ body.proto-page .info-box.term-box .info-value{
     grid-template-columns:1fr;
     gap:2px;
   }
+}
+/* מספרים וחישובים בתוך שורת טקסט – אותו סגנון כמו קופסאות המספרים */
+.num{
+  font-family:'JetBrains Mono', monospace;
+  color:var(--num);
+  direction:ltr;
+  unicode-bidi:isolate;
+  display:inline-block;
 }
