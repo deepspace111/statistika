@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICMP - תצוגה מקדימה בעיצוב Subnet/NAT</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+/* === משתני העיצוב של Subnet/NAT, מיושמים כאן כדוגמה === */
+:root{
+  --panel: rgba(255,255,255,0.55);
+  --panel-border: rgba(82,68,54,0.16);
+  --text: rgba(22,35,61,0.94);
+  --text-dim: rgba(22,35,61,0.62);
+  --accent: #2f6fb3;
+  --accent-2: #1f8f7c;
+  --code-bg: rgba(255,255,255,0.6);
+}
+body.learning-mode{
+  background:
+    radial-gradient(1200px 600px at 50% -10%, #16233d 0%, #0b1220 55%);
+  --panel: #131f36;
+  --panel-border: #22314f;
+  --text: #e8edf7;
+  --text-dim: #9fb0cc;
+  --accent: #4fb3ff;
+  --accent-2: #7ce0d3;
+  --code-bg: #0d1626;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  font-family: 'Heebo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background:#e8e8e8;
+  margin:0;
+  transition:background 1.2s ease, color 1.2s ease;
+}
+
+/* כפתור הדמיה למעבר יום/חושך - רק לצורך התצוגה המקדימה, לא קיים באתר */
+#previewToggle{
+  position:fixed; top:14px; left:50%; transform:translateX(-50%);
+  z-index:999; padding:8px 18px; border-radius:20px; border:1px solid rgba(0,0,0,0.2);
+  background:#fff; cursor:pointer; font-family:Arial, sans-serif; font-size:14px;
+}
+
+.page-title{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:0 auto;
+  padding:56px 24px 0;
+  font-size:36px;
+  font-weight:800;
+  text-align:center;
+  color:var(--text);
+}
+
+body.learning-mode .page-title{
+  background: linear-gradient(90deg, #fff, var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subtitle{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:10px auto 0;
+  padding:0 24px;
+  text-align:center;
+  font-size:18px;
+  color:var(--text-dim);
+}
+
+.container{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:0 auto;
+  padding:34px 24px 100px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0 60px;
+  align-items:start;
+}
+
+.col{
+  display:flex;
+  flex-direction:column;
+}
+
+.container h2{
+  font-size:25px;
+  margin:16px 0 8px;
+  font-weight:700;
+  color:var(--text);
+}
+
+.container p{
+  font-size:18px;
+  line-height:1.6;
+  color:var(--text);
+  margin:10px 0;
+}
+
+.section{
+  position:relative;
+  border-top:1px solid var(--panel-border);
+  padding-top:10px;
+  padding-bottom:8px;
+}
+
+.section > h2:first-child,
+.section > p:first-child{
+  margin-top:0;
+}
+
+.section > :last-child{
+  margin-bottom:0;
+}
+
+.col > .section:last-child{
+  border-bottom:1px solid var(--panel-border);
+  padding-bottom:12px;
+}
+
+.term{
+  font-weight:bold;
+  color:var(--accent);
+}
+
+.meaning-signal{
+  margin:16px 0;
+  padding:20px 18px 22px;
+  border-radius:22px;
+  border:1px solid var(--panel-border);
+  background:var(--panel);
+}
+
+body.learning-mode .meaning-signal{
+  box-shadow:0 0 34px rgba(79,179,255,0.08);
+}
+
+.meaning-signal p{
+  margin:10px 0;
+  color:var(--text);
+}
+
+.meaning-signal p:first-child{
+  margin-top:0;
+}
+
+.meaning-signal p:last-child{
+  margin-bottom:0;
+}
+
+.val{
+  font-family:'JetBrains Mono', monospace;
+  background:var(--code-bg);
+  border:1px solid var(--panel-border);
+  border-radius:6px;
+  padding:2px 8px;
+  font-size:0.92em;
+  color:var(--accent-2);
+  direction:ltr;
+  display:inline-block;
+  unicode-bidi:isolate;
+}
+
+.info-box{
+  direction:ltr;
+  margin:14px 0 0;
+  padding:16px 18px;
+  border-radius:18px;
+  border:1px solid var(--panel-border);
+  background:var(--panel);
+  font-family:'Heebo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+.info-row{
+  display:grid;
+  grid-template-columns:120px 1fr;
+  gap:10px;
+  align-items:center;
+  margin:7px 0;
+  font-size:15px;
+  color:var(--text-dim);
+}
+
+.info-label{
+  opacity:0.7;
+}
+
+.info-value{
+  font-weight:bold;
+  letter-spacing:0.5px;
+  color:var(--text);
+}
+
+.info-box.term-box{
+  direction:rtl;
+}
+
+.info-box.term-box .info-row{
+  grid-template-columns:90px 1fr;
+}
+
+.info-box.term-box .info-value{
+  font-weight:normal;
+  letter-spacing:normal;
+}
+
+@media (max-width:900px){
+  .container{
+    grid-template-columns:1fr;
+    max-width:620px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<button id="previewToggle" onclick="document.body.classList.toggle('learning-mode')">החלף יום/חושך (להדגמה)</button>
+
+<h1 class="page-title">ICMP</h1>
+<div class="subtitle">כשהרשת צריכה לספר מה קרה בדרך</div>
+
+<div class="container">
+
+<div class="col">
+
+  <div class="section">
+    <h2>לא כל חבילה מגיעה ליעד</h2>
+    <p>
+      IP יודע להעביר חבילות ממכשיר למכשיר ומרשת לרשת.
+    </p>
+    <p>
+      אבל בדרך דברים יכולים להשתבש.
+    </p>
+    <p>
+      נתב יכול לגלות שאין לו דרך להגיע ליעד. מכשיר יכול להיות לא נגיש. חבילה יכולה לעבור בין נתבים עד שזמן החיים שלה מסתיים.
+    </p>
+    <p>
+      במצבים כאלה נוצרת בעיה: <span class="term">איך מודיעים לשולח מה קרה?</span>
+    </p>
+    <p>
+      IP נועד להעביר את החבילה אל היעד, אבל הרשת צריכה גם דרך להעביר הודעות שקשורות לתהליך עצמו. לא עוד מידע של המשתמש, אלא מידע על התקשורת.
+    </p>
+    <p>
+      לדוגמה: <span class="val">Destination Unreachable</span>
+    </p>
+    <p>
+      הודעה כזאת אומרת למעשה: ניסיתי להעביר את החבילה, אבל לא הצלחתי להגיע ליעד.
+    </p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>האם אתה שם?</h2>
+    <p>
+      יש עוד שימוש חשוב לאותו מנגנון.
+    </p>
+    <p>
+      לפעמים אנחנו פשוט רוצים לדעת אם מכשיר אחר נגיש דרך הרשת. אנחנו שולחים אליו הודעה קטנה:
+    </p>
+    <p class="term">"אתה שם?"</p>
+    <p>
+      אם הוא מקבל אותה ויכול לענות, הוא מחזיר:
+    </p>
+    <p class="term">"כן, אני כאן."</p>
+    <p>
+      אלה הן הודעות: <span class="val">Echo Request</span> ו- <span class="val">Echo Reply</span>
+    </p>
+    <p>
+      על העיקרון הזה מבוססת פקודת ping. כשאנחנו מבצעים: <span class="val">ping 192.168.1.1</span>
+    </p>
+    <p>
+      המחשב שולח Echo Request וממתין ל-Echo Reply. אם מתקבלת תשובה, אנחנו יודעים שהתקיימה תקשורת בין המכשירים בכיוון הנדרש לצורך הבדיקה.
+    </p>
+    <p>
+      אבל חשוב להבחין: <span class="term">ICMP הוא לא ping.</span> Ping הוא כלי שמשתמש בהודעות ICMP כדי לבדוק תקשורת.
+    </p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>ICMP</h2>
+    <p>
+      המנגנון שמאפשר להעביר הודעות כאלה נקרא <strong>Internet Control Message Protocol</strong>, או בקיצור <span class="term">ICMP</span>.
+    </p>
+    <p>
+      בניגוד לפרוטוקולים שמעבירים את המידע שאנחנו רוצים לשלוח, ICMP משמש להעברת הודעות בקרה ומידע על מה שקורה בתקשורת.
+    </p>
+    <p>
+      אפשר לחשוב עליו כעל הדרך שבה הרשת יכולה לומר:<br>
+      "הגעתי."<br>
+      "אני כאן."<br>
+      "לא הצלחתי להגיע לשם."<br>
+      "החבילה הזאת הייתה בדרך יותר מדי זמן."
+    </p>
+    <p>
+      אחת ההודעות החשובות היא: <span class="val">Time Exceeded</span>
+    </p>
+    <p>
+      לכל חבילת IP יש ערך TTL. בכל מעבר דרך נתב הערך קטן. אם הוא מגיע לאפס, הנתב מפסיק להעביר את החבילה ויכול לשלוח בחזרה הודעת ICMP מסוג Time Exceeded.
+    </p>
+    <p>
+      כך חבילה לא ממשיכה להסתובב ברשת ללא סוף.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>מה פירוש השם</h2>
+
+    <div class="info-box term-box">
+      <div class="info-row"><span class="info-label">Internet</span><span class="info-value">תקשורת בין רשתות</span></div>
+      <div class="info-row"><span class="info-label">Control</span><span class="info-value">בקרה</span></div>
+      <div class="info-row"><span class="info-label">Message</span><span class="info-value">הודעה</span></div>
+      <div class="info-row"><span class="info-label">Protocol</span><span class="info-value">כללים מסודרים לתקשורת</span></div>
+    </div>
+
+    <p>
+      ICMP הוא פרוטוקול שמאפשר למכשירים ולנתבים להעביר הודעות בקרה על התקשורת עצמה.
+    </p>
+
+    <div class="meaning-signal">
+      <p>IP מעביר את החבילה.</p>
+      <p>ICMP יכול לספר מה קרה לה בדרך.</p>
+    </div>
+  </div>
+
+</div>
+
+</div>
+
+</body>
+</html>

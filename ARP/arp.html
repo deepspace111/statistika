@@ -34,7 +34,38 @@ body.learning-mode{
   color:rgba(205,205,205,0.78);
 }
 
-/* רקע ה"גשם" (.rain / .drop / @keyframes rain) עבר ל-waytosee.css המשותף */
+.rain{
+  position:fixed;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  overflow:hidden;
+  opacity:0;
+  transition:opacity 1.4s ease;
+}
+
+body.learning-mode .rain{
+  opacity:0.34;
+}
+
+.drop{
+  position:absolute;
+  top:-120vh;
+  width:1px;
+  height:78px;
+  background:linear-gradient(
+    to bottom,
+    rgba(110,170,255,0),
+    rgba(110,170,255,0.34),
+    rgba(110,170,255,0)
+  );
+  animation:rain linear infinite;
+}
+
+@keyframes rain{
+  from{ transform:translateY(-20vh); }
+  to{ transform:translateY(150vh); }
+}
 
 /* כותרת העמוד - מעל הרשת, כמו בעמוד המבוא */
 
@@ -517,6 +548,7 @@ body.learning-mode .thinking-button:hover{
 </div>
 
 <script>
+const rain = document.getElementById("rain");
 const focusBtn = document.getElementById("focusBtn");
 const brownNoise = document.getElementById("brownNoise");
 const morseBtn = document.getElementById("morseBtn");
@@ -526,7 +558,29 @@ let morseOn = false;
 let audioContext = null;
 let morseTimer = null;
 
-// יצירת טיפות הגשם עברה ל-waytosee.js המשותף (הוא מזהה את <div id="rain"> אוטומטית)
+for(let i = 0; i < 150; i++){
+
+  const drop = document.createElement("div");
+
+  drop.classList.add("drop");
+
+  drop.style.left = Math.random() * 100 + "vw";
+  drop.style.top = Math.random() * -120 + "vh";
+
+  drop.style.animationDuration =
+  (5.2 + Math.random() * 7.2) + "s";
+
+  drop.style.opacity =
+  0.07 + Math.random() * 0.14;
+
+  drop.style.height =
+  46 + Math.random() * 95 + "px";
+
+  drop.style.animationDelay =
+  Math.random() * -8 + "s";
+
+  rain.appendChild(drop);
+}
 
 function fadeAudio(audio, targetVolume, duration){
 

@@ -1,4 +1,27 @@
 @import url("https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800&family=JetBrains+Mono:wght@400;600&display=swap");
+
+/* === משתני עיצוב משותפים - אותם ערכים שהיו רק ב-Subnet/NAT, מורחבים לכל האתר ===
+   מצב רגיל: פלטת האור. מצב תודעת לימוד: פלטת "טיפת המים" הכהה (body.learning-mode). */
+:root{
+  --panel: rgba(255,255,255,0.55);
+  --panel-border: rgba(82,68,54,0.16);
+  --text: rgba(22,35,61,0.94);
+  --text-dim: rgba(22,35,61,0.62);
+  --accent: #2f6fb3;
+  --accent-2: #1f8f7c;
+  --code-bg: rgba(255,255,255,0.6);
+}
+body.learning-mode{
+  --panel: #131f36;
+  --panel-border: #22314f;
+  --text: #e8edf7;
+  --text-dim: #9fb0cc;
+  --accent: #4fb3ff;
+  --accent-2: #7ce0d3;
+  --code-bg: #0d1626;
+}
+
 html{
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -56,15 +79,14 @@ body.learning-mode .focus-toggle {
   transform: scale(1.08) !important;
 }
 body{
-  font-family: Arial, sans-serif;
+  font-family: 'Heebo', system-ui, -apple-system, 'Segoe UI', sans-serif;
   background:#e8e8e8;
   color:rgba(6,7,8,0.96);
   transition:background 1.2s ease, color 1.2s ease;
 }
 body.learning-mode{
   background:
-    radial-gradient(circle at top, rgba(180,180,180,0.08), transparent 44%),
-    linear-gradient(180deg,#060708 0%, #050608 40%, #000 100%);
+    radial-gradient(1200px 600px at 50% -10%, #16233d 0%, #0b1220 55%);
   color:rgba(240,240,240,0.92);
 }
 
