@@ -333,6 +333,8 @@
       if (typeof gtag === "function") {
         gtag("event", "homepage_continue_to_topics", { event_category: "engagement" });
       }
+      // עמוד התחומים תמיד מתחיל במצב בהיר. משם המשתמש בוחר בעצמו (כפתור מפתח הפה).
+      localStorage.setItem("waytoseeLearningMode", "off");
       window.location.href = "professions.html";
     }
   });

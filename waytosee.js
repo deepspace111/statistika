@@ -245,23 +245,32 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  if (localStorage.getItem("waytoseeLearningMode") === "on") {
-    document.body.classList.add("learning-mode");
-    focusButton.classList.add("active");
-    startBrownNoise();
-    scheduleFlicker();
+  // כפתור תודעת למידה (מפתח פה) עובר בין שלושה מצבים, בסבב:
+  // "off"   = מצב רגיל (בהיר)
+  // "on"    = כהה + רעש
+  // "quiet" = כהה בלי רעש
+  // לחיצה: רגיל → כהה + רעש → כהה בלי רעש → רגיל
+  const MODE_ORDER = ["off", "on", "quiet"];
+  let currentMode = localStorage.getItem("waytoseeLearningMode");
+  if (!MODE_ORDER.includes(currentMode)) currentMode = "off";
+
+  function applyMode(mode, previousMode) {
+    const isDark = mode !== "off";
+    const wasDark = previousMode !== undefined && previousMode !== "off";
+    const wasNoise = previousMode === "on";
+    document.body.classList.toggle("learning-mode", isDark);
+    focusButton.classList.toggle("active", isDark);
+    if (mode === "on" && !wasNoise) startBrownNoise();
+    if (mode !== "on" && wasNoise) stopBrownNoise();
+    if (isDark && !wasDark) scheduleFlicker();
+    if (!isDark && wasDark) stopFlicker();
   }
+
+  applyMode(currentMode);
   focusButton.addEventListener("click", () => {
-    document.body.classList.toggle("learning-mode");
-    const isLearningMode = document.body.classList.contains("learning-mode");
-    focusButton.classList.toggle("active", isLearningMode);
-    localStorage.setItem("waytoseeLearningMode", isLearningMode ? "on" : "off");
-    if (isLearningMode) {
-      startBrownNoise();
-      scheduleFlicker();
-    } else {
-      stopBrownNoise();
-      stopFlicker();
-    }
+    const previousMode = currentMode;
+    currentMode = MODE_ORDER[(MODE_ORDER.indexOf(currentMode) + 1) % MODE_ORDER.length];
+    localStorage.setItem("waytoseeLearningMode", currentMode);
+    applyMode(currentMode, previousMode);
   });
 });
