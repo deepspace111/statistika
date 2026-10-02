@@ -227,6 +227,33 @@ body.learning-mode #spaceBtn {
   color: rgba(240, 240, 240, 0.88);
 }
 
+/* הנקודה הבהירה נעה הלוך ושוב בין שלוש הנקודות, בלי הפסקה:
+   ימין -> אמצע -> שמאל -> אמצע -> ימין ...
+   באותו קצב צעד של משולש הבית (1.2 שניות לכל מעבר).
+   ערכי השקיפות המקוריים (1 / 0.65 / 0.35) לא משתנים, רק "נוסעים". */
+.space-dot-1,
+.space-dot-3{
+  animation: spaceShadeEdge 4.8s ease-in-out infinite;
+}
+
+.space-dot-2{
+  animation: spaceShadeMid 4.8s ease-in-out infinite;
+}
+
+.space-dot-1{ animation-delay: 0s; }
+.space-dot-3{ animation-delay: -2.4s; }
+
+@keyframes spaceShadeEdge{
+  0%, 100%{ opacity: 1; }
+  25%, 75%{ opacity: 0.65; }
+  50%{ opacity: 0.35; }
+}
+
+@keyframes spaceShadeMid{
+  0%, 50%, 100%{ opacity: 0.65; }
+  25%, 75%{ opacity: 1; }
+}
+
 
 /* ========================================
    פריסת עיתון רספונסיבית

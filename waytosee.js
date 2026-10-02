@@ -143,9 +143,9 @@ document.addEventListener("DOMContentLoaded", () => {
       spaceButton.id = "spaceBtn";
       spaceButton.setAttribute("aria-label", "המרחב");
       spaceButton.innerHTML = `<svg viewBox="0 0 64 24" width="30" height="14" aria-hidden="true">
-        <circle cx="10" cy="12" r="5" opacity="0.35"/>
-        <circle cx="32" cy="12" r="5" opacity="0.65"/>
-        <circle cx="54" cy="12" r="5" opacity="1"/>
+        <circle class="space-dot space-dot-3" cx="10" cy="12" r="5" opacity="0.35"/>
+        <circle class="space-dot space-dot-2" cx="32" cy="12" r="5" opacity="0.65"/>
+        <circle class="space-dot space-dot-1" cx="54" cy="12" r="5" opacity="1"/>
       </svg>`;
       document.body.appendChild(spaceButton);
     }
