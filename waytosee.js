@@ -92,6 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "statistika/statistika-shape.html": "statistika/statistika.html",
     "statistika/statistika-dispersion.html": "statistika/statistika.html",
     "philosophia/philosophia-introduction.html": "professions.html",
+    "ai/ai-introduction.html": "professions.html",
     "arp/arp.html": "intro.html",
     "tcp/tcp.html": "intro.html",
     "gateway/gateway.html": "intro.html",
