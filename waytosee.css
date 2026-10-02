@@ -955,3 +955,9 @@ body.stat-page .numbers{
   body.stat-page .container p{ font-size:18px; }
   body.stat-page .data-table{ font-size:15px; }
 }
+
+/* יישור לשני הצדדים ("כמו בעיתון") בפסקאות של עמודי המבוא ועמודי הפרוטוקולים.
+   :where שומר על משקל נמוך, כך ששורות שמוגדרות במפורש אחרת (למשל .final-line במרכז) נשארות כמו שהן. */
+:where(body.overview-page .section, body.proto-page .section) p{
+  text-align:justify;
+}
