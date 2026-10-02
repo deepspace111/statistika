@@ -91,6 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "statistika/statistika-relative.html": "statistika/statistika.html",
     "statistika/statistika-shape.html": "statistika/statistika.html",
     "statistika/statistika-dispersion.html": "statistika/statistika.html",
+    "philosophia/philosophia-introduction.html": "professions.html",
     "arp/arp.html": "intro.html",
     "tcp/tcp.html": "intro.html",
     "gateway/gateway.html": "intro.html",
