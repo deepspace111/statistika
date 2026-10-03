@@ -107,7 +107,9 @@ body.learning-mode { --bar-bg: rgba(11,18,32,0.95); }
   padding-top: 4px;
   transition: color 0.4s ease;
 }
-.sym.on .glyph { color: var(--accent-2); }
+.sym.on .glyph,
+.sym.on h2 { color: var(--accent-2); }
+.sym h2 { transition: color 0.4s ease; }
 .sym .step {
   display: block;
   font-size: 12px;
