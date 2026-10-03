@@ -41,6 +41,14 @@
   margin: 12px 0;
 }
 
+/* נוסחת סטיית התקן: הנוסחה בסימנים משמאל לימין עם שבר מתחת לשורש */
+.formula .sym { display: inline-flex; align-items: center; gap: 0.25em; font-family: 'JetBrains Mono', monospace; font-size: 20px; }
+.formula .sqrt { font-size: 1.6em; line-height: 1; margin-right: -0.08em; }
+.formula .rad { border-top: 1.5px solid currentColor; padding: 2px 4px 0; margin-top: 2px; }
+.formula .frac { display: inline-flex; flex-direction: column; text-align: center; }
+.formula .frac > span:first-child { border-bottom: 1px solid currentColor; padding: 0 4px 2px; }
+.formula .frac > span:last-child { padding-top: 2px; }
+
 /* רווח בין "בכיתה א׳:" לבין התרגיל שאחריו */
 .range-ex .num { margin-right: 1.2em; }
 
@@ -224,6 +232,9 @@ body.stat-page .dots .sc { font-size: 11px; opacity: 0.7; }
     <p>סטיית התקן היא השונות שהוחזרה לשפה של הנתונים.</p>
     <p>זוכרים את ממוצע המרחקים? בכיתה א׳ הוא יצא 0.86. סטיית התקן יוצאת 1.2. <strong>שניהם מנסים לענות על אותה שאלה: כמה רחוקים הנתונים מהממוצע. אבל הם מודדים את המרחק בצורה שונה.</strong> הריבוע מגדיל יותר את המרחקים הגדולים, ולכן סטיית התקן יוצאת קצת גדולה יותר.</p>
     <p>אז למה בכל זאת ריבוע? כי בהמשך הדרך הוא מתנהג הרבה יותר טוב בחישובים, ועליו בנויים כמעט כל הכלים שעוד נפגוש.</p>
+    <p>כל הדרך שעשינו בעמוד הזה מתקפלת לנוסחה אחת:</p>
+    <p class="formula"><span class="sym" dir="ltr">σ =<span class="sqrt">√</span><span class="rad"><span class="frac"><span>Σ (x − μ)²</span><span>N</span></span></span></span></p>
+    <p>כל סימן בנוסחה הוא שלב שכבר עשינו: <span class="ltr num">x − μ</span> הוא המרחק מהממוצע, <span class="ltr num">²</span> מעלה בריבוע, <span class="ltr num">Σ</span> ו־<span class="ltr num">N</span> עושים ממוצע, והשורש מחזיר אותנו ליחידות המקוריות.</p>
     <p>ועכשיו, שתי הכיתות מההתחלה:</p>
     <table class="data-table center-table big-contrast">
       <tr><th></th><th>ממוצע</th><th>שונות</th><th>סטיית תקן</th></tr>
