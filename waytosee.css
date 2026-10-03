@@ -394,7 +394,8 @@ p {
     text-shadow: none;
   }
 }
-@media (max-width: 600px) {
+/* טלפון - גם במצב מאוזן (מסך נמוך), לא רק עומד */
+@media (max-width: 600px), (max-height: 500px) {
   #homeBtn {
     left: 6px;
   }
@@ -960,4 +961,23 @@ body.stat-page .numbers{
    :where שומר על משקל נמוך, כך ששורות שמוגדרות במפורש אחרת (למשל .final-line במרכז) נשארות כמו שהן. */
 :where(body.overview-page .section, body.proto-page .section) p{
   text-align:justify;
+}
+
+/* טלפון: הכפתורים הצפים (בית, המרחב, מצב למידה) נעלמים בגלילה למטה
+   וחוזרים בגלילה למעלה. המחלקה floats-hidden נקבעת ב-waytosee.js,
+   ורק במסך טלפון (צר או נמוך). */
+@media (max-width: 600px), (max-height: 500px) {
+  #homeBtn,
+  #spaceBtn {
+    transition: color 0.8s ease, transform 0.3s ease, opacity 0.3s ease;
+  }
+  .focus-toggle {
+    transition: opacity 0.3s ease !important;
+  }
+  body.floats-hidden #homeBtn,
+  body.floats-hidden #spaceBtn,
+  body.floats-hidden .focus-toggle {
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
 }

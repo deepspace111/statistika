@@ -167,6 +167,22 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // טלפון: הכפתורים הצפים נעלמים בגלילה למטה וחוזרים בגלילה למעלה
+  // (או כשחוזרים לראש הדף). במחשב ובטאבלט - אין שינוי.
+  const phoneScreen = window.matchMedia("(max-width: 600px), (max-height: 500px)");
+  let lastScrollY = window.scrollY;
+  window.addEventListener("scroll", () => {
+    const y = window.scrollY;
+    if (!phoneScreen.matches || y < 40) {
+      document.body.classList.remove("floats-hidden");
+    } else if (y > lastScrollY + 8) {
+      document.body.classList.add("floats-hidden");
+    } else if (y < lastScrollY - 8) {
+      document.body.classList.remove("floats-hidden");
+    }
+    if (Math.abs(y - lastScrollY) > 8) lastScrollY = y;
+  }, { passive: true });
+
   if (skipFocusSetup) return;
   let focusButton = document.getElementById("focusBtn");
   if (!focusButton) {
