@@ -86,7 +86,12 @@ body.learning-mode .do-mark { color: rgba(220,220,220,0.38); }
   to   { opacity: 0.72; transform: translateY(0); }
 }
 
-.final-line { margin-top: 65px; font-size: 23px; }
+.final-line{
+  text-align:center;
+  font-size:23px;
+  font-weight:300;
+  margin-top:22px !important;
+}
 
 .protocol-text-btn {
   display: inline;
@@ -172,6 +177,31 @@ body.learning-mode .route-dark {
   display: block !important;
 }
 
+/* העמוד הזה זורם בשלוש עמודות (כמו עיתון) במקום שלוש עמודות קבועות,
+   כך שהטקסט מתחלק לבד ושלוש העמודות מסתיימות באותו קו. */
+body.overview-page .container.flow {
+  display: block;
+  column-count: 3;
+  column-gap: 70px;
+}
+.container.flow h2 { break-after: avoid; }
+.container.flow p { orphans: 2; widows: 2; }
+.container.flow .section:last-child {
+  border-bottom: 1px solid var(--panel-border);
+  padding-bottom: 12px;
+}
+/* שורות קצרות (רשימת שאלות, רשימת "לפעמים"): בלי יישור לשני הצדדים,
+   ומותר להן להמשיך לעמודה הבאה כדי שהעמודות יישארו מאוזנות */
+.container.flow .questions,
+.container.flow .lines { line-height: 1.7; text-align: right; }
+.container.flow .questions,
+.container.flow .lines { break-inside: auto; }
+.container.flow .questions span,
+.container.flow .lines span { display: inline-block; width: 100%; }
+@media (max-width: 600px) {
+  body.overview-page .container.flow { column-count: 1; }
+}
+
 </style>
 </head>
 
@@ -179,11 +209,10 @@ body.learning-mode .route-dark {
 
 <div class="rain" id="rain"></div>
 
-<h1 class="page-title">סטטיסטיקה תיאורית</h1>
+<h1 class="page-title">מבוא לסטטיסטיקה תיאורית</h1>
 
-<div class="container">
+<div class="container flow">
 
-<div class="col">
   <div class="section">
     <h2>מה זה "מבוא לסטטיסטיקה תיאורית"?</h2>
     <p>מבוא הוא שלב הכניסה לנושא.</p>
@@ -191,23 +220,33 @@ body.learning-mode .route-dark {
     <p>סטטיסטיקה תיאורית היא הדרך שלנו לקחת נתונים ולתאר אותם בצורה ברורה ופשוטה.</p>
     <p>אנחנו לא מנבאים, אנחנו מתארים.</p>
   </div>
-</div>
 
-<div class="col">
+  <div class="section">
+    <h2>אבל מה זה בעצם אומר "לתאר נתונים"?</h2>
+    <p>נניח שיש לנו ציונים של 30 תלמידים.</p>
+    <p>אפשר פשוט להסתכל על 30 מספרים.</p>
+    <p>אבל אפשר גם להתחיל לשאול שאלות:</p>
+    <p class="questions"><span>מה הציון הטיפוסי בכיתה?</span><span>האם רוב התלמידים קיבלו ציונים דומים, או שיש פערים גדולים?</span><span>האם יש ציונים חריגים?</span><span>איך הציונים מתפזרים?</span></p>
+    <p>פתאום המספרים מתחילים לספר משהו.</p>
+  </div>
+
   <div class="section">
     <h2>למה בכלל צריך סטטיסטיקה?</h2>
     <p>בעולם האמיתי יש הרבה נתונים, אבל לא תמיד ברור מה הם אומרים.</p>
     <p>סטטיסטיקה עושה סדר בתוך הבלגן.</p>
+    <p>במקום להסתכל על עשרות או אלפי מספרים בנפרד, אנחנו מחפשים בהם מבנה.</p>
+    <p class="lines"><span>לפעמים נציג אותם בטבלה או בגרף.</span><span>לפעמים נחפש את המרכז שלהם.</span><span>לפעמים נבדוק כמה הם מפוזרים.</span><span>ולפעמים נרצה לדעת איפה נתון מסוים נמצא ביחס לכל השאר.</span></p>
+    <p>כל אלה הן דרכים שונות להסתכל על אותם נתונים.</p>
   </div>
-</div>
 
-<div class="col">
   <div class="section">
     <h2>לפני שמתחילים צריך להבין את השפה</h2>
     <p>סטטיסטיקה היא שפה.</p>
-    <p>כשמבינים — רואים.</p>
+    <p>בהתחלה חלק מהמילים נשמעות זרות.</p>
+    <p>בהמשך נגלה שכל אחת מהן עוזרת לנו לראות משהו אחר בתוך הנתונים.</p>
+    <p>אנחנו לא צריכים לזכור הכול עכשיו.<br>אנחנו רק מתחילים ללמוד לראות.</p>
+    <p class="final-line">כשמבינים — רואים.</p>
   </div>
-</div>
 
 </div>
 
