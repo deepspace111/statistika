@@ -30,8 +30,9 @@
 math { font-family: "WTS Math", "Latin Modern Math", "Cambria Math", "STIX Two Math", math; }
 
 body { min-height: 100svh; margin: 0; }
-:root { --bar-bg: rgba(236,240,245,0.95); }
-body.learning-mode { --bar-bg: rgba(11,18,32,0.95); }
+:root { --bar-bg: #e6ebf1; --hl: #c2410c; }
+body.learning-mode { --bar-bg: #0b1220; --hl: var(--accent-2); }
+/* --hl = צבע ההדגשה: כתום־לבנה במצב בהיר, ירוק במצב כהה */
 
 .room {
   position: relative;
@@ -61,6 +62,9 @@ body.learning-mode { --bar-bg: rgba(11,18,32,0.95); }
   position: sticky;
   top: 0;
   z-index: 6;
+  /* הרקע של הנוסחה מתפרס לכל רוחב המסך, בלי "קופסה" באמצע */
+  margin-inline: calc(50% - 50vw);
+  padding-inline: calc(50vw - 50%);
   padding: 14px 0 12px;
   text-align: center;
   background: var(--bar-bg);
@@ -71,7 +75,7 @@ body.learning-mode { --bar-bg: rgba(11,18,32,0.95); }
   content: "";
   position: absolute;
   left: 0; right: 0; top: 100%;
-  height: 26px;
+  height: 10px;
   background: linear-gradient(to bottom, var(--bar-bg), transparent);
   pointer-events: none;
 }
@@ -81,7 +85,7 @@ body.learning-mode { --bar-bg: rgba(11,18,32,0.95); }
 .formula-bar.has-active,
 .formula-bar.has-active .part { color: color-mix(in srgb, var(--text) 35%, transparent); }
 .formula-bar.has-active .part.on,
-.formula-bar.has-active .part.on[data-k="diff"] .part { color: var(--accent-2); }
+.formula-bar.has-active .part.on[data-k="diff"] .part { color: var(--hl); }
 
 .lead {
   text-align: center;
@@ -100,6 +104,22 @@ body.learning-mode { --bar-bg: rgba(11,18,32,0.95); }
   padding: 26px 0;
   border-top: 1px solid var(--panel-border);
 }
+/* בזמן גלילה, הסימן והכותרת של הכרטיס הפעיל נצמדים מתחת לנוסחה
+   (במקום להיבלע מתחתיה) עד שהכרטיס הבא מגיע. --bar-h נקבע ב-JS לפי גובה הנוסחה. */
+.sym.on .glyph,
+.sym.on h2 {
+  position: sticky;
+  z-index: 4;
+}
+.sym.on .glyph { top: calc(var(--bar-h, 120px) + 14px); }
+.sym.on h2 {
+  top: var(--bar-h, 120px);
+  background: var(--bar-bg);
+  padding-top: 14px;
+  margin-top: -14px;
+  padding-bottom: 10px;
+  margin-bottom: -4px;
+}
 .sym .glyph {
   text-align: center;
   font-size: 34px;
@@ -108,7 +128,7 @@ body.learning-mode { --bar-bg: rgba(11,18,32,0.95); }
   transition: color 0.4s ease;
 }
 .sym.on .glyph,
-.sym.on h2 { color: var(--accent-2); }
+.sym.on h2 { color: var(--hl); }
 .sym h2 { transition: color 0.4s ease; }
 .sym .step {
   display: block;
@@ -247,7 +267,7 @@ p math, .ex math { font-size: 1.1em; }
   </section>
 
   <section class="sym" data-k="root">
-    <div class="glyph"><math><msqrt><mo>…</mo></msqrt></math><span class="step">7</span></div>
+    <div class="glyph"><math><msqrt><msup><mi>σ</mi><mn>2</mn></msup></msqrt></math><span class="step">7</span></div>
     <div>
       <h2>השורש</h2>
       <p>השורש מבטל את הריבוע. כשהעלינו בריבוע, גם היחידות עלו בריבוע: נקודות בריבוע. השורש מחזיר אותנו לנקודות.</p>
@@ -289,7 +309,11 @@ p math, .ex math { font-size: 1.1em; }
   // בסוף העמוד יש מרווח בדיוק בגודל הנדרש, כדי שגם הכרטיס האחרון יוכל לעלות עד הקו.
   const spacer = document.getElementById("endSpacer");
   const LINE_GAP = 40;
+  function setBarHeight() {
+    document.documentElement.style.setProperty("--bar-h", bar.offsetHeight + "px");
+  }
   function fitSpacer() {
+    setBarHeight();
     spacer.style.height = "0px";
     const last = cards[cards.length - 1];
     const line = bar.offsetHeight + LINE_GAP;
