@@ -41,6 +41,15 @@
   margin: 12px 0;
 }
 
+/* נוסחה שנקראת משמאל לימין, כמו תרגיל: כל מילה היא תיבה נפרדת,
+   ולכן הסדר נשמר בכל דפדפן בלי תלות בכיווניות של העברית */
+.ltr-row {
+  display: inline-flex;
+  flex-direction: row;
+  direction: ltr;
+  gap: 0.35em;
+}
+
 .center-table td, .center-table th { text-align: center; }
 .center-table td:first-child, .center-table th:first-child { text-align: right; }
 
@@ -141,7 +150,7 @@ body.stat-page .dots .sc { font-size: 11px; opacity: 0.7; }
   <div class="section">
     <h2>המדד הפשוט ביותר: טווח</h2>
     <p>הדרך הכי פשוטה למדוד פיזור היא לבדוק את המרחק בין הערך הגבוה ביותר לנמוך ביותר.</p>
-    <p class="formula" dir="ltr"><strong>מקסימום − מינימום = טווח</strong></p>
+    <p class="formula"><strong class="ltr-row"><span>מקסימום</span><span>−</span><span>מינימום</span><span>=</span><span>טווח</span></strong></p>
     <p>בכיתה א׳: <span class="ltr num">82 − 78 = 4</span></p>
     <p>בכיתה ב׳: <span class="ltr num">110 − 50 = 60</span></p>
     <p>פתאום ההבדל שהממוצע הסתיר נעשה גלוי. אותו ממוצע: 80. טווח 4 לעומת טווח 60.</p>
