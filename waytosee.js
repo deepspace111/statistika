@@ -278,7 +278,7 @@ document.addEventListener("DOMContentLoaded", () => {
     void container.offsetWidth; // מאפס את האנימציה כדי שתתחיל מחדש
     container.classList.add("turquoise-flash");
     setTimeout(() => container.classList.remove("turquoise-flash"), cycleMs * count);
-    const nextDelay = 1430 + Math.random() * 5000; // בין 1.4 ל-6.4 שניות: 30% פחות הבהובים מקודם (שנייה עד 4.5)
+    const nextDelay = 1625 + Math.random() * 5680; // בין 1.6 ל-7.3 שניות (הורד ב-30% ואז בעוד 12%)
     flickerTimeout = setTimeout(scheduleFlicker, nextDelay);
   }
 

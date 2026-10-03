@@ -381,7 +381,7 @@ p {
 
 /* הבהוב טורקיז במצב כהה: מהיר כמו התחשמלות. כל פעימה קצרה וקבועה
    (--flash-cycle), ורק מספר הפעימות משתנה (--flash-count: 1, 2 או 3).
-   שני הערכים נקבעים ב-waytosee.js. הבהירות הורדה ב-18% (היה #4ff0e0).
+   שני הערכים נקבעים ב-waytosee.js. הבהירות הורדה ב-18% ואז בעוד 10% (היה #4ff0e0).
    ההבהוב עובר גם על כותרות, מספרים ותאי טבלה, שיש להם צבע משלהם. */
 .turquoise-flash,
 .turquoise-flash :is(h1, h2, h3, h4, strong, th, td, .num, .wts-digit, .numbers, .calc) {
@@ -389,8 +389,8 @@ p {
 }
 @keyframes turquoise-flicker {
   0% {
-    color: #41c5b8;
-    text-shadow: 0 0 7px rgba(64, 224, 208, 0.78), 0 0 18px rgba(64, 224, 208, 0.45);
+    color: #3ab1a6;
+    text-shadow: 0 0 7px rgba(64, 224, 208, 0.70), 0 0 18px rgba(64, 224, 208, 0.41);
   }
   50%, 100% { color: inherit; text-shadow: none; }
 }
@@ -403,8 +403,8 @@ p {
 }
 @keyframes turquoise-flicker-strong {
   0% {
-    color: #41c5b8;
-    text-shadow: 0 0 9px rgba(64, 224, 208, 0.82), 0 0 24px rgba(64, 224, 208, 0.57);
+    color: #3ab1a6;
+    text-shadow: 0 0 9px rgba(64, 224, 208, 0.74), 0 0 24px rgba(64, 224, 208, 0.51);
   }
   50%, 100% { color: inherit; text-shadow: none; }
 }
