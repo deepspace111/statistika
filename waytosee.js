@@ -1,3 +1,21 @@
+// ===== קנה מידה למסכי מחשב רחבים =====
+// במסך מחשב רחב מ-WTS_BASE_WIDTH פיקסלים, כל העמוד גדל באותו יחס,
+// כך שהוא נראה בדיוק כמו במסך של 24 אינץ' (1920 פיקסלים), רק גדול יותר.
+// טלפונים, טאבלטים ולפטופים (מסכים צרים יותר, או מסך מגע) לא מושפעים.
+(function scaleWideScreens() {
+  const WTS_BASE_WIDTH = 1920;
+  const root = document.documentElement;
+  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+  function apply() {
+    const width = window.innerWidth;
+    const zoom = finePointer.matches && width > WTS_BASE_WIDTH ? width / WTS_BASE_WIDTH : 1;
+    root.style.zoom = zoom === 1 ? "" : zoom;
+    root.style.setProperty("--wts-zoom", zoom);
+  }
+  apply();
+  window.addEventListener("resize", apply);
+})();
+
 
 document.addEventListener("DOMContentLoaded", () => {
   // ספרות בפונט JetBrains Mono בכל האתר - כל רצף ספרות בטקסט עוטף ב-<span class="wts-digit">

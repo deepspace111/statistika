@@ -63,8 +63,8 @@ body.learning-mode { --bar-bg: #0b1220; --hl: var(--accent-2); }
   top: 0;
   z-index: 6;
   /* הרקע של הנוסחה מתפרס לכל רוחב המסך, בלי "קופסה" באמצע */
-  margin-inline: calc(50% - 50vw);
-  padding-inline: calc(50vw - 50%);
+  margin-inline: calc(50% - 50vw / var(--wts-zoom, 1));
+  padding-inline: calc(50vw / var(--wts-zoom, 1) - 50%);
   padding: 14px 0 12px;
   text-align: center;
   background: var(--bar-bg);
@@ -309,19 +309,24 @@ p math, .ex math { font-size: 1.1em; }
   // בסוף העמוד יש מרווח בדיוק בגודל הנדרש, כדי שגם הכרטיס האחרון יוכל לעלות עד הקו.
   const spacer = document.getElementById("endSpacer");
   const LINE_GAP = 40;
+  // במסך רחב האתר מוגדל (zoom), ומדידות המסך מגיעות כבר מוגדלות
+  function zoomFactor() {
+    return parseFloat(getComputedStyle(document.documentElement).zoom) || 1;
+  }
   function setBarHeight() {
     document.documentElement.style.setProperty("--bar-h", bar.offsetHeight + "px");
   }
   function fitSpacer() {
     setBarHeight();
     spacer.style.height = "0px";
+    const z = zoomFactor();
     const last = cards[cards.length - 1];
-    const line = bar.offsetHeight + LINE_GAP;
+    const line = bar.getBoundingClientRect().height + LINE_GAP * z;
     const below = document.documentElement.scrollHeight - (last.getBoundingClientRect().top + window.scrollY);
-    spacer.style.height = Math.max(0, window.innerHeight - line - below + 2) + "px";
+    spacer.style.height = Math.max(0, (window.innerHeight - line - below + 2) / z) + "px";
   }
   function update() {
-    const line = bar.getBoundingClientRect().bottom + LINE_GAP;
+    const line = bar.getBoundingClientRect().bottom + LINE_GAP * zoomFactor();
     let active = null;
     cards.forEach(c => { if (c.getBoundingClientRect().top <= line) active = c; });
     light(window.scrollY < 40 || !active ? null : active.dataset.k);
