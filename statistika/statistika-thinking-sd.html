@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="../waytosee.css">
 
 <style>
-/* תחנת חשיבה: תמיד כהה, כמו תחנת החשיבה הראשית של האתר. הנוסחה נשארת למעלה,
+/* תחנת חשיבה: בהירה או כהה לפי מפתח הפה, כמו בשאר האתר. הנוסחה נשארת למעלה,
    ובזמן הגלילה נדלק בה החלק שמוסבר כרגע. */
 
 @font-face {
@@ -29,7 +29,9 @@
 }
 math { font-family: "WTS Math", "Latin Modern Math", "Cambria Math", "STIX Two Math", math; }
 
-body.learning-mode { min-height: 100svh; margin: 0; }
+body { min-height: 100svh; margin: 0; }
+:root { --bar-bg: rgba(236,240,245,0.95); }
+body.learning-mode { --bar-bg: rgba(11,18,32,0.95); }
 
 .room {
   position: relative;
@@ -61,7 +63,7 @@ body.learning-mode { min-height: 100svh; margin: 0; }
   z-index: 6;
   padding: 14px 0 12px;
   text-align: center;
-  background: rgba(11,18,32,0.95);
+  background: var(--bar-bg);
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
 }
@@ -70,14 +72,14 @@ body.learning-mode { min-height: 100svh; margin: 0; }
   position: absolute;
   left: 0; right: 0; top: 100%;
   height: 26px;
-  background: linear-gradient(to bottom, rgba(11,18,32,0.95), rgba(11,18,32,0));
+  background: linear-gradient(to bottom, var(--bar-bg), transparent);
   pointer-events: none;
 }
 .formula-bar math { font-size: 30px; }
 .formula-bar mfrac > * { math-style: normal; }
 .formula-bar, .formula-bar .part { transition: color 0.4s ease; }
-.formula-bar.has-active { color: rgba(232,237,247,0.35); }
-.formula-bar.has-active .part { color: rgba(232,237,247,0.35); }
+.formula-bar.has-active,
+.formula-bar.has-active .part { color: color-mix(in srgb, var(--text) 35%, transparent); }
 .formula-bar.has-active .part.on,
 .formula-bar.has-active .part.on[data-k="diff"] .part { color: var(--accent-2); }
 
@@ -156,7 +158,7 @@ p math, .ex math { font-size: 1.1em; }
 </style>
 </head>
 
-<body class="learning-mode">
+<body>
 
 <div class="rain" id="rain"></div>
 
@@ -266,6 +268,8 @@ p math, .ex math { font-size: 1.1em; }
     <p>הסימנים היו חדשים. הרעיונות לא.<br>כל סימן הוא שלב שכבר עשינו בעמוד, רק כתוב בקיצור.</p>
   </div>
 
+  <div id="endSpacer" aria-hidden="true"></div>
+
 </main>
 
 <script>
@@ -278,17 +282,33 @@ p math, .ex math { font-size: 1.1em; }
     parts.forEach(p => p.classList.toggle("on", p.dataset.k === key));
     cards.forEach(c => c.classList.toggle("on", c.dataset.k === key));
   }
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) light(e.target.dataset.k); });
-  }, { rootMargin: "-45% 0px -45% 0px" });
-  cards.forEach(c => observer.observe(c));
-  window.addEventListener("scroll", () => { if (window.scrollY < 60) light(null); }, { passive: true });
+  // "קו קריאה" קבוע, ממש מתחת לנוסחה שלמעלה: כרטיס נדלק כשהראש שלו
+  // מגיע לקו הזה, כלומר כשהוא עולה לחלק העליון של המסך.
+  // בסוף העמוד יש מרווח בדיוק בגודל הנדרש, כדי שגם הכרטיס האחרון יוכל לעלות עד הקו.
+  const spacer = document.getElementById("endSpacer");
+  const LINE_GAP = 40;
+  function fitSpacer() {
+    spacer.style.height = "0px";
+    const last = cards[cards.length - 1];
+    const line = bar.offsetHeight + LINE_GAP;
+    const below = document.documentElement.scrollHeight - (last.getBoundingClientRect().top + window.scrollY);
+    spacer.style.height = Math.max(0, window.innerHeight - line - below + 2) + "px";
+  }
+  function update() {
+    const line = bar.getBoundingClientRect().bottom + LINE_GAP;
+    let active = null;
+    cards.forEach(c => { if (c.getBoundingClientRect().top <= line) active = c; });
+    light(window.scrollY < 40 || !active ? null : active.dataset.k);
+  }
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", () => { fitSpacer(); update(); });
+  window.addEventListener("load", () => { fitSpacer(); update(); });
+  fitSpacer();
+  update();
 </script>
 
 <script>
-  // תחנת החשיבה תמיד כהה: בלי כפתור מצב הלמידה.
   // המשולש מחזיר לעמוד מדדי הפיזור.
-  window.waytoseeSkipFocusSetup = true;
   window.waytoseeParentOverride = "statistika/statistika-dispersion.html";
 </script>
 <script src="../waytosee.js"></script>
