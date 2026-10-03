@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // ספרות בפונט JetBrains Mono בכל האתר - כל רצף ספרות בטקסט עוטף ב-<span class="wts-digit">
   // (בתוך גרפי SVG - ב-<tspan>). העיצוב עצמו גר ב-waytosee.css (.wts-digit).
   // לא נוגעים בתוך script / style / textarea / code / pre, ולא עוטפים פעמיים.
+  // וגם לא בתוך נוסחאות (<math>): שם הספרות נשארות בגופן המתמטי של הנוסחה.
   (function wrapDigits(root) {
     if (!root) return;
     const SVG_NS = "http://www.w3.org/2000/svg";
@@ -11,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
       acceptNode(node) {
         if (!/\d/.test(node.nodeValue)) return NodeFilter.FILTER_REJECT;
         const parent = node.parentElement;
-        if (!parent || parent.closest("script, style, textarea, code, pre, noscript, .wts-digit")) {
+        if (!parent || parent.closest("script, style, textarea, code, pre, noscript, math, .wts-digit")) {
           return NodeFilter.FILTER_REJECT;
         }
         return NodeFilter.FILTER_ACCEPT;

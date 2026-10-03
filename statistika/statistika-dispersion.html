@@ -53,6 +53,11 @@ math { font-family: "WTS Math", "Latin Modern Math", "Cambria Math", "STIX Two M
 .formula-math mfrac > * { math-style: normal; }
 p math { font-size: 1.1em; }
 
+/* "לא להיבהל מהנוסחה": נראה כמו הערה שקטה, אבל הוא קישור לתחנת החשיבה */
+.calm-link { text-align: center; margin-top: 4px; }
+.calm-link a { color: inherit; text-decoration: none; opacity: 0.75; transition: opacity 0.3s ease; }
+.calm-link a:hover { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
+
 /* רווח בין "בכיתה א׳:" לבין התרגיל שאחריו */
 .range-ex .num { margin-right: 1.2em; }
 
@@ -239,6 +244,7 @@ body.stat-page .dots .sc { font-size: 11px; opacity: 0.7; }
     <p>כל הדרך שעשינו בעמוד הזה מתקפלת לנוסחה אחת:</p>
     <div class="formula-math"><math display="block" dir="ltr"><mi>σ</mi><mo>=</mo><msqrt><mfrac><mrow><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><msup><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>−</mo><mi>μ</mi><mo stretchy="false">)</mo></mrow><mn>2</mn></msup></mrow><mi>N</mi></mfrac></msqrt></math></div>
     <p>כל סימן בנוסחה הוא שלב שכבר עשינו: <math dir="ltr"><msub><mi>x</mi><mi>i</mi></msub><mo>−</mo><mi>μ</mi></math> הוא המרחק מהממוצע, ה־2 הקטן למעלה מעלה אותו בריבוע, <math dir="ltr"><mo>∑</mo></math> מחבר את כולם, החלוקה ב־<math dir="ltr"><mi>N</mi></math> הופכת את הסכום לממוצע, והשורש מחזיר אותנו ליחידות המקוריות.</p>
+    <p class="calm-link"><a href="statistika-thinking-sd.html">לא להיבהל מהנוסחה</a></p>
     <p>ועכשיו, שתי הכיתות מההתחלה:</p>
     <table class="data-table center-table big-contrast">
       <tr><th></th><th>ממוצע</th><th>שונות</th><th>סטיית תקן</th></tr>

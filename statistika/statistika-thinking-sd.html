@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FTM28BMBXC');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>תחנת חשיבה: הנוסחה של סטיית התקן</title>
+
+<link rel="stylesheet" href="../waytosee.css">
+
+<style>
+/* תחנת חשיבה: תמיד כהה, כמו תחנת החשיבה הראשית של האתר. הנוסחה נשארת למעלה,
+   ובזמן הגלילה נדלק בה החלק שמוסבר כרגע. */
+
+@font-face {
+  font-family: "WTS Math";
+  src: url("math-font.woff") format("woff");
+}
+math { font-family: "WTS Math", "Latin Modern Math", "Cambria Math", "STIX Two Math", math; }
+
+body.learning-mode { min-height: 100svh; margin: 0; }
+
+.room {
+  position: relative;
+  z-index: 5;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 22px 90px;
+}
+
+.room-head {
+  text-align: center;
+  padding: 70px 0 10px;
+}
+.room-head .kicker {
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  opacity: 0.55;
+}
+.room-head h1 {
+  font-size: 30px;
+  font-weight: 300;
+  margin: 8px 0 0;
+}
+
+/* הנוסחה הקבועה למעלה */
+.formula-bar {
+  position: sticky;
+  top: 0;
+  z-index: 6;
+  padding: 14px 0 12px;
+  text-align: center;
+  background: rgba(11,18,32,0.95);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+.formula-bar::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: 100%;
+  height: 26px;
+  background: linear-gradient(to bottom, rgba(11,18,32,0.95), rgba(11,18,32,0));
+  pointer-events: none;
+}
+.formula-bar math { font-size: 30px; }
+.formula-bar mfrac > * { math-style: normal; }
+.formula-bar, .formula-bar .part { transition: color 0.4s ease; }
+.formula-bar.has-active { color: rgba(232,237,247,0.35); }
+.formula-bar.has-active .part { color: rgba(232,237,247,0.35); }
+.formula-bar.has-active .part.on,
+.formula-bar.has-active .part.on[data-k="diff"] .part { color: var(--accent-2); }
+
+.lead {
+  text-align: center;
+  font-size: 17px;
+  line-height: 1.7;
+  opacity: 0.8;
+  margin: 18px 0 30px;
+}
+
+/* כרטיס לכל סימן */
+.sym {
+  display: grid;
+  grid-template-columns: 74px 1fr;
+  gap: 18px;
+  align-items: start;
+  padding: 26px 0;
+  border-top: 1px solid var(--panel-border);
+}
+.sym .glyph {
+  text-align: center;
+  font-size: 34px;
+  line-height: 1.2;
+  padding-top: 4px;
+  transition: color 0.4s ease;
+}
+.sym.on .glyph { color: var(--accent-2); }
+.sym .step {
+  display: block;
+  font-size: 12px;
+  opacity: 0.45;
+  margin-top: 6px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.sym h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 6px;
+}
+.sym p {
+  font-size: 17px;
+  line-height: 1.65;
+  margin: 0 0 6px;
+  text-align: justify;
+}
+.sym .without { opacity: 0.7; }
+.sym .ex {
+  margin-top: 10px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: var(--code-bg);
+  font-size: 15px;
+}
+.sym .ex .num { font-family: 'JetBrains Mono', monospace; color: var(--num); white-space: nowrap; }
+p math, .ex math { font-size: 1.1em; }
+
+.end {
+  border-top: 1px solid var(--panel-border);
+  padding-top: 26px;
+  text-align: center;
+}
+.end p { font-size: 18px; line-height: 1.7; }
+.end .back {
+  display: inline-block;
+  margin-top: 18px;
+  color: var(--text);
+  opacity: 0.7;
+  text-decoration: none;
+  font-size: 16px;
+}
+.end .back:hover { opacity: 1; }
+
+
+@media (max-width: 600px) {
+  .room { padding: 0 16px 70px; }
+  .room-head { padding-top: 60px; }
+  .room-head h1 { font-size: 25px; }
+  .formula-bar math { font-size: 24px; }
+  .sym { grid-template-columns: 52px 1fr; gap: 12px; }
+  .sym .glyph { font-size: 28px; }
+  .sym p { font-size: 16px; }
+  .sym .ex { font-size: 13px; }
+}
+</style>
+</head>
+
+<body class="learning-mode">
+
+<div class="rain" id="rain"></div>
+
+<main class="room">
+
+  <header class="room-head">
+    <div class="kicker">תחנת חשיבה</div>
+    <h1>הנוסחה, סימן אחרי סימן</h1>
+  </header>
+
+  <div class="formula-bar" id="formulaBar">
+    <math display="block" dir="ltr">
+      <mi class="part" data-k="sigma">σ</mi><mo class="part" data-k="sigma">=</mo>
+      <msqrt class="part" data-k="root"><mfrac>
+        <mrow>
+          <munderover class="part" data-k="sum"><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi class="part" data-k="n">N</mi></munderover>
+          <msup><mrow class="part" data-k="diff"><mo stretchy="false">(</mo><msub class="part" data-k="x"><mi>x</mi><mi>i</mi></msub><mo>−</mo><mi class="part" data-k="mu">μ</mi><mo stretchy="false">)</mo></mrow><mn class="part" data-k="sq">2</mn></msup>
+        </mrow>
+        <mi class="part" data-k="n">N</mi>
+      </mfrac></msqrt>
+    </math>
+  </div>
+
+  <p class="lead">הנוסחה נקראת מבפנים החוצה. כל שלב בה הוא שלב שכבר עשינו בעמוד, רק כתוב בקיצור. נלך יחד עם כיתה א׳: <span class="ltr num" dir="ltr">78, 79, 80, 80, 80, 81, 82</span></p>
+
+  <section class="sym" data-k="x">
+    <div class="glyph"><math><msub><mi>x</mi><mi>i</mi></msub></math><span class="step">1</span></div>
+    <div>
+      <h2>נתון אחד</h2>
+      <p>x הוא ציון של תלמיד אחד. ה־i הקטן הוא מספר סידורי: התלמיד הראשון, השני, השלישי. במקום לכתוב שבעה ציונים, כותבים אחד ואומרים "וכך לכל אחד מהם".</p>
+      <p class="without">בלעדיו אין על מה לחשב. כל השאר בנוסחה עושה משהו עם הנתונים.</p>
+      <div class="ex">התלמיד הראשון: <math dir="ltr"><msub><mi>x</mi><mn>1</mn></msub><mo>=</mo><mn>78</mn></math></div>
+    </div>
+  </section>
+
+  <section class="sym" data-k="mu">
+    <div class="glyph"><math><mi>μ</mi></math><span class="step">2</span></div>
+    <div>
+      <h2>הממוצע</h2>
+      <p>μ (קוראים "מיו") היא האות היוונית שבה מסמנים את הממוצע. זה המרכז שממנו מודדים את כל המרחקים.</p>
+      <p class="without">בלעדיה אין "רחוק" ו"קרוב". מרחק תמיד נמדד ממשהו.</p>
+      <div class="ex">בכיתה א׳: <math dir="ltr"><mi>μ</mi><mo>=</mo><mn>80</mn></math></div>
+    </div>
+  </section>
+
+  <section class="sym" data-k="diff">
+    <div class="glyph"><math dir="ltr"><msub><mi>x</mi><mi>i</mi></msub><mo>−</mo><mi>μ</mi></math><span class="step">3</span></div>
+    <div>
+      <h2>המרחק מהממוצע</h2>
+      <p>מחסרים את הממוצע מהנתון, ומקבלים כמה הוא רחוק מהמרכז ולאיזה כיוון. זו הסטייה מהעמוד.</p>
+      <p class="without">זה הלב של הנוסחה. כל מה שמסביב רק עוזר לסכם את המרחקים האלה למספר אחד.</p>
+      <div class="ex">התלמיד הראשון: <math dir="ltr"><mn>78</mn><mo>−</mo><mn>80</mn><mo>=</mo><mn>−2</mn></math></div>
+    </div>
+  </section>
+
+  <section class="sym" data-k="sq">
+    <div class="glyph"><math dir="ltr"><msup><mrow><mo stretchy="false">(</mo><mo>…</mo><mo stretchy="false">)</mo></mrow><mn>2</mn></msup></math><span class="step">4</span></div>
+    <div>
+      <h2>בריבוע</h2>
+      <p>ה־2 הקטן למעלה אומר: כפול את המרחק בעצמו. כך כל מרחק הופך לחיובי, גם אם הנתון היה מתחת לממוצע.</p>
+      <p class="without">בלעדיו, המרחקים השליליים והחיוביים מבטלים זה את זה, והסכום יוצא תמיד 0.</p>
+      <div class="ex">התלמיד הראשון: <math dir="ltr"><msup><mrow><mo stretchy="false">(</mo><mn>−2</mn><mo stretchy="false">)</mo></mrow><mn>2</mn></msup><mo>=</mo><mn>4</mn></math></div>
+    </div>
+  </section>
+
+  <section class="sym" data-k="sum">
+    <div class="glyph"><math displaystyle="true"><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover></math><span class="step">5</span></div>
+    <div>
+      <h2>חבר את כולם</h2>
+      <p>Σ היא האות היוונית סיגמה, והיא אומרת דבר אחד: לחבר. מה שכתוב מתחתיה ומעליה אומר ממי עד מי: מהתלמיד הראשון (i = 1) ועד האחרון (N).</p>
+      <p class="without">בלעדיה היינו נשארים עם תלמיד אחד. הסיגמה אוספת את כל המרחקים בריבוע לסכום אחד.</p>
+      <div class="ex">בכיתה א׳: <span class="num">4 + 1 + 0 + 0 + 0 + 1 + 4 = 10</span></div>
+    </div>
+  </section>
+
+  <section class="sym" data-k="n">
+    <div class="glyph"><math><mi>N</mi></math><span class="step">6</span></div>
+    <div>
+      <h2>מחלקים במספר הנתונים</h2>
+      <p>N הוא כמה נתונים יש. החלוקה בו הופכת את הסכום לממוצע, ואת התוצאה הזאת כבר פגשנו: השונות.</p>
+      <p class="without">בלעדיו, כיתה גדולה הייתה נראית מפוזרת יותר רק כי יש בה יותר תלמידים, גם אם כולם צמודים לממוצע.</p>
+      <div class="ex">בכיתה א׳: <span class="num">10 ÷ 7 ≈ 1.43</span></div>
+    </div>
+  </section>
+
+  <section class="sym" data-k="root">
+    <div class="glyph"><math><msqrt><mo>…</mo></msqrt></math><span class="step">7</span></div>
+    <div>
+      <h2>השורש</h2>
+      <p>השורש מבטל את הריבוע. כשהעלינו בריבוע, גם היחידות עלו בריבוע: נקודות בריבוע. השורש מחזיר אותנו לנקודות.</p>
+      <p class="without">בלעדיו נשארים עם השונות, מספר נכון שקשה להרגיש.</p>
+      <div class="ex">בכיתה א׳: <math dir="ltr"><msqrt><mn>1.43</mn></msqrt><mo>≈</mo><mn>1.2</mn></math></div>
+    </div>
+  </section>
+
+  <section class="sym" data-k="sigma">
+    <div class="glyph"><math><mi>σ</mi></math><span class="step">8</span></div>
+    <div>
+      <h2>סטיית התקן</h2>
+      <p>σ היא סיגמה קטנה, והיא השם של התוצאה: סטיית התקן. כל מה שמימין לסימן השוויון הוא הדרך להגיע אליה.</p>
+      <p class="without">זה המספר שחיפשנו מההתחלה: כמה רחוק, בדרך כלל, הנתונים נמצאים מהממוצע.</p>
+      <div class="ex">בכיתה א׳: <math dir="ltr"><mi>σ</mi><mo>≈</mo><mn>1.2</mn></math> נקודות</div>
+    </div>
+  </section>
+
+  <div class="end">
+    <p>שמונה סימנים, וכל אחד מהם כבר היה מוכר.<br>הנוסחה לא הוסיפה רעיון חדש. היא רק כתבה אותו בקיצור.</p>
+    <a class="back" href="statistika-dispersion.html">חזרה לעמוד מדדי הפיזור</a>
+  </div>
+
+</main>
+
+<script>
+  // החלק שמוסבר כרגע נדלק בנוסחה שלמעלה
+  const bar = document.getElementById("formulaBar");
+  const parts = bar.querySelectorAll(".part");
+  const cards = document.querySelectorAll(".sym");
+  function light(key) {
+    bar.classList.toggle("has-active", !!key);
+    parts.forEach(p => p.classList.toggle("on", p.dataset.k === key));
+    cards.forEach(c => c.classList.toggle("on", c.dataset.k === key));
+  }
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) light(e.target.dataset.k); });
+  }, { rootMargin: "-45% 0px -45% 0px" });
+  cards.forEach(c => observer.observe(c));
+  window.addEventListener("scroll", () => { if (window.scrollY < 60) light(null); }, { passive: true });
+</script>
+
+<script>
+  // תחנת החשיבה תמיד כהה: בלי כפתור מצב הלמידה.
+  // המשולש מחזיר לעמוד מדדי הפיזור.
+  window.waytoseeSkipFocusSetup = true;
+  window.waytoseeParentOverride = "statistika/statistika-dispersion.html";
+</script>
+<script src="../waytosee.js"></script>
+
+</body>
+</html>
