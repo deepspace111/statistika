@@ -1,21 +1,9 @@
-// ===== קנה מידה למסכי מחשב רחבים =====
-// במסך מחשב רחב מ-WTS_BASE_WIDTH פיקסלים, כל העמוד גדל באותו יחס,
-// כך שהוא נראה בדיוק כמו במסך של 24 אינץ' (1920 פיקסלים), רק גדול יותר.
-// טלפונים, טאבלטים ולפטופים (מסכים צרים יותר, או מסך מגע) לא מושפעים.
-(function scaleWideScreens() {
-  const WTS_BASE_WIDTH = 1920;
-  const root = document.documentElement;
-  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
-  function apply() {
-    const width = window.innerWidth;
-    const zoom = finePointer.matches && width > WTS_BASE_WIDTH ? width / WTS_BASE_WIDTH : 1;
-    root.style.zoom = zoom === 1 ? "" : zoom;
-    root.style.setProperty("--wts-zoom", zoom);
-  }
-  apply();
-  window.addEventListener("resize", apply);
-})();
-
+// קנה מידה למסכי מחשב רחבים: הקוד גר ב-waytosee-scale.js (באותה תיקייה),
+// ונטען מכאן מיד, לפני שהעמוד מוצג.
+if (!window.__wtsScaleReady && document.currentScript) {
+  const scaleSrc = document.currentScript.src.replace(/waytosee\.js(\?.*)?$/, "waytosee-scale.js");
+  document.write('<script src="' + scaleSrc + '"><\/script>');
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   // ספרות בפונט JetBrains Mono בכל האתר - כל רצף ספרות בטקסט עוטף ב-<span class="wts-digit">
@@ -267,9 +255,17 @@ document.addEventListener("DOMContentLoaded", () => {
     // (שם אחר בכוונה, כי הם שומרים על מערכת עיצוב משלהם).
     const container = document.querySelector(".container, .grid");
     if (!container) return;
+    // אורך ההבהוב משתנה: פעם קצר (0.15 שנייה) ופעם ארוך (עד 0.9 שנייה).
+    // בטלפון לפחות 0.3 שנייה, כדי שיהיה אפשר לראות אותו.
+    const isPhone = window.matchMedia("(max-width: 600px), (max-height: 500px)").matches;
+    const minMs = isPhone ? 300 : 150;
+    const flashMs = Math.round(minMs + Math.random() * (900 - minMs));
+    container.style.setProperty("--flash-ms", flashMs + "ms");
+    container.classList.remove("turquoise-flash");
+    void container.offsetWidth; // מאפס את האנימציה כדי שתתחיל מחדש
     container.classList.add("turquoise-flash");
-    setTimeout(() => container.classList.remove("turquoise-flash"), 200);
-    const nextDelay = 2000 + Math.random() * 6000; // בין 2 ל-8 שניות
+    setTimeout(() => container.classList.remove("turquoise-flash"), flashMs);
+    const nextDelay = 1000 + Math.random() * 3500; // בין שנייה ל-4.5 שניות (היה 2 עד 8)
     flickerTimeout = setTimeout(scheduleFlicker, nextDelay);
   }
 
