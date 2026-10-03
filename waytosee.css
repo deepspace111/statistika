@@ -379,11 +379,20 @@ p {
   padding-top: 18px;
 }
 
-/* הבהוב טורקיז במצב כהה. האורך משתנה בכל פעם (--flash-ms נקבע ב-waytosee.js),
-   וההבהוב עובר גם על כותרות, מספרים ותאי טבלה, שיש להם צבע משלהם. */
+/* הבהוב טורקיז במצב כהה: מהיר כמו התחשמלות. כל פעימה קצרה וקבועה
+   (--flash-cycle), ורק מספר הפעימות משתנה (--flash-count), כך שפעם
+   ההבהוב קצר ופעם ארוך. שני הערכים נקבעים ב-waytosee.js.
+   ההבהוב עובר גם על כותרות, מספרים ותאי טבלה, שיש להם צבע משלהם. */
 .turquoise-flash,
 .turquoise-flash :is(h1, h2, h3, h4, strong, th, td, .num, .wts-digit, .numbers, .calc) {
-  animation: turquoise-flicker var(--flash-ms, 200ms) steps(1, end);
+  animation: turquoise-flicker var(--flash-cycle, 80ms) steps(1, end) var(--flash-count, 2);
+}
+@keyframes turquoise-flicker {
+  0% {
+    color: #4ff0e0;
+    text-shadow: 0 0 7px rgba(64, 224, 208, 0.95), 0 0 18px rgba(64, 224, 208, 0.55);
+  }
+  50%, 100% { color: inherit; text-shadow: none; }
 }
 /* בטלפון הטקסט קטן, אז הזוהר חזק יותר */
 @media (max-width: 600px), (max-height: 500px) {
@@ -393,27 +402,11 @@ p {
   }
 }
 @keyframes turquoise-flicker-strong {
-  0%, 100% { color: inherit; text-shadow: none; }
-  20%, 60% {
+  0% {
     color: #4ff0e0;
     text-shadow: 0 0 9px rgba(64, 224, 208, 1), 0 0 24px rgba(64, 224, 208, 0.7);
   }
-  40%, 80% { color: inherit; text-shadow: none; }
-}
-
-@keyframes turquoise-flicker {
-  0%, 100% {
-    color: inherit;
-    text-shadow: none;
-  }
-  20%, 60% {
-    color: #4ff0e0;
-    text-shadow: 0 0 7px rgba(64, 224, 208, 0.95), 0 0 18px rgba(64, 224, 208, 0.55);
-  }
-  40%, 80% {
-    color: inherit;
-    text-shadow: none;
-  }
+  50%, 100% { color: inherit; text-shadow: none; }
 }
 /* טלפון - גם במצב מאוזן (מסך נמוך), לא רק עומד */
 @media (max-width: 600px), (max-height: 500px) {

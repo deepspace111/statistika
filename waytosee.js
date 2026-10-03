@@ -255,16 +255,17 @@ document.addEventListener("DOMContentLoaded", () => {
     // (שם אחר בכוונה, כי הם שומרים על מערכת עיצוב משלהם).
     const container = document.querySelector(".container, .grid");
     if (!container) return;
-    // אורך ההבהוב משתנה: פעם קצר (0.15 שנייה) ופעם ארוך (עד 0.9 שנייה).
-    // בטלפון לפחות 0.3 שנייה, כדי שיהיה אפשר לראות אותו.
+    // הבהוב מהיר כמו התחשמלות: כל פעימה קצרה וקבועה, ורק מספר הפעימות משתנה,
+    // כך שפעם ההבהוב קצר ופעם ארוך. בטלפון הפעימה קצת ארוכה יותר, כדי שתיראה.
     const isPhone = window.matchMedia("(max-width: 600px), (max-height: 500px)").matches;
-    const minMs = isPhone ? 300 : 150;
-    const flashMs = Math.round(minMs + Math.random() * (900 - minMs));
-    container.style.setProperty("--flash-ms", flashMs + "ms");
+    const cycleMs = isPhone ? 100 : 80;
+    const count = 2 + Math.floor(Math.random() * 9); // בין 2 ל-10 פעימות
+    container.style.setProperty("--flash-cycle", cycleMs + "ms");
+    container.style.setProperty("--flash-count", count);
     container.classList.remove("turquoise-flash");
     void container.offsetWidth; // מאפס את האנימציה כדי שתתחיל מחדש
     container.classList.add("turquoise-flash");
-    setTimeout(() => container.classList.remove("turquoise-flash"), flashMs);
+    setTimeout(() => container.classList.remove("turquoise-flash"), cycleMs * count);
     const nextDelay = 1000 + Math.random() * 3500; // בין שנייה ל-4.5 שניות (היה 2 עד 8)
     flickerTimeout = setTimeout(scheduleFlicker, nextDelay);
   }
