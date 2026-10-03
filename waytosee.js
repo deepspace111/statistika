@@ -250,16 +250,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let flickerTimeout = null;
 
+  // מספר הפעימות בכל הבהוב: 1, 2 או 3. בכל סבב שלושתם מופיעים פעם אחת,
+  // בסדר אקראי, ואותו מספר לא חוזר פעמיים ברצף.
+  let flashBag = [];
+  let lastFlashCount = 0;
+  function nextFlashCount() {
+    if (flashBag.length === 0) {
+      flashBag = [1, 2, 3].sort(() => Math.random() - 0.5);
+      if (flashBag[flashBag.length - 1] === lastFlashCount) flashBag.reverse();
+    }
+    lastFlashCount = flashBag.pop();
+    return lastFlashCount;
+  }
+
   function scheduleFlicker() {
     // .container - שם התוכן המרכזי ב-ARP/DHCP. .grid - אותו תפקיד ב-Subnet/NAT
     // (שם אחר בכוונה, כי הם שומרים על מערכת עיצוב משלהם).
     const container = document.querySelector(".container, .grid");
     if (!container) return;
-    // הבהוב מהיר כמו התחשמלות: כל פעימה קצרה וקבועה, ורק מספר הפעימות משתנה,
-    // כך שפעם ההבהוב קצר ופעם ארוך. בטלפון הפעימה קצת ארוכה יותר, כדי שתיראה.
+    // הבהוב מהיר כמו התחשמלות: כל פעימה קצרה וקבועה, ורק מספר הפעימות משתנה. בטלפון הפעימה קצת ארוכה יותר, כדי שתיראה.
     const isPhone = window.matchMedia("(max-width: 600px), (max-height: 500px)").matches;
     const cycleMs = isPhone ? 100 : 80;
-    const count = 2 + Math.floor(Math.random() * 9); // בין 2 ל-10 פעימות
+    const count = nextFlashCount(); // 1, 2 או 3 פעימות, בסדר משתנה
     container.style.setProperty("--flash-cycle", cycleMs + "ms");
     container.style.setProperty("--flash-count", count);
     container.classList.remove("turquoise-flash");

@@ -380,8 +380,8 @@ p {
 }
 
 /* הבהוב טורקיז במצב כהה: מהיר כמו התחשמלות. כל פעימה קצרה וקבועה
-   (--flash-cycle), ורק מספר הפעימות משתנה (--flash-count), כך שפעם
-   ההבהוב קצר ופעם ארוך. שני הערכים נקבעים ב-waytosee.js.
+   (--flash-cycle), ורק מספר הפעימות משתנה (--flash-count: 1, 2 או 3).
+   שני הערכים נקבעים ב-waytosee.js.
    ההבהוב עובר גם על כותרות, מספרים ותאי טבלה, שיש להם צבע משלהם. */
 .turquoise-flash,
 .turquoise-flash :is(h1, h2, h3, h4, strong, th, td, .num, .wts-digit, .numbers, .calc) {
