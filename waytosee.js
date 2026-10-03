@@ -190,6 +190,80 @@ document.addEventListener("DOMContentLoaded", () => {
     if (Math.abs(y - lastScrollY) > 8) lastScrollY = y;
   }, { passive: true });
 
+  let flickerTimeout = null;
+
+  // מספר הפעימות בכל הבהוב: 1, 2 או 3. בכל סבב שלושתם מופיעים פעם אחת,
+  // בסדר אקראי, ואותו מספר לא חוזר פעמיים ברצף.
+  let flashBag = [];
+  let lastFlashCount = 0;
+  function nextFlashCount() {
+    if (flashBag.length === 0) {
+      flashBag = [1, 2, 3].sort(() => Math.random() - 0.5);
+      if (flashBag[flashBag.length - 1] === lastFlashCount) flashBag.reverse();
+    }
+    lastFlashCount = flashBag.pop();
+    return lastFlashCount;
+  }
+
+  // אילו רכיבים מהבהבים: כל רכיב בתוכן העמוד שיש בו טקסט ישיר, חוץ מכותרות,
+  // גרפים (svg), כפתורים ושדות, ורכיבים שכבר יש להם אנימציה משלהם.
+  // .container / .grid - התוכן ברוב העמודים. (בלי המרחב ובלי תחנות החשיבה - שם אין הבהוב.)
+  const FLASH_AREAS = ".container, .grid";
+  const FLASH_SKIP = "h1, h2, h3, h4, h5, h6, svg, script, style, button, input, textarea, select, .page-title";
+  function flashTargets() {
+    const targets = [];
+    document.querySelectorAll(FLASH_AREAS).forEach((area) => {
+      if (area.parentElement && area.parentElement.closest(FLASH_AREAS)) return;
+      area.querySelectorAll("*").forEach((el) => {
+        if (el.closest(FLASH_SKIP)) return;
+        const hasText = [...el.childNodes].some((n) => n.nodeType === 3 && n.nodeValue.trim());
+        if (!hasText) return;
+        const anim = getComputedStyle(el).animationName;
+        if (anim && anim !== "none" && !el.classList.contains("wts-flash")) return;
+        targets.push(el);
+      });
+    });
+    return targets;
+  }
+
+  function scheduleFlicker() {
+    // הבהוב מהיר כמו התחשמלות: כל פעימה קצרה וקבועה, ורק מספר הפעימות משתנה.
+    // בטלפון הפעימה קצת ארוכה יותר, כדי שתיראה.
+    const isPhone = window.matchMedia("(max-width: 600px), (max-height: 500px)").matches;
+    const cycleMs = isPhone ? 100 : 80;
+    const count = nextFlashCount(); // 1, 2 או 3 פעימות, בסדר משתנה
+    const root = document.documentElement;
+    root.style.setProperty("--flash-cycle", cycleMs + "ms");
+    root.style.setProperty("--flash-count", count);
+    const targets = flashTargets();
+    targets.forEach((el) => el.classList.remove("wts-flash"));
+    void root.offsetWidth; // מאפס את האנימציה כדי שתתחיל מחדש
+    targets.forEach((el) => el.classList.add("wts-flash"));
+    setTimeout(() => targets.forEach((el) => el.classList.remove("wts-flash")), cycleMs * count);
+    const nextDelay = 1625 + Math.random() * 5680; // בין 1.6 ל-7.3 שניות (הורד ב-30% ואז בעוד 12%)
+    flickerTimeout = setTimeout(scheduleFlicker, nextDelay);
+  }
+
+  function stopFlicker() {
+    if (flickerTimeout) {
+      clearTimeout(flickerTimeout);
+      flickerTimeout = null;
+    }
+  }
+
+  // ההבהוב פועל בכל עמוד שנמצא במצב כהה, גם בעמודים שמנהלים את כפתור
+  // מפתח הפה בעצמם (כמו ARP והאינטרנט): עוקבים אחרי הקלאס learning-mode.
+  // בעמודים עם כפתור מפתח הפה המרכזי, ההבהוב רק במצב "כהה + רעש":
+  // בלחיצה השנייה, כשהרעש נפסק, גם ההבהוב נפסק (flickerAllowed נקבע ב-applyMode).
+  let flickerAllowed = true;
+  function syncFlicker() {
+    const dark = document.body.classList.contains("learning-mode") && flickerAllowed;
+    if (dark && !flickerTimeout) scheduleFlicker();
+    if (!dark && flickerTimeout) stopFlicker();
+  }
+  new MutationObserver(syncFlicker).observe(document.body, { attributes: true, attributeFilter: ["class"] });
+  syncFlicker();
+
   if (skipFocusSetup) return;
   let focusButton = document.getElementById("focusBtn");
   if (!focusButton) {
@@ -248,47 +322,6 @@ document.addEventListener("DOMContentLoaded", () => {
     fadeAudio(brownNoise, 0, 900);
   }
 
-  let flickerTimeout = null;
-
-  // מספר הפעימות בכל הבהוב: 1, 2 או 3. בכל סבב שלושתם מופיעים פעם אחת,
-  // בסדר אקראי, ואותו מספר לא חוזר פעמיים ברצף.
-  let flashBag = [];
-  let lastFlashCount = 0;
-  function nextFlashCount() {
-    if (flashBag.length === 0) {
-      flashBag = [1, 2, 3].sort(() => Math.random() - 0.5);
-      if (flashBag[flashBag.length - 1] === lastFlashCount) flashBag.reverse();
-    }
-    lastFlashCount = flashBag.pop();
-    return lastFlashCount;
-  }
-
-  function scheduleFlicker() {
-    // .container - שם התוכן המרכזי ב-ARP/DHCP. .grid - אותו תפקיד ב-Subnet/NAT
-    // (שם אחר בכוונה, כי הם שומרים על מערכת עיצוב משלהם).
-    const container = document.querySelector(".container, .grid");
-    if (!container) return;
-    // הבהוב מהיר כמו התחשמלות: כל פעימה קצרה וקבועה, ורק מספר הפעימות משתנה. בטלפון הפעימה קצת ארוכה יותר, כדי שתיראה.
-    const isPhone = window.matchMedia("(max-width: 600px), (max-height: 500px)").matches;
-    const cycleMs = isPhone ? 100 : 80;
-    const count = nextFlashCount(); // 1, 2 או 3 פעימות, בסדר משתנה
-    container.style.setProperty("--flash-cycle", cycleMs + "ms");
-    container.style.setProperty("--flash-count", count);
-    container.classList.remove("turquoise-flash");
-    void container.offsetWidth; // מאפס את האנימציה כדי שתתחיל מחדש
-    container.classList.add("turquoise-flash");
-    setTimeout(() => container.classList.remove("turquoise-flash"), cycleMs * count);
-    const nextDelay = 1625 + Math.random() * 5680; // בין 1.6 ל-7.3 שניות (הורד ב-30% ואז בעוד 12%)
-    flickerTimeout = setTimeout(scheduleFlicker, nextDelay);
-  }
-
-  function stopFlicker() {
-    if (flickerTimeout) {
-      clearTimeout(flickerTimeout);
-      flickerTimeout = null;
-    }
-  }
-
   // כפתור תודעת למידה (מפתח פה) עובר בין שלושה מצבים, בסבב:
   // "off"   = מצב רגיל (בהיר)
   // "on"    = כהה + רעש
@@ -302,12 +335,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const isDark = mode !== "off";
     const wasDark = previousMode !== undefined && previousMode !== "off";
     const wasNoise = previousMode === "on";
+    flickerAllowed = mode === "on";
     document.body.classList.toggle("learning-mode", isDark);
+    syncFlicker();
     focusButton.classList.toggle("active", isDark);
     if (mode === "on" && !wasNoise) startBrownNoise();
     if (mode !== "on" && wasNoise) stopBrownNoise();
-    if (isDark && !wasDark) scheduleFlicker();
-    if (!isDark && wasDark) stopFlicker();
   }
 
   applyMode(currentMode);

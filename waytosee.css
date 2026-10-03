@@ -382,31 +382,27 @@ p {
 /* הבהוב טורקיז במצב כהה: מהיר כמו התחשמלות. כל פעימה קצרה וקבועה
    (--flash-cycle), ורק מספר הפעימות משתנה (--flash-count: 1, 2 או 3).
    שני הערכים נקבעים ב-waytosee.js. הבהירות הורדה ב-18% ואז בעוד 10% (היה #4ff0e0).
-   ההבהוב עובר גם על כותרות, מספרים ותאי טבלה, שיש להם צבע משלהם. */
-.turquoise-flash,
-.turquoise-flash :is(h1, h2, h3, h4, strong, th, td, .num, .wts-digit, .numbers, .calc) {
-  animation: turquoise-flicker var(--flash-cycle, 80ms) steps(1, end) var(--flash-count, 2);
+   waytosee.js מסמן ב-.wts-flash כל רכיב טקסט בתוכן העמוד, חוץ מכותרות,
+   גרפים, ורכיבים שכבר יש להם אנימציה משלהם. חצי פעימה דלוק, חצי כבוי
+   (steps(2, jump-none)), ובחצי הכבוי כל רכיב חוזר לצבע המקורי שלו. */
+.wts-flash {
+  animation: turquoise-flicker var(--flash-cycle, 80ms) steps(2, jump-none) var(--flash-count, 2);
 }
 @keyframes turquoise-flicker {
-  0% {
+  from {
     color: #3ab1a6;
     text-shadow: 0 0 7px rgba(64, 224, 208, 0.70), 0 0 18px rgba(64, 224, 208, 0.41);
   }
-  50%, 100% { color: inherit; text-shadow: none; }
 }
 /* בטלפון הטקסט קטן, אז הזוהר חזק יותר */
 @media (max-width: 600px), (max-height: 500px) {
-  .turquoise-flash,
-  .turquoise-flash :is(h1, h2, h3, h4, strong, th, td, .num, .wts-digit, .numbers, .calc) {
-    animation-name: turquoise-flicker-strong;
-  }
+  .wts-flash { animation-name: turquoise-flicker-strong; }
 }
 @keyframes turquoise-flicker-strong {
-  0% {
+  from {
     color: #3ab1a6;
     text-shadow: 0 0 9px rgba(64, 224, 208, 0.74), 0 0 24px rgba(64, 224, 208, 0.51);
   }
-  50%, 100% { color: inherit; text-shadow: none; }
 }
 /* טלפון - גם במצב מאוזן (מסך נמוך), לא רק עומד */
 @media (max-width: 600px), (max-height: 500px) {
