@@ -46,11 +46,15 @@
 
 .big-contrast td strong { font-size: 19px; }
 
-.dots .dot { fill: currentColor; opacity: 0.7; }
+/* גרף שתי הכיתות: כל תלמיד בשורה משלו, קו מהממוצע אל הציון.
+   קווים קצרים = פיזור קטן, קווים ארוכים = פיזור גדול */
+.dots .dot { fill: currentColor; opacity: 0.85; }
 .dots .dot:hover { opacity: 1; }
+.dots .stick { stroke: currentColor; stroke-width: 2; stroke-linecap: round; opacity: 0.35; }
 .dots .mean { stroke: currentColor; stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.5; }
-.dots .meanlbl { font-size: 11px; opacity: 0.65; }
-.dots .rowlbl { font-size: 13px; text-anchor: start; direction: rtl; opacity: 0.8; }
+body.stat-page .dots .meanlbl { font-size: 11px; opacity: 0.65; }
+body.stat-page .dots .rowlbl { font-size: 14px; font-weight: bold; opacity: 0.85; }
+body.stat-page .dots .sc { font-size: 11px; opacity: 0.7; }
 
 </style>
 </head>
@@ -74,34 +78,53 @@
     <p><strong>כיתה ב׳:</strong></p>
     <div class="numbers">50, 60, 70, 80, 90, 100, 110</div>
     <p>בשתי הכיתות הממוצע הוא בדיוק 80.</p>
-    <svg class="hist dots" viewBox="0 0 320 190" role="img" aria-label="הציונים של שתי הכיתות על ציר אחד. כיתה א׳: 78 עד 82. כיתה ב׳: 50 עד 110. בשתיהן הממוצע 80.">
-<line class="mean" x1="136.0" y1="14" x2="136.0" y2="152"/>
-<text class="meanlbl" x="136.0" y="10">ממוצע 80</text>
-<line class="axis" x1="16" y1="62" x2="256" y2="62"/>
-<text class="rowlbl" x="316" y="67">כיתה א׳</text>
-<circle class="dot" cx="129.1" cy="55" r="4.5"><title>כיתה א׳: 78</title></circle>
-<circle class="dot" cx="132.6" cy="55" r="4.5"><title>כיתה א׳: 79</title></circle>
-<circle class="dot" cx="136.0" cy="55" r="4.5"><title>כיתה א׳: 80</title></circle>
-<circle class="dot" cx="136.0" cy="44" r="4.5"><title>כיתה א׳: 80</title></circle>
-<circle class="dot" cx="136.0" cy="33" r="4.5"><title>כיתה א׳: 80</title></circle>
-<circle class="dot" cx="139.4" cy="55" r="4.5"><title>כיתה א׳: 81</title></circle>
-<circle class="dot" cx="142.9" cy="55" r="4.5"><title>כיתה א׳: 82</title></circle>
-<line class="axis" x1="16" y1="128" x2="256" y2="128"/>
-<text class="rowlbl" x="316" y="133">כיתה ב׳</text>
-<circle class="dot" cx="33.1" cy="121" r="4.5"><title>כיתה ב׳: 50</title></circle>
-<circle class="dot" cx="67.4" cy="121" r="4.5"><title>כיתה ב׳: 60</title></circle>
-<circle class="dot" cx="101.7" cy="121" r="4.5"><title>כיתה ב׳: 70</title></circle>
-<circle class="dot" cx="136.0" cy="121" r="4.5"><title>כיתה ב׳: 80</title></circle>
-<circle class="dot" cx="170.3" cy="121" r="4.5"><title>כיתה ב׳: 90</title></circle>
-<circle class="dot" cx="204.6" cy="121" r="4.5"><title>כיתה ב׳: 100</title></circle>
-<circle class="dot" cx="238.9" cy="121" r="4.5"><title>כיתה ב׳: 110</title></circle>
-<text class="lbl" x="33.1" y="172">50</text>
-<text class="lbl" x="67.4" y="172">60</text>
-<text class="lbl" x="101.7" y="172">70</text>
-<text class="lbl" x="136.0" y="172">80</text>
-<text class="lbl" x="170.3" y="172">90</text>
-<text class="lbl" x="204.6" y="172">100</text>
-<text class="lbl" x="238.9" y="172">110</text>
+    <svg class="hist dots" viewBox="0 0 320 291" role="img" aria-label="כל תלמיד בשורה משלו, עם קו מהממוצע 80 אל הציון שלו. בכיתה א׳ הקווים קצרים מאוד: כולם בין 78 ל־82. בכיתה ב׳ הקווים ארוכים: מ־50 עד 110. בשתי הכיתות הממוצע 80.">
+<line class="mean" x1="160" y1="16" x2="160" y2="260"/>
+<text class="meanlbl" x="160" y="11">ממוצע 80</text>
+<text class="rowlbl" x="304" y="22" style="text-anchor:end">כיתה א׳</text>
+<line class="stick" x1="160" y1="38" x2="152" y2="38"/>
+<circle class="dot" cx="152" cy="38" r="3.6"><title>כיתה א׳: 78</title></circle>
+<text class="sc" x="145" y="42" style="text-anchor:end">78</text>
+<line class="stick" x1="160" y1="52" x2="156" y2="52"/>
+<circle class="dot" cx="156" cy="52" r="3.6"><title>כיתה א׳: 79</title></circle>
+<text class="sc" x="149" y="56" style="text-anchor:end">79</text>
+<circle class="dot" cx="160" cy="66" r="3.6"><title>כיתה א׳: 80</title></circle>
+<circle class="dot" cx="160" cy="80" r="3.6"><title>כיתה א׳: 80</title></circle>
+<circle class="dot" cx="160" cy="94" r="3.6"><title>כיתה א׳: 80</title></circle>
+<line class="stick" x1="160" y1="108" x2="164" y2="108"/>
+<circle class="dot" cx="164" cy="108" r="3.6"><title>כיתה א׳: 81</title></circle>
+<text class="sc" x="171" y="112" style="text-anchor:start">81</text>
+<line class="stick" x1="160" y1="122" x2="168" y2="122"/>
+<circle class="dot" cx="168" cy="122" r="3.6"><title>כיתה א׳: 82</title></circle>
+<text class="sc" x="175" y="126" style="text-anchor:start">82</text>
+<text class="rowlbl" x="304" y="152" style="text-anchor:end">כיתה ב׳</text>
+<line class="stick" x1="160" y1="168" x2="40" y2="168"/>
+<circle class="dot" cx="40" cy="168" r="3.6"><title>כיתה ב׳: 50</title></circle>
+<text class="sc" x="33" y="172" style="text-anchor:end">50</text>
+<line class="stick" x1="160" y1="182" x2="80" y2="182"/>
+<circle class="dot" cx="80" cy="182" r="3.6"><title>כיתה ב׳: 60</title></circle>
+<text class="sc" x="73" y="186" style="text-anchor:end">60</text>
+<line class="stick" x1="160" y1="196" x2="120" y2="196"/>
+<circle class="dot" cx="120" cy="196" r="3.6"><title>כיתה ב׳: 70</title></circle>
+<text class="sc" x="113" y="200" style="text-anchor:end">70</text>
+<circle class="dot" cx="160" cy="210" r="3.6"><title>כיתה ב׳: 80</title></circle>
+<line class="stick" x1="160" y1="224" x2="200" y2="224"/>
+<circle class="dot" cx="200" cy="224" r="3.6"><title>כיתה ב׳: 90</title></circle>
+<text class="sc" x="207" y="228" style="text-anchor:start">90</text>
+<line class="stick" x1="160" y1="238" x2="240" y2="238"/>
+<circle class="dot" cx="240" cy="238" r="3.6"><title>כיתה ב׳: 100</title></circle>
+<text class="sc" x="247" y="242" style="text-anchor:start">100</text>
+<line class="stick" x1="160" y1="252" x2="280" y2="252"/>
+<circle class="dot" cx="280" cy="252" r="3.6"><title>כיתה ב׳: 110</title></circle>
+<text class="sc" x="287" y="256" style="text-anchor:start">110</text>
+<line class="axis" x1="20" y1="270" x2="300" y2="270"/>
+<text class="lbl" x="40" y="285">50</text>
+<text class="lbl" x="80" y="285">60</text>
+<text class="lbl" x="120" y="285">70</text>
+<text class="lbl" x="160" y="285">80</text>
+<text class="lbl" x="200" y="285">90</text>
+<text class="lbl" x="240" y="285">100</text>
+<text class="lbl" x="280" y="285">110</text>
 </svg>
     <p><strong>אז האם הכיתות דומות?</strong></p>
     <p>ממש לא. בכיתה א׳ כמעט כולם נמצאים ליד 80. בכיתה ב׳ הציונים מפוזרים על פני טווח עצום.</p>

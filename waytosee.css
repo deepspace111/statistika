@@ -935,10 +935,17 @@ body.stat-page .hist-pair .hist{
   margin:0 0 4px;
 }
 
+body.stat-page .section{
+  container-type:inline-size;
+}
+
 body.stat-page .numbers{
   direction:ltr;
   text-align:center;
   font-size:16px;
+  /* הגופן מתכווץ לפי רוחב העמודה (עד 12px), כדי ששורת מספרים לא תישבר במסך קטן.
+     cqi = אחוז מרוחב ה-section (מוגדר כ-container למטה). דפדפן ישן נשאר על 16px. */
+  font-size:clamp(12px, calc((100cqi - 40px) / 17.5), 16px);
   line-height:1.7;
   margin:12px 0;
   padding:10px;
