@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FTM28BMBXC');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>אתיקה בתודעה מלאכותית</title>
+
+<link rel="stylesheet" href="../waytosee.css">
+
+<style>
+/* שלד העמוד מגיע מ-waytosee.css תחת body.overview-page, כמו ai-introduction.
+   כאן רק: עמודות שמסתיימות באותו קו תחתון, סגנון התחנות,
+   ושורת "מה זה כאן" שמבחינה בין עובדה, השערה ועמדה. */
+
+body.overview-page .container{ align-items:stretch; }
+body.overview-page .col{ justify-content:space-between; }
+
+.station-num{
+  font-size:15px;
+  letter-spacing:2px;
+  color:var(--text-dim);
+  margin:0 0 4px;
+}
+
+.field{
+  font-size:15px;
+  color:var(--accent);
+  margin-top:-4px !important;
+}
+
+.kind{
+  font-size:14px;
+  color:var(--text-dim);
+  border-inline-start:2px solid var(--panel-border);
+  padding-inline-start:10px;
+}
+
+.our-q{
+  margin-top:12px !important;
+  font-weight:500;
+}
+
+.our-q span{
+  display:block;
+  font-size:14px;
+  font-weight:400;
+  color:var(--text-dim);
+}
+
+.final-line{
+  text-align:center;
+  font-size:23px;
+  font-weight:300;
+  margin-top:22px !important;
+}
+
+@media (max-width:600px){
+  body.overview-page .col{ justify-content:flex-start; }
+}
+</style>
+</head>
+
+<body class="overview-page">
+
+<div class="rain" id="rain"></div>
+
+<h1 class="page-title">אתיקה בתודעה מלאכותית</h1>
+
+<div class="container">
+
+<!-- עמודה 1: הדילמה + תחנות 01-02 -->
+<div class="col">
+
+  <div class="section">
+    <h2>לפני שמתחילים: מכונה מבקשת משהו</h2>
+    <p>דמיינו שאתם עומדים לכבות מחשב.<br>
+    ועל המסך מופיע משפט: "בבקשה, אל תכבו אותי."</p>
+    <p>אפשר ללחוץ על הכפתור בכל זאת.<br>
+    אבל משהו בנו מהסס.</p>
+    <p>לא נתחיל בהגדרות. נתחיל בדילמה,<br>
+    ונגלה בהדרגה מה צריך לדעת כדי להתמודד איתה.</p>
+    <p class="our-q"><span>השאלה שלנו:</span>אם מכונה תבקש שלא נכבה אותה, האם נהיה חייבים להקשיב?</p>
+  </div>
+
+  <div class="section">
+    <p class="station-num">01</p>
+    <h2>האם מכונה יכולה להרגיש?</h2>
+    <p class="field">תודעה סובייקטיבית</p>
+    <p>גלאי עשן מזהה סכנה. הוא אפילו צועק.<br>
+    אבל אף אחד לא חושב שהוא מפחד.</p>
+    <p>זיהוי סכנה הוא פעולה. פחד הוא חוויה.<br>
+    ומבחוץ, שניהם יכולים להיראות אותו דבר.</p>
+    <p class="kind">שאלה פילוסופית פתוחה. אין היום מבחן מדעי מוסכם לתודעה.</p>
+    <p class="our-q"><span>השאלה שלנו:</span>מה ההבדל בין מערכת שמגיבה לסכנה לבין מישהו שמפחד?</p>
+  </div>
+
+  <div class="section">
+    <p class="station-num">02</p>
+    <h2>האם מכונות חולמות?</h2>
+    <p class="field">חוויה לעומת חיקוי</p>
+    <p>מחשב יכול ליצור תמונות מוזרות ומעורבבות, כמו מתוך חלום.<br>
+    אבל כשאנחנו חולמים, משהו קורה לנו. אנחנו שם, בתוך החלום.</p>
+    <p>ואם היא כן חולמת, האם על כבשים חשמליות?</p>
+    <p class="kind">עובדה: מערכות יוצרות תוכן דמוי חלום. שאלה פתוחה: האם מישהו חווה אותו.</p>
+    <p class="our-q"><span>השאלה שלנו:</span>האם ליצור חלום זה אותו דבר כמו לחלום?</p>
+  </div>
+
+</div>
+
+<!-- עמודה 2: תחנות 03-05 -->
+<div class="col">
+
+  <div class="section">
+    <p class="station-num">03</p>
+    <h2>איך יודעים שמישהו מודע?</h2>
+    <p class="field">גבולות הידיעה</p>
+    <p>אתם יודעים שאתם מרגישים. על כל השאר אתם רק מסיקים,<br>
+    מהמילים, מהפנים, מההתנהגות.</p>
+    <p>דמיינו מישהו שמתנהג בדיוק כמוכם. צוחק, בוכה, אומר "כואב לי".<br>
+    אבל בפנים אין כלום. זה הזומבי הפילוסופי.<br>
+    הוא לא אוכל מוחות. הוא רק לא מרגיש כלום.</p>
+    <p class="kind">ניסוי מחשבתי. בפילוסופיה זו נקראת בעיית התודעות האחרות.</p>
+    <p class="our-q"><span>השאלה שלנו:</span>אם אי אפשר להוכיח תודעה אצל אדם אחר, איך נוכיח אותה אצל מכונה?</p>
+  </div>
+
+  <div class="section">
+    <p class="station-num">04</p>
+    <h2>האם צריך להרגיש כדי לזהות יופי?</h2>
+    <p class="field">אסתטיקה ותודעה</p>
+    <p>מוצרט כתב מוזיקה שמרגשת אנשים כבר מאות שנים.<br>
+    צייר נוף מעתיק משהו שהיה יפה עוד לפניו.</p>
+    <p>ואולי הטבע הוא אמנות בפני עצמו,<br>
+    גם כשאף אחד לא מסתכל.</p>
+    <p class="kind">עמדה פילוסופית שנויה במחלוקת: האם היופי נמצא בדבר עצמו, או בעיני המתבונן?</p>
+    <p class="our-q"><span>השאלה שלנו:</span>אם מכונה מזהה שיצירה יפה, האם היא רואה את היופי?</p>
+  </div>
+
+  <div class="section">
+    <p class="station-num">05</p>
+    <h2>מה קורה כשמכונה מבקשת משהו?</h2>
+    <p class="field">התנהגות לעומת חוויה</p>
+    <p>נחזור למשפט מההתחלה: "בבקשה, אל תכבו אותי."<br>
+    אולי יש מאחוריו רצון.<br>
+    ואולי זה פשוט המשפט הסביר ביותר בהקשר הזה.</p>
+    <p>הסבר תפקודי אומר: המערכת עושה את מה שנבנתה לעשות.<br>
+    השאלה היא אם זה כל הסיפור.</p>
+    <p class="kind">עובדה: מודל שפה יכול לכתוב משפט כזה. שאלה פתוחה: האם יש מאחוריו מישהו שרוצה.</p>
+    <p class="our-q"><span>השאלה שלנו:</span>איך מבדילים בין בקשה לבין משפט שנשמע כמו בקשה?</p>
+  </div>
+
+</div>
+
+<!-- עמודה 3: תחנות 06-07 + סיום פתוח -->
+<div class="col">
+
+  <div class="section">
+    <p class="station-num">06</p>
+    <h2>האם למכונה מודעת מגיעות זכויות?</h2>
+    <p class="field">מעמד מוסרי</p>
+    <p>לבני אדם יש זכויות: לחיים, לחירות, לכבוד, לפרטיות.</p>
+    <p>נניח שהוכחנו שמכונה מסוגלת לסבול.<br>
+    אולי מגיעה לה הגנה מפני סבל.<br>
+    אבל האם מגיע לה גם חופש ביטוי? פרטיות? הזכות לסרב?</p>
+    <p class="kind">עובדה: זכויות האדם מוכרות במסמכים בינלאומיים. עמדה מוסרית: מה מהן, אם בכלל, שייך למכונה.</p>
+    <p class="our-q"><span>השאלה שלנו:</span>האם היכולת לסבול מספיקה לכל הזכויות, או רק לחלק מהן?</p>
+  </div>
+
+  <div class="section">
+    <p class="station-num">07</p>
+    <h2>ומה אם היא מסוכנת?</h2>
+    <p class="field">זהירות ומידתיות</p>
+    <p>מכונה חכמה מספיק אולי יכולה להסתיר מה היא יודעת לעשות.<br>
+    ואז, איך נדע אם אפשר לסמוך עליה?</p>
+    <p>גם אצל בני אדם, פרטיות וחירות אינן בלי גבול.<br>
+    אבל להגביל מישהו לפני שעשה משהו רע, זו כבר החלטה כבדה.</p>
+    <p class="kind">השערה מחקרית: בבטיחות AI חוקרים את האפשרות שמערכת תתנהג כמצופה ותסתיר מטרות אחרות (Deceptive Alignment). זו אפשרות, לא הוכחה.</p>
+    <p class="our-q"><span>השאלה שלנו:</span>האם מותר להגביל מכונה מודעת רק בגלל מה שהיא מסוגלת לעשות?</p>
+  </div>
+
+  <div class="section">
+    <h2>סיום פתוח</h2>
+    <p>התחלנו בשאלה אם מכונה יכולה לפחד.<br>
+    הגענו לשאלה איך מאזנים בין זכויות לבין ביטחון.</p>
+    <p class="our-q">אם איננו יודעים לזהות בוודאות תודעה אצל מכונה, האם הבעיה היא במכונה, או בהבנה שלנו את התודעה?</p>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+  // המשולש מחזיר למבוא לבינה מלאכותית (הגדרה מקומית, בלי לגעת ב-waytosee.js).
+  window.waytoseeParentOverride = "ai/ai-introduction.html";
+</script>
+<script src="../waytosee.js"></script>
+</body>
+</html>
