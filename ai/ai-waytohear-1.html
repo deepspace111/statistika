@@ -389,6 +389,14 @@ body.overview-page .col{ justify-content:space-between; }
   </div>
 </section>
 
+<!-- ביטול הרעש החום בעמוד הזה בלבד: waytosee.js משתמש ב-audio בשם brownNoise אם הוא כבר קיים.
+     כאן הוא קיים בלי קובץ שמע, ולכן אין רעש. כפתור המפתח עדיין מחליף בין בהיר לכהה. -->
+<audio id="brownNoise" preload="none"></audio>
+<script>
+  // ליתר ביטחון: גם אם יופעל, הוא לא ינגן כלום.
+  document.getElementById("brownNoise").play = () => Promise.resolve();
+</script>
+
 <script>
   // המשולש מחזיר לעמוד הנושאים של בינה מלאכותית (הגדרה מקומית, בלי לגעת ב-waytosee.js).
   window.waytoseeParentOverride = "ai/ai.html";
