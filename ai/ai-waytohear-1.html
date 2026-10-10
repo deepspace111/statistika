@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FTM28BMBXC');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>תקשורת סוכנים | WayToHear</title>
+
+<link rel="stylesheet" href="../waytosee.css">
+
+<style>
+/* שלד העמוד מגיע מ-waytosee.css תחת body.overview-page.
+   כאן רק: סצנת הרחבה בפתיחה, שורות של שלוש עמודות שמסתיימות באותו קו,
+   התחנות על הרחבה, והמעבדה בתחתית. */
+
+/* ===== הפתיחה: רחבת הריקודים ===== */
+.research-label{
+  text-align:center;
+  font-size:15px;
+  letter-spacing:3px;
+  color:var(--text-dim);
+  margin:-8px 0 0;
+}
+
+.scene{
+  position:relative;
+  z-index:5;
+  max-width:760px;
+  margin:0 auto;
+  padding:18px 24px 10px;
+  text-align:center;
+}
+
+.scene p{
+  line-height:1.5;
+  margin:10px 0;
+}
+
+.scene .quiet{ color:var(--text-dim); }
+
+.floor{
+  display:block;
+  width:100%;
+  max-width:620px;
+  height:auto;
+  margin:6px auto 14px;
+  color:var(--accent);
+}
+
+.floor .wave{ fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; opacity:.25; }
+.floor .spk{ fill:none; stroke:var(--text); stroke-width:2; }
+.floor .cone{ fill:none; stroke:var(--text); stroke-width:1.5; }
+.floor .dancer{ fill:var(--text-dim); }
+
+@media (prefers-reduced-motion: no-preference){
+  .floor .wave{ animation:wavePulse 2.4s ease-in-out infinite; }
+  .floor .w2{ animation-delay:.3s; }
+  .floor .w3{ animation-delay:.6s; }
+  .floor .right .wave{ animation-delay:1.2s; }
+  .floor .right .w2{ animation-delay:1.5s; }
+  .floor .right .w3{ animation-delay:1.8s; }
+  .floor .dancer{ animation:bounce 0.9s ease-in-out infinite; transform-box:fill-box; }
+  .floor .dancer:nth-of-type(2n){ animation-delay:.45s; }
+  .floor .dancer:nth-of-type(3n){ animation-delay:.2s; }
+}
+@keyframes wavePulse{ 0%,100%{ opacity:.12; } 50%{ opacity:.6; } }
+@keyframes bounce{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-4px); } }
+
+.research-q{
+  max-width:640px;
+  margin:22px auto 8px !important;
+  padding:12px 16px;
+  border-top:1px solid var(--panel-border);
+  border-bottom:1px solid var(--panel-border);
+  font-weight:600;
+}
+.research-q span{
+  display:block;
+  font-size:14px;
+  font-weight:400;
+  letter-spacing:1px;
+  color:var(--text-dim);
+  margin-bottom:4px;
+}
+
+.scene .closing{
+  font-size:24px;
+  font-weight:700;
+  margin:20px 0 6px;
+}
+
+/* ===== שורות של שלוש עמודות ===== */
+body.overview-page .container{ align-items:stretch; }
+body.overview-page .col{ justify-content:space-between; }
+
+.row-title{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:0 auto;
+  padding:30px 24px 0;
+  text-align:center;
+  font-size:30px;
+  font-weight:800;
+  color:var(--text);
+}
+
+.station-num{
+  display:inline-block;
+  font-size:15px;
+  font-weight:700;
+  letter-spacing:2px;
+  color:var(--accent);
+  margin:0 0 4px;
+  padding-bottom:2px;
+  border-bottom:2px solid var(--accent);
+}
+
+.signs{ margin:8px 0; padding-inline-start:18px; }
+.signs li{ margin:6px 0; line-height:1.35; }
+
+.kind-label{
+  font-size:14px;
+  letter-spacing:1px;
+  color:var(--text-dim);
+  margin-bottom:0 !important;
+}
+
+.our-q{
+  margin-top:12px !important;
+  font-weight:600;
+  border-inline-start:2px solid var(--accent);
+  padding-inline-start:10px;
+}
+
+/* ===== סיום והמעבדה ===== */
+.closing-block{
+  position:relative;
+  z-index:5;
+  max-width:760px;
+  margin:0 auto;
+  padding:10px 24px 0;
+  text-align:center;
+}
+.closing-block h2{ font-size:25px; margin:16px 0 8px; font-weight:700; color:var(--text); }
+.closing-block p{ line-height:1.5; margin:8px 0; }
+
+.research-log{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:0 auto;
+  padding:30px 24px 80px;
+}
+.research-log-inner{
+  border-top:1px solid var(--panel-border);
+  border-bottom:1px solid var(--panel-border);
+  padding:18px 0 22px;
+}
+.research-log h2{ font-size:25px; margin:0 0 6px; font-weight:700; color:var(--text); }
+.research-log .log-sub{ font-size:15px; color:var(--text-dim); margin:0 0 16px; }
+.research-log .log-open{ font-size:20px; margin:0; }
+.log-entries{ margin-top:18px; }
+
+@media (max-width:600px){
+  body.overview-page .col{ justify-content:flex-start; }
+  .scene, .closing-block{ padding-left:18px; padding-right:18px; }
+  .research-log{ padding:24px 18px 60px; }
+  .row-title{ font-size:25px; }
+}
+</style>
+</head>
+
+<body class="overview-page">
+
+<div class="rain" id="rain"></div>
+
+<h1 class="page-title">תקשורת סוכנים</h1>
+<p class="research-label">WayToHear · מחקר</p>
+
+<!-- ===== הפתיחה: רחבת הריקודים ===== -->
+<section class="scene">
+
+  <svg class="floor" viewBox="0 0 620 170" role="img" aria-label="שני רמקולים, ובאמצע קהל שרוקד">
+    <!-- רמקול ימני -->
+    <g class="right">
+      <rect class="spk" x="548" y="30" width="56" height="110" rx="6"/>
+      <circle class="cone" cx="576" cy="62" r="12"/>
+      <circle class="cone" cx="576" cy="108" r="20"/>
+      <path class="wave w1" d="M530 70 Q518 85 530 100"/>
+      <path class="wave w2" d="M514 58 Q496 85 514 112"/>
+      <path class="wave w3" d="M498 46 Q474 85 498 124"/>
+    </g>
+    <!-- רמקול שמאלי -->
+    <g class="left">
+      <rect class="spk" x="16" y="30" width="56" height="110" rx="6"/>
+      <circle class="cone" cx="44" cy="62" r="12"/>
+      <circle class="cone" cx="44" cy="108" r="20"/>
+      <path class="wave w1" d="M90 70 Q102 85 90 100"/>
+      <path class="wave w2" d="M106 58 Q124 85 106 112"/>
+      <path class="wave w3" d="M122 46 Q146 85 122 124"/>
+    </g>
+    <!-- הקהל באמצע -->
+    <circle class="dancer" cx="190" cy="118" r="7"/>
+    <circle class="dancer" cx="222" cy="104" r="7"/>
+    <circle class="dancer" cx="252" cy="122" r="7"/>
+    <circle class="dancer" cx="282" cy="100" r="7"/>
+    <circle class="dancer" cx="310" cy="120" r="7"/>
+    <circle class="dancer" cx="340" cy="102" r="7"/>
+    <circle class="dancer" cx="368" cy="122" r="7"/>
+    <circle class="dancer" cx="398" cy="106" r="7"/>
+    <circle class="dancer" cx="428" cy="120" r="7"/>
+    <circle class="dancer" cx="236" cy="140" r="7"/>
+    <circle class="dancer" cx="296" cy="142" r="7"/>
+    <circle class="dancer" cx="354" cy="142" r="7"/>
+    <circle class="dancer" cx="412" cy="140" r="7"/>
+  </svg>
+
+  <p>רחבת ריקודים. חושך, אורות, קהל.</p>
+  <p>בצד אחד רמקול גדול. בצד השני רמקול גדול.</p>
+  <p>מאחורי כל רמקול לא עומד די־ג'יי. עומדת מערכת בינה מלאכותית.</p>
+  <p>הן לא מנגנות <strong>בשביל</strong> הקהל. הן מנסות לדבר <strong>זו עם זו</strong>.<br>
+  אם הניסוי יצליח, הצלילים שיישמעו ברחבה יהיו חלק משיחה שמתנהלת ביניהן.</p>
+  <p><strong>והאנשים? רוקדים באמצע השיחה, בלי להבין מילה.</strong></p>
+  <p>אולי בהתחלה יישמע רעש. ואולי דווקא סדר, שאנחנו פשוט לא מבינים.<br>
+  עם הזמן, אולי יתחילו לחזור דפוסים. יופיעו מוטיבים. ואולי בסוף יהיה שם טרק.</p>
+  <p class="quiet">את זה עדיין לא ראינו. זו התמונה שאליה אנחנו רוצים להגיע, ולא תוצאה.</p>
+
+  <p class="research-q"><span>שאלת המחקר</span>האם שתי מערכות AI יכולות לפתח שפה מוזיקלית משלהן, וליצור טרק שיש לו משמעות עבורן, טרק שאנשים יוכלו לרקוד לצליליו?</p>
+
+  <p class="closing">האם יהיה אפשר לשמוע שפה נולדת?</p>
+</section>
+
+<!-- ===== שורה 1: הרעיון ואיך בודקים ===== -->
+<div class="container">
+
+  <div class="col">
+    <div class="section">
+      <h2>מאיפה הגיע הרעיון?</h2>
+      <p>פעם, מחשבים כמו הקומודור 64 טענו תוכנות מקלטות. מי שהאזין לקלטת שמע צפצופים ורעשים מוזרים.</p>
+      <p>לאדם זה נשמע כמו רעש. בשביל המחשב, אלה היו מידע.</p>
+      <p>ומישהו כבר ניסה פעם לבנות שפה מצלילים. במאה ה־19 המציא פרנסואה סודר את סולרסול, שפה שלמה משבעת התווים: דו, רה, מי, פה, סול, לה, סי. אפילו השם שלה פירושו "שפה".</p>
+      <p class="our-q">אבל בסולרסול, אדם קבע מה כל צירוף אומר. אצלנו, השאלה היא אם המכונות יקבעו את זה בעצמן.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section">
+      <h2>איך בודקים אם צלילים הפכו לשפה?</h2>
+      <p>נניח שאתה שומע שני אנשים מדברים בשפה שאתה לא מכיר. איך תדע אם הם באמת מבינים זה את זה?</p>
+      <p>לא לפי איך שזה נשמע. לפי מה שקורה אחר כך: אחד אומר משהו, והשני עושה בדיוק את הדבר הנכון.</p>
+      <p class="our-q">טרק יפה עדיין לא מוכיח שיש שפה. ורעש לא נעים עדיין לא מוכיח שאין.</p>
+    </div>
+    <div class="section">
+      <h2>ארבעה סימנים שנחפש</h2>
+      <ul class="signs">
+        <li><strong>הבנה:</strong> האם הסוכן השני בוחר נכון יותר מניחוש אקראי?</li>
+        <li><strong>יציבות:</strong> האם אותה משמעות נשמרת גם כשהטרק משתנה סביבה?</li>
+        <li><strong>חידוש:</strong> האם הם מצליחים להעביר מסר שלא תרגלו קודם?</li>
+        <li><strong>ייחודיות:</strong> האם כל זוג סוכנים מגיע לשפה אחרת? אם כן, זו ראיה אפשרית שהשפה נוצרה ביניהם.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section">
+      <p class="kind-label">מה אנחנו יודעים</p>
+      <p>מכונות יכולות להעביר מידע בצלילים. במחקרים קודמים, סוכנים פיתחו מערכות סימנים משותפות במשחקים פשוטים.</p>
+    </div>
+    <div class="section">
+      <p class="kind-label">מה אנחנו משערים</p>
+      <p>שאולי כללי המוזיקה, כמו קצב וחזרה, יעזרו לסוכנים ולא רק יגבילו אותם. ואולי הם ימצאו דרך לארגן את הצלילים שלא חשבנו עליה בכלל.</p>
+    </div>
+    <div class="section">
+      <p class="kind-label">מה אנחנו עוד צריכים לבדוק</p>
+      <p>האם זה יקרה בכלל. האם השפה תשרוד כשמחליפים סוכן. והאם, בסוף, אנשים ירצו לרקוד לזה.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== שורה 2: מה קורה על הרחבה ===== -->
+<h2 class="row-title">מה קורה על הרחבה?</h2>
+
+<div class="container">
+
+  <div class="col">
+    <div class="section">
+      <p class="station-num">01</p>
+      <h2>הרמקולים נדלקים</h2>
+      <p>שני סוכנים, ואין ביניהם שום שפה משותפת. אחד יודע משהו שהשני לא יודע, ויכול להעביר את זה רק בצלילים.</p>
+      <p class="our-q">האם השני יבחר נכון יותר מניחוש אקראי?</p>
+    </div>
+    <div class="section">
+      <p class="station-num">04</p>
+      <h2>רעש ברחבה</h2>
+      <p>משבשים חלק מהצלילים בלי להודיע. האם הסוכנים ישימו לב?</p>
+      <p class="our-q">האם ימצאו בעצמם דרך להגיד "רגע, לא הבנתי"?</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section">
+      <p class="station-num">02</p>
+      <h2>דפוסים</h2>
+      <p>אחרי עשרות סבבים, האם יתחילו לחזור צלילים? האם יופיעו מוטיבים?</p>
+      <p class="our-q">האם הכללים של מוזיקה יעזרו להם, או רק יגבילו אותם?</p>
+    </div>
+    <div class="section">
+      <p class="station-num">במקביל</p>
+      <h2>מי בצד השני?</h2>
+      <p>בגרסה אחת, כל סוכן יודע שמולו בינה מלאכותית. בגרסה השנייה, הוא יודע רק שמישהו נמצא שם.</p>
+      <p class="our-q">האם הם יתקשרו אחרת?</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section">
+      <p class="station-num">03</p>
+      <h2>החלפת די־ג'יי</h2>
+      <p>מחליפים את אחד הסוכנים בסוכן חדש. האם הוא יבין את השפה?</p>
+      <p class="our-q">והאם הקהל בכלל ירגיש שמשהו השתנה?</p>
+    </div>
+    <div class="section">
+      <p class="station-num">05</p>
+      <h2>הטרק</h2>
+      <p>שני מבחנים נפרדים: האם הסוכנים מבינים זה את זה, והאם אנשים רוקדים. הצלחה באחד לא מבטיחה הצלחה בשני.</p>
+      <p>והסוכנים ישמעו רק זה את זה, לא את הקהל. אחרת לא נדע אם השפה נוצרה בשביל השיחה, או בשביל לרצות את הרוקדים.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== סיום ===== -->
+<section class="closing-block">
+  <h2>ומה אם שום דבר לא ייוולד?</h2>
+  <p>גם זו תשובה. נרצה להבין מה היה חסר: זמן? צורך? רעש? בן זוג אחר?</p>
+  <p>WayToHear לא יוצא להוכיח ששפה תיוולד. הוא יוצא לגלות <strong>אם</strong> היא נולדת, ובאילו תנאים.</p>
+</section>
+
+<!-- ===== המעבדה: יתפתח עם הניסוי ===== -->
+<section class="research-log">
+  <div class="research-log-inner">
+    <h2>המעבדה</h2>
+    <p class="log-sub">כאן נתעד תאריכים, השערות, ניסויים, תוצאות וגם כישלונות.</p>
+    <p class="log-open">המחקר עוד לא התחיל. השאלות כבר כאן.</p>
+    <div class="log-entries">
+      <!-- רשומות המעבדה ייכנסו כאן -->
+    </div>
+  </div>
+</section>
+
+<script>
+  // המשולש מחזיר לעמוד הנושאים של בינה מלאכותית (הגדרה מקומית, בלי לגעת ב-waytosee.js).
+  window.waytoseeParentOverride = "ai/ai.html";
+</script>
+<script src="../waytosee.js"></script>
+</body>
+</html>
