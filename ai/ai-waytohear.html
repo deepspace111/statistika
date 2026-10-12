@@ -503,6 +503,19 @@ body.overview-page .col{ justify-content:space-between; }
 </script>
 
 <script>
+  // כשעוברים מבהיר לכהה: עוצרים את הנגן של המצב הבהיר (טעינה מחדש של הסרטון עוצרת אותו).
+  (function(){
+    const lightFrame = document.querySelector(".player-light iframe");
+    let wasDark = document.body.classList.contains("learning-mode");
+    new MutationObserver(() => {
+      const isDark = document.body.classList.contains("learning-mode");
+      if (isDark && !wasDark && lightFrame) lightFrame.src = lightFrame.src;
+      wasDark = isDark;
+    }).observe(document.body, { attributes: true, attributeFilter: ["class"] });
+  })();
+</script>
+
+<script>
   // המשולש מחזיר לעמוד הנושאים של בינה מלאכותית (הגדרה מקומית, בלי לגעת ב-waytosee.js).
   window.waytoseeParentOverride = "ai/ai.html";
 </script>
