@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FTM28BMBXC');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>תחנת חשיבה: הנוסחה של ציון התקן</title>
+
+<link rel="stylesheet" href="../waytosee.css">
+
+<style>
+/* תחנת חשיבה: בהירה או כהה לפי מפתח הפה, כמו בשאר האתר. הנוסחה נשארת למעלה,
+   ובזמן הגלילה נדלק בה החלק שמוסבר כרגע. */
+
+@font-face {
+  font-family: "WTS Math";
+  src: url("math-font.woff") format("woff");
+}
+math { font-family: "WTS Math", "Latin Modern Math", "Cambria Math", "STIX Two Math", math; }
+
+body { min-height: 100svh; margin: 0; }
+:root { --bar-bg: #e6ebf1; --hl: #c2410c; }
+body.learning-mode { --bar-bg: #0b1220; --hl: var(--accent-2); }
+/* --hl = צבע ההדגשה: כתום־לבנה במצב בהיר, ירוק במצב כהה */
+
+.room {
+  position: relative;
+  z-index: 5;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 22px 90px;
+}
+
+.room-head {
+  text-align: center;
+  padding: 70px 0 10px;
+}
+.room-head .kicker {
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  opacity: 0.55;
+}
+.room-head h1 {
+  font-size: 30px;
+  font-weight: 300;
+  margin: 8px 0 0;
+}
+
+/* הנוסחה הקבועה למעלה */
+.formula-bar {
+  position: sticky;
+  top: 0;
+  z-index: 6;
+  /* הרקע של הנוסחה מתפרס לכל רוחב המסך, בלי "קופסה" באמצע */
+  margin-inline: calc(50% - 50vw);
+  padding-inline: calc(50vw - 50%);
+  /* padding-block ולא padding: קיצור padding היה מאפס את padding-inline שמעליו ומזיז את הנוסחה הצידה */
+  padding-block: 14px 12px;
+  text-align: center;
+  background: var(--bar-bg);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+.formula-bar::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: 100%;
+  height: 10px;
+  background: linear-gradient(to bottom, var(--bar-bg), transparent);
+  pointer-events: none;
+}
+.formula-bar math { font-size: 30px; }
+.formula-bar mfrac > * { math-style: normal; }
+.formula-bar, .formula-bar .part { transition: color 0.4s ease; }
+.formula-bar.has-active,
+.formula-bar.has-active .part { color: color-mix(in srgb, var(--text) 35%, transparent); }
+.formula-bar.has-active .part.on,
+.formula-bar.has-active .part.on[data-k="diff"] .part { color: var(--hl); }
+
+.lead {
+  text-align: center;
+  font-size: 17px;
+  line-height: 1.7;
+  opacity: 0.8;
+  margin: 18px 0 30px;
+}
+
+/* כרטיס לכל סימן */
+.sym {
+  display: grid;
+  grid-template-columns: 74px 1fr;
+  gap: 18px;
+  align-items: start;
+  padding: 26px 0;
+  border-top: 1px solid var(--panel-border);
+}
+/* בזמן גלילה, הסימן והכותרת של הכרטיס הפעיל נצמדים מתחת לנוסחה
+   (במקום להיבלע מתחתיה) עד שהכרטיס הבא מגיע. --bar-h נקבע ב-JS לפי גובה הנוסחה. */
+.sym.on .glyph,
+.sym.on h2 {
+  position: sticky;
+  z-index: 4;
+}
+.sym.on .glyph { top: calc(var(--bar-h, 120px) + 14px); }
+.sym.on h2 {
+  top: var(--bar-h, 120px);
+  background: var(--bar-bg);
+  padding-top: 14px;
+  margin-top: -14px;
+  padding-bottom: 10px;
+  margin-bottom: -4px;
+}
+.sym .glyph {
+  text-align: center;
+  font-size: 34px;
+  line-height: 1.2;
+  padding-top: 4px;
+  transition: color 0.4s ease;
+}
+.sym.on .glyph,
+.sym.on h2 { color: var(--hl); }
+.sym h2 { transition: color 0.4s ease; }
+.sym .step {
+  display: block;
+  font-size: 12px;
+  opacity: 0.45;
+  margin-top: 6px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.sym h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 6px;
+}
+.sym p {
+  font-size: 17px;
+  line-height: 1.65;
+  margin: 0 0 6px;
+  text-align: justify;
+}
+.sym .without { opacity: 0.7; }
+.sym .ex {
+  margin-top: 10px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: var(--code-bg);
+  font-size: 15px;
+}
+.sym .ex .num { font-family: 'JetBrains Mono', monospace; color: var(--num); white-space: nowrap; }
+p math, .ex math { font-size: 1.1em; }
+
+.end {
+  border-top: 1px solid var(--panel-border);
+  padding-top: 26px;
+  text-align: center;
+}
+.end p { font-size: 18px; line-height: 1.7; }
+
+
+@media (max-width: 600px) {
+  .room { padding: 0 16px 70px; }
+  .room-head { padding-top: 60px; }
+  .room-head h1 { font-size: 25px; }
+  .formula-bar math { font-size: 24px; }
+  .sym { grid-template-columns: 52px 1fr; gap: 12px; }
+  .sym .glyph { font-size: 28px; }
+  .sym p { font-size: 16px; }
+  .sym .ex { font-size: 13px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="rain" id="rain"></div>
+
+<main class="room">
+
+  <header class="room-head">
+    <div class="kicker">תחנת חשיבה</div>
+    <h1>הנוסחה, סימן אחרי סימן</h1>
+  </header>
+
+  <div class="formula-bar" id="formulaBar">
+    <math display="block" dir="ltr">
+      <mi class="part" data-k="z">z</mi><mo class="part" data-k="z">=</mo>
+      <mfrac class="part" data-k="div">
+        <mrow class="part" data-k="diff"><mi class="part" data-k="x">x</mi><mo>−</mo><mi class="part" data-k="mu">μ</mi></mrow>
+        <mi class="part" data-k="sigma">σ</mi>
+      </mfrac>
+    </math>
+  </div>
+
+  <p class="lead">גם כאן כל סימן הוא שלב שכבר עשינו בעמוד, רק כתוב בקיצור. נלך יחד עם הדוגמה מתחילת העמוד: קיבלת <span class="ltr num" dir="ltr">85</span>, הממוצע <span class="ltr num" dir="ltr">92</span>, וסטיית התקן <span class="ltr num" dir="ltr">4</span>.</p>
+
+  <section class="sym" data-k="x">
+    <div class="glyph"><math><mi>x</mi></math><span class="step">1</span></div>
+    <div>
+      <h2>הציון שלך</h2>
+      <p>x הוא הציון שאנחנו רוצים למקם. ציון אחד, של תלמיד אחד.</p>
+      <p class="without">בלעדיו אין את מי למקם. כל השאר בנוסחה הוא הכיתה שמסביב.</p>
+      <div class="ex">אצלנו: <math dir="ltr"><mi>x</mi><mo>=</mo><mn>85</mn></math></div>
+    </div>
+  </section>
+
+  <section class="sym" data-k="mu">
+    <div class="glyph"><math><mi>μ</mi></math><span class="step">2</span></div>
+    <div>
+      <h2>הממוצע</h2>
+      <p>μ (מיו) הוא ממוצע הכיתה. זו נקודת ההתחלה של הסרגל, המקום שבו ציון התקן הוא 0.</p>
+      <p class="without">בלעדיו אין "מעל" ו"מתחת". צריך נקודה שממנה מודדים.</p>
+      <div class="ex">אצלנו: <math dir="ltr"><mi>μ</mi><mo>=</mo><mn>92</mn></math></div>
+    </div>
+  </section>
+
+  <section class="sym" data-k="diff">
+    <div class="glyph"><math dir="ltr"><mi>x</mi><mo>−</mo><mi>μ</mi></math><span class="step">3</span></div>
+    <div>
+      <h2>המרחק מהממוצע</h2>
+      <p>מחסרים את הממוצע מהציון. התוצאה אומרת כמה נקודות אתה רחוק מהמרכז, והסימן אומר לאיזה כיוון: פלוס מעל, מינוס מתחת.</p>
+      <p class="without">בלי החיסור יודעים רק את הציון, לא איפה הוא ביחס לכיתה.</p>
+      <div class="ex">אצלנו: <math dir="ltr"><mn>85</mn><mo>−</mo><mn>92</mn><mo>=</mo><mn>−7</mn></math> נקודות</div>
+    </div>
+  </section>
+
+  <section class="sym" data-k="sigma">
+    <div class="glyph"><math><mi>σ</mi></math><span class="step">4</span></div>
+    <div>
+      <h2>אורך הצעד</h2>
+      <p>σ (סיגמה) היא סטיית התקן של הכיתה. בנוסחה הזו היא היחידה של הסרגל: צעד אחד שווה סטיית תקן אחת.</p>
+      <p class="without">בלעדיה, 7 נקודות היו נראות אותו דבר בכיתה צפופה ובכיתה מפוזרת. וכבר ראינו שזה לא אותו דבר.</p>
+      <div class="ex">אצלנו: <math dir="ltr"><mi>σ</mi><mo>=</mo><mn>4</mn></math> נקודות</div>
+    </div>
+  </section>
+
+  <section class="sym" data-k="div">
+    <div class="glyph"><math dir="ltr"><mfrac><mo>…</mo><mi>σ</mi></mfrac></math><span class="step">5</span></div>
+    <div>
+      <h2>קו השבר</h2>
+      <p>קו השבר אומר לחלק. השאלה שהוא שואל: כמה צעדים באורך σ נכנסים במרחק שמצאנו?</p>
+      <p>ויש כאן פרט קטן ויפה: מחלקים נקודות בנקודות, והיחידות מתבטלות. <strong>לציון תקן אין יחידות.</strong> בגלל זה אפשר להשוות בעזרתו מתמטיקה להיסטוריה, וגם ציון לגובה.</p>
+      <div class="ex">אצלנו: <math dir="ltr"><mn>−7</mn><mo>÷</mo><mn>4</mn><mo>=</mo><mn>−1.75</mn></math></div>
+    </div>
+  </section>
+
+  <section class="sym" data-k="z">
+    <div class="glyph"><math><mi>z</mi></math><span class="step">6</span></div>
+    <div>
+      <h2>ציון התקן</h2>
+      <p>z הוא השם של התוצאה. הוא עונה על השאלה מההתחלה: כמה סטיות תקן אתה רחוק מהממוצע, ולאיזה כיוון.</p>
+      <p class="without">0 פירושו בדיוק בממוצע. גם 0 הוא מידע.</p>
+      <div class="ex">אצלנו: <math dir="ltr"><mi>z</mi><mo>=</mo><mn>−1.75</mn></math>, כמעט שתי סטיות תקן מתחת לממוצע</div>
+    </div>
+  </section>
+
+  <section class="sym" data-k="zero">
+    <div class="glyph"><math dir="ltr"><mi>σ</mi><mo>=</mo><mn>0</mn></math><span class="step">?</span></div>
+    <div>
+      <h2>ומה אם סטיית התקן היא 0?</h2>
+      <p>סטיית תקן 0 פירושה שכולם קיבלו בדיוק אותו ציון. אין פיזור בכלל.</p>
+      <p>אז הצעד בסרגל באורך 0, ואי אפשר לחלק ב־0. הנוסחה פשוט לא עובדת.</p>
+      <p class="without">וזה הגיוני: כשכולם במקום אחד, אין "רחוק" ו"קרוב". אין סרגל, ולכן אין ציון תקן.</p>
+      <div class="ex">כולם קיבלו <span class="num">80</span>: <math dir="ltr"><mfrac><mrow><mn>80</mn><mo>−</mo><mn>80</mn></mrow><mn>0</mn></mfrac><mo>=</mo><mo>?</mo></math></div>
+    </div>
+  </section>
+
+  <div class="end">
+    <p>הסימנים היו חדשים. הרעיונות לא.<br>מרחק מהממוצע, נמדד בצעדים של סטיית תקן.</p>
+  </div>
+
+  <div id="endSpacer" aria-hidden="true"></div>
+
+</main>
+
+<script>
+  // החלק שמוסבר כרגע נדלק בנוסחה שלמעלה
+  const bar = document.getElementById("formulaBar");
+  const parts = bar.querySelectorAll(".part");
+  const cards = document.querySelectorAll(".sym");
+  function light(key) {
+    bar.classList.toggle("has-active", !!key);
+    parts.forEach(p => p.classList.toggle("on", p.dataset.k === key));
+    cards.forEach(c => c.classList.toggle("on", c.dataset.k === key));
+  }
+  // "קו קריאה" קבוע, ממש מתחת לנוסחה שלמעלה: כרטיס נדלק כשהראש שלו
+  // מגיע לקו הזה, כלומר כשהוא עולה לחלק העליון של המסך.
+  // בסוף העמוד יש מרווח בדיוק בגודל הנדרש, כדי שגם הכרטיס האחרון יוכל לעלות עד הקו.
+  const spacer = document.getElementById("endSpacer");
+  const LINE_GAP = 40;
+  // במסך רחב האתר מוגדל (zoom), ומדידות המסך מגיעות כבר מוגדלות
+  function zoomFactor() {
+    return parseFloat(getComputedStyle(document.documentElement).zoom) || 1;
+  }
+  function setBarHeight() {
+    document.documentElement.style.setProperty("--bar-h", bar.offsetHeight + "px");
+  }
+  function fitSpacer() {
+    setBarHeight();
+    spacer.style.height = "0px";
+    const z = zoomFactor();
+    const last = cards[cards.length - 1];
+    const line = bar.getBoundingClientRect().height + LINE_GAP * z;
+    const below = document.documentElement.scrollHeight - (last.getBoundingClientRect().top + window.scrollY);
+    spacer.style.height = Math.max(0, (window.innerHeight - line - below + 2) / z) + "px";
+  }
+  function update() {
+    const line = bar.getBoundingClientRect().bottom + LINE_GAP * zoomFactor();
+    let active = null;
+    cards.forEach(c => { if (c.getBoundingClientRect().top <= line) active = c; });
+    light(window.scrollY < 40 || !active ? null : active.dataset.k);
+  }
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", () => { fitSpacer(); update(); });
+  window.addEventListener("load", () => { fitSpacer(); update(); });
+  fitSpacer();
+  update();
+</script>
+
+<script>
+  // המשולש מחזיר לעמוד ציוני התקן.
+  window.waytoseeParentOverride = "statistika/statistika-zscores.html";
+</script>
+<script src="../waytosee.js"></script>
+
+</body>
+</html>

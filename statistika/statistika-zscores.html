@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FTM28BMBXC');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ציוני תקן: סרגל אחד לכל הציונים</title>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik+Bubbles&family=Rubik+Doodle+Shadow&display=swap">
+<link rel="stylesheet" href="../waytosee.css">
+
+<style>
+/* שלד העמוד עבר ל-waytosee.css תחת body.stat-page. נשאר כאן רק הייחודי לעמוד הזה. */
+
+/* נוסחאות בכתיבה מתמטית (MathML), כמו בעמוד מדדי הפיזור */
+@font-face {
+  font-family: "WTS Math";
+  src: url("math-font.woff") format("woff");
+}
+math { font-family: "WTS Math", "Latin Modern Math", "Cambria Math", "STIX Two Math", math; }
+.formula-math { margin: 14px 0; font-size: 22px; text-align: center; }
+.formula-math mfrac > * { math-style: normal; }
+p math { font-size: 1.1em; }
+
+/* "לא להיבהל מהנוסחה": קישור לתחנת החשיבה, כמו בעמוד מדדי הפיזור */
+body.stat-page .container p.calm-link { text-align: center; margin: 8px 0 22px; }
+.calm-link a {
+  display: inline-block;
+  font-family: 'Rubik Doodle Shadow', 'Heebo', sans-serif;
+  font-size: 24px;
+  font-size: min(24px, 7cqi);
+  line-height: 1.35;
+  white-space: nowrap;
+  color: var(--text);
+  text-decoration: none;
+  transition: transform 0.25s ease;
+}
+body.learning-mode .calm-link a { font-family: 'Rubik Bubbles', 'Heebo', sans-serif; }
+.calm-link a:hover { transform: scale(1.06) rotate(-2deg); }
+.calm-link .calm-main { display: block; }
+.calm-link .calm-sub,
+body.learning-mode .calm-link .calm-sub {
+  display: block;
+  font-family: 'Heebo', system-ui, sans-serif;
+  font-size: 16px;
+  opacity: 0.75;
+  margin-top: 2px;
+}
+
+.center-table td, .center-table th { text-align: center; }
+.center-table td:first-child, .center-table th:first-child { text-align: right; }
+
+/* ===== שני סרגלים, אותן נקודות ===== */
+.rulers .dot { fill: currentColor; opacity: 0.75; }
+.rulers .dot:hover { opacity: 1; }
+.rulers .tick { stroke: currentColor; stroke-width: 1; opacity: 0.45; }
+.rulers .mean { stroke: currentColor; stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.45; }
+.rulers .top { font-size: 12px; opacity: 0.75; }
+.rulers .bot { font-size: 12px; font-weight: bold; }
+.rulers .cap { font-size: 12px; opacity: 0.6; direction: rtl; unicode-bidi: plaintext; }
+
+/* ===== ארגז חול ===== */
+.sandbox { margin-top: 6px; }
+.sb-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 0 22px; margin: 8px 0 0; }
+.sb-class h3 { font-size: 17px; margin: 0; font-weight: 700; }
+.sb-class label { display: block; font-size: 15px; margin-top: 2px; }
+.sb-class output { font-family: 'JetBrains Mono', monospace; color: var(--num); }
+.sb-class input[type=range] { width: 100%; margin: 0; accent-color: var(--accent); }
+.sb-row {
+  display: grid;
+  grid-template-columns: 92px 1fr 46px;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  margin: 2px 0;
+}
+.sb-row output { text-align: left; font-family: 'JetBrains Mono', monospace; color: var(--num); }
+.sb-row input[type=range] { width: 100%; accent-color: var(--accent); }
+/* הסליידרים משמאל לימין, כמו הצירים בציור: ערך קטן משמאל */
+.sandbox input[type=range] { direction: ltr; }
+.sb-z {
+  font-size: 15px;
+  margin: 2px 0 6px;
+  opacity: 0.9;
+}
+.sb-z .num { color: var(--num); }
+.sb-svg .axis { stroke: currentColor; stroke-width: 1; opacity: 0.35; }
+.sb-svg .band { fill: currentColor; opacity: 0.12; }
+.sb-svg .meanln { stroke: currentColor; stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.55; }
+.sb-svg .you { fill: var(--accent); }
+.sb-svg .zmark { fill: var(--accent); }
+.sb-svg text { fill: currentColor; font-size: 11px; text-anchor: middle; font-family: Arial, sans-serif; }
+body.stat-page .sb-svg text.rowlbl { font-size: 12px; text-anchor: start; direction: rtl; unicode-bidi: plaintext; opacity: 0.8; }
+.sb-svg .zl { font-size: 12px; font-weight: bold; }
+.sb-note { font-size: 15px; opacity: 0.8; min-height: 1.4em; }
+</style>
+</head>
+
+<body class="stat-page">
+
+<div class="rain" id="rain"></div>
+
+<h1 class="page-title">סרגל אחד לכל הציונים</h1>
+<p class="page-subtitle">ציוני תקן</p>
+
+<div class="container">
+
+<div class="col">
+
+  <div class="section">
+    <h2>שאלה אחת לפני שמתחילים</h2>
+    <p>קיבלת 85 במבחן. מצוין, לא?</p>
+    <p>רגע... ומה אם ממוצע הכיתה הוא 92, וסטיית התקן 4?</p>
+    <p>בדף הקודם למדנו לשאול: <strong>כמה סטיות תקן אני רחוק מהממוצע?</strong></p>
+    <div class="formula-math"><math display="block" dir="ltr"><mi>z</mi><mo>=</mo><mfrac><mrow><mi>x</mi><mo>−</mo><mi>μ</mi></mrow><mi>σ</mi></mfrac></math></div>
+    <p>כאן x הוא הציון, μ הוא הממוצע, ו־σ היא סטיית התקן.</p>
+    <p class="calm-link"><a href="statistika-thinking-z.html"><span class="calm-main">לא להיבהל מהנוסחה 😉</span><span class="calm-sub">אנחנו נפרק לה ת׳צורה</span></a></p>
+    <div class="calc">(85 − 92) ÷ 4 = <strong>−1.75</strong></div>
+    <p>המינוס אומר מתחת לממוצע. המספר אומר כמה רחוק: קצת פחות משתי סטיות תקן.</p>
+    <p>ואם היית מקבל בדיוק 92? ציון התקן היה 0. <strong>גם 0 הוא מידע. זה לא כלום.</strong> הוא אומר: בדיוק בממוצע.</p>
+  </div>
+
+  <div class="section">
+    <h2>הדרך חזרה</h2>
+    <p>בכיתה אחרת הממוצע 70 וסטיית התקן 12. המורה מודיעה: "מי שמגיע לסטיית תקן אחת מעל הממוצע, מקבל פרס."</p>
+    <p><strong>כמה צריך לקבל?</strong></p>
+    <p>הפעם יש לנו את ציון התקן, וחסר לנו הציון. הולכים הפוך: מתחילים מהממוצע, ומוסיפים צעדים. כל צעד באורך סטיית תקן אחת.</p>
+    <div class="formula-math"><math display="block" dir="ltr"><mi>x</mi><mo>=</mo><mi>μ</mi><mo>+</mo><mi>z</mi><mo>·</mo><mi>σ</mi></math></div>
+    <div class="calc">70 + 1 × 12 = <strong>82</strong></div>
+    <p>בדיקה בכיוון הרגיל: <span class="ltr num">(82 − 70) ÷ 12 = 1</span>. בדיוק סטיית תקן אחת.</p>
+    <p>וחצי סטיית תקן <strong>מתחת</strong> לממוצע? צעד שלילי:</p>
+    <div class="calc">70 + (−0.5) × 12 = <strong>64</strong></div>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>מה קורה לכל הכיתה?</h2>
+    <p>אלה הציונים בכיתה שבה הממוצע 70 וסטיית התקן 12:</p>
+    <div class="numbers">58, 61, 64, 67, 70, 73, 97</div>
+    <p>נמיר את כולם לציוני תקן:</p>
+    <div class="numbers">−1, −0.75, −0.5, −0.25, 0, 0.25, 2.25</div>
+    <p>ועכשיו נשים את שתי השורות על אותו ציור:</p>
+    <svg class="hist rulers" viewBox="0 0 320 150" role="img" aria-label="שבעה ציונים על ציר אחד. מעל הציר: הסרגל הישן בנקודות, 58, 70, 82, 94. מתחת לציר: הסרגל החדש בסטיות תקן, מינוס 1, 0, 1, 2. הנקודות לא זזו.">
+<text class="cap" x="160" y="18">הסרגל הישן: נקודות</text>
+<text class="top" x="55" y="52">58</text>
+<text class="top" x="125" y="52">70</text>
+<text class="top" x="195" y="52">82</text>
+<text class="top" x="265" y="52">94</text>
+<line class="mean" x1="125" y1="58" x2="125" y2="92"/>
+<line class="axis" x1="20" y1="75" x2="300" y2="75"/>
+<line class="tick" x1="55" y1="66" x2="55" y2="84"/>
+<line class="tick" x1="195" y1="66" x2="195" y2="84"/>
+<line class="tick" x1="265" y1="66" x2="265" y2="84"/>
+<circle class="dot" cx="55" cy="75" r="5"><title>58 = ציון תקן ‎−1</title></circle>
+<circle class="dot" cx="72.5" cy="75" r="5"><title>61 = ציון תקן ‎−0.75</title></circle>
+<circle class="dot" cx="90" cy="75" r="5"><title>64 = ציון תקן ‎−0.5</title></circle>
+<circle class="dot" cx="107.5" cy="75" r="5"><title>67 = ציון תקן ‎−0.25</title></circle>
+<circle class="dot" cx="125" cy="75" r="5"><title>70 = ציון תקן 0</title></circle>
+<circle class="dot" cx="142.5" cy="75" r="5"><title>73 = ציון תקן 0.25</title></circle>
+<circle class="dot" cx="282.5" cy="75" r="5"><title>97 = ציון תקן 2.25</title></circle>
+<text class="bot" x="55" y="106">−1</text>
+<text class="bot" x="125" y="106">0</text>
+<text class="bot" x="195" y="106">1</text>
+<text class="bot" x="265" y="106">2</text>
+<text class="cap" x="160" y="138">הסרגל החדש: סטיות תקן</text>
+</svg>
+    <p><strong>אף נקודה לא זזה.</strong> השישה עדיין צפופים משמאל, וה־97 עדיין לבד בקצה.</p>
+    <p>התקנון החליף את <strong>הסרגל</strong>, לא את <strong>הצורה</strong>. המרכז קיבל את המספר 0, וכל סטיית תקן הפכה לצעד אחד.</p>
+  </div>
+
+  <div class="section">
+    <h2>למה דווקא 0 ו־1?</h2>
+    <p>מה קורה לממוצע ולסטיית התקן כשמשנים את כל הציונים באותה דרך?</p>
+    <table class="data-table center-table">
+      <tr><th>מה עשינו לכל הציונים</th><th>ממוצע</th><th>סטיית תקן</th></tr>
+      <tr><td>הוספנו 5 לכולם</td><td>זז ב־5</td><td>לא משתנה</td></tr>
+      <tr><td>כפלנו את כולם ב־2</td><td>מוכפל ב־2</td><td>מוכפלת ב־2</td></tr>
+    </table>
+    <p>הוספה מזיזה את כל הכיתה יחד, והמרחקים בין התלמידים נשארים. כפל מותח את כל המרחקים באותו יחס.</p>
+    <p>ציון תקן עושה בדיוק את שני הצעדים: <strong>מחסר את הממוצע</strong>, אז המרכז זז ל־0. <strong>מחלק בסטיית התקן</strong>, אז הפיזור מתכווץ ל־1.</p>
+    <p>שינוי כזה, שרק מוסיף וכופל, נקרא <strong>טרנספורמציה ליניארית</strong>. הוא משנה את המספרים על הסרגל, אבל לא את הסדר ולא את הצורה.</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>ציון תקן <span class="ltr">−0.5</span>? נשמע לא נעים</h2>
+    <p>קשה לספר להורים שקיבלת מינוס חצי. לכן בונים מציון התקן סולם חדש, עם ממוצע וסטיית תקן נוחים:</p>
+    <table class="data-table center-table">
+      <tr><th>סולם</th><th>ממוצע</th><th>סטיית תקן</th><th>ה־64 שלנו</th></tr>
+      <tr><td>ציון תקן</td><td>0</td><td>1</td><td><span class="ltr">−0.5</span></td></tr>
+      <tr><td>ציון T</td><td>50</td><td>10</td><td>45</td></tr>
+      <tr><td>סולם IQ</td><td>100</td><td>15</td><td>92.5</td></tr>
+    </table>
+    <p>זו שוב הדרך חזרה, רק עם ממוצע וסטיית תקן חדשים: <span class="ltr num">50 + (−0.5) × 10 = 45</span>. אותו מקום בדיוק בכיתה, במספרים נעימים יותר.</p>
+  </div>
+
+  <div class="section">
+    <h2>ארגז חול: אותו ציון, שתי כיתות</h2>
+    <p>שנו ממוצע וסטיית תקן, וראו איפה נוחת אותו ציון.</p>
+    <div class="sandbox" id="sandbox">
+      <div class="sb-row"><label for="sbX">הציון שלך</label><input type="range" id="sbX" min="40" max="100" step="1" value="85"><output id="sbXo">85</output></div>
+      <div class="sb-pair">
+        <div class="sb-class">
+          <h3>כיתה א׳</h3>
+          <label for="sbMa">ממוצע <output id="sbMao">80</output></label>
+          <input type="range" id="sbMa" min="40" max="100" step="1" value="80">
+          <label for="sbSa">סטיית תקן <output id="sbSao">4</output></label>
+          <input type="range" id="sbSa" min="0" max="25" step="0.5" value="4">
+        </div>
+        <div class="sb-class">
+          <h3>כיתה ב׳</h3>
+          <label for="sbMb">ממוצע <output id="sbMbo">80</output></label>
+          <input type="range" id="sbMb" min="40" max="100" step="1" value="80">
+          <label for="sbSb">סטיית תקן <output id="sbSbo">15</output></label>
+          <input type="range" id="sbSb" min="0" max="25" step="0.5" value="15">
+        </div>
+      </div>
+      <svg class="hist sb-svg" id="sbSvg" viewBox="0 0 320 180" role="img" aria-label="הציון שלך בשתי הכיתות, ועל סרגל ציוני התקן המשותף"></svg>
+      <p class="sb-z" id="sbZ"></p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>לסיכום</h2>
+    <p>ציון תקן הוא סרגל שהיחידה שלו היא סטיית תקן אחת, ואפשר ללכת בו בשני הכיוונים. כשממירים כיתה שלמה, הממוצע הופך ל־0 וסטיית התקן ל־1, והצורה נשארת כמו שהייתה.</p>
+    <p class="next-line">בדף הבא: ציון תקן 2 הוא הישג נדיר? ציון התקן אומר כמה רחוק, אבל לא כמה אנשים נמצאים שם ← צורת ההתפלגות</p>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+// ===== ארגז חול: אותו ציון בשתי כיתות =====
+(function sandbox() {
+  const $ = id => document.getElementById(id);
+  const ids = ["sbX", "sbMa", "sbSa", "sbMb", "sbSb"];
+  const svg = $("sbSvg");
+  const NS = "http://www.w3.org/2000/svg";
+
+  // ציר הציונים (40..110) וציר ציוני התקן (‎-4..4)
+  const L = 20, R = 250;
+  const xRaw = v => L + (Math.max(30, Math.min(120, v)) - 40) * (R - L) / 70;
+  const Z_MAX = 4;
+  const xZ = z => L + (Math.max(-Z_MAX, Math.min(Z_MAX, z)) + Z_MAX) * (R - L) / (2 * Z_MAX);
+
+  const fmt = n => {
+    const r = Math.round(n * 100) / 100;
+    return (r < 0 ? "−" : "") + Math.abs(r);
+  };
+
+  function el(name, attrs, text) {
+    const e = document.createElementNS(NS, name);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    svg.appendChild(e);
+    return e;
+  }
+
+  function classRow(y, label, x, m, s) {
+    el("text", { class: "rowlbl", x: 316, y: y + 4 }, label);
+    if (s > 0) {
+      el("rect", { class: "band", x: xRaw(m - s), y: y - 12, width: xRaw(m + s) - xRaw(m - s), height: 24 });
+    }
+    el("line", { class: "axis", x1: L, y1: y, x2: R, y2: y });
+    el("line", { class: "meanln", x1: xRaw(m), y1: y - 16, x2: xRaw(m), y2: y + 16 });
+    el("circle", { class: "you", cx: xRaw(x), cy: y, r: 5 });
+  }
+
+  function draw() {
+    const v = {};
+    ids.forEach(id => { v[id] = parseFloat($(id).value); $(id + "o").textContent = $(id).value; });
+    const x = v.sbX;
+    const za = v.sbSa > 0 ? (x - v.sbMa) / v.sbSa : null;
+    const zb = v.sbSb > 0 ? (x - v.sbMb) / v.sbSb : null;
+
+    svg.textContent = "";
+    // ציר ציונים: תוויות
+    [40, 60, 80, 100].forEach(t => el("text", { x: xRaw(t), y: 94 }, t));
+    classRow(24, "כיתה א׳", x, v.sbMa, v.sbSa);
+    classRow(64, "כיתה ב׳", x, v.sbMb, v.sbSb);
+
+    // סרגל ציוני התקן המשותף
+    el("text", { class: "rowlbl", x: 316, y: 140 }, "ציון תקן");
+    el("line", { class: "axis", x1: L, y1: 136, x2: R, y2: 136 });
+    for (let z = -Z_MAX; z <= Z_MAX; z++) {
+      el("line", { class: "axis", x1: xZ(z), y1: 131, x2: xZ(z), y2: 141 });
+      el("text", { x: xZ(z), y: 158 }, z === 0 ? "0" : fmt(z));
+    }
+    if (za !== null) {
+      el("circle", { class: "zmark", cx: xZ(za), cy: 124, r: 5 });
+      el("text", { class: "zl", x: xZ(za), y: 113 }, "א׳");
+    }
+    if (zb !== null) {
+      el("circle", { class: "zmark", cx: xZ(zb), cy: 113 - (za !== null && Math.abs(xZ(za) - xZ(zb)) < 14 ? 26 : 0), r: 5 });
+      el("text", { class: "zl", x: xZ(zb), y: 113 - (za !== null && Math.abs(xZ(za) - xZ(zb)) < 14 ? 26 : 0) }, "ב׳");
+    }
+
+    const line = (name, m, s, z) =>
+      z === null ? name + ": אין ציון תקן"
+                 : name + ': <span class="num ltr">(' + x + " − " + m + ") ÷ " + s + " = " + fmt(z) + "</span>";
+    $("sbZ").innerHTML = line("כיתה א׳", v.sbMa, v.sbSa, za) + "<br>" + line("כיתה ב׳", v.sbMb, v.sbSb, zb);
+
+    let note = "";
+    if (za === null || zb === null) {
+      note = "סטיית תקן 0 פירושה שכולם קיבלו בדיוק אותו ציון. אין פיזור, אז אין סרגל, ואי אפשר לחשב ציון תקן.";
+    } else if (Math.abs(za) > Z_MAX || Math.abs(zb) > Z_MAX) {
+      note = "ציון תקן רחוק מאוד מ־0: הנקודה נעצרת בקצה הסרגל.";
+    } else if (Math.abs(za - zb) < 0.05) {
+      note = "באותו מקום בשתי הכיתות.";
+    } else {
+      note = "אותו ציון, אבל בכיתה " + (za > zb ? "א׳" : "ב׳") + " הוא בולט יותר.";
+    }
+    $("sbZ").innerHTML += "<br>" + note;
+  }
+
+  ids.forEach(id => $(id).addEventListener("input", draw));
+  draw();
+})();
+</script>
+
+<script>
+  // המשולש מחזיר לרשימת הנושאים של הסטטיסטיקה.
+  window.waytoseeParentOverride = "statistika/statistika.html";
+</script>
+<script src="../waytosee.js"></script>
+</body>
+</html>
