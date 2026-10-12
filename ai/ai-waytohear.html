@@ -90,6 +90,10 @@
   border:0;
   border-radius:12px;
 }
+/* נגן לכל מצב: בבהיר הסרטון החדש, בכהה (learning-mode) הטרק הקיים */
+.player-dark{ display:none; }
+body.learning-mode .player-light{ display:none; }
+body.learning-mode .player-dark{ display:block; }
 
 .research-q{
   max-width:760px;
@@ -256,8 +260,20 @@ body.overview-page .col{ justify-content:space-between; }
     <circle class="dancer" cx="412" cy="140" r="7"/>
   </svg>
 
-  <!-- נגן יוטיוב: מתחיל ב-00:52, חמש שניות לפני הדרופ. מופעל רק בלחיצה. -->
-  <div class="waytohear-player">
+  <!-- נגן יוטיוב למצב הבהיר. מופעל רק בלחיצה. -->
+  <div class="waytohear-player player-light">
+    <iframe
+      src="https://www.youtube.com/embed/kPk3NeBT4l4"
+      title="WayToHear: מצב בהיר"
+      loading="lazy"
+      allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <!-- נגן יוטיוב למצב הכהה: מתחיל ב-00:52, חמש שניות לפני הדרופ. מופעל רק בלחיצה. -->
+  <div class="waytohear-player player-dark">
     <iframe
       src="https://www.youtube.com/embed/d3vZwGTEk20?start=52"
       title="WayToHear: הטרק"
