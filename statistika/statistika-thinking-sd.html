@@ -65,7 +65,8 @@ body.learning-mode { --bar-bg: #0b1220; --hl: var(--accent-2); }
   /* הרקע של הנוסחה מתפרס לכל רוחב המסך, בלי "קופסה" באמצע */
   margin-inline: calc(50% - 50vw);
   padding-inline: calc(50vw - 50%);
-  padding: 14px 0 12px;
+  /* padding-block ולא padding: קיצור padding היה מאפס את padding-inline שמעליו ומזיז את הנוסחה הצידה */
+  padding-block: 14px 12px;
   text-align: center;
   background: var(--bar-bg);
   -webkit-backdrop-filter: blur(6px);
