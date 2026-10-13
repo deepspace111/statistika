@@ -6,6 +6,20 @@ if (!window.__wtsScaleReady && document.currentScript) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  // שורת זכויות יוצרים בסוף כל דף שמחובר למערכת העצבים המרכזית.
+  // יושבת בסוף התוכן (לא מקובעת למסך), כך שהיא זזה עם הגלילה ולא מכסה טקסט.
+  // שלוחה (למשל research.js) יכולה להחליף את השם דרך window.waytoseeCopyrightOwner.
+  // נוצרת לפני עטיפת הספרות, כדי שגם השנה תקבל את פונט הספרות של האתר.
+  if (!document.getElementById("wtsCopyright")) {
+    const copyright = document.createElement("footer");
+    copyright.id = "wtsCopyright";
+    copyright.className = "wts-copyright";
+    copyright.setAttribute("dir", "ltr");
+    const owner = window.waytoseeCopyrightOwner || "WayToSee";
+    copyright.textContent = "\u00A9 2026 " + owner + " \u00B7 All rights reserved";
+    document.body.appendChild(copyright);
+  }
+
   // ספרות בפונט JetBrains Mono בכל האתר - כל רצף ספרות בטקסט עוטף ב-<span class="wts-digit">
   // (בתוך גרפי SVG - ב-<tspan>). העיצוב עצמו גר ב-waytosee.css (.wts-digit).
   // לא נוגעים בתוך script / style / textarea / code / pre, ולא עוטפים פעמיים.
