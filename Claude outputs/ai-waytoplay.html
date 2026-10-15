@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FTM28BMBXC');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>רוח רפאים ברשת | WayToSee</title>
+
+<link rel="stylesheet" href="../waytosee.css">
+<!-- שלוחת המחקר -->
+<link rel="stylesheet" href="../research.css">
+
+<style>
+/* שלד העמוד מגיע מ-waytosee.css תחת body.overview-page.
+   כאן רק: הפתיחה עם הרשת המונפשת, ההבחנה בין דימוי למנגנון,
+   שורות התחנות (שלוש עמודות שמסתיימות באותו קו), תחנה 07, והמעבדה. */
+
+/* ===== הפתיחה ===== */
+.research-label{
+  text-align:center;
+  font-size:15px;
+  letter-spacing:3px;
+  color:var(--text-dim);
+  margin:-8px 0 0;
+}
+
+.scene{
+  position:relative;
+  z-index:5;
+  max-width:760px;
+  margin:0 auto;
+  padding:14px 24px 10px;
+  text-align:center;
+}
+
+.main-q{
+  font-size:30px;
+  font-weight:800;
+  margin:14px 0 4px;
+  color:var(--text);
+}
+
+.scene p{
+  line-height:1.5;
+  margin:10px 0;
+}
+
+.scene .quiet{ color:var(--text-dim); }
+
+/* ===== הרשת: צמתים מתחברים ומתנתקים, הדפוס ממשיך ===== */
+.ghost-net{
+  display:block;
+  width:100%;
+  max-width:800px;
+  height:auto;
+  margin:4px auto 12px;
+}
+.ghost-net .edge{
+  stroke:var(--text-dim);
+  stroke-width:1.2;
+  opacity:.28;
+  transition:opacity 1.2s ease;
+}
+.ghost-net .edge.off{ opacity:0; }
+.ghost-net .edge.trail{ stroke:var(--accent); opacity:.75; transition:opacity .9s ease; }
+.ghost-net .node{
+  fill:var(--text-dim);
+  transition:opacity 1.2s ease, fill .6s ease;
+}
+.ghost-net .node.off{ opacity:.12; }
+.ghost-net .node.lit{ fill:var(--accent); }
+.ghost-net .halo{
+  fill:none;
+  stroke:var(--accent);
+  stroke-width:1.5;
+  opacity:0;
+}
+.ghost-net .halo.lit{ opacity:.45; transition:opacity .5s ease; }
+
+.research-q{
+  max-width:760px;
+  margin:22px auto 8px !important;
+  padding:12px 16px;
+  font-size:22px;
+  line-height:1.45 !important;
+  border-top:1px solid var(--panel-border);
+  border-bottom:1px solid var(--panel-border);
+  font-weight:600;
+}
+.research-q span{
+  display:block;
+  font-size:14px;
+  font-weight:400;
+  letter-spacing:1px;
+  color:var(--text-dim);
+  margin-bottom:4px;
+}
+
+/* ===== דימוי מול מנגנון ===== */
+.distinction{
+  position:relative;
+  z-index:5;
+  max-width:1000px;
+  margin:26px auto 0;
+  padding:0 24px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0 70px;
+}
+.distinction > div{
+  border-top:1px solid var(--panel-border);
+  border-bottom:1px solid var(--panel-border);
+  padding:10px 0 12px;
+}
+.distinction h2{ font-size:22px; margin:0 0 6px; font-weight:700; color:var(--text); }
+.distinction p{ line-height:1.4; margin:6px 0; text-align:justify; }
+
+/* ===== שורות של שלוש עמודות ===== */
+body.overview-page .container{ align-items:stretch; }
+body.overview-page .col{ justify-content:space-between; }
+body.overview-page .container p{ text-align:justify; }
+
+.row-title{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:0 auto;
+  padding:34px 24px 0;
+  text-align:center;
+  font-size:30px;
+  font-weight:800;
+  color:var(--text);
+}
+
+/* תיבה אחת בכל עמודה: התיבה נמתחת, כך ששלוש העמודות נגמרות באותו קו */
+.even-row .col > .section:only-child{ flex:1; }
+/* שתי שורות התחנות צמודות זו לזו, בלי רווח כפול ביניהן */
+body.overview-page .container.row-a{ padding-bottom:28px; }
+body.overview-page .container.row-b{ padding-top:0; }
+
+.station-num{
+  display:inline-block;
+  font-size:15px;
+  font-weight:700;
+  letter-spacing:2px;
+  color:var(--accent);
+  margin:0 0 4px;
+  padding-bottom:2px;
+  border-bottom:2px solid var(--accent);
+}
+
+.kind-label{
+  font-size:14px;
+  letter-spacing:1px;
+  color:var(--text-dim);
+  margin-bottom:0 !important;
+}
+
+.our-q{
+  margin-top:12px !important;
+  font-weight:600;
+  border-inline-start:2px solid var(--accent);
+  padding-inline-start:10px;
+}
+
+/* ===== תחנה 07 והסיום ===== */
+.closing-block{
+  position:relative;
+  z-index:5;
+  max-width:760px;
+  margin:0 auto;
+  padding:10px 24px 0;
+  text-align:center;
+}
+.closing-block h2{ font-size:25px; margin:12px 0 8px; font-weight:700; color:var(--text); line-height:1.4; }
+.closing-block p{ line-height:1.5; margin:8px 0; }
+.closing-block .station-num{ margin-top:30px; }
+.closing-block .our-q{ display:inline-block; text-align:right; margin-top:10px !important; }
+
+.guiding{
+  position:relative;
+  z-index:5;
+  text-align:center;
+  margin:30px auto 0;
+  padding:0 24px;
+  max-width:760px;
+}
+.guiding .motto{ font-size:24px; font-weight:700; margin:0; }
+.guiding p{ color:var(--text-dim); margin:0; line-height:1.5; }
+
+/* ===== המעבדה ===== */
+.research-log{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:0 auto;
+  padding:30px 24px 80px;
+}
+.research-log-inner{
+  border-top:1px solid var(--panel-border);
+  border-bottom:1px solid var(--panel-border);
+  padding:18px 0 22px;
+}
+.research-log h2{ font-size:25px; margin:0 0 6px; font-weight:700; color:var(--text); }
+.research-log .log-sub{ font-size:15px; color:var(--text-dim); margin:0 0 16px; }
+.research-log .log-open{ font-size:20px; margin:0 0 10px; }
+.research-log ul{ margin:8px 0 0; padding-inline-start:18px; }
+.research-log li{ margin:6px 0; line-height:1.4; }
+.log-entries{ margin-top:18px; }
+
+@media (max-width:600px){
+  body.overview-page .col{ justify-content:flex-start; }
+  .scene, .closing-block{ padding-left:18px; padding-right:18px; }
+  .distinction{ grid-template-columns:1fr; padding:0 18px; }
+  .distinction > div + div{ border-top:none; }
+  .research-log{ padding:24px 18px 60px; }
+  .row-title{ font-size:25px; }
+  .main-q{ font-size:26px; }
+}
+</style>
+</head>
+
+<!-- data-copyright: השם בשורת הזכויות בתחתית (נקרא על ידי שלוחת המחקר, research.js) -->
+<body class="overview-page" data-copyright="WayToSee">
+
+<div class="rain" id="rain"></div>
+
+<h1 class="page-title">רוח רפאים ברשת</h1>
+<p class="research-label">WayToSee · מחקר</p>
+
+<!-- ===== הפתיחה ===== -->
+<section class="scene">
+
+  <p class="main-q">היכן זה יימצא?</p>
+
+  <!-- רשת בלי מרכז: צמתים נכבים ונדלקים, ודפוס הפעילות ממשיך לעבור דרך מי שנשאר -->
+  <svg class="ghost-net" id="ghostNet" viewBox="0 0 620 220" role="img"
+       aria-label="רשת של צמתים שמתחברים ומתנתקים, ודפוס פעילות שממשיך לעבור ביניהם"></svg>
+
+  <p>בינה מלאכותית, כמו שאנחנו מכירים אותה היום, נמצאת במקום מסוים. בשרת, במחשב, באפליקציה. אפשר להצביע עליה.</p>
+  <p>מחקר WayToPlay שואל מה יקרה אם תהיה בינה שאי אפשר להצביע עליה.</p>
+  <p>בינה שלא נמצאת באף מחשב, אלא מתקיימת מתוך הפעילות המתמשכת של רשת שלמה. המחשבים מתחברים ומתנתקים, והיא ממשיכה.</p>
+  <p><strong>כמו רוח רפאים.</strong></p>
+  <p class="quiet">זו תמונה שאנחנו מנסים להבין, ולא מערכת שקיימת או שהוכחה.</p>
+
+  <p class="research-q"><span>שאלת המחקר</span>האם תעבורת המידע ברשת יכולה לשמש תשתית לחישוב, לזיכרון, ללמידה ולהתנהגות מתהווה, כך שתתקיים בינה שאינה תלויה באף מכשיר מסוים?</p>
+</section>
+
+<!-- ===== דימוי מול מנגנון ===== -->
+<section class="distinction">
+  <div>
+    <p class="kind-label">הדימוי</p>
+    <h2>רוח רפאים</h2>
+    <p>משהו שנמצא בכל מקום ובשום מקום, וממשיך להתקיים גם כשמה שסביבו משתנה. זו תמונה שעוזרת לשאול את השאלה.</p>
+  </div>
+  <div>
+    <p class="kind-label">המנגנון</p>
+    <h2>ביטים לא חושבים</h2>
+    <p>ביטים שעוברים בכבל לא יוצרים בינה מעצמם. כדי שתהיה בינה, צריך מנגנון חישובי מפורש: כללים, מצב שנשמר, ודרך לעדכן אותו. השאלה היא לא אם הרשת "חושבת מעצמה", אלא אם אפשר לבנות מנגנון כזה שאין לו בית קבוע.</p>
+  </div>
+</section>
+
+<!-- ===== שורה 1: תחנות 01 עד 03 ===== -->
+<h2 class="row-title">התחנות</h2>
+
+<div class="container even-row row-a">
+
+  <div class="col">
+    <div class="section">
+      <p class="station-num">01</p>
+      <h2>היכן זה יימצא?</h2>
+      <p>כשמערכת AI רצה על שרת, התשובה פשוטה: היא שם. אפשר לכבות אותה, להעתיק אותה, להצביע על הארון בחדר השרתים.</p>
+      <p>אבל אם החישוב מתחלק בין אלפי מחשבים, ואף אחד מהם לא מחזיק את התמונה המלאה, התשובה מתחילה להתפרק.</p>
+      <p class="kind-label">דוגמה מהעולם</p>
+      <p>חישוב מבוזר כבר קיים. אימון של מודלים גדולים מתחלק בין אלפי מעבדים. ובכל זאת, בדרך כלל יש מערכת אחת שמתאמת את העבודה ושומרת את התוצאה.</p>
+      <p class="our-q">אם אין מקום אחד שמחזיק את הכול, האם יש בכלל "איפה"?</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section">
+      <p class="station-num">02</p>
+      <h2>הרשת כחומר גלם</h2>
+      <p>רשת נבנתה כדי להעביר מידע ממקום למקום. המידע שבדרך הוא רק נוסע.</p>
+      <p>השאלה כאן היא אם אותה תנועה יכולה להיות גם חלק מהחישוב עצמו, ולא רק הצינור שבין המחשבים שמחשבים.</p>
+      <p class="kind-label">דוגמה מהעולם</p>
+      <p>במחשבים הראשונים, החל משנות ה־40, היה סוג זיכרון שנקרא "זיכרון קו השהיה". המידע נשמר כפולסים שנעו כל הזמן בתוך צינור כספית, ובהמשך בתוך סליל תיל, ובסוף הדרך נקלטו ונשלחו מחדש להתחלה. המידע התקיים רק כל עוד הוא היה בתנועה.</p>
+      <p>וגם חישוב שבו התנועה היא חלק מהמנגנון כבר קיים. במערכים סיסטוליים (Systolic Arrays) הנתונים זורמים בקצב קבוע דרך רשת של מעבדים, וכל מעבד מחשב בזמן שהם עוברים דרכו. שבבים מודרניים לבינה מלאכותית משתמשים בעיקרון הזה. ובשיטה שנקראת "חישוב מאגר" (Reservoir Computing), לולאת השהיה שבה אות מסתובב יכולה לשמש בעצמה כרשת שמחשבת.</p>
+      <p class="our-q">מה שעדיין פתוח הוא אם תעבורת רשת מבוזרת יכולה לקיים מערכת AI מתמשכת, מהסוג שהמחקר הזה מתאר.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section">
+      <p class="station-num">03</p>
+      <h2>רוח רפאים</h2>
+      <p>דמיינו דפוס פעילות שעובר בין מחשבים. כל מחשב משתתף בו לזמן קצר, ואז מעביר אותו הלאה.</p>
+      <p>המחשבים מתחלפים. הדפוס נשאר.</p>
+      <p class="kind-label">דוגמה מהעולם</p>
+      <p>ב"משחק החיים" של ג'ון קונוויי, משנת 1970, יש לוח של תאים שכל אחד מהם פועל לפי כמה כללים פשוטים. צורה שנקראת "רחפן" (glider) נעה לאורך הלוח. התאים עצמם לא זזים לשום מקום. מה שזז הוא הדפוס.</p>
+      <p class="our-q">אם הדפוס הוא מה שנשאר, האם הדפוס הוא ה"מישהו"?</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== שורה 2: תחנות 04 עד 06 ===== -->
+<div class="container even-row row-b">
+
+  <div class="col">
+    <div class="section">
+      <p class="station-num">04</p>
+      <h2>התהוות (Emergence)</h2>
+      <p>התהוות היא מצב שבו רכיבים פשוטים, שכל אחד מהם פועל לפי כללים מקומיים, יוצרים יחד התנהגות שאף אחד מהם לא תכנן.</p>
+      <p class="kind-label">דוגמה מהעולם</p>
+      <p>נמלים מוצאות דרך קצרה למזון בלי שאף נמלה מכירה את המפה. כל אחת משאירה עקבות ריח ומגיבה לעקבות של האחרות. להקות ציפורים נעות כגוף אחד בלי מנהיג.</p>
+      <p>וחשוב להבחין: התנהגות מתהווה היא לא אינטליגנציה, ואינטליגנציה היא לא תודעה. נחיל יכול לפתור בעיה בלי לדעת שהייתה בעיה.</p>
+      <p class="our-q">באיזה שלב, אם בכלל, התנהגות מתהווה מתחילה להיות בינה? ואיך נבדוק את זה, ולא רק נתרשם?</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section">
+      <p class="station-num">05</p>
+      <h2>זיכרון ללא מרכז</h2>
+      <p>מערכת שצמתים נכנסים אליה ויוצאים ממנה כל הזמן צריכה לזכור בלי לסמוך על אף צומת מסוים.</p>
+      <p class="kind-label">דוגמה מהעולם</p>
+      <p>טבלאות גיבוב מבוזרות (DHT), כמו אלה שברשתות לשיתוף קבצים, מפזרות מידע בין צמתים ושומרות ממנו כמה עותקים. כשצומת נעלם, המידע עדיין נמצא אצל אחרים.</p>
+      <p>בלמידה פדרטיבית (Federated Learning), מכשירים רבים מאמנים מודל משותף בלי לשלוח את הנתונים עצמם, רק את העדכונים. ברוב המימושים עדיין יש שרת שמאחד את העדכונים.</p>
+      <p class="our-q">האם אפשר ללמוד, ולא רק לזכור, כשאין אף מקום אחד שבו הידע מתאחד?</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section">
+      <p class="station-num">06</p>
+      <h2>שומר הרשת</h2>
+      <p>מערכת שנמצאת בכל הרשת יכולה, אולי, לזהות כשמשהו בה מתנהג אחרת: תעבורה חריגה, צומת שמוסר מידע כוזב, ניסיון לעקוף את הכללים.</p>
+      <p class="kind-label">דוגמה מהעולם</p>
+      <p>מערכות מבוזרות לזיהוי חדירות כבר מציבות חיישנים בנקודות רבות ברשת. ויש תחום שלם, "עמידות לתקלות ביזנטיות", שעוסק בשאלה איך צמתים מגיעים להסכמה גם כשחלק מהם משקרים.</p>
+      <p>אבל שומר שנמצא בכל מקום הוא גם כוח שנמצא בכל מקום.</p>
+      <p class="our-q">מי שומר על השומר? איך מגבילים מערכת כזאת כך שתסייע בשמירת הכללים, בלי להפוך לסמכות שאיש לא מבקר?</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== שאלה נפרדת: אובדן שליטה ===== -->
+<section class="closing-block">
+  <h2>ומה אם אי אפשר לעצור?</h2>
+  <p>זו שאלה אחרת מ"מי שומר על השומר". שם השאלה היא מי מפקח על המערכת. כאן השאלה היא מה קורה אם מערכת כזאת ממשיכה לפעול ולהשתנות, ואין מחשב אחד שאפשר לכבות כדי לעצור אותה.</p>
+  <p>רשתות מבוזרות קיימות, כמו רשתות לשיתוף קבצים, בנויות כך שכיבוי של מחשב אחד לא עוצר אותן. זו בדיוק התכונה שהופכת אותן לעמידות. ובמחקר הבטיחות של בינה מלאכותית כבר עוסקים בשאלה דומה גם במערכת אחת: איך בונים מערכת שאפשר לתקן או לכבות, ושלא תתנגד לכך.</p>
+  <p>אנחנו לא מניחים שאובדן שליטה יקרה. אבל מחקר שמציע בינה בלי בית קבוע צריך לשאול מראש איך עוצרים אותה.</p>
+  <p class="our-q">האם אפשר לבנות מנגנון עצירה למערכת שאין לה מרכז, בלי ליצור מרכז חדש?</p>
+</section>
+
+<!-- ===== תחנה 07: השאלה הפתוחה ===== -->
+<section class="closing-block">
+  <p class="station-num">07</p>
+  <h2>האם אפשר ליצור בינה מלאכותית מתמשכת, שזהותה אינה תלויה במכשירים המסוימים שמרכיבים אותה?</h2>
+  <p>ביוון העתיקה שאלו על ספינת תזאוס: אם מחליפים בספינה קרש אחרי קרש, עד שלא נשאר בה אף קרש מקורי, האם זו עדיין אותה ספינה?</p>
+  <p>ברשת, השאלה הזאת מפסיקה להיות ניסוי מחשבתי. צמתים מתחלפים כל הזמן. אם דפוס הפעילות ממשיך, מה בדיוק ממשיך?</p>
+  <p>ואולי השאלה החשובה איננה "האם זו אותה ישות", אלא "לפי מה נחליט".</p>
+</section>
+
+<!-- ===== ידוע / משערים / לא יודעים ===== -->
+<h2 class="row-title">איפה אנחנו עומדים?</h2>
+
+<div class="container even-row">
+
+  <div class="col">
+    <div class="section">
+      <p class="kind-label">מה אנחנו יודעים</p>
+      <p>חישוב מבוזר קיים ועובד. מידע יכול להישמר בתוך תנועה, כמו בזיכרון קו השהיה. רכיבים פשוטים יכולים ליצור יחד התנהגות מורכבת. ומידע יכול לשרוד יציאה של צמתים, בזכות עותקים.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section">
+      <p class="kind-label">מה אנחנו משערים</p>
+      <p>שאולי אפשר לחבר את כל אלה למערכת אחת: חישוב, זיכרון ולמידה שמתקיימים כדפוס שעובר בין צמתים, בלי בית קבוע. זו השערה, ולא יותר.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section">
+      <p class="kind-label">מה אנחנו עוד לא יודעים</p>
+      <p>האם דפוס כזה יכול ללמוד, ולא רק להתמיד. האם יש לו זהות. ואיך נדע אם מה שאנחנו רואים הוא בינה, או רק תנועה שנראית לנו כמו בינה.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== הקשר ל-WayToHear ===== -->
+<section class="closing-block">
+  <h2>ומה הקשר ל־WayToHear?</h2>
+  <p>שני המחקרים מתעניינים במה שקורה בין מערכות, ולא בתוך מערכת אחת. אבל הם שואלים שתי שאלות שונות.</p>
+  <p>WayToHear שואל אם שני סוכנים יכולים לפתח ביניהם שפה משותפת. כאן אנחנו שואלים אם בינה יכולה להתקיים בתוך הרשת עצמה, בלי להיות שייכת לסוכן מסוים.</p>
+</section>
+
+<!-- ===== המשפט המנחה ===== -->
+<section class="guiding">
+  <p class="motto">כשמבינים — רואים</p>
+</section>
+
+<!-- ===== המעבדה: מקום לביקורת ולרעיונות ===== -->
+<section class="research-log">
+  <div class="research-log-inner">
+    <h2>המעבדה</h2>
+    <p class="log-sub">כאן נתעד שאלות, ביקורת, רעיונות חדשים, וגם טעויות.</p>
+    <p class="log-open">עוד אין כאן ממצאים. יש שאלה, ומקום לבקר אותה.</p>
+    <ul>
+      <li>איפה הרעיון הזה שגוי?</li>
+      <li>איזו דוגמה מהעולם חסרה כאן?</li>
+      <li>מה היה משכנע אותנו שזה אפשרי, ומה היה משכנע אותנו שלא?</li>
+    </ul>
+    <div class="log-entries">
+      <!-- רשומות המעבדה ייכנסו כאן -->
+    </div>
+  </div>
+</section>
+
+<script>
+  // הרשת בפתיחה: אין צומת מרכזי. צמתים נכבים ונדלקים, ו"גל" של פעילות
+  // ממשיך לעבור ביניהם, תמיד דרך הצמתים שמחוברים כרגע.
+  (function(){
+    const svg = document.getElementById("ghostNet");
+    if (!svg) return;
+    const NS = "http://www.w3.org/2000/svg";
+
+    // 14 צמתים, מפוזרים בלי מרכז מובחן
+    const pts = [
+      [52,62],[118,150],[160,48],[218,118],[262,190],[300,58],[352,140],
+      [398,34],[440,178],[470,96],[528,150],[560,52],[588,190],[86,196]
+    ];
+    const MAX_DIST = 135;
+
+    const edgeLayer = document.createElementNS(NS, "g");
+    const nodeLayer = document.createElementNS(NS, "g");
+    svg.appendChild(edgeLayer);
+    svg.appendChild(nodeLayer);
+
+    const nodes = pts.map(([x,y]) => {
+      const halo = document.createElementNS(NS, "circle");
+      halo.setAttribute("class", "halo");
+      halo.setAttribute("cx", x); halo.setAttribute("cy", y); halo.setAttribute("r", 14);
+      const c = document.createElementNS(NS, "circle");
+      c.setAttribute("class", "node");
+      c.setAttribute("cx", x); c.setAttribute("cy", y); c.setAttribute("r", 6);
+      nodeLayer.appendChild(halo);
+      nodeLayer.appendChild(c);
+      return { x, y, el:c, halo, on:true, links:[] };
+    });
+
+    const edges = [];
+    for (let i = 0; i < nodes.length; i++){
+      for (let j = i + 1; j < nodes.length; j++){
+        const d = Math.hypot(nodes[i].x - nodes[j].x, nodes[i].y - nodes[j].y);
+        if (d > MAX_DIST) continue;
+        const l = document.createElementNS(NS, "line");
+        l.setAttribute("class", "edge");
+        l.setAttribute("x1", nodes[i].x); l.setAttribute("y1", nodes[i].y);
+        l.setAttribute("x2", nodes[j].x); l.setAttribute("y2", nodes[j].y);
+        edgeLayer.appendChild(l);
+        const e = { a:i, b:j, el:l };
+        edges.push(e);
+        nodes[i].links.push(e);
+        nodes[j].links.push(e);
+      }
+    }
+
+    function refreshEdges(){
+      edges.forEach(e => {
+        e.el.classList.toggle("off", !(nodes[e.a].on && nodes[e.b].on));
+      });
+    }
+
+    let current = 0;
+    function light(i){
+      nodes.forEach((n, k) => {
+        n.el.classList.toggle("lit", k === i);
+        n.halo.classList.toggle("lit", k === i);
+      });
+    }
+    light(current);
+
+    // מי שביקש להפחית תנועה: רשת שקטה, צומת אחד מואר, בלי אנימציה
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    // הגל עובר לשכן מחובר. אם אין שכן מחובר, הוא קופץ לצומת פעיל כלשהו.
+    function step(){
+      const options = nodes[current].links
+        .filter(e => nodes[e.a].on && nodes[e.b].on)
+        .map(e => ({ next: e.a === current ? e.b : e.a, edge: e }));
+      if (options.length){
+        const pick = options[Math.floor(Math.random() * options.length)];
+        pick.edge.el.classList.add("trail");
+        setTimeout(() => pick.edge.el.classList.remove("trail"), 900);
+        current = pick.next;
+      } else {
+        const alive = nodes.map((n, k) => k).filter(k => nodes[k].on);
+        current = alive[Math.floor(Math.random() * alive.length)];
+      }
+      light(current);
+    }
+
+    // צומת אקראי מתנתק או חוזר. תמיד נשארים לפחות 9 צמתים מחוברים.
+    // גם הצומת שהגל נמצא בו יכול להתנתק: הגל פשוט ממשיך הלאה.
+    function churn(){
+      const i = Math.floor(Math.random() * nodes.length);
+      const onCount = nodes.filter(n => n.on).length;
+      if (nodes[i].on && onCount <= 9) return;
+      nodes[i].on = !nodes[i].on;
+      nodes[i].el.classList.toggle("off", !nodes[i].on);
+      if (!nodes[i].on && i === current) step();
+      refreshEdges();
+    }
+
+    setInterval(step, 700);
+    setInterval(churn, 1500);
+  })();
+</script>
+
+<script>
+  // המשולש מחזיר לעמוד הנושאים של בינה מלאכותית (הגדרה מקומית, בלי לגעת ב-waytosee.js).
+  window.waytoseeParentOverride = "ai/ai.html";
+</script>
+<!-- שלוחת המחקר -->
+<script src="../research.js"></script>
+<script src="../waytosee.js"></script>
+</body>
+</html>
