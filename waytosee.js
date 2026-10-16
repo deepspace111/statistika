@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     copyright.className = "wts-copyright";
     copyright.setAttribute("dir", "ltr");
     const owner = window.waytoseeCopyrightOwner || "WayToSee";
-    copyright.textContent = "\u00A9 2026 " + owner + " \u00B7 All rights reserved";
+    copyright.textContent = "\u00A9 2026 " + owner;
     document.body.appendChild(copyright);
   }
 
