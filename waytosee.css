@@ -1022,7 +1022,7 @@ body.stat-page .numbers{
   font-size:11px;
   letter-spacing:0.12em;
   color:var(--text-dim);
-  opacity:0.7;
+  opacity:0.56;
   transition:color 0.8s ease;
 }
 @media (max-width: 600px), (max-height: 500px) {
