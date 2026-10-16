@@ -10,7 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // יושבת בסוף התוכן (לא מקובעת למסך), כך שהיא זזה עם הגלילה ולא מכסה טקסט.
   // שלוחה (למשל research.js) יכולה להחליף את השם דרך window.waytoseeCopyrightOwner.
   // נוצרת לפני עטיפת הספרות, כדי שגם השנה תקבל את פונט הספרות של האתר.
-  if (!document.getElementById("wtsCopyright")) {
+  // מוצגת רק בעמוד תחומי הדעת (professions.html).
+  const isTopicsPage = /\/professions(\.html)?$/.test(location.pathname);
+  if (isTopicsPage && !document.getElementById("wtsCopyright")) {
     const copyright = document.createElement("footer");
     copyright.id = "wtsCopyright";
     copyright.className = "wts-copyright";
