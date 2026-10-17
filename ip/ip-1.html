@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FTM28BMBXC');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IP Address</title>
+
+<link rel="stylesheet" href="../waytosee.css">
+
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+
+<style>
+/* שלד העמוד מגיע מ-waytosee.css תחת body.overview-page.
+   כאן רק: כותרות השורות, שורות שמסתיימות באותו קו, תרשים הכתובת וקישורי ההמשך. */
+
+.page-sub{
+  position:relative;
+  z-index:5;
+  text-align:center;
+  font-size:20px;
+  color:var(--text-dim);
+  margin:-6px 0 0;
+}
+
+.row-title{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:0 auto;
+  padding:30px 24px 0;
+  text-align:center;
+  font-size:30px;
+  font-weight:800;
+  color:var(--text);
+}
+
+/* שלוש העמודות בשורה נגמרות באותו קו */
+body.overview-page .container.even-row{ align-items:stretch; padding-bottom:20px; }
+.even-row .col{ justify-content:space-between; }
+.even-row .col > .section:only-child{ flex:1; }
+/* בעמודה עם שתי תיבות: הן ממלאות יחד את אותו גובה */
+.even-row .col > .section:not(:only-child){ flex:1; }
+
+.our-q{
+  margin-top:12px !important;
+  font-weight:600;
+  border-inline-start:2px solid var(--accent);
+  padding-inline-start:10px;
+}
+
+/* קישור להמשך: משפט רגיל שאפשר ללחוץ עליו */
+.page-link{
+  color:inherit;
+  text-decoration:underline;
+  text-underline-offset:4px;
+}
+
+/* ===== תרשים הכתובת: בינארי מעל עשרוני ===== */
+.ip-diagram{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:0 auto;
+  padding:6px 24px 10px;
+  text-align:center;
+}
+
+.ip-example{
+  direction:ltr;
+  display:inline-block;
+  padding:10px 20px;
+  font-size:30px;
+  letter-spacing:3px;
+  font-family:'JetBrains Mono', monospace;
+  color:var(--num);
+  border:1px solid var(--panel-border);
+  border-radius:16px;
+  background:var(--panel);
+}
+
+.ip-wrapper{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:16px;
+  margin-top:24px;
+  flex-wrap:wrap;
+  direction:ltr;
+}
+
+.ip-column{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.ip-cell{
+  width:170px;
+  height:68px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--panel);
+  border:1px solid var(--panel-border);
+  border-radius:14px;
+  font-weight:bold;
+  font-size:1.7rem;
+}
+
+.binary{
+  color:#3a4a72;
+  font-family:'VT323', monospace;
+  font-size:2rem;
+  letter-spacing:2px;
+}
+
+body.learning-mode .binary{
+  color:#52618f;
+  text-shadow:
+    1px 0 rgba(120,170,255,0.18),
+   -1px 0 rgba(120,170,255,0.10),
+    0 0 8px rgba(70,120,255,0.12);
+}
+
+.decimal{ color:var(--text); }
+
+.dot{
+  color:var(--text-dim);
+  font-size:2.4rem;
+  margin-top:80px;
+}
+
+.ip-caption{
+  font-size:16px;
+  color:var(--text-dim);
+  margin:14px 0 0;
+}
+
+/* ===== סיום ===== */
+.closing-block{
+  position:relative;
+  z-index:5;
+  max-width:760px;
+  margin:0 auto;
+  padding:20px 24px 70px;
+  text-align:center;
+}
+.closing-block p{ line-height:1.5; margin:8px 0; }
+.closing-block .quiet{ color:var(--text-dim); }
+
+@media (max-width:600px){
+  .row-title{ font-size:25px; }
+  .even-row .col{ justify-content:flex-start; }
+  .ip-diagram{ padding-left:18px; padding-right:18px; }
+  .ip-example{ font-size:24px; letter-spacing:2px; }
+  .ip-wrapper{ gap:3px; flex-wrap:nowrap; }
+  .ip-column{ gap:8px; }
+  .ip-cell{ width:70px; height:48px; font-size:1.1rem; border-radius:8px; }
+  .binary, .binary *{ font-size:0.8rem !important; letter-spacing:0; }
+  .dot{ font-size:1.4rem; margin-top:50px; }
+  .closing-block{ padding-left:18px; padding-right:18px; }
+
+  /* "מטריקס" ירוק - רק במצב תודעת לימוד במובייל */
+  body.learning-mode .ip-cell{
+    background:rgba(0,20,0,0.18);
+    border:1px solid rgba(90,255,90,0.10);
+    border-radius:4px;
+  }
+}
+</style>
+</head>
+
+<body class="overview-page">
+
+<div class="rain" id="rain"></div>
+
+<h1 class="page-title">IP Address</h1>
+<p class="page-sub">Internet Protocol Address · הכתובת הלוגית של היעד</p>
+
+<!-- ===== שורה 1: למה צריך IP? ===== -->
+<h2 class="row-title">למה צריך IP?</h2>
+
+<div class="container even-row">
+
+  <div class="col">
+    <div class="section">
+      <h2>הבעיה</h2>
+      <p>בתוך הרשת המקומית, לכל כרטיס רשת יש כתובת MAC. בעזרתה מידע עובר ממכשיר למכשיר באותה רשת.</p>
+      <p>אבל כתובת MAC לא אומרת שום דבר על המקום. היא לא מספרת באיזו רשת המכשיר נמצא, ואיך מגיעים אליו מרחוק.</p>
+      <p class="our-q">אז איך מידע מגיע למכשיר שנמצא ברשת אחרת, בצד השני של העולם?</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section">
+      <h2>השם</h2>
+      <p>פרוטוקול הוא דרך מסודרת שבה מחשבים מתקשרים.</p>
+      <p>IP, ‏Internet Protocol, הוא הפרוטוקול שעוזר למידע למצוא את היעד הנכון ברשת.</p>
+      <p>כדי שמידע יגיע ליעד, הוא חייב כתובת. כתובת IP נותנת למכשיר זהות לוגית ברשת, כזו שאפשר להגיע אליה גם מרשת אחרת.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section">
+      <h2>מי ואיפה</h2>
+      <p><strong>MAC Address</strong> אומרת מי המכשיר. היא עוזרת למסור מידע בתוך הרשת המקומית.</p>
+      <p><strong>IP Address</strong> אומרת איפה הוא נמצא. היא עוזרת להבין מי הוא היעד, ולאן המידע צריך להגיע.</p>
+      <p class="our-q">כדי להגיע רחוק, צריך את שתיהן.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== שורה 2: איך הכתובת בנויה? ===== -->
+<h2 class="row-title">איך הכתובת בנויה?</h2>
+
+<div class="container even-row">
+
+  <div class="col">
+    <div class="section">
+      <h2>32 ביטים</h2>
+      <p>כתובת IP רגילה בנויה מ־32 ביטים, שהם ארבע אוקטטות.</p>
+      <p>כל אוקטטה היא בייט אחד. כל בייט בנוי משמונה ביטים.</p>
+      <p>הנקודות לא נמצאות שם סתם. הן מפרידות בין ארבעת חלקי הכתובת, כדי שיהיה קל לקרוא אותה.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section">
+      <h2>בינארי ועשרוני</h2>
+      <p>המחשב רואה את הכתובת כביטים. אנחנו כותבים אותה במספרים עשרוניים, כי כך קל יותר לקרוא.</p>
+      <p>כל ביט יכול להשתנות, ולכן שילובים שונים של ביטים יוצרים כתובות שונות.</p>
+      <p>בשמונה ביטים יש 256 שילובים אפשריים. לכן כל אוקטטה היא מספר בין 0 ל־255.</p>
+      <p>כך נוצרים מיליארדי יעדים אפשריים ברשת.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section">
+      <h2>רשת ומכשיר</h2>
+      <p>כל כתובת IP מחולקת לשני חלקים: חלק שאומר לאיזו רשת היא שייכת, וחלק שאומר מי המכשיר בתוך הרשת.</p>
+      <p>את הגבול בין החלקים קובעת <strong>מסכת הרשת</strong>, ולא הנקודות. למשל, עם המסכה 255.255.255.0, שלוש האוקטטות הראשונות הן הרשת, והאחרונה היא המכשיר.</p>
+      <p>במסכה אחרת, הגבול יכול לעבור גם באמצע אוקטטה.</p>
+      <p><a class="page-link" href="../subnet/index.html">איך בדיוק המסכה מחלקת את הכתובת</a></p>
+    </div>
+  </div>
+
+</div>
+
+<!-- תרשים הכתובת -->
+<div class="ip-diagram">
+  <div class="ip-example">192.168.1.8</div>
+
+  <div class="ip-wrapper">
+    <div class="ip-column">
+      <div class="ip-cell binary">11000000</div>
+      <div class="ip-cell decimal">192</div>
+    </div>
+    <div class="dot">.</div>
+    <div class="ip-column">
+      <div class="ip-cell binary">10101000</div>
+      <div class="ip-cell decimal">168</div>
+    </div>
+    <div class="dot">.</div>
+    <div class="ip-column">
+      <div class="ip-cell binary">00000001</div>
+      <div class="ip-cell decimal">1</div>
+    </div>
+    <div class="dot">.</div>
+    <div class="ip-column">
+      <div class="ip-cell binary">00001000</div>
+      <div class="ip-cell decimal">8</div>
+    </div>
+  </div>
+
+  <p class="ip-caption">ארבע אוקטטות. למעלה, מה שהמחשב רואה. למטה, מה שאנחנו כותבים.</p>
+</div>
+
+<!-- ===== שורה 3: איך עוברים בין רשתות? ===== -->
+<h2 class="row-title">איך עוברים בין רשתות?</h2>
+
+<div class="container even-row">
+
+  <div class="col">
+    <div class="section">
+      <h2>אותה רשת או אחרת?</h2>
+      <p>לפני שמכשיר שולח מידע, הוא בודק לפי המסכה: האם חלק הרשת של היעד זהה לחלק הרשת שלו?</p>
+      <p>אם כן, היעד נמצא באותה רשת, והמידע נשלח אליו ישירות.</p>
+      <p>אם לא, המידע נשלח לנתב, ה־Gateway, והוא ממשיך להעביר אותו הלאה.</p>
+      <p><a class="page-link" href="../Gateway/gateway.html">מה קורה בשער היציאה</a></p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section">
+      <h2>בדרך</h2>
+      <p>בכל חבילת IP יש כתובת מקור וכתובת יעד. כך כל נתב בדרך יודע לאן להעביר אותה.</p>
+      <p>יש בה גם ערך שנקרא TTL. בכל מעבר דרך נתב הוא קטן באחד, ואם הוא מגיע לאפס, החבילה לא ממשיכה.</p>
+      <p><a class="page-link" href="../ICMP/icmp.html">מה קורה כשחבילה לא מגיעה</a></p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section">
+      <h2>פרטיות וציבוריות</h2>
+      <p>יש טווחים של כתובות ששמורים לרשתות פרטיות, כמו 192.168.x.x. לכן כמעט בכל בית יש כתובות כאלה.</p>
+      <p>הן לא יוצאות לאינטרנט כמו שהן. הנתב מתרגם אותן לכתובת ציבורית.</p>
+      <p><a class="page-link" href="../NAT/index.html">איך הנתב מתרגם</a></p>
+    </div>
+    <div class="section">
+      <h2>כתובות מיוחדות</h2>
+      <p><strong>127.0.0.1</strong>: המחשב פונה לעצמו.</p>
+      <p><strong>255.255.255.255</strong>: פנייה לכל המכשירים ברשת המקומית.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== סיום ===== -->
+<section class="closing-block">
+  <p>ב־32 ביטים יש בערך 4.3 מיליארד כתובות אפשריות.</p>
+  <p class="quiet">זה נשמע הרבה, אבל זה כבר לא מספיק. לכן נוצר IPv6.</p>
+</section>
+
+<script>window.waytoseeHomeOverride = "../intro.html";</script>
+<script src="../waytosee.js"></script>
+</body>
+</html>
