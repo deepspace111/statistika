@@ -55,7 +55,7 @@
   .page-header{
     max-width: 900px;
     margin: 0 auto;
-    padding: 96px 24px 8px;
+    padding: 60px 24px 8px;
     text-align: center;
   }
   .page-title{
@@ -71,6 +71,7 @@
     color: transparent;
   }
   .subtitle{ color: var(--text-dim); margin: 0 auto; font-size: 15px; max-width: 620px; }
+  .full-name{ color: var(--text-dim); font-size: 14px; letter-spacing: 1px; margin: 0 0 10px; direction: ltr; }
 
   /* ---- הרשת התלת-עמודתית ---- */
   .grid{
@@ -328,7 +329,7 @@
     .grid > .col:first-child > .section:first-child{ padding-top:0; margin-top:0; border-top:none; }
   }
   @media (max-width: 768px){
-    .page-header{ padding: 88px 18px 8px; }
+    .page-header{ padding: 64px 18px 8px; }
     .grid{ padding: 24px 18px 70px; }
   }
   /* יישור לשני הצדדים ("כמו בעיתון") בפסקאות. :where שומר על משקל נמוך. */
@@ -340,6 +341,7 @@
 
   <div class="page-header">
     <h1 class="page-title">NAT - סיכום ברור</h1>
+    <p class="full-name">Network Address Translation</p>
     <p class="subtitle">איך כתובת פרטית אחת שברשת הבית הופכת, בדרך החוצה, לכתובת ציבורית, ואיך הנתב זוכר להחזיר את התשובה למכשיר הנכון.</p>
   </div>
 
