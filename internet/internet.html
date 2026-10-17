@@ -131,12 +131,13 @@ body.learning-mode .drop{
   opacity:0.5;
 }
 
+/* השרשרת מטפסת מלמטה למעלה: אות פיזי בתחתית, Data Link בראש */
 .bridge-flow{
   display:flex;
-  flex-wrap:wrap;
+  flex-direction:column-reverse;
   justify-content:center;
   align-items:center;
-  gap:8px;
+  gap:4px;
   margin:20px 0 6px;
   font-size:13px;
 }
@@ -342,11 +343,11 @@ body.learning-mode .read-marker{
 
     <div class="bridge-flow">
       <span>אות פיזי</span>
-      <span class="arrow">←</span>
+      <span class="arrow">↑</span>
       <span>כרטיס רשת</span>
-      <span class="arrow">←</span>
+      <span class="arrow">↑</span>
       <span>ביטים</span>
-      <span class="arrow">←</span>
+      <span class="arrow">↑</span>
       <span class="bridge-next">Data Link</span>
     </div>
   </div>
