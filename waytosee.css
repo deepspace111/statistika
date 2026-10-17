@@ -78,23 +78,22 @@ body.learning-mode .focus-toggle {
   background-color: rgba(180, 180, 180, 0.55) !important;
 }
 
-/* מפתח הפה: אור עדין שעובר לאורכו, באותו קצב של משולש הבית (3.6 שניות לסבב).
+/* מפתח הפה: אור עדין שעובר לאורכו, לאט (7.2 שניות לסבב), באותו קצב בשני המצבים.
    הפס הוא שכבה פנימית (::after) - ה-mask של הכפתור חותך גם אותה,
    כך שהאור נראה רק על צורת מפתח הפה עצמה.
-   במצב בהיר: פס אור לבן. במצב כהה: פס עדין יותר ואיטי פי 2 (7.2 שניות). */
+   במצב בהיר: פס אור לבן. במצב כהה: פס עדין יותר. */
 .focus-toggle::after{
   content: "";
   position: absolute;
   top: 0; bottom: 0;
   left: -100%;
   width: 300%;
-  background: linear-gradient(100deg, transparent 38%, rgba(255, 255, 255, 0.65) 50%, transparent 62%);
-  animation: clefShade 3.6s ease-in-out infinite;
+  background: linear-gradient(100deg, transparent 38%, rgba(255, 255, 255, 0.5) 50%, transparent 62%);
+  animation: clefShade 7.2s ease-in-out infinite;
   pointer-events: none;
 }
 body.learning-mode .focus-toggle::after{
-  background: linear-gradient(100deg, transparent 40%, rgba(240, 240, 240, 0.26) 50%, transparent 60%);
-  animation-duration: 7.2s;
+  background: linear-gradient(100deg, transparent 40%, rgba(240, 240, 240, 0.34) 50%, transparent 60%);
 }
 @keyframes clefShade{
   0%, 100%{ transform: translateX(-34%); }
