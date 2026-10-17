@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FTM28BMBXC');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>כשהאתר חוקר את עצמו | WayToSee</title>
+
+<link rel="stylesheet" href="../waytosee.css">
+<!-- שלוחת המחקר -->
+<link rel="stylesheet" href="../research.css">
+
+<style>
+/* שלד העמוד מגיע מ-waytosee.css תחת body.overview-page.
+   כאן רק: הפתיחה, שורות של שלוש עמודות שמסתיימות באותו קו, והמעבדה בתחתית.
+   (אותה שפה עיצובית כמו בעמוד WayToHear) */
+
+.research-label{
+  text-align:center;
+  font-size:15px;
+  letter-spacing:3px;
+  color:var(--text-dim);
+  margin:-8px 0 0;
+}
+
+/* ===== הפתיחה ===== */
+.scene{
+  position:relative;
+  z-index:5;
+  max-width:760px;
+  margin:0 auto;
+  padding:18px 24px 10px;
+  text-align:center;
+}
+.scene p{ line-height:1.5; margin:10px 0; }
+.scene .quiet{ color:var(--text-dim); }
+.scene .lead{ font-size:22px; font-weight:600; margin:14px 0 22px; }
+.scene h2{ font-size:25px; margin:22px 0 8px; font-weight:700; color:var(--text); }
+
+/* שתי המילים, זו מול זו */
+.words{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:18px;
+  margin:14px 0 6px;
+  font-size:24px;
+}
+.words .kept{ font-weight:700; border-bottom:2px solid var(--accent); padding-bottom:2px; }
+.words .replaced{ color:var(--text-dim); text-decoration:line-through; }
+.words .arrow{ color:var(--text-dim); font-size:18px; }
+
+.research-q{
+  max-width:760px;
+  margin:22px auto 8px !important;
+  padding:12px 16px;
+  font-size:22px;
+  line-height:1.45 !important;
+  border-top:1px solid var(--panel-border);
+  border-bottom:1px solid var(--panel-border);
+  font-weight:600;
+}
+.research-q span{
+  display:block;
+  font-size:14px;
+  font-weight:400;
+  letter-spacing:1px;
+  color:var(--text-dim);
+  margin-bottom:4px;
+}
+
+.scene .closing{ font-size:24px; font-weight:700; margin:20px 0 6px; }
+
+/* ===== שורות של שלוש עמודות ===== */
+body.overview-page .container{ align-items:stretch; }
+body.overview-page .col{ justify-content:space-between; }
+
+.row-title{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:0 auto;
+  padding:30px 24px 0;
+  text-align:center;
+  font-size:30px;
+  font-weight:800;
+  color:var(--text);
+}
+
+.proposed-label{
+  position:relative;
+  z-index:5;
+  text-align:center;
+  font-size:15px;
+  letter-spacing:2px;
+  color:var(--text-dim);
+  margin:6px 0 0;
+}
+
+/* בשורות עם תיבה אחת בכל עמודה: התיבה נמתחת, כך ששלוש העמודות נגמרות באותו קו */
+.even-row .col > .section:only-child{ flex:1; }
+
+.signs{ margin:8px 0; padding-inline-start:18px; }
+.signs li{ margin:6px 0; line-height:1.35; }
+
+.kind-label{
+  font-size:14px;
+  letter-spacing:1px;
+  color:var(--text-dim);
+  margin-bottom:0 !important;
+}
+
+.our-q{
+  margin-top:12px !important;
+  font-weight:600;
+  border-inline-start:2px solid var(--accent);
+  padding-inline-start:10px;
+}
+
+/* ===== סיום והמעבדה ===== */
+.closing-block{
+  position:relative;
+  z-index:5;
+  max-width:760px;
+  margin:0 auto;
+  padding:10px 24px 0;
+  text-align:center;
+}
+.closing-block h2{ font-size:25px; margin:16px 0 8px; font-weight:700; color:var(--text); }
+.closing-block p{ line-height:1.5; margin:8px 0; }
+.closing-block .open-q{ font-size:24px; font-weight:700; }
+
+.research-log{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:0 auto;
+  padding:30px 24px 40px;
+}
+.research-log-inner{
+  border-top:1px solid var(--panel-border);
+  border-bottom:1px solid var(--panel-border);
+  padding:18px 0 22px;
+}
+.research-log h2{ font-size:25px; margin:0 0 6px; font-weight:700; color:var(--text); }
+.research-log .log-sub{ font-size:15px; color:var(--text-dim); margin:0 0 16px; }
+
+/* שלוש תוויות נפרדות: מחקר מוצע / נתונים שנאספו / מסקנות שהוכחו */
+.log-status{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:28px;
+  margin-top:18px;
+}
+.log-block h3{
+  font-size:15px;
+  letter-spacing:2px;
+  font-weight:700;
+  color:var(--accent);
+  margin:0 0 10px;
+  padding-bottom:4px;
+  border-bottom:2px solid var(--accent);
+  display:inline-block;
+}
+.log-block p{ line-height:1.5; margin:6px 0; }
+.log-block .empty{ color:var(--text-dim); }
+
+.log-entry{
+  border-inline-start:2px solid var(--panel-border);
+  padding-inline-start:12px;
+  margin:6px 0 0;
+}
+.log-entry h4{ font-size:17px; margin:0 0 6px; font-weight:700; color:var(--text); }
+.log-entry dl{ margin:0; }
+.log-entry dt{ font-size:14px; color:var(--text-dim); margin-top:8px; }
+.log-entry dd{ margin:2px 0 0; line-height:1.45; }
+
+/* הכפתור ליומן המחקר: אותו מראה כמו הכפתורים בעמוד הנושאים של בינה מלאכותית */
+.log-btn{
+  display:block;
+  margin-top:6px;
+  padding:18px;
+  border-radius:20px;
+  background:var(--panel);
+  color:var(--text);
+  text-decoration:none;
+  text-align:center;
+  font-size:19px;
+  border:1px solid var(--panel-border);
+  box-shadow:0 8px 24px rgba(0,0,0,0.06);
+  backdrop-filter:blur(3px);
+  transition:0.4s ease;
+}
+.log-btn:hover{
+  transform:translateY(-2px);
+  background:rgba(120,170,255,0.08);
+  border-color:var(--accent);
+}
+
+@media (max-width:600px){
+  body.overview-page .col{ justify-content:flex-start; }
+  .scene, .closing-block{ padding-left:18px; padding-right:18px; }
+  .research-log{ padding:24px 18px 30px; }
+  .row-title{ font-size:25px; }
+  .log-status{ grid-template-columns:1fr; gap:22px; }
+  .words{ font-size:21px; gap:12px; }
+}
+</style>
+</head>
+
+<!-- data-copyright: השם בשורת הזכויות בתחתית (נקרא על ידי שלוחת המחקר, research.js) -->
+<body class="overview-page" data-copyright="WayToSee">
+
+<div class="rain" id="rain"></div>
+
+<h1 class="page-title">כשהאתר חוקר את עצמו</h1>
+<p class="research-label">WayToSee · מחקר</p>
+
+<!-- ===== הפתיחה: כשהתיקון הופך לטעות ===== -->
+<section class="scene">
+
+  <p class="lead">WayToSee ישתמש בדעת הסטטיסטיקה כדי לחקור את תהליך הכתיבה של עצמו.</p>
+
+  <h2>כשהתיקון הופך לטעות</h2>
+  <p>בזמן העבודה על האתר נכתב הצירוף "דעת הסטטיסטיקה".</p>
+  <p>מערכת AI שעזרה בכתיבה החליפה אותו, בלי שאיש ביקש, ב"מדע הסטטיסטיקה".</p>
+
+  <div class="words" aria-label="דעת, שהוחלפה במדע">
+    <span class="kept">דעת</span>
+    <span class="arrow">←</span>
+    <span class="replaced">מדע</span>
+  </div>
+
+  <p>מבחינה לשונית, התיקון נראה הגיוני. "מדע הסטטיסטיקה" הוא צירוף מוכר, ו"דעת הסטטיסטיקה" נשמע כמו פליטת מקלדת.</p>
+  <p>אבל זו לא הייתה טעות. המילה נבחרה בכוונה. <strong>מדע</strong> הוא תחום. <strong>דעת</strong> היא ידע עמוק שנובע מהבנה, מה שקורה אצל מי שבאמת מבין את התחום.</p>
+  <p class="quiet">התיקון היה תקין. והוא מחק בדיוק את מה שהמשפט רצה להגיד.</p>
+
+  <p class="research-q"><span>שאלת המחקר</span>האם מערכת AI יכולה ללמוד להבחין בין טעות לשונית לבין בחירה לשונית מכוונת, ולשמר את קולו האישי של הכותב?</p>
+
+  <p class="closing">לפעמים העזרה הכי טובה היא לשאול לפני שמתקנים.</p>
+</section>
+
+<!-- ===== שורה 1: מהי שפה אישית? ===== -->
+<h2 class="row-title">מהי שפה אישית?</h2>
+
+<div class="container even-row">
+
+  <div class="col">
+    <div class="section">
+      <h2>מילים ומשפטים</h2>
+      <p><strong>בחירת מילים:</strong> אותו רעיון אפשר להגיד ב"מדע" או ב"דעת". הבחירה עצמה כבר אומרת משהו.</p>
+      <p><strong>מבנה משפטים:</strong> משפטים קצרים. נקודה. ועוד משפט קצר. גם זו בחירה, לא רק עצלות של פסיקים.</p>
+      <p class="our-q">מתקן שלא מכיר את הכותב רואה חריגה. מי שמכיר אותו רואה חתימה.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section">
+      <h2>תמונות וחיוך</h2>
+      <p><strong>דימויים:</strong> באתר הזה יש "מערכת עצבים מרכזית", יש "שלוחה", ויש רחבת ריקודים שבה שתי מכונות מדברות. האתר חושב בתמונות.</p>
+      <p><strong>הומור:</strong> קטן ועדין, ותמיד אחרי הדיוק, לא במקומו.</p>
+      <p class="our-q">דימוי שנבחר בכוונה הוא לא קישוט. הוא דרך להסביר.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section">
+      <h2>עומק ודרך</h2>
+      <p><strong>עומק רעיוני:</strong> אילו שאלות הכותב שואל, ואילו הוא משאיר פתוחות בכוונה.</p>
+      <p><strong>דרכי הסבר:</strong> ב-WayToSee מתחילים מהבעיה שמחייבת את המושג, ורק אחר כך נותנים לו שם.</p>
+      <p class="our-q">שפה אישית היא לא רק איך שמשהו נשמע. היא גם מה שהכותב לא מוכן לוותר עליו.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== שורה 2: מה אפשר למדוד? ===== -->
+<h2 class="row-title">מה אפשר למדוד?</h2>
+
+<div class="container even-row">
+
+  <div class="col">
+    <div class="section">
+      <h2>מה שלא נכנס למספר</h2>
+      <p>האם תיקון שמר על הכוונה, או רק על הדקדוק.</p>
+      <p>למה מילה מסוימת נבחרה, ומה היא נושאת שמילה נרדפת לא נושאת.</p>
+      <p>מה גורם לטקסט להרגיש "כמו הכותב".</p>
+      <p class="our-q">מספר יכול להגיד כמה פעמים "דעת" שרדה. הוא לא יכול להגיד מה היא אומרת.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section">
+      <h2>הגשר: דעת הסטטיסטיקה</h2>
+      <p>הסטטיסטיקה לא באה כאן כדי להפוך משמעות למספר.</p>
+      <p>היא באה כדי לעזור להבחין: מתי דפוס הוא אמיתי, ומתי הוא רק מקרה שחזר פעמיים.</p>
+      <p>מקרה אחד הוא סיפור. הרבה מקרים, שנאספו באותה דרך, יכולים להפוך לשאלה שאפשר לבדוק.</p>
+      <p class="our-q">וגם דפוס אמיתי הוא עדיין לא הבנה.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section">
+      <h2>מה שאפשר לספור</h2>
+      <ul class="signs">
+        <li><strong>אורך משפטים:</strong> האם הוא משתנה עם הזמן?</li>
+        <li><strong>שכיחות ביטויים:</strong> אילו צירופים חוזרים, ואילו נעלמים.</li>
+        <li><strong>סוגי תיקונים:</strong> כמה מהתיקונים נוגעים בלשון, וכמה במשמעות.</li>
+        <li><strong>שיעור קבלה:</strong> כמה מהצעות ה-AI הכותב מקבל, דוחה או מחזיר.</li>
+        <li><strong>המרחק:</strong> כמה השתנה הטקסט בין הטיוטה לנוסח הסופי.</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== שורה 3: הניסוי (ניסוי מוצע) ===== -->
+<h2 class="row-title">הניסוי</h2>
+<p class="proposed-label">ניסוי מוצע</p>
+
+<div class="container even-row">
+
+  <div class="col">
+    <div class="section">
+      <h2>מה נאסוף</h2>
+      <p>בהסכמה בלבד: טיוטות, הצעות של מערכות AI, והתיקונים שהכותב עשה להן.</p>
+      <p>כל רשומה תכלול שלושה דברים: מה נכתב, מה הוצע, ומה נשאר בסוף.</p>
+      <p>נבדוק לאורך זמן אם ההצעות של המערכות מתקרבות לכוונת הכותב.</p>
+      <p class="our-q">לא נציג תוצאות לפני שנאספו נתונים.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section">
+      <h2>חמש קטגוריות של תיקון</h2>
+      <ul class="signs">
+        <li><strong>לשון:</strong> כתיב, דקדוק, פיסוק.</li>
+        <li><strong>סגנון:</strong> איך זה נשמע.</li>
+        <li><strong>משמעות:</strong> מה זה אומר.</li>
+        <li><strong>דיוק תוכני:</strong> האם זה נכון.</li>
+        <li><strong>מבנה:</strong> מה בא לפני מה.</li>
+      </ul>
+      <p><strong>מי מסווג?</strong> הכותב עצמו, לא מערכת ה-AI. אחרת המערכת הנחקרת היא גם זו שמודדת את עצמה.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section">
+      <h2>שימור או הכללה?</h2>
+      <p><strong>שימור:</strong> המערכת זוכרת מילה שכבר הסבירו לה.</p>
+      <p><strong>הכללה:</strong> המערכת מזהה בחירה לשונית חדשה, שאף אחד לא הסביר לה, ומשאירה אותה במקומה.</p>
+      <p>נשווה בין שתי מערכות: ChatGPT, שמכירה את הכותב יותר זמן, ו-Claude, שמכיר אותו פחות זמן ושהזיכרון שלו כתוב וגלוי.</p>
+      <p class="our-q">גם הכללה מוצלחת היא חיקוי של דפוס. היא עדיין לא הוכחה שהמערכת הבינה כוונה.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== שורה 4: האתר חוקר את עצמו ===== -->
+<h2 class="row-title">האתר חוקר את עצמו</h2>
+
+<div class="container even-row">
+
+  <div class="col">
+    <div class="section">
+      <h2>האתר כנבדק</h2>
+      <p>עמודי WayToSee נכתבים בשיתוף עם מערכות AI. כל עמוד עובר טיוטות, הצעות, ויכוחים קטנים ותיקונים.</p>
+      <p>המחקר יתעד גם את התהליך הזה: איך עמוד נבנה, ומה השתנה בו בדרך.</p>
+      <p class="our-q">האתר שמלמד לראות מנסה לראות גם את עצמו.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section">
+      <h2>מה יחזור לאתר</h2>
+      <p>ממצאים יוכלו להשפיע על הדרך שבה ייכתבו עמודים עתידיים.</p>
+      <p>למשל: מילים שכדאי לשמור, תיקונים שכדאי לשאול עליהם לפני שעושים אותם, וכללי סגנון חדשים.</p>
+      <p class="our-q">המטרה היא לא שהמערכות יכתבו כמו הכותב. המטרה היא שלא ימחקו אותו.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section">
+      <h2>רק באישור</h2>
+      <p>WayToSee הוא אתר שלומד, אבל הוא לא משנה את עצמו לבד.</p>
+      <p>כל שינוי שיגיע מהמחקר יעבור אישור של הכותב, תצוגה מקדימה, גיבוי, ואפשרות לחזור אחורה.</p>
+      <p class="our-q">האתר לומד מהאנשים שלומדים בו. ההחלטה נשארת אצל אדם.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== שאלה פתוחה ===== -->
+<section class="closing-block">
+  <h2>שאלה פתוחה</h2>
+  <p class="open-q">האם אפשר ללמוד את שפתו של אדם בלי למחוק את מה שמייחד אותה?</p>
+  <p>המחקר הזה לא יוצא להוכיח שזה אפשרי. הוא יוצא לבדוק.</p>
+</section>
+
+<!-- ===== המעבדה: יתפתח עם המחקר ===== -->
+<section class="research-log">
+  <div class="research-log-inner">
+    <h2>המעבדה</h2>
+    <p class="log-sub">שלוש תוויות נפרדות, כדי שלא יתבלבלו: מה מוצע, מה נאסף, ומה הוכח.</p>
+
+    <div class="log-status">
+
+      <div class="log-block">
+        <h3>מחקר מוצע</h3>
+        <p>שאלת המחקר, המדדים וחמש הקטגוריות מוגדרים בעמוד הזה.</p>
+        <p>השלב הבא: לאסוף, בהסכמה, עוד מקרים של הצעות AI ותגובות הכותב להן.</p>
+      </div>
+
+      <div class="log-block">
+        <h3>נתונים שנאספו</h3>
+        <a class="log-btn" href="ai-self-research-log.html">יומן מחקר</a>
+      </div>
+
+      <div class="log-block">
+        <h3>מסקנות שהוכחו</h3>
+        <p class="empty">עדיין אין.</p>
+        <p class="empty">ואין סיבה למהר. מקרה אחד הוא התחלה, לא מגמה.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  // המשולש מחזיר לעמוד הנושאים של בינה מלאכותית (הגדרה מקומית, בלי לגעת ב-waytosee.js).
+  window.waytoseeParentOverride = "ai/ai.html";
+</script>
+<!-- שלוחת המחקר -->
+<script src="../research.js"></script>
+<script src="../waytosee.js"></script>
+</body>
+</html>

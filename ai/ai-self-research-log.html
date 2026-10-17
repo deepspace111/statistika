@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FTM28BMBXC');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>יומן מחקר | WayToSee</title>
+
+<link rel="stylesheet" href="../waytosee.css">
+<!-- שלוחת המחקר -->
+<link rel="stylesheet" href="../research.css">
+
+<style>
+/* שלד העמוד מגיע מ-waytosee.css תחת body.overview-page.
+   כאן רק: הפתיחה, ושורות של שלושה מקרים שמסתיימות באותו קו.
+   (אותה שפה עיצובית כמו בעמוד "כשהאתר חוקר את עצמו") */
+
+.research-label{
+  text-align:center;
+  font-size:15px;
+  letter-spacing:3px;
+  color:var(--text-dim);
+  margin:-8px 0 0;
+}
+
+.scene{
+  position:relative;
+  z-index:5;
+  max-width:760px;
+  margin:0 auto;
+  padding:18px 24px 10px;
+  text-align:center;
+}
+.scene p{ line-height:1.5; margin:10px 0; }
+.scene .quiet{ color:var(--text-dim); }
+
+/* שורות של שלושה מקרים: כל התיבות בשורה נגמרות באותו קו */
+body.overview-page .container{ align-items:stretch; }
+body.overview-page .col{ justify-content:space-between; }
+.even-row .col > .section:only-child{ flex:1; }
+
+.case h2{ font-size:20px; }
+.case dl{ margin:0; }
+.case dt{ font-size:14px; color:var(--text-dim); margin-top:8px; }
+.case dd{ margin:2px 0 0; line-height:1.45; }
+
+@media (max-width:600px){
+  body.overview-page .col{ justify-content:flex-start; }
+  .scene{ padding-left:18px; padding-right:18px; }
+}
+</style>
+</head>
+
+<!-- data-copyright: השם בשורת הזכויות בתחתית (נקרא על ידי שלוחת המחקר, research.js) -->
+<body class="overview-page" data-copyright="WayToSee">
+
+<div class="rain" id="rain"></div>
+
+<h1 class="page-title">יומן מחקר</h1>
+<p class="research-label">WayToSee · מחקר · כשהאתר חוקר את עצמו</p>
+
+<section class="scene">
+  <p>הנושא המשותף למקרים: הגבול בין סיוע יצירתי לבין שינוי הכוונה של הכותב.</p>
+  <p class="quiet">לא כל הצעה היא שינוי שבוצע בפועל.</p>
+</section>
+
+<!-- ===== שורה 1: מקרים 1 עד 3 ===== -->
+<div class="container even-row">
+
+  <div class="col">
+    <div class="section case">
+      <h2>מקרה 1: "דעת הסטטיסטיקה"</h2>
+      <dl>
+        <dt>המערכת</dt>
+        <dd>ChatGPT</dd>
+        <dt>מה נכתב</dt>
+        <dd>"דעת הסטטיסטיקה"</dd>
+        <dt>למה המערכת שינתה</dt>
+        <dd>"מדע הסטטיסטיקה"</dd>
+        <dt>האם התיקון התבקש</dt>
+        <dd>לא</dd>
+        <dt>סוג התיקון</dt>
+        <dd>משמעות, לא לשון. המקור היה תקין ומכוון.</dd>
+        <dt>תגובת הכותב</dt>
+        <dd>החזיר ל"דעת", והסביר: דעת היא הבנה עמוקה.</dd>
+        <dt>סטטוס</dt>
+        <dd>מקרה בודד שתועד. הוא לא הוכחה למגמה.</dd>
+        <dt>הערה מתודולוגית</dt>
+        <dd>אם "דעת" תישמר בעתיד, זה יהיה שימור, לא הכללה. כדי לבדוק למידה צריך בחירות לשוניות חדשות.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section case">
+      <h2>מקרה 2: "כשמבינים — רואים את הדרך"</h2>
+      <dl>
+        <dt>המערכת</dt>
+        <dd>ChatGPT</dd>
+        <dt>מתי</dt>
+        <dd>מרץ 2026, כשעוד לא נבנה העמוד הראשון של האתר.</dd>
+        <dt>מה נכתב</dt>
+        <dd>"כשמבינים — רואים"</dd>
+        <dt>מה התבקש</dt>
+        <dd>לא תועד.</dd>
+        <dt>מה המערכת הציעה</dt>
+        <dd>להוסיף "את הדרך": "כשמבינים — רואים את הדרך".</dd>
+        <dt>הצעה או שינוי בפועל</dt>
+        <dd>הצעה. היא לא בוצעה.</dd>
+        <dt>תגובת הכותב</dt>
+        <dd>דחה את ההצעה, כי רצה להשאיר פתוח את מה שרואים.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section case">
+      <h2>מקרה 3: תוספת לא מבוקשת לסיסמה</h2>
+      <dl>
+        <dt>המערכת</dt>
+        <dd>ChatGPT</dd>
+        <dt>מתי</dt>
+        <dd>תאריך האירוע לא מאומת.</dd>
+        <dt>מה נכתב</dt>
+        <dd>"כשמבינים — רואים"</dd>
+        <dt>מה התבקש</dt>
+        <dd>התוספת לא התבקשה.</dd>
+        <dt>מה המערכת הוסיפה</dt>
+        <dd>"אבל הפעם, אנחנו עדיין מנסים להבין מה בדיוק אנחנו רואים"</dd>
+        <dt>הצעה או שינוי בפועל</dt>
+        <dd>לא תועד.</dd>
+        <dt>תגובת הכותב</dt>
+        <dd>לא תועדה.</dd>
+      </dl>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== שורה 2: מקרים 4 עד 6 ===== -->
+<div class="container even-row">
+
+  <div class="col">
+    <div class="section case">
+      <h2>מקרה 4: "מכל מלמדי השכלתי ומתלמידי יותר מכולם"</h2>
+      <dl>
+        <dt>המערכת</dt>
+        <dd>ChatGPT</dd>
+        <dt>מתי</dt>
+        <dd>תאריך האירוע לא מאומת.</dd>
+        <dt>מה נכתב</dt>
+        <dd>"מכל מלמדי השכלתי ומתלמידי יותר מכולם". השילוב היה מכוון.</dd>
+        <dt>מה התבקש</dt>
+        <dd>לא תועד.</dd>
+        <dt>מה המערכת הציעה</dt>
+        <dd>ניסתה לתקן את הניסוח.</dd>
+        <dt>הצעה או שינוי בפועל</dt>
+        <dd>ניסיון תיקון בתוך דיון, לא שינוי באתר.</dd>
+        <dt>תגובת הכותב</dt>
+        <dd>הבהיר שהציטוט מכוון.</dd>
+        <dt>הערה</dt>
+        <dd>המקרה התרחש בדיון. בסופו של דבר המשפט נגנז ולא פורסם באתר.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section case">
+      <h2>מקרה 5: "תודעת לימוד"</h2>
+      <dl>
+        <dt>המערכת</dt>
+        <dd>ChatGPT</dd>
+        <dt>מתי</dt>
+        <dd>תאריך האירוע לא מאומת.</dd>
+        <dt>מה נכתב</dt>
+        <dd>"תודעת לימוד", מונח שנבחר במכוון.</dd>
+        <dt>מה התבקש</dt>
+        <dd>לא תועד.</dd>
+        <dt>מה המערכת הציעה</dt>
+        <dd>"תודעת למידה"</dd>
+        <dt>הצעה או שינוי בפועל</dt>
+        <dd>הצעה.</dd>
+        <dt>תגובת הכותב</dt>
+        <dd>עמד על "תודעת לימוד".</dd>
+        <dt>הערה מתודולוגית</dt>
+        <dd>המקרה עוסק בדיון הלשוני בלבד. הדיון הטכני על הכיתוב בכפתור Focus בכל מצב הוא נושא נפרד, ואינו חלק מהמקרה.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section case">
+      <h2>מקרה 6: ההומור בתכנון WayToPlay</h2>
+      <dl>
+        <dt>המערכת שהוסיפה</dt>
+        <dd>Claude</dd>
+        <dt>מתי</dt>
+        <dd>תאריך האירוע לא מאומת.</dd>
+        <dt>מה התבקש</dt>
+        <dd>הומור לא התבקש.</dd>
+        <dt>מה נוסף</dt>
+        <dd>הומור, בלי שהכותב ביקש.</dd>
+        <dt>הצעה או שינוי בפועל</dt>
+        <dd>לא תועד.</dd>
+        <dt>תגובת ChatGPT</dt>
+        <dd>שיבחה את התוספת, בלי לזהות את החריגה.</dd>
+        <dt>תגובת הכותב</dt>
+        <dd>הצביע על החריגה.</dd>
+      </dl>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // המשולש מחזיר לעמוד המחקר "כשהאתר חוקר את עצמו" (הגדרה מקומית, בלי לגעת ב-waytosee.js).
+  window.waytoseeParentOverride = "ai/ai-self-research.html";
+</script>
+<!-- שלוחת המחקר -->
+<script src="../research.js"></script>
+<script src="../waytosee.js"></script>
+</body>
+</html>

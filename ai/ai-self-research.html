@@ -186,6 +186,28 @@ body.overview-page .col{ justify-content:space-between; }
 .log-entry dt{ font-size:14px; color:var(--text-dim); margin-top:8px; }
 .log-entry dd{ margin:2px 0 0; line-height:1.45; }
 
+/* הכפתור ליומן המחקר: אותו מראה כמו הכפתורים בעמוד הנושאים של בינה מלאכותית */
+.log-btn{
+  display:block;
+  margin-top:6px;
+  padding:18px;
+  border-radius:20px;
+  background:var(--panel);
+  color:var(--text);
+  text-decoration:none;
+  text-align:center;
+  font-size:19px;
+  border:1px solid var(--panel-border);
+  box-shadow:0 8px 24px rgba(0,0,0,0.06);
+  backdrop-filter:blur(3px);
+  transition:0.4s ease;
+}
+.log-btn:hover{
+  transform:translateY(-2px);
+  background:rgba(120,170,255,0.08);
+  border-color:var(--accent);
+}
+
 @media (max-width:600px){
   body.overview-page .col{ justify-content:flex-start; }
   .scene, .closing-block{ padding-left:18px; padding-right:18px; }
@@ -402,27 +424,7 @@ body.overview-page .col{ justify-content:space-between; }
 
       <div class="log-block">
         <h3>נתונים שנאספו</h3>
-        <div class="log-entry">
-          <h4>מקרה 1</h4>
-          <dl>
-            <dt>המערכת</dt>
-            <dd>ChatGPT</dd>
-            <dt>מה נכתב</dt>
-            <dd>"דעת הסטטיסטיקה"</dd>
-            <dt>למה המערכת שינתה</dt>
-            <dd>"מדע הסטטיסטיקה"</dd>
-            <dt>האם התיקון התבקש</dt>
-            <dd>לא</dd>
-            <dt>סוג התיקון</dt>
-            <dd>משמעות, לא לשון. המקור היה תקין ומכוון.</dd>
-            <dt>תגובת הכותב</dt>
-            <dd>החזיר ל"דעת", והסביר: דעת היא הבנה עמוקה.</dd>
-            <dt>סטטוס</dt>
-            <dd>מקרה בודד שתועד. הוא לא הוכחה למגמה.</dd>
-            <dt>הערה מתודולוגית</dt>
-            <dd>אם "דעת" תישמר בעתיד, זה יהיה שימור, לא הכללה. כדי לבדוק למידה צריך בחירות לשוניות חדשות.</dd>
-          </dl>
-        </div>
+        <a class="log-btn" href="ai-self-research-log.html">יומן מחקר</a>
       </div>
 
       <div class="log-block">
