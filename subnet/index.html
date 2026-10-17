@@ -24,7 +24,7 @@
 
 <style>
   /* טיפוגרפיה וצבעים ייחודיים לדף זה. במצב רגיל: פלטת האור של מערכת העצבים המרכזית.
-     במצב תודעת לימוד: פלטת "טיפת המים" הכהה, שמוחלפת אוטומטית דרך body.learning-mode. */
+     במצב תודעת לימוד: הפלטה הכהה, שמוחלפת אוטומטית דרך body.learning-mode. */
   :root{
     --panel: rgba(255,255,255,0.55);
     --panel-border: rgba(82,68,54,0.16);
@@ -34,7 +34,6 @@
     --accent-2: #1f8f7c;
     --network: #b5591f;
     --host: #2f6fb3;
-    --drop-glow: #4f96d1;
     --code-bg: rgba(255,255,255,0.6);
   }
   body.learning-mode{
@@ -48,7 +47,6 @@
     --accent-2: #7ce0d3;
     --network: #ff9f6e;
     --host: #4fb3ff;
-    --drop-glow: #6fd4ff;
     --code-bg: #0d1626;
   }
   *{box-sizing:border-box;}
@@ -89,6 +87,10 @@
   .col{ display:flex; flex-direction:column; min-width:0; }
   .section{ padding-top: 26px; margin-top: 26px; border-top: 1px solid var(--panel-border); }
   .col .section:first-child{ padding-top:0; margin-top:0; border-top:none; }
+  /* שלוש העמודות נגמרות באותו קו: התיבה האחרונה בכל עמודה נמתחת עד הסוף */
+  @media (min-width: 901px){
+    .col > .section:last-child{ flex:1; border-bottom:1px solid var(--panel-border); padding-bottom:14px; }
+  }
 
   .grid h2{
     font-size: 19px;
@@ -158,7 +160,7 @@
   .subnet-card dt{ color: var(--text-dim); margin-top:6px; }
   .subnet-card dd{ margin: 2px 0 0; font-family:'JetBrains Mono',monospace; direction:ltr; text-align:right; color: var(--text); }
 
-  /* ---- demo section (טיפת המים) ---- */
+  /* ---- demo section: כתובת ומסכה, בעשרוני ובבינארי ---- */
   .demo{
     background: var(--panel);
     border: 1px solid var(--panel-border);
@@ -184,72 +186,22 @@
   .demo-decimal .label{ display:block; font-family:'Heebo',sans-serif; direction:rtl; color:var(--text-dim); font-size:11.5px; margin-bottom:4px; }
   .demo-decimal .num{ font-size: 15.5px; color: var(--text); font-weight:600; }
 
-  .drop-stage{
-    height: 130px;
-    position: relative;
-    margin: 6px auto 4px;
-    display:flex; align-items:flex-end; justify-content:center;
-  }
-  .drop{
-    width: 26px; height: 34px;
-    position: absolute;
-    top: 6px;
-    left: 50%;
-    transform: translateX(-50%);
-    cursor: pointer;
-    filter: drop-shadow(0 0 10px var(--drop-glow));
-    transition: filter .2s ease;
-  }
-  .drop:hover{ filter: drop-shadow(0 0 18px var(--drop-glow)); }
-  .drop svg{ width:100%; height:100%; display:block; }
-  .drop.falling{ animation: fall 0.9s cubic-bezier(.55,0,.85,.35) forwards; }
-  @keyframes fall{
-    0%{ top: 6px; opacity:1; }
-    85%{ top: 92px; opacity:1; }
-    100%{ top: 96px; opacity:0; }
-  }
-  .ripple{
-    width: 70px; height: 10px;
-    border: 2px solid var(--drop-glow);
-    border-radius: 50%;
-    opacity: 0;
-    position:absolute;
-    bottom: 14px;
-    left:50%; transform: translateX(-50%) scale(0.3);
-  }
-  .ripple.show{ animation: ripple .7s ease-out .78s forwards; }
-  @keyframes ripple{
-    0%{ opacity:.9; transform: translateX(-50%) scale(0.3);}
-    100%{ opacity:0; transform: translateX(-50%) scale(2.4);}
-  }
-  .hint{
-    color: var(--text-dim);
-    font-size: 12px;
-    margin-bottom: 4px;
-    min-height: 16px;
-  }
-
+  /* הבינארי פתוח תמיד */
   .binary-reveal{
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    transition: max-height .6s ease, opacity .6s ease .1s, margin .6s ease;
     position: relative; z-index:1;
-  }
-  .binary-reveal.shown{
-    max-height: 400px;
-    opacity: 1;
     margin-top: 16px;
   }
+  /* ארבע האוקטטות תמיד בשורה אחת */
   .bin-row{
-    display:flex; justify-content:center; gap: 6px; flex-wrap:wrap;
-    font-family:'JetBrains Mono',monospace; direction:ltr; font-size: 13.5px;
+    display:flex; justify-content:center; gap: 3px; flex-wrap:nowrap;
+    font-family:'JetBrains Mono',monospace; direction:ltr; font-size: 11px;
     margin-bottom: 12px;
   }
-  .bin-row .rlabel{ font-family:'Heebo',sans-serif; direction:rtl; color:var(--text-dim); font-size:11.5px; align-self:center; min-width:40px; }
+  @media (max-width: 1100px) and (min-width: 901px), (max-width: 380px){ .bin-row{ font-size: 10px; gap: 2px; } .demo{ padding-left: 6px; padding-right: 6px; } }
+  .bin-row .rlabel{ font-family:'Heebo',sans-serif; direction:rtl; color:var(--text-dim); font-size:11.5px; align-self:center; min-width:34px; }
   .octet{ display:inline-flex; }
   .bit{
-    width: 14px; text-align:center; color: var(--host);
+    width: auto; text-align:center; color: var(--host);
     transition: color .3s ease, text-shadow .3s ease;
   }
   .bit.net{ color: var(--network); font-weight:700; text-shadow: 0 0 10px color-mix(in srgb, var(--network) 60%, transparent); }
@@ -261,20 +213,6 @@
   }
   .role-caption .net-word{ color: var(--network); font-weight:600; }
   .role-caption .host-word{ color: var(--host); font-weight:600; }
-
-  .replay{
-    background: transparent;
-    border: 1px solid var(--panel-border);
-    color: var(--text-dim);
-    border-radius: 999px;
-    padding: 6px 16px;
-    font-family:'Heebo',sans-serif;
-    font-size: 13px;
-    cursor: pointer;
-    margin-top: 6px;
-    transition: all .2s ease;
-  }
-  .replay:hover{ color: var(--text); border-color: var(--accent); }
 
   .legend{
     display:flex; justify-content:center; gap:14px; margin-top: 12px;
@@ -354,14 +292,7 @@
             <div class="item"><span class="label">כתובת</span><span class="num">192.168.1.8</span></div>
             <div class="item"><span class="label">מסכה</span><span class="num">255.255.255.0</span></div>
           </div>
-          <div class="hint">לחצו על הטיפה כדי לחשוף את הבינארי</div>
-          <div class="drop-stage">
-            <div class="drop" role="button" tabindex="0" aria-label="חשוף בינארי">
-              <svg viewBox="0 0 26 34"><path d="M13 0 C13 0 26 18 26 24 A13 13 0 1 1 0 24 C0 18 13 0 13 0 Z" fill="url(#g24)"/><defs><linearGradient id="g24" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8fe0ff"/><stop offset="100%" stop-color="#3fa6ec"/></linearGradient></defs></svg>
-            </div>
-            <div class="ripple"></div>
-          </div>
-          <div class="binary-reveal">
+          <div class="binary-reveal shown">
             <div class="bin-row">
               <span class="rlabel">כתובת</span>
               <span class="octet">11000000</span><span class="octet">10101000</span><span class="octet">00000001</span>
@@ -373,7 +304,6 @@
               <span class="octet" data-octet="mask">00000000</span>
             </div>
             <div class="role-caption">כל 8 הביטים באוקטטה האחרונה הם <span class="host-word">Host</span>. האוקטטה כולה פנויה למכשירים.</div>
-            <button class="replay">הצג שוב</button>
           </div>
         </div>
 
@@ -388,6 +318,12 @@
         <p>כשעוברים מ־‎/24 ל־‎/25, הביט הראשון משמאל באוקטטה האחרונה, ה־MSB שמשקלו 128, עובר טרנספורמציה: מביט שמאפשר Hosting הוא הופך לביט שמגדיר מרחבי רשת. הוא לא "יושב שם סתם", הוא קם ומחלק את מרחב האפשרויות לשני מצבים:</p>
         <div class="block-val">0XXXXXXX&nbsp;&nbsp;&nbsp;&nbsp;1XXXXXXX</div>
         <p>הביט הזה מתחיל לתפקד כמו מזהה קבוצה (subnet id), ולכן נוצרות שתי תתי־רשתות.</p>
+
+        <p>כדי לראות למה המסכה מקבלת דווקא את הערך 128, מסתכלים על משקלי הביטים באוקטטה, תמיד משמאל לימין:</p>
+        <div class="block-val">128&nbsp;&nbsp;64&nbsp;&nbsp;32&nbsp;&nbsp;16&nbsp;&nbsp;8&nbsp;&nbsp;4&nbsp;&nbsp;2&nbsp;&nbsp;1<br>1&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0</div>
+        <p>כלומר <span class="val">10000000 = 128</span>. זו הסיבה שהמסכה היא <span class="val">255.255.255.128</span> ולא <span class="val">255.255.255.127</span>.</p>
+
+        <div class="note"><b>נקודה קריטית:</b> המסכה אינה מציינת את סוף טווח הכתובות. היא מסמנת אילו ביטים שייכים לרשת. מכיוון שהביט השמאלי שמשקלו 128 דולק במסכה, ערך האוקטטה של המסכה הוא 128. לעומת זאת <span class="val">01111111 = 127</span>: כאן הביט השמאלי הוא 0, וכל שבעת ביטי ה־Host דולקים. לכן 127 הוא הערך <em>האחרון</em> במרחב הראשון, לא ערך המסכה.</div>
       </div>
 
     </div>
@@ -397,11 +333,6 @@
 
       <div class="section">
         <h2>המצב השני - ‎/25</h2>
-        <p>כדי לראות למה המסכה מקבלת דווקא את הערך 128, מסתכלים על משקלי הביטים באוקטטה, תמיד משמאל לימין:</p>
-        <div class="block-val">128&nbsp;&nbsp;64&nbsp;&nbsp;32&nbsp;&nbsp;16&nbsp;&nbsp;8&nbsp;&nbsp;4&nbsp;&nbsp;2&nbsp;&nbsp;1<br>1&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0&nbsp;&nbsp;0</div>
-        <p>כלומר <span class="val">10000000 = 128</span>. זו הסיבה שהמסכה היא <span class="val">255.255.255.128</span> ולא <span class="val">255.255.255.127</span>.</p>
-
-        <div class="note"><b>נקודה קריטית:</b> המסכה אינה מציינת את סוף טווח הכתובות. היא מסמנת אילו ביטים שייכים לרשת. מכיוון שהביט השמאלי שמשקלו 128 דולק במסכה, ערך האוקטטה של המסכה הוא 128. לעומת זאת <span class="val">01111111 = 127</span>: כאן הביט השמאלי הוא 0, וכל שבעת ביטי ה־Host דולקים. לכן 127 הוא הערך <em>האחרון</em> במרחב הראשון, לא ערך המסכה.</div>
 
         <!-- ===== DEMO /25 ===== -->
         <div class="demo" data-demo="25">
@@ -409,14 +340,7 @@
             <div class="item"><span class="label">כתובת</span><span class="num">192.168.1.8</span></div>
             <div class="item"><span class="label">מסכה</span><span class="num">255.255.255.128</span></div>
           </div>
-          <div class="hint">לחצו על הטיפה כדי לחשוף את הבינארי</div>
-          <div class="drop-stage">
-            <div class="drop" role="button" tabindex="0" aria-label="חשוף בינארי">
-              <svg viewBox="0 0 26 34"><path d="M13 0 C13 0 26 18 26 24 A13 13 0 1 1 0 24 C0 18 13 0 13 0 Z" fill="url(#g25)"/><defs><linearGradient id="g25" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8fe0ff"/><stop offset="100%" stop-color="#3fa6ec"/></linearGradient></defs></svg>
-            </div>
-            <div class="ripple"></div>
-          </div>
-          <div class="binary-reveal">
+          <div class="binary-reveal shown">
             <div class="bin-row">
               <span class="rlabel">כתובת</span>
               <span class="octet">11000000</span><span class="octet">10101000</span><span class="octet">00000001</span>
@@ -432,7 +356,6 @@
               <span><span class="swatch net"></span> ביט רשת (transformed)</span>
               <span><span class="swatch host"></span> ביט Host</span>
             </div>
-            <button class="replay">הצג שוב</button>
           </div>
         </div>
 
@@ -473,64 +396,9 @@
 
   </div>
 
-  <p class="page-footer">WayToSee · דרך הרשת</p>
+  <p class="page-footer">WayToSee</p>
 
 </main>
-
-<script>
-(function(){
-  document.querySelectorAll('.demo').forEach(function(demo){
-    var drop = demo.querySelector('.drop');
-    var ripple = demo.querySelector('.ripple');
-    var reveal = demo.querySelector('.binary-reveal');
-    var replay = demo.querySelector('.replay');
-    var hint = demo.querySelector('.hint');
-
-    function play(){
-      drop.classList.remove('falling');
-      void drop.offsetWidth;
-      drop.classList.add('falling');
-      ripple.classList.remove('show');
-      void ripple.offsetWidth;
-      ripple.classList.add('show');
-      hint.style.visibility = 'hidden';
-      setTimeout(function(){
-        reveal.classList.add('shown');
-      }, 780);
-    }
-
-    function reset(){
-      reveal.classList.remove('shown');
-      drop.classList.remove('falling');
-      ripple.classList.remove('show');
-      hint.style.visibility = 'visible';
-    }
-
-    drop.addEventListener('click', function(){
-      if(reveal.classList.contains('shown')) return;
-      play();
-    });
-    drop.addEventListener('keydown', function(e){
-      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); if(!reveal.classList.contains('shown')) play(); }
-    });
-    replay.addEventListener('click', function(){
-      reset();
-      setTimeout(play, 250);
-    });
-
-    var played = false;
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if(entry.isIntersecting && !played){
-          played = true;
-          setTimeout(play, 400);
-        }
-      });
-    }, { threshold: 0.5 });
-    io.observe(demo);
-  });
-})();
-</script>
 
 <!-- מערכת העצבים המרכזית: כפתור בית, מצב תודעת לימוד, רעש חום, הבהוב טורקיז -->
 <!-- ההורה של העמוד הזה כבר מוגדר ב-PARENT_MAP שב-waytosee.js, אין צורך ב-override ידני -->
