@@ -46,15 +46,36 @@
       box-shadow: 0 18px 55px rgba(0, 0, 0, 0.55);
     }
 
-    .back-link {
-      display: inline-block;
-      margin-top: 20px;
-      color: rgba(242, 242, 242, 0.72);
+    /* המשולש: אותה צורה ואותו מקום כמו בשאר האתר, בצבע של המצב הכהה */
+    #homeBtn {
+      position: fixed;
+      top: 14px;
+      left: 26px;
+      display: block;
+      color: rgba(240, 240, 240, 0.88);
+      transition: transform 0.3s ease;
       text-decoration: none;
+      z-index: 1000;
+      cursor: pointer;
     }
 
-    .back-link:hover {
-      color: #fff;
+    #homeBtn:hover {
+      transform: scale(1.08);
+    }
+
+    .home-seg { animation: homeShade 3.6s ease-in-out infinite; }
+    .home-seg-1 { animation-delay: 0s; }
+    .home-seg-2 { animation-delay: -1.2s; }
+    .home-seg-3 { animation-delay: -2.4s; }
+
+    @keyframes homeShade {
+      0%, 100% { opacity: 1; }
+      33.333% { opacity: 0.55; }
+      66.667% { opacity: 0.78; }
+    }
+
+    @media (max-width: 600px) {
+      #homeBtn { left: 6px; }
     }
   </style>
 <script src="../waytosee-scale.js"></script>
@@ -68,8 +89,15 @@
       <source src="thinking-station.mp4" type="video/mp4">
       הדפדפן שלך אינו תומך בהפעלת וידאו.
     </video>
-
-    <a class="back-link" href="javascript:history.back()">חזרה לדרך רשת</a>
   </main>
+
+  <!-- המשולש מחזיר לעמוד "דרך רשת" -->
+  <a id="homeBtn" href="ccna-introduction.html" aria-label="חזרה לדרך רשת">
+    <svg viewBox="0 0 100 78" width="30" height="24" fill="currentColor" aria-hidden="true">
+      <polygon class="home-seg home-seg-1" points="50.00,14.00 32.85,43.70 40.39,45.15 50.00,28.50"/>
+      <polygon class="home-seg home-seg-2" points="21.42,63.50 55.72,63.50 53.20,56.25 33.98,56.25"/>
+      <polygon class="home-seg home-seg-3" points="78.58,63.50 61.43,33.80 56.41,39.60 66.02,56.25"/>
+    </svg>
+  </a>
 </body>
 </html>
