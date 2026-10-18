@@ -1,0 +1,8 @@
+# קובץ המפתחות. שומרים אותו בשם  .env  (עם נקודה בהתחלה), באותה תיקייה של connection-test.mjs
+# ולא בתוך תיקיית WayToSee. מחליפים את המילים בעברית במפתחות האמיתיים, בלי רווחים ובלי מרכאות.
+OPENAI_API_KEY=המפתח-של-OpenAI
+ANTHROPIC_API_KEY=המפתח-של-Anthropic
+
+# אופציונלי: שמות המודלים. אם מופיעה שגיאה "המודל לא נמצא", מחליפים כאן.
+# OPENAI_MODEL=gpt-4o-mini
+# ANTHROPIC_MODEL=claude-haiku-4-5
