@@ -250,6 +250,13 @@
       body::before { content: ""; flex: 16; }
       body::after { content: ""; flex: 59; }
     }
+
+    a.brand {
+      display: block;
+      color: inherit;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+    }
   </style>
 <script src="waytosee-scale.js"></script>
 </head>
@@ -260,14 +267,14 @@
 
 <div class="container">
 
-  <div id="focusBtn" class="brand">
+  <a id="focusBtn" class="brand" href="professions.html">
     <div class="brand-en">way to see</div>
     <div class="brand-he">כשמבינים — רואים</div>
     <div class="dao-wrap">
       <span class="dao-mark">道</span>
       <span class="clef-inline"></span>
     </div>
-  </div>
+  </a>
 
   <audio id="brownNoise" src="brown-noise.mp3" loop></audio>
 
@@ -329,7 +336,8 @@
   // לחיצה ראשונה על הלוגו: הופכת צבעים (בהיר/כהה), כמו קודם.
   // לחיצה נוספת על הלוגו (בלי לרענן ביניהן): מעבירה לעמוד תחומי דעת.
   let logoArmed = false;
-  focusBtn.addEventListener("click", () => {
+  focusBtn.addEventListener("click", (event) => {
+    event.preventDefault();
     if (!logoArmed) {
       logoArmed = true;
       const isLearningMode = !document.body.classList.contains("learning-mode");
