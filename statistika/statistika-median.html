@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FTM28BMBXC');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>חציון: מי עומד באמצע? | WayToSee</title>
+<meta name="description" content="כשערך אחד רחוק מכל השאר, הממוצע כבר לא מתאר את רוב הנתונים. החציון הוא הערך שעומד באמצע, ולא מושפע מערכים חריגים.">
+
+<link rel="stylesheet" href="../waytosee.css">
+
+<style>
+/* שלד העמוד (page-title / page-subtitle / container / col / section / data-table /
+   calc / pause / quote / next-line / hist / hist-pair / ltr / numbers) נמצא ב-
+   waytosee.css תחת body.stat-page. נשאר כאן רק הייחודי לעמוד הזה. */
+.formula { text-align: center; font-size: 19px; margin: 12px 0; }
+
+/* שורת הערכים המסודרים: הערך האמצעי מודגש בכחול */
+.stat-page { --c-mid: #2f6fb3; }
+body.learning-mode { --c-mid: #4fb3ff; }
+.rank .cell circle { fill: none; stroke: currentColor; stroke-width: 1.4; opacity: 0.45; }
+body.stat-page .rank .cell text { font-size: 12px; font-family: 'JetBrains Mono', monospace; }
+.rank .cell.mid circle { fill: var(--c-mid); stroke: var(--c-mid); opacity: 0.9; stroke-width: 2; }
+body.stat-page .rank .cell.mid text { fill: #fff; font-weight: bold; }
+.rank .br { stroke: currentColor; stroke-width: 1.2; opacity: 0.55; }
+body.stat-page .rank .brlbl { font-size: 12px; opacity: 0.7; direction: rtl; unicode-bidi: plaintext; }
+body.stat-page .rank .rowlbl { font-size: 13px; font-weight: bold; opacity: 0.8; direction: rtl; unicode-bidi: plaintext; }
+
+</style>
+</head>
+
+<body class="stat-page">
+
+<div class="rain" id="rain"></div>
+
+<h1 class="page-title">מי עומד באמצע?</h1>
+<p class="page-subtitle">מדדי מרכז: חציון</p>
+
+<div class="container">
+
+<div class="col">
+
+  <div class="section">
+    <h2>הצורך</h2>
+    <p>שבעה חברים בדקו כמה דקות לוקח לכל אחד מהם להגיע לעבודה:</p>
+    <div class="numbers">10, 12, 12, 15, 18, 20, 95</div>
+    <p>אחד מהם גר רחוק מאוד. <strong>כמה זמן לוקח, בדרך כלל, להגיע?</strong></p>
+  </div>
+
+  <div class="section">
+    <h2>ניסיון ראשון: ממוצע</h2>
+    <div class="calc">182 ÷ 7 = <strong>26</strong></div>
+    <p>אבל שישה מתוך שבעה מגיעים תוך 20 דקות או פחות. <strong>26 לא מתאר אף אחד מהם.</strong></p>
+    <p>חבר אחד עם 95 דקות משך את הממוצע למעלה, הרחק מכל השאר.</p>
+  </div>
+
+  <div class="section">
+    <h2>הרעיון: לעמוד באמצע התור</h2>
+    <p>נסדר את הזמנים מהקצר לארוך, ונבדוק מי עומד בדיוק באמצע:</p>
+    <svg class="hist rank" viewBox="0 0 320 92" role="img" aria-label="שבעת זמני ההגעה מסודרים בשורה מהקטן לגדול: 10, 12, 12, 15, 18, 20, 95. הערך האמצעי, 15, מודגש: שלושה ערכים משמאלו ושלושה מימינו."><g transform="translate(22 0)">
+<g class="cell"><circle cx="30" cy="30" r="14"/><text x="30" y="34.5">10</text></g>
+<g class="cell"><circle cx="66" cy="30" r="14"/><text x="66" y="34.5">12</text></g>
+<g class="cell"><circle cx="102" cy="30" r="14"/><text x="102" y="34.5">12</text></g>
+<g class="cell mid"><circle cx="138" cy="30" r="14"/><text x="138" y="34.5">15</text></g>
+<g class="cell"><circle cx="174" cy="30" r="14"/><text x="174" y="34.5">18</text></g>
+<g class="cell"><circle cx="210" cy="30" r="14"/><text x="210" y="34.5">20</text></g>
+<g class="cell"><circle cx="246" cy="30" r="14"/><text x="246" y="34.5">95</text></g>
+<line class="br" x1="16" y1="58" x2="116" y2="58"/><line class="br" x1="16" y1="54" x2="16" y2="62"/><line class="br" x1="116" y1="54" x2="116" y2="62"/>
+<text class="brlbl" x="66" y="78">3 ערכים</text>
+<line class="br" x1="160" y1="58" x2="260" y2="58"/><line class="br" x1="160" y1="54" x2="160" y2="62"/><line class="br" x1="260" y1="54" x2="260" y2="62"/>
+<text class="brlbl" x="210" y="78">3 ערכים</text>
+</g></svg>
+    <p>שלושה מתחתיו, שלושה מעליו. האמצעי הוא <strong>15</strong>, וזה הרבה יותר קרוב למה שקורה לרוב החברים.</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>ורק עכשיו: חציון</h2>
+    <p>לערך שעומד באמצע קוראים <strong>חציון</strong>.</p>
+    <p class="formula"><strong>חצי מהערכים מתחתיו, חצי מעליו</strong></p>
+    <p>כדי למצוא אותו לא צריך לחבר ולא לחלק. רק <strong>לסדר</strong> ולספור עד האמצע.</p>
+  </div>
+
+  <div class="section">
+    <h2>ומה אם אין אמצע אחד?</h2>
+    <p>כשמספר הערכים זוגי, אין ערך אחד שעומד באמצע. נחזור ל־20 הציונים:</p>
+    <div class="numbers">58, 64, 66, 69, 70, 72, 73, 74, 77, <strong>78, 79</strong>, 81, 83, 85, 85, 85, 88, 90, 92, 95</div>
+    <p>באמצע עומדים שניים: הציון העשירי, 78, והציון האחד־עשר, 79. במקרה כזה לוקחים את הממוצע של שניהם:</p>
+    <div class="calc">(78 + 79) ÷ 2 = <strong>78.5</strong></div>
+    <p>הממוצע של הכיתה הזו הוא 78.2, כלומר קרוב מאוד לחציון. כשאין ערכים חריגים, שני המדדים נוטים להיות קרובים.</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>הטוויסט: הערך החריג לא מזיז אותו</h2>
+    <p>נניח שהחבר שגר רחוק עבר לגור עוד יותר רחוק, ועכשיו לוקח לו 500 דקות:</p>
+    <svg class="hist rank" viewBox="0 0 320 84" role="img" aria-label="שתי שורות של שבעה זמני הגעה. בשורה הראשונה הערך הגדול הוא 95, ובשנייה 500. בשתיהן הערך האמצעי הוא 15.">
+<text class="rowlbl" x="312" y="27" style="text-anchor:start">לפני</text>
+<g class="cell"><circle cx="30" cy="22" r="14"/><text x="30" y="26.5">10</text></g>
+<g class="cell"><circle cx="66" cy="22" r="14"/><text x="66" y="26.5">12</text></g>
+<g class="cell"><circle cx="102" cy="22" r="14"/><text x="102" y="26.5">12</text></g>
+<g class="cell mid"><circle cx="138" cy="22" r="14"/><text x="138" y="26.5">15</text></g>
+<g class="cell"><circle cx="174" cy="22" r="14"/><text x="174" y="26.5">18</text></g>
+<g class="cell"><circle cx="210" cy="22" r="14"/><text x="210" y="26.5">20</text></g>
+<g class="cell"><circle cx="246" cy="22" r="14"/><text x="246" y="26.5">95</text></g>
+<text class="rowlbl" x="312" y="67" style="text-anchor:start">אחרי</text>
+<g class="cell"><circle cx="30" cy="62" r="14"/><text x="30" y="66.5">10</text></g>
+<g class="cell"><circle cx="66" cy="62" r="14"/><text x="66" y="66.5">12</text></g>
+<g class="cell"><circle cx="102" cy="62" r="14"/><text x="102" y="66.5">12</text></g>
+<g class="cell mid"><circle cx="138" cy="62" r="14"/><text x="138" y="66.5">15</text></g>
+<g class="cell"><circle cx="174" cy="62" r="14"/><text x="174" y="66.5">18</text></g>
+<g class="cell"><circle cx="210" cy="62" r="14"/><text x="210" y="66.5">20</text></g>
+<g class="cell"><circle cx="246" cy="62" r="14"/><text x="246" y="66.5">500</text></g>
+</svg>
+    <p><strong>החציון נשאר 15.</strong> הממוצע קפץ מ־26 לכ־83.9.</p>
+    <p>לחציון לא משנה כמה רחוק הערך הגדול, רק שהוא בסוף התור.</p>
+  </div>
+
+  <div class="section">
+    <h2>מה החציון לא רואה</h2>
+    <p>זה הכוח שלו, וגם החולשה שלו. החציון רואה רק <strong>סדר</strong>, לא מרחקים:</p>
+    <div class="numbers">10, 12, 12, <strong>15</strong>, 16, 17, 18</div>
+    <div class="numbers">10, 12, 12, <strong>15</strong>, 60, 70, 80</div>
+    <p>לשתי הקבוצות אותו חציון, 15, אף שהן שונות מאוד.</p>
+  </div>
+
+  <div class="section">
+    <h2>לסיכום</h2>
+    <p>החציון הוא הערך שעומד באמצע, אחרי שמסדרים את הנתונים. כמעט לא מושפע מערכים חריגים, ולכן הוא מתאים למשל לזמנים, למחירים ולמשכורות.</p>
+    <p>ובגלל שהוא צריך רק סדר, אפשר להשתמש בו גם בסולם סדר, כמו דירוג שביעות רצון, שבו ממוצע לא מתאים.</p>
+    <p class="next-line">בדף הבא: ומה עושים כשהנתונים בכלל לא מספרים, כמו צבע עיניים? ← שכיח: מה מופיע הכי הרבה?</p>
+  </div>
+
+</div>
+
+</div>
+
+<script src="../waytosee.js"></script>
+</body>
+</html>

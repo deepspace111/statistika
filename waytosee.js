@@ -167,6 +167,8 @@ document.addEventListener("DOMContentLoaded", () => {
         "statistika/statistika-introduction.html",
         "statistika/statistika-scales.html",
         "statistika/statistika-data-display.html",
+        "statistika/statistika-mean.html",
+        "statistika/statistika-median.html",
         "statistika/statistika-mode.html",
         "statistika/statistika-dispersion.html",
         "statistika/statistika-relative.html",

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FTM28BMBXC');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ממוצע: מספר אחד לכיתה שלמה | WayToSee</title>
+<meta name="description" content="איך מתארים כיתה שלמה במספר אחד? הממוצע מחלק את כל הערכים שווה בשווה, והוא נקודת האיזון של הנתונים.">
+
+<link rel="stylesheet" href="../waytosee.css">
+
+<style>
+/* שלד העמוד (page-title / page-subtitle / container / col / section / data-table /
+   calc / pause / quote / next-line / hist / hist-pair / ltr / numbers) נמצא ב-
+   waytosee.css תחת body.stat-page. נשאר כאן רק הייחודי לעמוד הזה. */
+.formula { text-align: center; font-size: 19px; margin: 12px 0; }
+
+/* הקרש המאוזן: הציונים כנקודות, והמשולש בנקודת הממוצע.
+   כחול = מתחת לממוצע, כתום = מעליו (אותם צבעים כמו בעמוד צורת ההתפלגות) */
+.stat-page { --c-lo: #2f6fb3; --c-hi: #d9772a; }
+body.learning-mode { --c-lo: #4fb3ff; --c-hi: #f5a35a; }
+.balance .beam { stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; opacity: 0.55; }
+.balance .dot.lo { fill: var(--c-lo); opacity: 0.85; }
+.balance .dot.hi { fill: var(--c-hi); opacity: 0.85; }
+.balance .fulcrum { fill: currentColor; opacity: 0.7; }
+body.stat-page .balance .flbl { font-size: 13px; font-weight: bold; }
+body.stat-page .balance .side { font-size: 12px; font-weight: bold; direction: rtl; unicode-bidi: plaintext; }
+body.stat-page .balance .side.lo { fill: var(--c-lo); }
+body.stat-page .balance .side.hi { fill: var(--c-hi); }
+
+</style>
+</head>
+
+<body class="stat-page">
+
+<div class="rain" id="rain"></div>
+
+<h1 class="page-title">מספר אחד לכיתה שלמה</h1>
+<p class="page-subtitle">מדדי מרכז: ממוצע</p>
+
+<div class="container">
+
+<div class="col">
+
+  <div class="section">
+    <h2>הצורך</h2>
+    <p>נחזור ל־20 הציונים מדף הצגת הנתונים:</p>
+    <div class="numbers">58, 64, 66, 69, 70, 72, 73, 74, 77, 78, 79, 81, 83, 85, 85, 85, 88, 90, 92, 95</div>
+    <p>ההיסטוגרמה הראתה לנו את התמונה. אבל מה אם שואלים <strong>"איך הכיתה הזו הצליחה?"</strong> ורוצים לענות במספר אחד?</p>
+  </div>
+
+  <div class="section">
+    <h2>ניסיון ראשון: לבחור בעין</h2>
+    <p>אחד יגיד 85, כי הוא חוזר שלוש פעמים. אחר יגיד 77, כי הוא נראה באמצע. שלישי יגיד 80, כי זה מספר עגול.</p>
+    <p>כל אחד בוחר אחרת. <strong>צריך דרך שתיתן לכולם את אותה תשובה.</strong></p>
+  </div>
+
+  <div class="section">
+    <h2>הרעיון: לחלק שווה בשווה</h2>
+    <p>נשפוך את כל הנקודות שהכיתה צברה לקופה אחת:</p>
+    <div class="calc">58 + 64 + … + 95 = <strong>1564</strong></div>
+    <p>ועכשיו נחלק את הקופה שווה בשווה בין 20 התלמידים:</p>
+    <div class="calc">1564 ÷ 20 = <strong>78.2</strong></div>
+    <p>אם כולם היו מקבלים בדיוק אותו ציון, וסך הנקודות היה נשאר אותו דבר, כל אחד היה מקבל 78.2.</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>ורק עכשיו: ממוצע</h2>
+    <p>למספר הזה קוראים <strong>ממוצע</strong>.</p>
+    <p class="formula"><strong>ממוצע = סכום הערכים ÷ מספר הערכים</strong></p>
+    <p>זה מדד מרכז: מספר אחד שמנסה לתאר איפה נמצא "האמצע" של הנתונים.</p>
+  </div>
+
+  <div class="section">
+    <h2>הממוצע הוא נקודת איזון</h2>
+    <p>נשים את 20 הציונים כמשקולות על קרש, ונחפש איפה להניח את המשולש כדי שהקרש לא ייפול:</p>
+    <svg class="hist balance" viewBox="0 0 320 110" role="img" aria-label="20 הציונים כנקודות על קרש, שנשען על משולש בנקודה 78.2. סכום המרחקים של הציונים מתחת ל־78.2 הוא 81, וסכום המרחקים של הציונים מעליו הוא גם 81, ולכן הקרש מאוזן.">
+<line class="beam" x1="16" y1="66" x2="304" y2="66"/>
+<circle class="dot lo" cx="38.7" cy="58" r="3.4"><title>58</title></circle>
+<circle class="dot lo" cx="76.0" cy="58" r="3.4"><title>64</title></circle>
+<circle class="dot lo" cx="88.4" cy="58" r="3.4"><title>66</title></circle>
+<circle class="dot lo" cx="107.1" cy="58" r="3.4"><title>69</title></circle>
+<circle class="dot lo" cx="113.3" cy="58" r="3.4"><title>70</title></circle>
+<circle class="dot lo" cx="125.8" cy="58" r="3.4"><title>72</title></circle>
+<circle class="dot lo" cx="132.0" cy="58" r="3.4"><title>73</title></circle>
+<circle class="dot lo" cx="138.2" cy="58" r="3.4"><title>74</title></circle>
+<circle class="dot lo" cx="156.9" cy="58" r="3.4"><title>77</title></circle>
+<circle class="dot lo" cx="163.1" cy="58" r="3.4"><title>78</title></circle>
+<circle class="dot hi" cx="169.3" cy="58" r="3.4"><title>79</title></circle>
+<circle class="dot hi" cx="181.8" cy="58" r="3.4"><title>81</title></circle>
+<circle class="dot hi" cx="194.2" cy="58" r="3.4"><title>83</title></circle>
+<circle class="dot hi" cx="206.7" cy="58" r="3.4"><title>85</title></circle>
+<circle class="dot hi" cx="206.7" cy="50" r="3.4"><title>85</title></circle>
+<circle class="dot hi" cx="206.7" cy="42" r="3.4"><title>85</title></circle>
+<circle class="dot hi" cx="225.3" cy="58" r="3.4"><title>88</title></circle>
+<circle class="dot hi" cx="237.8" cy="58" r="3.4"><title>90</title></circle>
+<circle class="dot hi" cx="250.2" cy="58" r="3.4"><title>92</title></circle>
+<circle class="dot hi" cx="268.9" cy="58" r="3.4"><title>95</title></circle>
+<polygon class="fulcrum" points="164.4,67 154.4,86 174.4,86"/>
+<text class="flbl" x="164.4" y="101">78.2</text>
+<text class="lbl" x="38.7" y="80">58</text>
+<text class="lbl" x="268.9" y="80">95</text>
+<text class="side lo" x="76.0" y="18">81 נקודות מתחת</text>
+<text class="side hi" x="237.8" y="18">81 נקודות מעל</text>
+</svg>
+    <p>הציונים שמתחת ל־78.2 רחוקים ממנו, ביחד, <strong>81 נקודות</strong>. הציונים שמעליו רחוקים ממנו, ביחד, גם <strong>81 נקודות</strong>.</p>
+    <p>זה לא מקרה. הממוצע הוא תמיד הנקודה שבה המרחקים מלמטה והמרחקים מלמעלה מתאזנים בדיוק.</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>הטוויסט: ציון שאף אחד לא קיבל</h2>
+    <p>מסתכלים שוב ברשימה. <strong>אף תלמיד לא קיבל 78.2.</strong></p>
+    <p>וזה בסדר גמור. הממוצע לא חייב להיות אחד הערכים. הוא נקודת האיזון שלהם, לא אחד מהם.</p>
+    <p>ובאותו אופן, "למשפחה ממוצעת יש 2.3 ילדים" לא אומר שיש משפחה עם 0.3 ילד.</p>
+  </div>
+
+  <div class="section">
+    <h2>מתי אי אפשר לחשב ממוצע</h2>
+    <p>בדף סולמות המדידה שאלנו: מה הממוצע של צבע עיניים? אין לשאלה הזו תשובה.</p>
+    <p>כדי לחבר ולחלק, צריך מספרים שהמרחקים ביניהם אמיתיים. לכן ממוצע מחשבים רק בסולם רווח או מנה.</p>
+  </div>
+
+  <div class="section">
+    <h2>לסיכום</h2>
+    <p>הממוצע לוקח את כל הערכים, מחלק אותם שווה בשווה, ומוצא את נקודת האיזון שלהם.</p>
+    <p>הוא משתמש <strong>בכל</strong> הנתונים, וזה הכוח שלו. אבל זה אומר גם שכל ערך, גם ערך חריג אחד, משפיע עליו.</p>
+    <p class="next-line">בדף הבא: מה קורה כשערך אחד רחוק מאוד מכל השאר? ← חציון: מי עומד באמצע?</p>
+  </div>
+
+</div>
+
+</div>
+
+<script src="../waytosee.js"></script>
+</body>
+</html>
