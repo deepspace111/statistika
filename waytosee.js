@@ -155,6 +155,96 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // כפתור "הנושא הבא" - המשולש ההפוך (עומד על קודקודו) בפינה השמאלית התחתונה.
+  // כל פרק הוא רשימה לפי הסדר הפדגוגי. בעמוד האחרון בפרק הכפתור מוביל לעמוד
+  // הנושאים של הפרק (ולא שלב אחורה). תחנות חשיבה ועמודי משנה חוזרים לעמוד האב שלהם.
+  // נתיבים יחסיים לתיקיית השורש של האתר, בדיוק כמו שמות התיקיות (האתר החי מבחין
+  // בין אותיות גדולות לקטנות). ההשוואה לעמוד הנוכחי נעשית באותיות קטנות.
+  const NEXT_CHAPTERS = [
+    { // סטטיסטיקה
+      home: "statistika/statistika.html",
+      pages: [
+        "statistika/statistika-introduction.html",
+        "statistika/statistika-scales.html",
+        "statistika/statistika-data-display.html",
+        "statistika/statistika-mode.html",
+        "statistika/statistika-dispersion.html",
+        "statistika/statistika-relative.html",
+        "statistika/statistika-zscores.html",
+        "statistika/statistika-shape.html",
+      ],
+    },
+    { // רשתות: כתובת ← זיהוי הרשת המקומית ← ARP ← שער יציאה ← DHCP ← ...
+      home: "intro.html",
+      pages: [
+        "ccna-introduction/ccna-introduction.html",
+        "internet/internet.html",
+        "ip/ip.html",
+        "subnet/index.html",
+        "ARP/arp.html",
+        "Gateway/gateway.html",
+        "DHCP/dhcp.html",
+        "ICMP/icmp.html",
+        "TCP/tcp.html",
+        "NAT/index.html",
+      ],
+    },
+    { // בינה מלאכותית
+      home: "ai/ai.html",
+      pages: [
+        "ai/ai-introduction.html",
+        "ai/ai-consciousness-ethics.html",
+        "ai/ai-waytohear.html",
+        "ai/ai-self-research.html",
+        "ai/ai-waytoplay.html",
+      ],
+    },
+    // פרקים של עמוד אחד (עדיין אין להם עמוד נושאים): מובילים לעמוד התחומים, עם כיתוב
+    { home: "professions.html", homeLabel: "לעמוד התחומים", pages: ["philosophia/philosophia-introduction.html"] },
+    { home: "professions.html", homeLabel: "לעמוד התחומים", pages: ["psychologia/psychologia-introduction.html"] },
+    { home: "professions.html", homeLabel: "לעמוד התחומים", pages: ["astrophysica/astrophysica-introduction.html"] },
+  ];
+  // תחנות חשיבה ועמודי משנה: חוזרים לעמוד האב
+  const NEXT_RETURN = {
+    "statistika/statistika-thinking-sd.html": "statistika/statistika-dispersion.html",
+    "statistika/statistika-thinking-z.html": "statistika/statistika-zscores.html",
+    "ai/ai-self-research-log.html": "ai/ai-self-research.html",
+  };
+
+  // כתובת שנגמרת ב-/ (למשל subnet/) היא בעצם index.html שבתוכה
+  const nextLookupPath = currentRelativePath === "" || currentRelativePath.endsWith("/")
+    ? currentRelativePath + "index.html"
+    : currentRelativePath;
+  let nextTarget = NEXT_RETURN[nextLookupPath] || null;
+  let nextLabel = "";
+  if (!nextTarget) {
+    for (const chapter of NEXT_CHAPTERS) {
+      const i = chapter.pages.findIndex((p) => p.toLowerCase() === nextLookupPath);
+      if (i === -1) continue;
+      if (i < chapter.pages.length - 1) {
+        nextTarget = chapter.pages[i + 1];
+      } else {
+        nextTarget = chapter.home;
+        nextLabel = chapter.homeLabel || "";
+      }
+      break;
+    }
+  }
+  if (nextTarget && rootDirURL) {
+    const nextButton = document.createElement("a");
+    nextButton.id = "nextBtn";
+    nextButton.href = new URL(nextTarget, rootDirURL).href;
+    nextButton.setAttribute("aria-label", nextLabel || "לנושא הבא");
+    nextButton.innerHTML = `<svg viewBox="0 0 100 78" width="30" height="24" fill="currentColor" aria-hidden="true">
+    <g transform="rotate(180 50 38.75)">
+      <polygon class="home-seg home-seg-1" points="50.00,14.00 32.85,43.70 40.39,45.15 50.00,28.50"/>
+      <polygon class="home-seg home-seg-2" points="21.42,63.50 55.72,63.50 53.20,56.25 33.98,56.25"/>
+      <polygon class="home-seg home-seg-3" points="78.58,63.50 61.43,33.80 56.41,39.60 66.02,56.25"/>
+    </g>
+  </svg>` + (nextLabel ? `<span class="next-label">${nextLabel}</span>` : "");
+    document.body.appendChild(nextButton);
+  }
+
   const currentFile = (location.pathname.split("/").pop() || "").toLowerCase();
 
   // כפתור מעבר לעמוד "המרחב" - בכל עמוד חוץ מעמוד הנושאים (intro.html) ועמוד המקצועות (professions.html)

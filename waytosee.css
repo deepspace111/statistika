@@ -1056,3 +1056,55 @@ body.stat-page .numbers{
     font-size:10px;
   }
 }
+
+/* ========================================
+   כפתור "הנושא הבא" - אותו משולש של כפתור הבית, הפוך (עומד על קודקודו),
+   בפינה השמאלית התחתונה. נוצר ב-waytosee.js רק בעמודים שיש להם המשך. */
+#nextBtn {
+  position: fixed;
+  bottom: 16px;
+  left: 26px;
+  right: auto;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(20, 20, 20, 0.68);
+  transition: color 0.8s ease, transform 0.3s ease;
+
+  text-decoration: none;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+#nextBtn svg {
+  display: block;
+}
+
+#nextBtn:hover {
+  transform: scale(1.08);
+}
+
+body.learning-mode #nextBtn {
+  color: rgba(240, 240, 240, 0.88);
+}
+
+/* כיתוב היעד - רק בפרקים של עמוד אחד, כשהכפתור מוביל לעמוד התחומים */
+#nextBtn .next-label {
+  font-family: 'Heebo', system-ui, sans-serif;
+  font-size: 13px;
+  opacity: 0.8;
+  white-space: nowrap;
+}
+
+@media (max-width: 600px), (max-height: 500px) {
+  #nextBtn {
+    left: 6px;
+    bottom: 10px;
+    transition: color 0.8s ease, transform 0.3s ease, opacity 0.3s ease;
+  }
+  body.floats-hidden #nextBtn {
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+}
