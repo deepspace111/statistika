@@ -47,21 +47,23 @@
 
 .big-contrast td strong { font-size: 19px; }
 
-.dots .dot { fill: currentColor; opacity: 0.7; }
+/* גרף שתי הכיתות, באותו סגנון כמו בדף מדדי הפיזור: כל תלמיד בשורה משלו,
+   קו מהממוצע אל הציון. בשורה האחרונה של כל כיתה: הציון שלך, 82 */
+.dots .dot { fill: currentColor; opacity: 0.85; }
 .dots .dot:hover { opacity: 1; }
+.dots .stick { stroke: currentColor; stroke-width: 2; stroke-linecap: round; opacity: 0.35; }
+.dots .stick.you-stick { opacity: 0.6; }
 .dots .mean { stroke: currentColor; stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.5; }
-.dots .meanlbl { font-size: 11px; opacity: 0.65; }
-.dots .rowlbl { font-size: 13px; text-anchor: start; direction: rtl; opacity: 0.8; }
-
-
+body.stat-page .dots .meanlbl { font-size: 11px; opacity: 0.65; }
+body.stat-page .dots .rowlbl { font-size: 14px; font-weight: bold; opacity: 0.85; }
+body.stat-page .dots .sc { font-size: 11px; opacity: 0.7; }
 .dots .you { fill: none; stroke: currentColor; stroke-width: 2; }
-.dots .youlbl { font-size: 12px; font-weight: bold; text-anchor: start; }
+body.stat-page .dots .youlbl { font-size: 12px; font-weight: bold; text-anchor: start; }
+body.stat-page .dots .zlbl { font-size: 11px; text-anchor: end; direction: rtl; unicode-bidi: plaintext; opacity: 0.7; }
 .dots .sd { stroke: currentColor; stroke-width: 1.5; opacity: 0.7; }
-.dots .sdlbl { font-size: 11px; opacity: 0.75; direction: rtl; unicode-bidi: plaintext; }
+body.stat-page .dots .sdlbl { font-size: 11px; opacity: 0.75; direction: rtl; unicode-bidi: plaintext; }
 .zoom-caption { font-size: 15px; opacity: 0.7; }
 .col > .section:only-child { flex: 1; }
-.dots .ztop { font-size: 11px; text-anchor: middle; direction: rtl; unicode-bidi: plaintext; font-weight: bold; }
-.dots .zlbl { font-size: 11px; text-anchor: end; direction: rtl; unicode-bidi: plaintext; opacity: 0.7; }
 
 </style>
 </head>
@@ -113,66 +115,97 @@
   <div class="section">
     <h2>הטוויסט: אותו ציון, מקום אחר</h2>
     <p>נחזור לשתי הכיתות מדף הפיזור. בשתיהן הממוצע הוא 80. נניח שקיבלת <strong>82</strong>:</p>
-    <svg class="hist dots" viewBox="0 0 320 300" role="img" aria-label="הציון 82 בשתי הכיתות. בכיתה א׳ הוא 1.67 סטיות תקן מעל הממוצע, בכיתה ב׳ רק 0.1.">
-<line class="mean" x1="136.0" y1="30" x2="136.0" y2="250"/>
-<text class="meanlbl" x="136.0" y="20">ממוצע 80</text>
-<line class="axis" x1="16" y1="95" x2="256" y2="95"/>
-<text class="rowlbl" x="316" y="100">כיתה א׳</text>
-<circle class="dot" cx="129.1" cy="88" r="4.5"><title>כיתה א׳: 78</title></circle>
-<circle class="dot" cx="132.6" cy="88" r="4.5"><title>כיתה א׳: 79</title></circle>
-<circle class="dot" cx="136.0" cy="88" r="4.5"><title>כיתה א׳: 80</title></circle>
-<circle class="dot" cx="136.0" cy="77" r="4.5"><title>כיתה א׳: 80</title></circle>
-<circle class="dot" cx="136.0" cy="66" r="4.5"><title>כיתה א׳: 80</title></circle>
-<circle class="dot" cx="139.4" cy="88" r="4.5"><title>כיתה א׳: 81</title></circle>
-<circle class="dot" cx="142.9" cy="88" r="4.5"><title>כיתה א׳: 82</title></circle>
-<circle class="you" cx="142.9" cy="109" r="5"><title>כיתה א׳: 82, ציון תקן 1.67</title></circle>
-<text class="youlbl" x="151.9" y="113">82</text>
-<text class="zlbl" x="151.9" y="129">ציון תקן 1.67</text>
-<line class="axis" x1="16" y1="215" x2="256" y2="215"/>
-<text class="rowlbl" x="316" y="220">כיתה ב׳</text>
-<circle class="dot" cx="33.1" cy="208" r="4.5"><title>כיתה ב׳: 50</title></circle>
-<circle class="dot" cx="67.4" cy="208" r="4.5"><title>כיתה ב׳: 60</title></circle>
-<circle class="dot" cx="101.7" cy="208" r="4.5"><title>כיתה ב׳: 70</title></circle>
-<circle class="dot" cx="136.0" cy="208" r="4.5"><title>כיתה ב׳: 80</title></circle>
-<circle class="dot" cx="170.3" cy="208" r="4.5"><title>כיתה ב׳: 90</title></circle>
-<circle class="dot" cx="204.6" cy="208" r="4.5"><title>כיתה ב׳: 100</title></circle>
-<circle class="dot" cx="238.9" cy="208" r="4.5"><title>כיתה ב׳: 110</title></circle>
-<circle class="you" cx="142.9" cy="229" r="5"><title>כיתה ב׳: 82, ציון תקן 0.1</title></circle>
-<text class="youlbl" x="151.9" y="233">82</text>
-<text class="zlbl" x="151.9" y="249">ציון תקן 0.1</text>
-<text class="lbl" x="33.1" y="282">50</text>
-<text class="lbl" x="67.4" y="282">60</text>
-<text class="lbl" x="101.7" y="282">70</text>
-<text class="lbl" x="136.0" y="282">80</text>
-<text class="lbl" x="170.3" y="282">90</text>
-<text class="lbl" x="204.6" y="282">100</text>
-<text class="lbl" x="238.9" y="282">110</text>
+    <svg class="hist dots" viewBox="0 0 320 330" role="img" aria-label="כל תלמיד בשורה משלו, עם קו מהממוצע 80 אל הציון שלו, ובשורה האחרונה של כל כיתה הציון שלך, 82. בכיתה א׳ הקווים קצרים, ו־82 הוא 1.67 סטיות תקן מעל הממוצע. בכיתה ב׳ הקווים ארוכים, ואותו 82 הוא רק 0.1 סטיית תקן מעל הממוצע.">
+<line class="mean" x1="160" y1="16" x2="160" y2="298"/>
+<text class="meanlbl" x="160" y="11">ממוצע 80</text>
+<text class="rowlbl" x="304" y="22" style="text-anchor:end">כיתה א׳</text>
+<line class="stick" x1="160" y1="38" x2="152" y2="38"/>
+<circle class="dot" cx="152" cy="38" r="3.6"><title>כיתה א׳: 78</title></circle>
+<text class="sc" x="145" y="42" style="text-anchor:end">78</text>
+<line class="stick" x1="160" y1="52" x2="156" y2="52"/>
+<circle class="dot" cx="156" cy="52" r="3.6"><title>כיתה א׳: 79</title></circle>
+<text class="sc" x="149" y="56" style="text-anchor:end">79</text>
+<circle class="dot" cx="160" cy="66" r="3.6"><title>כיתה א׳: 80</title></circle>
+<circle class="dot" cx="160" cy="80" r="3.6"><title>כיתה א׳: 80</title></circle>
+<circle class="dot" cx="160" cy="94" r="3.6"><title>כיתה א׳: 80</title></circle>
+<line class="stick" x1="160" y1="108" x2="164" y2="108"/>
+<circle class="dot" cx="164" cy="108" r="3.6"><title>כיתה א׳: 81</title></circle>
+<text class="sc" x="171" y="112" style="text-anchor:start">81</text>
+<line class="stick" x1="160" y1="122" x2="168" y2="122"/>
+<circle class="dot" cx="168" cy="122" r="3.6"><title>כיתה א׳: 82</title></circle>
+<text class="sc" x="175" y="126" style="text-anchor:start">82</text>
+<line class="stick you-stick" x1="160" y1="140" x2="168" y2="140"/>
+<circle class="you" cx="168" cy="140" r="5"><title>כיתה א׳: 82, ציון תקן 1.67</title></circle>
+<text class="youlbl" x="178" y="144">82</text>
+<text class="zlbl" x="199" y="144">ציון תקן 1.67</text>
+<text class="rowlbl" x="304" y="174" style="text-anchor:end">כיתה ב׳</text>
+<line class="stick" x1="160" y1="190" x2="40" y2="190"/>
+<circle class="dot" cx="40" cy="190" r="3.6"><title>כיתה ב׳: 50</title></circle>
+<text class="sc" x="33" y="194" style="text-anchor:end">50</text>
+<line class="stick" x1="160" y1="204" x2="80" y2="204"/>
+<circle class="dot" cx="80" cy="204" r="3.6"><title>כיתה ב׳: 60</title></circle>
+<text class="sc" x="73" y="208" style="text-anchor:end">60</text>
+<line class="stick" x1="160" y1="218" x2="120" y2="218"/>
+<circle class="dot" cx="120" cy="218" r="3.6"><title>כיתה ב׳: 70</title></circle>
+<text class="sc" x="113" y="222" style="text-anchor:end">70</text>
+<circle class="dot" cx="160" cy="232" r="3.6"><title>כיתה ב׳: 80</title></circle>
+<line class="stick" x1="160" y1="246" x2="200" y2="246"/>
+<circle class="dot" cx="200" cy="246" r="3.6"><title>כיתה ב׳: 90</title></circle>
+<text class="sc" x="207" y="250" style="text-anchor:start">90</text>
+<line class="stick" x1="160" y1="260" x2="240" y2="260"/>
+<circle class="dot" cx="240" cy="260" r="3.6"><title>כיתה ב׳: 100</title></circle>
+<text class="sc" x="247" y="264" style="text-anchor:start">100</text>
+<line class="stick" x1="160" y1="274" x2="280" y2="274"/>
+<circle class="dot" cx="280" cy="274" r="3.6"><title>כיתה ב׳: 110</title></circle>
+<text class="sc" x="287" y="278" style="text-anchor:start">110</text>
+<line class="stick you-stick" x1="160" y1="292" x2="168" y2="292"/>
+<circle class="you" cx="168" cy="292" r="5"><title>כיתה ב׳: 82, ציון תקן 0.1</title></circle>
+<text class="youlbl" x="178" y="296">82</text>
+<text class="zlbl" x="199" y="296">ציון תקן 0.1</text>
+<line class="axis" x1="20" y1="310" x2="300" y2="310"/>
+<text class="lbl" x="40" y="325">50</text>
+<text class="lbl" x="80" y="325">60</text>
+<text class="lbl" x="120" y="325">70</text>
+<text class="lbl" x="160" y="325">80</text>
+<text class="lbl" x="200" y="325">90</text>
+<text class="lbl" x="240" y="325">100</text>
+<text class="lbl" x="280" y="325">110</text>
 </svg>
     <p><strong>בכיתה א׳</strong> (סטיית תקן 1.2), 82 נמצא כ־1.67 סטיות תקן מעל הממוצע.</p>
     <p class="zoom-caption">בציר הרגיל הציונים של כיתה א׳ צפופים מדי, אז הנה הם בהגדלה:</p>
-    <svg class="hist dots zoom" viewBox="0 0 320 150" role="img" aria-label="כיתה א׳ בהגדלה: הציונים 78, 79, שלוש פעמים 80, 81 ו־82. הציון 82 הוא 1.67 סטיות תקן מעל הממוצע.">
-<line class="mean" x1="137.0" y1="14" x2="137.0" y2="82"/>
-<text class="meanlbl" x="137.0" y="10">ממוצע 80</text>
-<line class="axis" x1="24" y1="78" x2="250" y2="78"/>
-<text class="rowlbl" x="316" y="83">כיתה א׳</text>
-<circle class="dot" cx="61.7" cy="70" r="5.5"><title>כיתה א׳: 78</title></circle>
-<circle class="dot" cx="99.3" cy="70" r="5.5"><title>כיתה א׳: 79</title></circle>
-<circle class="dot" cx="137.0" cy="70" r="5.5"><title>כיתה א׳: 80</title></circle>
-<circle class="dot" cx="137.0" cy="57" r="5.5"><title>כיתה א׳: 80</title></circle>
-<circle class="dot" cx="137.0" cy="44" r="5.5"><title>כיתה א׳: 80</title></circle>
-<circle class="dot" cx="174.7" cy="70" r="5.5"><title>כיתה א׳: 81</title></circle>
-<circle class="dot" cx="212.3" cy="70" r="5.5"><title>כיתה א׳: 82</title></circle>
-<circle class="you" cx="212.3" cy="70" r="9"><title>82, ציון תקן 1.67</title></circle>
-<text class="lbl" x="61.7" y="98">78</text>
-<text class="lbl" x="99.3" y="98">79</text>
-<text class="lbl" x="137.0" y="98">80</text>
-<text class="lbl" x="174.7" y="98">81</text>
-<text class="lbl" x="212.3" y="98">82</text>
-<line class="sd" x1="137.0" y1="118" x2="182.2" y2="118"/>
-<line class="sd" x1="137.0" y1="114" x2="137.0" y2="122"/>
-<line class="sd" x1="182.2" y1="114" x2="182.2" y2="122"/>
-<text class="sdlbl" x="159.6" y="136">סטיית תקן אחת = 1.2</text>
-<text class="ztop" x="212.3" y="50">ציון תקן 1.67</text>
+    <svg class="hist dots zoom" viewBox="0 0 320 222" role="img" aria-label="כיתה א׳ בהגדלה: כל תלמיד בשורה משלו, עם קו מהממוצע 80 אל הציון. בשורה האחרונה הציון שלך, 82, שהוא 1.67 סטיות תקן מעל הממוצע. מתחת לציר: מקטע באורך סטיית תקן אחת, 1.2 נקודות.">
+<line class="mean" x1="160" y1="16" x2="160" y2="158"/>
+<text class="meanlbl" x="160" y="11">ממוצע 80</text>
+<text class="rowlbl" x="304" y="22" style="text-anchor:end">כיתה א׳</text>
+<line class="stick" x1="160" y1="38" x2="110" y2="38"/>
+<circle class="dot" cx="110" cy="38" r="3.6"><title>כיתה א׳: 78</title></circle>
+<text class="sc" x="103" y="42" style="text-anchor:end">78</text>
+<line class="stick" x1="160" y1="52" x2="135" y2="52"/>
+<circle class="dot" cx="135" cy="52" r="3.6"><title>כיתה א׳: 79</title></circle>
+<text class="sc" x="128" y="56" style="text-anchor:end">79</text>
+<circle class="dot" cx="160" cy="66" r="3.6"><title>כיתה א׳: 80</title></circle>
+<circle class="dot" cx="160" cy="80" r="3.6"><title>כיתה א׳: 80</title></circle>
+<circle class="dot" cx="160" cy="94" r="3.6"><title>כיתה א׳: 80</title></circle>
+<line class="stick" x1="160" y1="108" x2="185" y2="108"/>
+<circle class="dot" cx="185" cy="108" r="3.6"><title>כיתה א׳: 81</title></circle>
+<text class="sc" x="192" y="112" style="text-anchor:start">81</text>
+<line class="stick" x1="160" y1="122" x2="210" y2="122"/>
+<circle class="dot" cx="210" cy="122" r="3.6"><title>כיתה א׳: 82</title></circle>
+<text class="sc" x="217" y="126" style="text-anchor:start">82</text>
+<line class="stick you-stick" x1="160" y1="140" x2="210" y2="140"/>
+<circle class="you" cx="210" cy="140" r="5"><title>כיתה א׳: 82, ציון תקן 1.67</title></circle>
+<text class="youlbl" x="220" y="144">82</text>
+<text class="zlbl" x="241" y="144">ציון תקן 1.67</text>
+<line class="axis" x1="20" y1="166" x2="300" y2="166"/>
+<text class="lbl" x="110" y="181">78</text>
+<text class="lbl" x="135" y="181">79</text>
+<text class="lbl" x="160" y="181">80</text>
+<text class="lbl" x="185" y="181">81</text>
+<text class="lbl" x="210" y="181">82</text>
+<line class="sd" x1="160" y1="196" x2="190" y2="196"/>
+<line class="sd" x1="160" y1="192" x2="160" y2="200"/>
+<line class="sd" x1="190" y1="192" x2="190" y2="200"/>
+<text class="sdlbl" x="175" y="215">סטיית תקן אחת = 1.2</text>
 </svg>
     <p><strong>בכיתה ב׳</strong> (סטיית תקן 20), אותו 82 נמצא רק 0.1 סטיית תקן מעל הממוצע.</p>
     <p>אותו ציון ואותו ממוצע, אבל מקום אחר לגמרי. מה שקבע את ההבדל הוא <strong>הפיזור</strong>.</p>
