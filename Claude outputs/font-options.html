@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>אפשרויות גופן</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@200&family=Assistant:wght@200&family=Cormorant+Garamond:wght@300&family=Frank+Ruhl+Libre:wght@300&family=Montserrat:wght@200&family=Rubik:wght@300&family=Heebo:wght@300&display=swap">
+<style>
+  :root{
+    --light-bg:#e4e8f0; --light-text:rgba(22,35,61,0.94);
+    --dark-bg:#0d1422;  --dark-text:#e8edf7;
+  }
+  body{ margin:0; font-family:'Heebo',sans-serif; background:#fff; color:#222; }
+  h2{ margin:28px 16px 8px; font-size:20px; font-weight:300; }
+  .row{ display:flex; flex-wrap:wrap; }
+  .panel{ flex:1 1 360px; min-height:230px; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .light{ background:var(--light-bg); color:var(--light-text); }
+  .dark{ background:var(--dark-bg); color:var(--dark-text); }
+  .en{ direction:ltr; white-space:nowrap; font-size:30px; line-height:1; letter-spacing:.5em; margin-right:-.5em; opacity:.88; }
+  .he{ margin-top:22px; font-size:17px; line-height:1; letter-spacing:.14em; opacity:.7; }
+  .A .en{ font-family:'Jost'; font-weight:200; }               .A .he{ font-family:'Assistant'; font-weight:200; }
+  .B .en{ font-family:'Cormorant Garamond'; font-weight:300; font-size:34px; } .B .he{ font-family:'Frank Ruhl Libre'; font-weight:300; }
+  .C .en{ font-family:'Montserrat'; font-weight:200; }         .C .he{ font-family:'Rubik'; font-weight:300; }
+  .Z .en{ font-family:'Heebo'; font-weight:300; }              .Z .he{ font-family:'Heebo'; font-weight:300; }
+  @media (max-width:600px){ .en{ font-size:22px; letter-spacing:.34em; margin-right:-.34em; } .he{ font-size:15px; } }
+</style>
+</head>
+<body>
+
+<h2>אפשרות א: מודרני ודק (Jost + Assistant)</h2>
+<div class="row A">
+  <div class="panel light"><div class="en">way to see</div><div class="he">כשמבינים — רואים</div></div>
+  <div class="panel dark"><div class="en">way to see</div><div class="he">כשמבינים — רואים</div></div>
+</div>
+
+<h2>אפשרות ב: קלאסי ואלגנטי, עם סריפים (Cormorant Garamond + Frank Ruhl Libre)</h2>
+<div class="row B">
+  <div class="panel light"><div class="en">way to see</div><div class="he">כשמבינים — רואים</div></div>
+  <div class="panel dark"><div class="en">way to see</div><div class="he">כשמבינים — רואים</div></div>
+</div>
+
+<h2>אפשרות ג: גאומטרי ורחב (Montserrat + Rubik)</h2>
+<div class="row C">
+  <div class="panel light"><div class="en">way to see</div><div class="he">כשמבינים — רואים</div></div>
+  <div class="panel dark"><div class="en">way to see</div><div class="he">כשמבינים — רואים</div></div>
+</div>
+
+<h2>להשוואה: הגופן הנוכחי של האתר (Heebo)</h2>
+<div class="row Z">
+  <div class="panel light"><div class="en">way to see</div><div class="he">כשמבינים — רואים</div></div>
+  <div class="panel dark"><div class="en">way to see</div><div class="he">כשמבינים — רואים</div></div>
+</div>
+
+</body>
+</html>

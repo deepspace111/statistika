@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>תצוגה מקדימה</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@200&family=Assistant:wght@200&display=swap">
+<style>
+  body{ margin:0; font-family:sans-serif; }
+  .panel{ min-height:50vh; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .light{ background:#e4e8f0; color:rgba(22,35,61,0.94); }
+  .dark{ background:#0d1422; color:#e8edf7; }
+  .en{
+    direction:ltr; white-space:nowrap;
+    font-family:'Jost', sans-serif; font-weight:200;
+    font-size:22px; line-height:1;
+    letter-spacing:.7em; margin-right:-.7em;
+    opacity:.88;
+  }
+  .he{
+    margin-top:20px;
+    font-family:'Assistant', sans-serif; font-weight:200;
+    font-size:14px; line-height:1;
+    letter-spacing:.35em; margin-left:-.35em;
+    opacity:.7;
+  }
+  @media (max-width:600px){
+    .en{ font-size:16px; letter-spacing:.5em; margin-right:-.5em; }
+    .he{ margin-top:14px; font-size:12px; letter-spacing:.28em; margin-left:-.28em; }
+  }
+</style>
+</head>
+<body>
+  <div class="panel light"><div class="en">Way To See</div><div class="he">כשמבינים — רואים</div></div>
+  <div class="panel dark"><div class="en">Way To See</div><div class="he">כשמבינים — רואים</div></div>
+</body>
+</html>
