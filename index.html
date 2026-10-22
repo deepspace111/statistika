@@ -49,6 +49,12 @@
     }
 
     /* כותרת מינימליסטית: שורה אחת באנגלית, ומתחתיה המוטו, קטן ושקט יותר */
+    /* עוצמת הכותרת במצב בהיר: הוכהתה ב-12%, ואז עוד 9%. במצב הכהה ללא שינוי.
+       האנגלית כבר הגיעה לשקיפות מלאה, אז את ה-9% שלה נותן גוון כהה יותר של אותו כחול. */
+    .brand { --en-op: 1; --he-op: 0.854; }
+    body:not(.learning-mode) .brand-en { color: rgb(20,32,56); }
+    body.learning-mode .brand { --en-op: 0.88; --he-op: 0.7; }
+
     .brand-en {
       direction: ltr;
       white-space: nowrap;
@@ -59,7 +65,7 @@
       letter-spacing: 0.7em;
       margin-right: -0.7em; /* מקזז את הרווח אחרי האות האחרונה, כדי שהשורה תהיה ממורכזת */
       color: var(--text);
-      opacity: 0.88;
+      opacity: var(--en-op);
       animation: softReveal 1.8s ease-out forwards;
     }
 
@@ -72,18 +78,18 @@
       letter-spacing: 0.35em;
       margin-left: -0.35em;
       color: var(--text);
-      opacity: 0.7;
+      opacity: var(--he-op);
       animation: softRevealQuiet 2.2s ease-out forwards;
     }
 
     @keyframes softReveal {
       from { opacity: 0; filter: blur(5px); transform: translateY(8px); }
-      to   { opacity: 0.88; filter: blur(0); transform: translateY(0); }
+      to   { opacity: var(--en-op); filter: blur(0); transform: translateY(0); }
     }
 
     @keyframes softRevealQuiet {
       from { opacity: 0; filter: blur(5px); transform: translateY(8px); }
-      to   { opacity: 0.7; filter: blur(0); transform: translateY(0); }
+      to   { opacity: var(--he-op); filter: blur(0); transform: translateY(0); }
     }
 
     .btn {
