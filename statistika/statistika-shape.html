@@ -91,6 +91,12 @@ body.stat-page .bell .tailtxt { fill: var(--ctail); }
 .stat-page { --cbar: #8a9a5b; }
 body.learning-mode { --cbar: #a8b878; }
 body.stat-page .hist.shape .bar path { fill: var(--cbar); opacity: 0.75; }
+/* בסימטרית: כל זוג עמודות שהן תמונת מראה באותו צבע */
+.stat-page { --cm1: #8b6b4a; --cm2: #c4a246; --cm3: #8a9a5b; }
+body.learning-mode { --cm1: #b08a64; --cm2: #d2b45c; --cm3: #a8b878; }
+body.stat-page .hist.shape .bar.m1 path { fill: var(--cm1); }
+body.stat-page .hist.shape .bar.m2 path { fill: var(--cm2); }
+body.stat-page .hist.shape .bar.m3 path { fill: var(--cm3); }
 body.stat-page .hist .bar.peak path { fill: var(--c1); opacity: 0.8; }
 body.stat-page .hist .bar.tail path { fill: var(--ctail); opacity: 0.7; }
 .bell .curve { fill: none; stroke: currentColor; stroke-width: 2; opacity: 0.8; }
@@ -127,13 +133,13 @@ body.stat-page .hist .bar.tail path { fill: var(--ctail); opacity: 0.7; }
     <p><strong>סימטרית:</strong> שני הצדדים נראים כמו תמונת מראה.</p>
     <svg class="hist shape" viewBox="0 0 300 78" aria-hidden="true">
 <line class="axis" x1="40" y1="72" x2="260" y2="72"/>
-<g class="bar"><path d="M41.0,72 V67.7 Q41.0,64.7 44.0,64.7 H67.4 Q70.4,64.7 70.4,67.7 V72 Z"/></g>
-<g class="bar"><path d="M72.4,72 V53.0 Q72.4,50.0 75.4,50.0 H98.9 Q101.9,50.0 101.9,53.0 V72 Z"/></g>
-<g class="bar"><path d="M103.9,72 V31.0 Q103.9,28.0 106.9,28.0 H130.3 Q133.3,28.0 133.3,31.0 V72 Z"/></g>
+<g class="bar m1"><path d="M41.0,72 V67.7 Q41.0,64.7 44.0,64.7 H67.4 Q70.4,64.7 70.4,67.7 V72 Z"/></g>
+<g class="bar m2"><path d="M72.4,72 V53.0 Q72.4,50.0 75.4,50.0 H98.9 Q101.9,50.0 101.9,53.0 V72 Z"/></g>
+<g class="bar m3"><path d="M103.9,72 V31.0 Q103.9,28.0 106.9,28.0 H130.3 Q133.3,28.0 133.3,31.0 V72 Z"/></g>
 <g class="bar peak"><path d="M135.3,72 V9.0 Q135.3,6.0 138.3,6.0 H161.7 Q164.7,6.0 164.7,9.0 V72 Z"/></g>
-<g class="bar"><path d="M166.7,72 V31.0 Q166.7,28.0 169.7,28.0 H193.1 Q196.1,28.0 196.1,31.0 V72 Z"/></g>
-<g class="bar"><path d="M198.1,72 V53.0 Q198.1,50.0 201.1,50.0 H224.6 Q227.6,50.0 227.6,53.0 V72 Z"/></g>
-<g class="bar"><path d="M229.6,72 V67.7 Q229.6,64.7 232.6,64.7 H256.0 Q259.0,64.7 259.0,67.7 V72 Z"/></g>
+<g class="bar m3"><path d="M166.7,72 V31.0 Q166.7,28.0 169.7,28.0 H193.1 Q196.1,28.0 196.1,31.0 V72 Z"/></g>
+<g class="bar m2"><path d="M198.1,72 V53.0 Q198.1,50.0 201.1,50.0 H224.6 Q227.6,50.0 227.6,53.0 V72 Z"/></g>
+<g class="bar m1"><path d="M229.6,72 V67.7 Q229.6,64.7 232.6,64.7 H256.0 Q259.0,64.7 259.0,67.7 V72 Z"/></g>
 </svg>
     <p><strong>מוטה ימינה:</strong> רוב הנתונים משמאל, ו"זנב" ארוך נמתח ימינה. למשל משכורות, או זמני המתנה.</p>
     <svg class="hist shape" viewBox="0 0 300 78" aria-hidden="true">
