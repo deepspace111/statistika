@@ -209,6 +209,27 @@ body.overview-page .col{ justify-content:space-between; }
 .research-log .log-open{ font-size:20px; margin:0; }
 .log-entries{ margin-top:18px; }
 
+/* סמיילי קורץ ליד "הרמקולים נדלקים": סגנון טריפי של פליירים, מעגלים מעוותים בצבעי ניאון.
+   הטבעת החיצונית זוהרת בצבע שלה. צבעים אחרים בכל מצב. */
+.wink{
+  display:inline-block;
+  width:1.4em;
+  height:1.4em;
+  vertical-align:-0.32em;
+  margin-inline-start:0.35em;
+  overflow:visible;
+  --w1:#ff2bd6; --w2:#ff8a00; --w3:#00b8ff;   /* מצב בהיר */
+}
+body.learning-mode .wink{
+  --w1:#39ff14; --w2:#00f0ff; --w3:#ff00a8;   /* מצב כהה: הניאון */
+}
+.wink .r1{ fill:var(--w1); }
+.wink .r2{ fill:var(--w2); }
+.wink .r3{ fill:var(--w3); }
+.wink .glow{ fill:none; stroke:var(--w1); stroke-width:4; }
+.wink .eye{ fill:#1b1030; }
+.wink .ink{ fill:none; stroke:#1b1030; stroke-width:8; stroke-linecap:round; }
+
 @media (max-width:600px){
   body.overview-page .col{ justify-content:flex-start; }
   .scene, .closing-block{ padding-left:18px; padding-right:18px; }
@@ -358,7 +379,28 @@ body.overview-page .col{ justify-content:space-between; }
   <div class="col">
     <div class="section">
       <p class="station-num">01</p>
-      <h2>הרמקולים נדלקים</h2>
+      <h2>הרמקולים נדלקים<svg class="wink" viewBox="0 0 100 100" aria-hidden="true">
+        <defs>
+          <filter id="winkWarp" x="-20%" y="-20%" width="140%" height="140%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4"/>
+            <feDisplacementMap in="SourceGraphic" scale="9"/>
+          </filter>
+          <filter id="winkGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="4" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <g filter="url(#winkWarp)">
+          <circle class="glow" cx="50" cy="50" r="46" filter="url(#winkGlow)"/>
+          <circle class="r1" cx="50" cy="50" r="46"/>
+          <circle class="r2" cx="50" cy="50" r="36"/>
+          <circle class="r3" cx="50" cy="50" r="26"/>
+          <circle class="r2" cx="50" cy="50" r="16"/>
+          <circle class="eye" cx="35" cy="40" r="8"/>
+          <path class="ink" d="M57 41 Q66 33 75 41"/>
+          <path class="ink" style="stroke-width:9" d="M25 60 Q50 86 75 60"/>
+        </g>
+      </svg></h2>
       <p>שני סוכנים, ואין ביניהם שום שפה משותפת. אחד יודע משהו שהשני לא יודע, ויכול להעביר את זה רק בצלילים.</p>
       <p class="our-q">האם השני יבחר נכון יותר מניחוש אקראי?</p>
     </div>

@@ -49,11 +49,17 @@
     }
 
     /* כותרת מינימליסטית: שורה אחת באנגלית, ומתחתיה המוטו, קטן ושקט יותר */
-    /* עוצמת הכותרת במצב בהיר: הוכהתה ב-12%, ואז עוד 9%. במצב הכהה ללא שינוי.
+    /* עוצמת הכותרת במצב בהיר: הוכהתה ב-12%, ואז עוד 9%, ואז עוד 8%. במצב הכהה ללא שינוי.
        האנגלית כבר הגיעה לשקיפות מלאה, אז את ה-9% שלה נותן גוון כהה יותר של אותו כחול. */
-    .brand { --en-op: 1; --he-op: 0.854; }
-    body:not(.learning-mode) .brand-en { color: rgb(20,32,56); }
+    .brand { --en-op: 1; --he-op: 0.922; }
+    body:not(.learning-mode) .brand-en { color: rgb(18,29,52); }
     body.learning-mode .brand { --en-op: 0.88; --he-op: 0.7; }
+
+    /* מצב בהיר: הכיתוב גדול וכהה יותר. במצב הכהה ללא שינוי. */
+    .brand-en, .brand-he { transition: font-size 0.4s ease, color 0.4s ease; }
+    body:not(.learning-mode) .brand { --he-op: 1; }
+    body:not(.learning-mode) .brand-en { font-size: 26px; color: rgb(12,20,38); }
+    body:not(.learning-mode) .brand-he { font-size: 16.5px; color: rgb(12,20,38); }
 
     .brand-en {
       direction: ltr;
@@ -225,6 +231,8 @@
       .brand { margin-bottom: 14px; }
       .brand-en { font-size: 16px; letter-spacing: 0.5em; margin-right: -0.5em; }
       .brand-he { margin-top: 14px; font-size: 12px; letter-spacing: 0.28em; margin-left: -0.28em; }
+      body:not(.learning-mode) .brand-en { font-size: 19px; }
+      body:not(.learning-mode) .brand-he { font-size: 14px; }
       .btn {
         display: block;
         width: 180px;
