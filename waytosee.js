@@ -297,17 +297,36 @@ document.addEventListener("DOMContentLoaded", () => {
   // כשעוצרים, גם בסוף העמוד (שם צריך את "הנושא הבא"). במחשב ובטאבלט - אין שינוי.
   const phoneScreen = window.matchMedia("(max-width: 600px), (max-height: 500px)");
   let scrollStopTimer = null;
-  window.addEventListener("scroll", () => {
-    if (!phoneScreen.matches) {
-      document.body.classList.remove("floats-hidden");
-      return;
-    }
-    document.body.classList.add("floats-hidden");
+  let lastScrollAt = 0;
+  function showFloats() {
     clearTimeout(scrollStopTimer);
-    scrollStopTimer = setTimeout(() => {
-      document.body.classList.remove("floats-hidden");
-    }, 250);
+    document.body.classList.remove("floats-hidden");
+  }
+  function showFloatsSoon(delay) {
+    clearTimeout(scrollStopTimer);
+    scrollStopTimer = setTimeout(showFloats, delay);
+  }
+  window.addEventListener("scroll", () => {
+    if (!phoneScreen.matches) { showFloats(); return; }
+    lastScrollAt = Date.now();
+    document.body.classList.add("floats-hidden");
+    showFloatsSoon(250);
   }, { passive: true });
+  // גיבוי, כדי שהכפתורים תמיד יחזרו: כשהדפדפן מודיע שהגלילה נגמרה,
+  // וכשהאצבע עוזבת את המסך
+  window.addEventListener("scrollend", showFloats);
+  window.addEventListener("touchend", () => showFloatsSoon(400), { passive: true });
+
+  // פחות רגישים בטלפון: לחיצה שמגיעה מיד אחרי גלילה (למשל נגיעה כדי לעצור
+  // את הגלילה) לא מפעילה את הכפתורים
+  document.addEventListener("click", (e) => {
+    if (!phoneScreen.matches) return;
+    if (!e.target.closest || !e.target.closest("#homeBtn, #nextBtn, #spaceBtn")) return;
+    if (Date.now() - lastScrollAt < 400) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    }
+  }, true);
 
   let flickerTimeout = null;
 
