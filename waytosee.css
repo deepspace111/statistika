@@ -1107,4 +1107,12 @@ body.learning-mode #nextBtn {
     opacity: 0 !important;
     pointer-events: none !important;
   }
+  /* שטח לחיצה גדול יותר לאצבע: ריפוד שקוף מסביב, והשוליים השליליים
+     משאירים את המשולשים ואת הנקודות בדיוק באותו מקום על המסך */
+  #homeBtn,
+  #nextBtn,
+  #spaceBtn {
+    padding: 14px;
+    margin: -14px;
+  }
 }

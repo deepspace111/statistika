@@ -110,11 +110,15 @@ document.addEventListener("DOMContentLoaded", () => {
     "statistika/statistika-introduction.html": "statistika/statistika.html",
     "statistika/statistika-scales.html": "statistika/statistika.html",
     "statistika/statistika-data-display.html": "statistika/statistika.html",
+    "statistika/statistika-mean.html": "statistika/statistika.html",
+    "statistika/statistika-median.html": "statistika/statistika.html",
     "statistika/statistika-mode.html": "statistika/statistika.html",
     "statistika/statistika-relative.html": "statistika/statistika.html",
     "statistika/statistika-shape.html": "statistika/statistika.html",
     "statistika/statistika-dispersion.html": "statistika/statistika.html",
     "philosophia/philosophia-introduction.html": "professions.html",
+    "psychologia/psychologia-introduction.html": "professions.html",
+    "astrophysica/astrophysica-introduction.html": "professions.html",
     "ai/ai-introduction.html": "professions.html",
     "arp/arp.html": "intro.html",
     "tcp/tcp.html": "intro.html",
@@ -130,9 +134,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // נתיב הדף הנוכחי יחסית לתיקיית השורש של האתר
   const rootDirURL = mainScript ? new URL(".", mainScript.src) : null;
-  const currentRelativePath = rootDirURL
+  // כתובת בלי ".html" בסוף (למשל waytosee.io/ip/ip, כפי שהאתר החי מאפשר) מושלמת ל-ip/ip.html,
+  // כדי שכפתור הבית וכפתור "הנושא הבא" יזהו את העמוד גם כשנכנסים אליו כך
+  let currentRelativePath = rootDirURL
     ? decodeURIComponent(location.pathname.slice(rootDirURL.pathname.length)).toLowerCase()
     : "";
+  if (currentRelativePath && !currentRelativePath.endsWith("/") &&
+      !/\.[a-z0-9]+$/.test(currentRelativePath.split("/").pop())) {
+    currentRelativePath += ".html";
+  }
 
   // כפתור הבית עולה שלב אחד קבוע במבנה האתר (לא תלוי בהיסטוריית דפדפן,
   // כדי שזה יעבוד תמיד באותו אופן, גם אם נכנסו ישר לעמוד). ההורה נקבע
@@ -282,20 +292,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // טלפון: הכפתורים הצפים נעלמים בגלילה למטה וחוזרים בגלילה למעלה
-  // (או כשחוזרים לראש הדף). במחשב ובטאבלט - אין שינוי.
+  // טלפון: הכפתורים הצפים נעלמים בזמן גלילה (למעלה או למטה), וחוזרים
+  // רגע אחרי שהטקסט נעצר. כך הם לא מסתירים טקסט בזמן קריאה, ותמיד זמינים
+  // כשעוצרים, גם בסוף העמוד (שם צריך את "הנושא הבא"). במחשב ובטאבלט - אין שינוי.
   const phoneScreen = window.matchMedia("(max-width: 600px), (max-height: 500px)");
-  let lastScrollY = window.scrollY;
+  let scrollStopTimer = null;
   window.addEventListener("scroll", () => {
-    const y = window.scrollY;
-    if (!phoneScreen.matches || y < 40) {
+    if (!phoneScreen.matches) {
       document.body.classList.remove("floats-hidden");
-    } else if (y > lastScrollY + 8) {
-      document.body.classList.add("floats-hidden");
-    } else if (y < lastScrollY - 8) {
-      document.body.classList.remove("floats-hidden");
+      return;
     }
-    if (Math.abs(y - lastScrollY) > 8) lastScrollY = y;
+    document.body.classList.add("floats-hidden");
+    clearTimeout(scrollStopTimer);
+    scrollStopTimer = setTimeout(() => {
+      document.body.classList.remove("floats-hidden");
+    }, 250);
   }, { passive: true });
 
   let flickerTimeout = null;
