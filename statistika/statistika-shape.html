@@ -87,6 +87,10 @@ body.stat-page .bell .pct.b1 { fill: var(--c1); }
 body.stat-page .bell .pct.b2 { fill: var(--c2); }
 body.stat-page .bell .pct.b3 { fill: var(--c3); }
 body.stat-page .bell .tailtxt { fill: var(--ctail); }
+/* בחלק "לנתונים יש צורה" בלבד: העמודות הרגילות (שאינן השיא או הזנב) בירוק זית במקום אפור */
+.stat-page { --cbar: #8a9a5b; }
+body.learning-mode { --cbar: #a8b878; }
+body.stat-page .hist.shape .bar path { fill: var(--cbar); opacity: 0.75; }
 body.stat-page .hist .bar.peak path { fill: var(--c1); opacity: 0.8; }
 body.stat-page .hist .bar.tail path { fill: var(--ctail); opacity: 0.7; }
 .bell .curve { fill: none; stroke: currentColor; stroke-width: 2; opacity: 0.8; }
@@ -153,6 +157,8 @@ body.stat-page .hist .bar.tail path { fill: var(--ctail); opacity: 0.7; }
 <g class="bar peak"><path d="M198.1,72 V9.0 Q198.1,6.0 201.1,6.0 H224.6 Q227.6,6.0 227.6,9.0 V72 Z"/></g>
 <g class="bar"><path d="M229.6,72 V45.7 Q229.6,42.7 232.6,42.7 H256.0 Q259.0,42.7 259.0,45.7 V72 Z"/></g>
 </svg>
+    <p><strong>השם נקבע לפי הכיוון של הזנב, לא לפי המקום של הגבעה.</strong></p>
+    <p>למה דווקא הזנב? כי גבעה יש בכל אחת מהצורות, והזנב הוא מה שמבדיל ביניהן. הוא גם מה שמשנה את החישוב: הערכים הקיצוניים שבזנב נוטים למשוך את הממוצע לכיוונם. כך השם אומר מיד לאן הממוצע זז: במוטה ימינה, הממוצע נמשך ימינה.</p>
   </div>
 
 </div>
