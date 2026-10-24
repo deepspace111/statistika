@@ -103,6 +103,16 @@
   .container h1{ font-size:30px; }
   .topic{ font-size:17px; padding:16px; }
 }
+
+/* כפתורים מושבתים: נשארים במקום, אבל דהויים ולא מובילים לשום מקום.
+   הכתובת המקורית שמורה ב-data-href, כדי שיהיה קל להחזיר אותם בהמשך. */
+.topic.disabled{
+  opacity:0.35;
+  animation:none;
+  cursor:default;
+  pointer-events:none;
+  box-shadow:none;
+}
 </style>
 </head>
 <body>
@@ -132,14 +142,14 @@ Cisco Certified Network Associate
 Descriptive Statistics
 </small>
 </a> 
-<a class="topic" href="philosophia/philosophia-introduction.html">
+<a class="topic disabled" data-href="philosophia/philosophia-introduction.html" aria-disabled="true">
 פילוסופיה
 <small>
 Philosophy
 </small>
 </a>
 
-<a class="topic" href="astrophysica/astrophysica-introduction.html">
+<a class="topic disabled" data-href="astrophysica/astrophysica-introduction.html" aria-disabled="true">
 אסטרופיזיקה
 <small>
 Astrophysics
@@ -153,7 +163,7 @@ Artificial Intelligence
 </small>
 </a>
 
-<a class="topic" href="psychologia/psychologia-introduction.html">
+<a class="topic disabled" data-href="psychologia/psychologia-introduction.html" aria-disabled="true">
 פסיכולוגיה
 <small>
 Psychology

@@ -95,6 +95,16 @@
   .container h1{ font-size:30px; }
   .topic{ font-size:17px; padding:16px; }
 }
+
+/* כפתורים מושבתים: נשארים במקום, אבל דהויים ולא מובילים לשום מקום.
+   הכתובת המקורית שמורה ב-data-href, כדי שיהיה קל להחזיר אותם בהמשך. */
+.topic.disabled{
+  opacity:0.35;
+  animation:none;
+  cursor:default;
+  pointer-events:none;
+  box-shadow:none;
+}
 </style>
 </head>
 <body>
@@ -121,21 +131,21 @@ Artificial Intelligence
 </small>
 </a>
 
-<a class="topic" href="ai-waytohear.html">
+<a class="topic disabled" data-href="ai-waytohear.html" aria-disabled="true">
 תקשורת סוכנים
 <small>
 מחקר WayToHear: האם שתי מערכות AI יכולות לפתח שפה מוזיקלית שאפשר לרקוד לצליליה?
 </small>
 </a>
 
-<a class="topic" href="ai-self-research.html">
+<a class="topic disabled" data-href="ai-self-research.html" aria-disabled="true">
 כשהאתר חוקר את עצמו
 <small>
 מחקר WayToSee: האם מערכת AI יכולה להבחין בין טעות לבין בחירה לשונית מכוונת?
 </small>
 </a>
 
-<a class="topic" href="ai-waytoplay.html">
+<a class="topic disabled" data-href="ai-waytoplay.html" aria-disabled="true">
 רוחות רפאים ברשת
 <small>
 מחקר WayToPlay: האם מערכות AI מבוזרות יכולות להתקיים ברשת?
