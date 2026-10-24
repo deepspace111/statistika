@@ -131,7 +131,10 @@ body.proto-page .container p a{
     </div>
 
     <p>
-      הבקשה נשלחת לשרת ה־DNS בפורט <span class="num">53</span>, כמו שראינו בעמוד <a href="../Ports/ports.html">Ports</a>.
+      הבקשה נשלחת לשרת ה־DNS, בדרך כלל באמצעות <a href="../UDP/udp.html">UDP</a>, בפורט <span class="num">53</span>, כמו שראינו בעמוד <a href="../Ports/ports.html">Ports</a>.
+    </p>
+    <p>
+      אם לא מתקבלת תשובה, תוכנת ה־DNS יכולה לשלוח בקשה נוספת. השליחה החוזרת נעשית על ידי התוכנה, ולא על ידי UDP עצמו.
     </p>
     <p>
       כתובת שרת ה־DNS מוגדרת במחשב, בדרך כלל באמצעות <a href="../DHCP/dhcp.html">DHCP</a>.

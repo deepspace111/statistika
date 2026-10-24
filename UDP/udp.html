@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FTM28BMBXC');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UDP | שליחת מנות ללא חיבור וללא אישור הגעה | WayToSee</title>
+<meta name="description" content="מהו UDP - פרוטוקול מנות נתונים למשתמש: שליחת מנות נתונים (Datagrams) ללא חיבור, ללא לחיצת יד וללא אישור הגעה, ובמה הוא שונה מ־TCP.">
+
+<link rel="stylesheet" href="../waytosee.css">
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+.en{
+  direction:ltr;
+  unicode-bidi:isolate;
+}
+
+body.proto-page .container p a{
+  color:var(--accent);
+  text-decoration:none;
+  border-bottom:1px solid currentColor;
+}
+</style>
+</head>
+
+<body class="proto-page">
+
+<div class="rain" id="rain"></div>
+
+<h1 class="page-title">UDP</h1>
+<div class="subtitle">User Datagram Protocol - שליחת מנות ללא חיבור וללא אישור הגעה</div>
+
+<div class="container">
+
+<div class="col">
+
+  <div class="section">
+    <h2>מה זה UDP</h2>
+    <p>
+      פרוטוקול מנות נתונים למשתמש - <span class="en">User Datagram Protocol</span> &lrm;(UDP) מאפשר לשלוח יחידות מידע נפרדות, הנקראות מנות נתונים - <span class="term en">Datagrams</span>.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>בלי חיבור</h2>
+    <p>
+      בניגוד ל־<a href="../TCP/tcp.html">TCP</a>, ב־UDP לא מתבצע תהליך הקמת חיבור - <span class="en">Connection</span>, ואין לחיצת יד תלת־שלבית - <span class="en">Three-Way Handshake</span>. אפשר לשלוח מנות בלי להמתין לתהליך הזה.
+    </p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>בלי הבטחה</h2>
+    <p>
+      UDP אינו מבטיח שהמנות יגיעו או שיגיעו לפי סדר השליחה. הוא גם אינו שולח מחדש מנות שאבדו. התוכנה שמשתמשת בו יכולה להוסיף מנגנונים כאלה לפי הצורך.
+    </p>
+
+    <div class="meaning-signal">
+      <p>
+        למשל, בשיחה קולית, מנה שמגיעה באיחור עלולה כבר לא להועיל: השיחה התקדמה. לעיתים עדיף להמשיך עם הצליל העדכני מאשר להמתין להשלמת צליל ישן.
+      </p>
+    </div>
+
+    <p>
+      בדומה ל־TCP, גם UDP משתמש במספרי פורטים, שיוסברו בעמוד הבא.
+    </p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>מה פירוש השם</h2>
+
+    <div class="info-box term-box">
+      <div class="info-row"><span class="info-label">User</span><span class="info-value">משתמש</span></div>
+      <div class="info-row"><span class="info-label">Datagram</span><span class="info-value">מנת נתונים</span></div>
+      <div class="info-row"><span class="info-label">Protocol</span><span class="info-value">פרוטוקול</span></div>
+    </div>
+
+    <p>
+      פרוטוקול מנות נתונים למשתמש: שליחת מנות נפרדות, ללא חיבור וללא אישור הגעה.
+    </p>
+  </div>
+
+</div>
+
+</div>
+
+<script src="../waytosee.js"></script>
+
+</body>
+</html>
