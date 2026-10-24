@@ -1122,3 +1122,16 @@ body.learning-mode #nextBtn {
     margin: -6px;
   }
 }
+
+/* ========================================
+   טאבלט במצב מאוזן (מסך מגע רחב): כפתורי הניווט יושבים בפינות, והטקסט הגיע
+   עד הקצוות ונכנס מתחתם. כאן מרחיקים את התוכן מהצדדים, כך שלכפתורים
+   יש "שוליים" משלהם ואין התנגשות עם הטקסט. מחשב וטלפון לא מושפעים.
+   ======================================== */
+@media (pointer: coarse) and (orientation: landscape) and (min-width: 900px) and (max-width: 1400px) {
+  body {
+    padding-left: 64px !important;
+    padding-right: 64px !important;
+    box-sizing: border-box;
+  }
+}
