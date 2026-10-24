@@ -89,14 +89,47 @@ body.stat-page .bell .pct.b3 { fill: var(--c3); }
 body.stat-page .bell .tailtxt { fill: var(--ctail); }
 /* בחלק "לנתונים יש צורה" בלבד: העמודות הרגילות (שאינן השיא או הזנב) בירוק זית במקום אפור */
 .stat-page { --cbar: #8a9a5b; }
-body.learning-mode { --cbar: #a8b878; }
+body.learning-mode { --cbar: #366cad; }
 body.stat-page .hist.shape .bar path { fill: var(--cbar); opacity: 0.75; }
-/* בסימטרית: כל זוג עמודות שהן תמונת מראה באותו צבע */
+/* בסימטרית: כל זוג עמודות שהן תמונת מראה באותו צבע.
+   (המצב החשוך מוגדר למטה) */
 .stat-page { --cm1: #8b6b4a; --cm2: #c4a246; --cm3: #8a9a5b; }
-body.learning-mode { --cm1: #b08a64; --cm2: #d2b45c; --cm3: #a8b878; }
+body.learning-mode { --cm1: #2a4a75; --cm2: #2f5a90; --cm3: #366cad; }
 body.stat-page .hist.shape .bar.m1 path { fill: var(--cm1); }
 body.stat-page .hist.shape .bar.m2 path { fill: var(--cm2); }
 body.stat-page .hist.shape .bar.m3 path { fill: var(--cm3); }
+/* המצב החשוך, בסגנון "חללי" כמו כפתורי תחומי הדעת: מילוי כחול־לילה כהה,
+   מסגרת דקה בכחול, והשיא זוהר. בלי חום: הזנב בסגול־חלל כהה. */
+body.stat-page.learning-mode .hist.shape .bar path {
+  fill: #172743; opacity: 1;
+  stroke: #2e4a7a; stroke-width: 1;
+}
+body.stat-page.learning-mode .hist.shape .bar.m1 path { fill: #121d33; }
+body.stat-page.learning-mode .hist.shape .bar.m2 path { fill: #16243f; }
+body.stat-page.learning-mode .hist.shape .bar.m3 path { fill: #1b2d4f; }
+body.stat-page.learning-mode .hist.shape .bar.peak path {
+  fill: #1f3d6e; stroke: #78aaff;
+  filter: drop-shadow(0 0 5px rgba(120,170,255,0.45));
+}
+body.stat-page.learning-mode .hist.shape .bar.tail path { fill: #241d47; stroke: #6f5cc4; }
+
+/* "מוטה ימינה" ו"מוטה שמאלה" בצבע של עמודות הזנב, שפונות לכיוון ההטיה */
+body.stat-page .tail-word { color: var(--ctail); }
+body.stat-page.learning-mode .tail-word { color: #a493f0; }
+
+/* עקומת הפעמון באותו סגנון */
+body.stat-page.learning-mode .bell .band1 { fill: #1f3d6e; opacity: 1; }
+body.stat-page.learning-mode .bell .band2 { fill: #182c50; opacity: 1; }
+body.stat-page.learning-mode .bell .band3 { fill: #131f36; opacity: 1; }
+body.stat-page.learning-mode .bell .tail  { fill: #33287a; opacity: 1; }
+body.stat-page.learning-mode .bell .curve { stroke: #78aaff; filter: drop-shadow(0 0 4px rgba(120,170,255,0.4)); }
+body.stat-page.learning-mode .bell .br.b1 { stroke: #9cc2ff; }
+body.stat-page.learning-mode .bell .br.b2 { stroke: #7aa0e0; }
+body.stat-page.learning-mode .bell .br.b3 { stroke: #6680b8; }
+body.stat-page.learning-mode .bell .pct.b1 { fill: #9cc2ff; }
+body.stat-page.learning-mode .bell .pct.b2 { fill: #7aa0e0; }
+body.stat-page.learning-mode .bell .pct.b3 { fill: #6680b8; }
+body.stat-page.learning-mode .bell .tailtxt { fill: #a493f0; }
 body.stat-page .hist .bar.peak path { fill: var(--c1); opacity: 0.8; }
 body.stat-page .hist .bar.tail path { fill: var(--ctail); opacity: 0.7; }
 .bell .curve { fill: none; stroke: currentColor; stroke-width: 2; opacity: 0.8; }
@@ -141,7 +174,7 @@ body.stat-page .hist .bar.tail path { fill: var(--ctail); opacity: 0.7; }
 <g class="bar m2"><path d="M198.1,72 V53.0 Q198.1,50.0 201.1,50.0 H224.6 Q227.6,50.0 227.6,53.0 V72 Z"/></g>
 <g class="bar m1"><path d="M229.6,72 V67.7 Q229.6,64.7 232.6,64.7 H256.0 Q259.0,64.7 259.0,67.7 V72 Z"/></g>
 </svg>
-    <p><strong>מוטה ימינה:</strong> רוב הנתונים משמאל, ו"זנב" ארוך נמתח ימינה. למשל משכורות, או זמני המתנה.</p>
+    <p><strong class="tail-word">מוטה ימינה:</strong> רוב הנתונים משמאל, ו"זנב" ארוך נמתח ימינה. למשל משכורות, או זמני המתנה.</p>
     <svg class="hist shape" viewBox="0 0 300 78" aria-hidden="true">
 <line class="axis" x1="40" y1="72" x2="260" y2="72"/>
 <g class="bar"><path d="M41.0,72 V45.7 Q41.0,42.7 44.0,42.7 H67.4 Q70.4,42.7 70.4,45.7 V72 Z"/></g>
@@ -152,7 +185,7 @@ body.stat-page .hist .bar.tail path { fill: var(--ctail); opacity: 0.7; }
 <g class="bar tail"><path d="M198.1,72 V67.7 Q198.1,64.7 201.1,64.7 H224.6 Q227.6,64.7 227.6,67.7 V72 Z"/></g>
 <g class="bar tail"><path d="M229.6,72 V67.7 Q229.6,64.7 232.6,64.7 H256.0 Q259.0,64.7 259.0,67.7 V72 Z"/></g>
 </svg>
-    <p><strong>מוטה שמאלה:</strong> רוב הנתונים מימין, וזנב ארוך נמתח שמאלה. למשל ציונים במבחן קל.</p>
+    <p><strong class="tail-word">מוטה שמאלה:</strong> רוב הנתונים מימין, וזנב ארוך נמתח שמאלה. למשל ציונים במבחן קל.</p>
     <svg class="hist shape" viewBox="0 0 300 78" aria-hidden="true">
 <line class="axis" x1="40" y1="72" x2="260" y2="72"/>
 <g class="bar tail"><path d="M41.0,72 V67.7 Q41.0,64.7 44.0,64.7 H67.4 Q70.4,64.7 70.4,67.7 V72 Z"/></g>
