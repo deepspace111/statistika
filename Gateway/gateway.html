@@ -14,7 +14,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gateway | הדרך אל מחוץ לרשת המקומית | WayToSee</title>
+<title>GateWay | הדרך אל מחוץ לרשת המקומית | WayToSee</title>
 <meta name="description" content="מה עושה מחשב כשהיעד לא נמצא ברשת המקומית? איך מסכת הרשת עוזרת להחליט, ולמה מספיק לדעת למי למסור את המידע.">
 
 <link rel="stylesheet" href="../waytosee.css">
@@ -30,6 +30,14 @@
 .info-box.term-box .info-row{
   grid-template-columns:70px 1fr;
 }
+
+body.proto-page .container p.gw-note{
+  font-size:15.5px;
+  color:var(--text-dim);
+  border-right:3px solid var(--accent);
+  padding:4px 12px 4px 0;
+  margin-top:12px;
+}
 </style>
 </head>
 
@@ -37,7 +45,7 @@
 
 <div class="rain" id="rain"></div>
 
-<h1 class="page-title">Gateway</h1>
+<h1 class="page-title">GateWay</h1>
 <div class="subtitle">הדרך אל מחוץ לרשת המקומית</div>
 
 <div class="container">
@@ -45,13 +53,13 @@
 <div class="col">
 
   <div class="section">
-    <h2>לאן אני רוצה להגיע?</h2>
+    <h2>לאן נשלח המידע?</h2>
     <p>
-      מחשב ברשת יודע את כתובת ה-IP שלו ואת מסכת הרשת שלו. שני הפרטים האלה מאפשרים לו לענות על שאלה חשובה מאוד:
-      <span class="term">האם היעד נמצא ברשת המקומית שלי, או במקום אחר?</span>
+      במחשב ברשת מוגדרות כתובת IP ומסכת רשת. לפי שני הפרטים האלה נקבע:
+      <span class="term">האם היעד נמצא ברשת המקומית, או ברשת אחרת?</span>
     </p>
     <p>
-      אם המחשב רוצה לשלוח מידע לכתובת שנמצאת באותה רשת, הוא יכול לתקשר איתה ישירות. הוא משתמש ב-ARP כדי למצוא את כתובת ה-MAC של היעד ושולח אליו את ה-Frame.
+      אם היעד נמצא באותה רשת, המידע נשלח אליו ישירות. כתובת ה-MAC של היעד מתקבלת באמצעות ARP, וה-Frame נשלח אליו.
     </p>
     <p>
       אבל מה קורה כשהכתובת נמצאת מחוץ לרשת המקומית?
@@ -59,12 +67,12 @@
 
     <div class="info-box">
       <div class="info-row"><span class="info-label">המחשב שלנו</span><span class="info-value">192.168.1.42</span></div>
-      <div class="info-row"><span class="info-label">רוצה להגיע ל</span><span class="info-value">8.8.8.8</span></div>
+      <div class="info-row"><span class="info-label">יעד:</span><span class="info-value">8.8.8.8</span></div>
     </div>
 
     <p>
-      לפי מסכת הרשת שלו, המחשב מבין שהכתובת 8.8.8.8 אינה חלק מהרשת המקומית. הוא יודע לאן הוא רוצה להגיע, אבל היעד אינו נמצא לידו.
-      עכשיו הוא צריך לדעת למי למסור את המידע כדי שיוכל לצאת מהרשת המקומית.
+      לפי מסכת הרשת, הכתובת 8.8.8.8 אינה חלק מהרשת המקומית. כתובת היעד ידועה, אבל היעד נמצא ברשת אחרת.
+      לכן נדרשת כתובת שדרכה המידע יוצא מהרשת המקומית.
     </p>
   </div>
 
@@ -73,29 +81,29 @@
 <div class="col">
 
   <div class="section">
-    <h2>אני לא צריך לדעת את כל הדרך</h2>
+    <h2>רק הצעד הבא</h2>
     <p>
-      המחשב אינו צריך לדעת כיצד להגיע בעצמו ל-8.8.8.8. הוא צריך לדעת רק דבר אחד: <span class="term">מה הצעד הבא?</span>
-      בשביל זה קיימת כתובת ה-Gateway.
+      כדי לשלוח מידע ל-8.8.8.8, אין צורך בהגדרת המסלול המלא במחשב. נדרשת <span class="term">כתובת הצעד הבא</span>.
+      בשביל זה קיימת כתובת ה-GateWay.
     </p>
 
     <div class="info-box">
       <div class="info-row"><span class="info-label">Computer</span><span class="info-value">192.168.1.42</span></div>
-      <div class="info-row"><span class="info-label">Gateway</span><span class="info-value">192.168.1.1</span></div>
+      <div class="info-row"><span class="info-label">GateWay</span><span class="info-value">192.168.1.1</span></div>
       <div class="info-row"><span class="info-label">Destination</span><span class="info-value">8.8.8.8</span></div>
     </div>
 
     <p>
-      המחשב רואה שהיעד אינו מקומי ולכן הוא מוסר את ה-Frame ל-Gateway. ה-Gateway הוא בדרך כלל ממשק של נתב שנמצא באותה רשת מקומית של המחשב.
-      הנתב מקבל את המידע ומחליט לאן להעביר אותו הלאה.
+      היעד אינו מקומי, ולכן ה-Frame נשלח ל-GateWay. ה-GateWay הוא בדרך כלל ממשק של נתב שנמצא באותה רשת מקומית של המחשב.
+      הנתב מעביר את המידע הלאה, לכיוון היעד.
     </p>
     <p>
-      המחשב לא צריך להכיר את כל הנתבים שבדרך. מבחינתו: אם היעד לא כאן, אני שולח ל-Gateway.
+      אין צורך בכתובות של כל הנתבים שבדרך. הכלל: אם היעד אינו ברשת המקומית, המידע נשלח ל-GateWay.
     </p>
     <p>
-      <strong>נקודה חשובה:</strong> כתובת ה-IP של היעד עדיין נשארת 8.8.8.8. המחשב אינו משנה את יעד ה-IP לכתובת של ה-Gateway.
-      <span class="term">מה שמשתנה ברשת המקומית הוא יעד ה-Ethernet Frame: המחשב שולח את ה-Frame אל כתובת ה-MAC של ה-Gateway.</span>
-      לכן, לפני שהוא יכול לשלוח, הוא עשוי להשתמש ב-ARP כדי לגלות את כתובת ה-MAC של ה-Gateway.
+      <strong>נקודה חשובה:</strong> כתובת ה-IP של היעד עדיין נשארת 8.8.8.8. המחשב אינו משנה את יעד ה-IP לכתובת של ה-GateWay.
+      <span class="term">מה שמשתנה ברשת המקומית הוא יעד ה-Ethernet Frame: המחשב שולח את ה-Frame אל כתובת ה-MAC של ה-GateWay.</span>
+      לכן, לפני שהוא יכול לשלוח, הוא עשוי להשתמש ב-ARP כדי לגלות את כתובת ה-MAC של ה-GateWay.
     </p>
   </div>
 
@@ -104,24 +112,26 @@
 <div class="col">
 
   <div class="section">
-    <h2>Gateway</h2>
+    <h2>GateWay</h2>
     <p>
-      Gateway הוא נקודת היציאה של המכשיר מהרשת המקומית אל רשתות אחרות.
+      GateWay הוא נקודת היציאה של המכשיר מהרשת המקומית אל רשתות אחרות.
     </p>
     <p>
-      כאשר היעד נמצא בתוך הרשת המקומית, אין צורך ב-Default Gateway לצורך ההגעה אליו. כאשר היעד נמצא מחוץ לרשת המקומית,
-      המחשב שולח את המידע ל-Default Gateway, והנתב ממשיך משם.
+      כאשר היעד נמצא בתוך הרשת המקומית, אין צורך ב-Default GateWay לצורך ההגעה אליו. כאשר היעד נמצא מחוץ לרשת המקומית,
+      המחשב שולח את המידע ל-Default GateWay, והנתב ממשיך משם.
     </p>
 
     <div class="info-box">
       <div class="info-row"><span class="info-label">יעד מקומי</span><span class="info-value">שולחים ישירות ליעד</span></div>
-      <div class="info-row"><span class="info-label">יעד מרוחק</span><span class="info-value">שולחים ל-Gateway</span></div>
+      <div class="info-row"><span class="info-label">יעד מרוחק</span><span class="info-value">שולחים ל-GateWay</span></div>
     </div>
 
     <p>
-      וזה גם מסביר מדוע DHCP נותן למחשב לא רק כתובת IP ומסכת רשת, אלא גם את כתובת ה-Gateway.
-      בלי כתובת IP המחשב לא יודע מי הוא. בלי מסכת רשת הוא לא יודע מה נחשב מקומי. ובלי Gateway הוא יכול לדבר עם הרשת המקומית,
-      אבל אינו יודע מהו הצעד הראשון בדרך אל מחוץ לה.
+      וזה גם מסביר מדוע DHCP נותן למחשב לא רק כתובת IP ומסכת רשת, אלא גם את כתובת ה-GateWay.
+      בלי כתובת IP אין למחשב כתובת ברשת. בלי מסכת רשת אי אפשר לקבוע מה נחשב מקומי. ובלי GateWay אין צעד ראשון אל מחוץ לרשת המקומית.
+    </p>
+    <p class="gw-note">
+      בלי שער ברירת מחדל - Default GateWay, ובהיעדר הגדרת ניתוב אחרת, אפשר לתקשר רק בתוך הרשת המקומית.
     </p>
   </div>
 
@@ -134,11 +144,11 @@
     </div>
 
     <p>
-      Gateway הוא, מילולית, השער אל הדרך החוצה.
+      GateWay הוא, מילולית, השער אל הדרך החוצה.
     </p>
 
     <div class="meaning-signal">
-      <p>המחשב לא צריך לדעת את כל הדרך. הוא צריך לדעת רק איפה השער.</p>
+      <p>אין צורך במסלול המלא. נדרשת רק הכתובת של השער.</p>
     </div>
   </div>
 
