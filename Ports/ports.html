@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FTM28BMBXC');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ports | פורט מקור ופורט יעד | WayToSee</title>
+<meta name="description" content="מהו פורט - Port: פורט יעד - Destination Port ופורט מקור - Source Port, ואיך הם מאפשרים להפנות את המידע לשירות המתאים באותו מכשיר.">
+
+<link rel="stylesheet" href="../waytosee.css">
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+.en{
+  direction:ltr;
+  unicode-bidi:isolate;
+}
+
+.num{
+  direction:ltr;
+  unicode-bidi:isolate;
+  font-family:'JetBrains Mono', monospace;
+  font-weight:bold;
+  color:var(--num);
+}
+
+.port-table{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0;
+  margin:14px 0;
+  border:1px solid var(--panel-border);
+  border-radius:18px;
+  overflow:hidden;
+  background:var(--panel);
+  font-size:16px;
+}
+
+.port-table th,
+.port-table td{
+  padding:11px 12px;
+  text-align:center;
+  border-bottom:1px solid var(--panel-border);
+}
+
+.port-table tr:last-child td{
+  border-bottom:none;
+}
+
+.port-table th{
+  font-size:14px;
+  font-weight:700;
+  color:var(--text-dim);
+  background:var(--code-bg);
+}
+
+.port-table td.pn{
+  direction:ltr;
+  font-family:'JetBrains Mono', monospace;
+  font-weight:bold;
+  color:var(--num);
+}
+
+.port-table td:first-child{
+  text-align:right;
+  color:var(--text);
+}
+
+.port-table td.pn{
+  font-size:16px;
+}
+
+@media (max-width:768px){
+  .port-table{
+    font-size:14px;
+  }
+  .port-table th,
+  .port-table td{
+    padding:9px 8px;
+  }
+  .port-table th{
+    font-size:12.5px;
+  }
+  .port-table td.pn{
+    font-size:14px;
+  }
+}
+</style>
+</head>
+
+<body class="proto-page">
+
+<div class="rain" id="rain"></div>
+
+<h1 class="page-title">Ports</h1>
+<div class="subtitle">פורט - Port מאפשר להפנות את המידע לשירות המתאים באותו מכשיר</div>
+
+<div class="container">
+
+<div class="col">
+
+  <div class="section">
+    <h2>שרת - <span class="en">Server</span></h2>
+    <p>
+      שרת - <span class="en">Server</span> הוא מחשב או תוכנה המספקים שירות למחשבים או לתוכנות אחרים.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>כתובת ופורט</h2>
+    <p>
+      כתובת IP מציינת לאן ברשת נשלח המידע. פורט - <span class="en">Port</span> מאפשר להפנות את המידע לשירות המתאים באותו מכשיר. מספר הפורט נפרד מכתובת ה־IP.
+    </p>
+    <p>
+      שירות מערכת שמות מתחם - <span class="en">Domain Name System</span> &lrm;(DNS) מתרגם שם של אתר, כמו <span class="en">waytosee.io</span>, לכתובת IP. הוא יוסבר בהרחבה בהמשך.
+    </p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>פורט יעד - <span class="en">Destination Port</span></h2>
+    <p>
+      באותו שרת יכולים לפעול אתר אינטרנט מאובטח בפורט <span class="num">443</span> ושירות DNS בפורט <span class="num">53</span>. כתובת ה־IP זהה לשניהם, ומספר פורט היעד - <span class="en">Destination Port</span> מאפשר להבחין בין השירותים.
+    </p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>פורט מקור - <span class="en">Source Port</span></h2>
+    <p>
+      גם בצד השולח מופיע פורט מקור - <span class="en">Source Port</span>. בפנייה מהדפדפן לאתר, בדרך כלל מוקצה פורט מקור זמני. למשל:
+    </p>
+
+    <table class="port-table">
+      <tr><th>כיוון</th><th>פורט מקור</th><th>פורט יעד</th></tr>
+      <tr><td>מהמחשב לאתר</td><td class="pn">51024</td><td class="pn">443</td></tr>
+      <tr><td>מהאתר למחשב, בתשובה</td><td class="pn">443</td><td class="pn">51024</td></tr>
+    </table>
+
+    <p>
+      בתשובה, המספרים מחליפים תפקידים: פורט המקור של הבקשה הוא פורט היעד של התשובה.
+    </p>
+    <p>
+      פורט המקור, יחד עם כתובות ה־IP ופורט היעד של הבקשה, מאפשר לשייך את התשובה לחיבור המתאים ולתוכנה שמשתמשת בו, למשל הדפדפן. כך אפשר לקיים כמה חיבורים במקביל באותו מחשב.
+    </p>
+  </div>
+
+</div>
+
+</div>
+
+<script src="../waytosee.js"></script>
+
+</body>
+</html>
