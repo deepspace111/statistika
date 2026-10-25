@@ -19,7 +19,7 @@
 
   <link rel="stylesheet" href="waytosee.css">
   <!-- גופנים לכותרת של עמוד הבית בלבד -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@200..300&family=Assistant:wght@200..300&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@200..400&family=Assistant:wght@200..400&display=swap">
 
  <style>
     body {
@@ -55,11 +55,11 @@
     body:not(.learning-mode) .brand-en { color: rgb(18,29,52); }
     body.learning-mode .brand { --en-op: 0.88; --he-op: 0.7; }
 
-    /* מצב בהיר: הכיתוב גדול, כהה וחזק יותר (משקל 220 במקום 200, כלומר 10% יותר). במצב הכהה ללא שינוי. */
+    /* מצב בהיר: הכיתוב גדול, כהה וחזק יותר (משקל 220 במקום 200, כלומר 10% יותר; ואז עוד 40%: 308 במקום 220). במצב הכהה ללא שינוי. */
     .brand-en, .brand-he { transition: font-size 0.4s ease, color 0.4s ease, font-weight 0.4s ease; }
     body:not(.learning-mode) .brand { --he-op: 1; }
-    body:not(.learning-mode) .brand-en { font-size: 26px; color: rgb(12,20,38); font-weight: 220; }
-    body:not(.learning-mode) .brand-he { font-size: 16.5px; color: rgb(12,20,38); font-weight: 220; }
+    body:not(.learning-mode) .brand-en { font-size: 26px; color: rgb(12,20,38); font-weight: 308; }
+    body:not(.learning-mode) .brand-he { font-size: 16.5px; color: rgb(12,20,38); font-weight: 308; }
 
     .brand-en {
       direction: ltr;
