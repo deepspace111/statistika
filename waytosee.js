@@ -497,6 +497,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const wasNoise = previousMode === "on";
     flickerAllowed = mode === "on";
     document.body.classList.toggle("learning-mode", isDark);
+    // תמונת הרקע מופיעה רק במצב "כהה + רעש". במעבר ל"כהה בלי רעש" היא נעלמת בהדרגה, כמו הרעש
+    document.body.classList.toggle("lbg-on", mode === "on");
     syncFlicker();
     focusButton.classList.toggle("active", isDark);
     if (mode === "on" && !wasNoise) startBrownNoise();

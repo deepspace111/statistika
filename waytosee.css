@@ -1175,8 +1175,9 @@ body .brand-he{
   /* עדין מאוד: פחות בהירות, והתמונה שקופה למחצה מעל הכחול הכהה (העוצמה המרבית נקבעת למטה) */
   filter:brightness(0.8) saturate(0.85);
   opacity:0;
-  transition:opacity 0.6s ease;
+  transition:opacity 0.9s ease;
 }
-/* 0.4 = עוצמת התמונה המרבית. כדי לחזק או להחליש, משנים רק את המספר הזה */
-body.learning-mode .learning-bg{ opacity:calc(var(--lbg-op, 1) * 0.4); }
+/* התמונה מופיעה רק במצב "כהה + רעש" (lbg-on). במצב "כהה בלי רעש" היא נעלמת בהדרגה.
+   0.4 = עוצמת התמונה המרבית. כדי לחזק או להחליש, משנים רק את המספר הזה */
+body.learning-mode.lbg-on .learning-bg{ opacity:calc(var(--lbg-op, 1) * 0.4); }
 
