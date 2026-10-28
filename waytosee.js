@@ -61,6 +61,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   })(document.body);
 
+  // רקע מצב תודעת לימוד: שכבת תמונה אחת לכל עמוד (העיצוב ב-waytosee.css, .learning-bg).
+  // התמונה היא פתיחה: בראש הדף היא נראית במלואה, ומתעמעמת לפי כמה רחוק גללו למטה.
+  // אחרי 80% מגובה המסך היא נעלמת לגמרי, וכשחוזרים לראש הדף היא חוזרת.
+  const learningBg = document.createElement("div");
+  learningBg.className = "learning-bg";
+  learningBg.setAttribute("aria-hidden", "true");
+  document.body.prepend(learningBg);
+  function updateLearningBg() {
+    const fadeDistance = window.innerHeight * 0.8;
+    const op = Math.max(0, 1 - window.scrollY / fadeDistance);
+    document.body.style.setProperty("--lbg-op", op.toFixed(3));
+  }
+  updateLearningBg();
+  window.addEventListener("scroll", updateLearningBg, { passive: true });
+  window.addEventListener("resize", updateLearningBg);
+
   // רקע "גשם" עדין - רק בעמודים שכוללים ב-HTML <div class="rain" id="rain">.
   // ה-CSS (.rain / .drop / @keyframes rain) גר ב-waytosee.css; כאן רק יוצרים
   // את 150 הטיפות בפעם הראשונה שהעמוד נטען.

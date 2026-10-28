@@ -1154,3 +1154,25 @@ body .brand-he{
   font-family:'Varela Round', 'Heebo', system-ui, -apple-system, 'Segoe UI', sans-serif;
   font-synthesis:none;
 }
+
+
+/* ========================================
+   רקע מצב תודעת לימוד: תמונת העיר ההרוסה (learning-bg.webp)
+   השכבה נוצרת ב-waytosee.js ומופיעה רק במצב תודעת לימוד.
+   התמונה היא פתיחה: בראש הדף היא נראית במלואה, ומתעמעמת ככל שגוללים למטה
+   (את השקיפות קובע waytosee.js לפי מיקום הגלילה).
+   אם התמונה לא נטענת, נשאר הכחול הכהה של body.learning-mode.
+   ======================================== */
+.learning-bg{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:
+    linear-gradient(rgba(8,13,24,0.55), rgba(8,13,24,0.72)),
+    url("learning-bg.webp") center / cover no-repeat;
+  opacity:0;
+  transition:opacity 0.6s ease;
+}
+body.learning-mode .learning-bg{ opacity:var(--lbg-op, 1); }
+
