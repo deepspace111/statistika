@@ -133,7 +133,7 @@ body.learning-mode{
 }
 
 body.learning-mode .rain{
-  opacity:0.34;
+  opacity:0.48; /* חוזק מעט (היה 0.34), כדי שהגשם ייראה מעל תמונת הרקע */
 }
 
 .rain .drop{
