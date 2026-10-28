@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800&family=JetBrains+Mono:wght@400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800&family=JetBrains+Mono:wght@400;600&family=Varela+Round&display=swap");
 
 /* === משתני עיצוב משותפים - אותם ערכים שהיו רק ב-Subnet/NAT, מורחבים לכל האתר ===
    מצב רגיל: פלטת האור. מצב תודעת לימוד: פלטת "טיפת המים" הכהה (body.learning-mode). */
@@ -1134,4 +1134,23 @@ body.learning-mode #nextBtn {
     padding-right: 64px !important;
     box-sizing: border-box;
   }
+}
+
+
+/* ========================================
+   גופן הכותרות: Varela Round, בכל האתר
+   כותרות הדפים, כותרות המשנה, הסיסמה "כשמבינים — רואים"
+   והכיתוב בדף הבית (Way To See והסיסמה שמתחתיו).
+   ל-Varela Round יש משקל אחד בלבד. font-synthesis:none מונע מהדפדפן
+   "לעבות" אותו באופן מלאכותי בכותרות שמוגדרות כעבות.
+   "body" לפני שמות המחלקות של דף הבית נותן לכלל הזה עדיפות
+   על הגופנים שמוגדרים מקומית ב-index.html.
+   ======================================== */
+h1, h2, h3, h4,
+.page-title,
+.motto,
+body .brand-en,
+body .brand-he{
+  font-family:'Varela Round', 'Heebo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-synthesis:none;
 }
