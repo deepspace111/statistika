@@ -68,8 +68,8 @@
       font-weight: 200;
       font-size: 22px;
       line-height: 1;
-      letter-spacing: 0.7em;
-      margin-right: -0.7em; /* מקזז את הרווח אחרי האות האחרונה, כדי שהשורה תהיה ממורכזת */
+      letter-spacing: 0.36em;
+      margin-right: -0.36em; /* מקזז את הרווח אחרי האות האחרונה, כדי שהשורה תהיה ממורכזת */
       color: var(--text);
       opacity: var(--en-op);
       animation: softReveal 0.4s ease-out forwards;
@@ -82,7 +82,7 @@
       font-size: 14px;
       line-height: 1;
       letter-spacing: 0.35em;
-      margin-left: -0.35em;
+      margin-right: -0.35em; /* בדפדפן הרווח העודף נוסף מימין לאות האחרונה גם בעברית, ולכן מקזזים מימין */
       color: var(--text);
       opacity: var(--he-op);
       animation: softRevealQuiet 0.6s ease-out forwards;
@@ -230,8 +230,8 @@
       body::before { content: ""; flex: 1; }
       body::after { content: ""; flex: 7; }
       .brand { margin-bottom: 14px; }
-      .brand-en { font-size: 16px; letter-spacing: 0.5em; margin-right: -0.5em; }
-      .brand-he { margin-top: 14px; font-size: 12px; letter-spacing: 0.28em; margin-left: -0.28em; }
+      .brand-en { font-size: 16px; letter-spacing: 0.26em; margin-right: -0.26em; }
+      .brand-he { margin-top: 14px; font-size: 12px; letter-spacing: 0.28em; margin-right: -0.28em; }
       body:not(.learning-mode) .brand-en { font-size: 26.6px; }
       body:not(.learning-mode) .brand-he { font-size: 19.6px; }
       .btn {
