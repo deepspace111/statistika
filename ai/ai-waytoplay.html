@@ -25,7 +25,7 @@
 <style>
 /* שלד העמוד מגיע מ-waytosee.css תחת body.overview-page.
    כאן רק: הפתיחה עם הרשת המונפשת, ההבחנה בין דימוי למנגנון,
-   שורות התחנות (שלוש עמודות שמסתיימות באותו קו), תחנה 07, והמעבדה. */
+   שורות התחנות (שלוש עמודות שמסתיימות באותו קו), תחנה 07, והכפתור למעבדה. */
 
 /* ===== הפתיחה ===== */
 .research-label{
@@ -200,44 +200,47 @@ body.overview-page .container.row-b{ padding-top:0; }
 .guiding .motto{ font-size:24px; font-weight:700; margin:0; }
 .guiding p{ color:var(--text-dim); margin:0; line-height:1.5; }
 
-/* ===== המעבדה ===== */
-.research-log{
+/* ===== הכפתור למעבדה: אותו מראה כמו הכפתורים בעמוד הנושאים של בינה מלאכותית ===== */
+.lab-link{
   position:relative;
   z-index:5;
-  max-width:1200px;
+  max-width:520px;
   margin:0 auto;
-  padding:30px 24px 80px;
+  padding:34px 24px 80px;
 }
-.research-log-inner{
-  border-top:1px solid var(--panel-border);
-  border-bottom:1px solid var(--panel-border);
-  padding:18px 0 22px;
+.log-btn{
+  display:block;
+  padding:18px;
+  border-radius:20px;
+  background:var(--panel);
+  color:var(--text);
+  text-decoration:none;
+  text-align:center;
+  font-size:19px;
+  border:1px solid var(--panel-border);
+  box-shadow:0 8px 24px rgba(0,0,0,0.06);
+  backdrop-filter:blur(3px);
+  transition:0.4s ease;
 }
-.research-log h2{ font-size:25px; margin:0 0 6px; font-weight:700; color:var(--text); }
-.research-log .log-sub{ font-size:15px; color:var(--text-dim); margin:0 0 16px; }
-.research-log .log-open{ font-size:20px; margin:0 0 10px; }
-.research-log ul{ margin:8px 0 0; padding-inline-start:18px; }
-.research-log li{ margin:6px 0; line-height:1.4; }
-.log-entries{ margin-top:18px; }
-
-/* רשומה במעבדה */
-.log-entry{
-  border-top:1px solid var(--panel-border);
-  margin-top:22px;
-  padding-top:16px;
-  max-width:860px;
+.log-btn:hover{
+  transform:translateY(-2px);
+  background:rgba(120,170,255,0.08);
+  border-color:var(--accent);
 }
-.log-entry h3{ font-size:22px; margin:0 0 4px; font-weight:700; color:var(--text); }
-.log-entry .log-status{ font-size:15px; color:var(--text-dim); margin:0 0 12px; }
-.log-entry .kind-label{ margin-top:16px; }
-.log-entry p{ line-height:1.45; margin:6px 0; text-align:justify; }
+.log-btn small{
+  display:block;
+  margin-top:8px;
+  line-height:1.8;
+  font-size:14px;
+  color:var(--text-dim);
+}
 
 @media (max-width:600px){
   body.overview-page .col{ justify-content:flex-start; }
   .scene, .closing-block{ padding-left:18px; padding-right:18px; }
   .distinction{ grid-template-columns:1fr; padding:0 18px; }
   .distinction > div + div{ border-top:none; }
-  .research-log{ padding:24px 18px 60px; }
+  .lab-link{ padding:24px 18px 60px; }
   .row-title{ font-size:25px; }
   .main-q{ font-size:26px; }
 }
@@ -427,72 +430,12 @@ body.overview-page .container.row-b{ padding-top:0; }
   <p class="motto">כשמבינים — רואים</p>
 </section>
 
-<!-- ===== המעבדה: מקום לביקורת ולרעיונות ===== -->
-<section class="research-log">
-  <div class="research-log-inner">
-    <h2>המעבדה</h2>
-    <p class="log-sub">כאן נתעד שאלות, ביקורת, רעיונות חדשים, וגם טעויות.</p>
-    <p class="log-open">עוד אין כאן ממצאים. יש שאלה, ומקום לבקר אותה.</p>
-    <ul>
-      <li>איפה הרעיון הזה שגוי?</li>
-      <li>איזו דוגמה מהעולם חסרה כאן?</li>
-      <li>מה היה משכנע אותנו שזה אפשרי, ומה היה משכנע אותנו שלא?</li>
-    </ul>
-    <div class="log-entries">
-      <!-- רשומות המעבדה ייכנסו כאן -->
-
-      <!-- רשומה 1: מתג הכיבוי -->
-      <article class="log-entry">
-        <h3>מתג הכיבוי</h3>
-        <p class="log-status">מצב: השערה. עוד לא בוצע אף ניסוי, ואין כאן תוצאות.</p>
-
-        <p class="kind-label">הרעיון</p>
-        <p>מה יקרה אם כל המכשירים ברשת ישלחו בדיוק אותה חבילה? אם רוח הרפאים מתקיימת בהבדלים בין המכשירים, ייתכן שכשההבדלים ייעלמו, גם היא תיעלם. זה מתג הכיבוי.</p>
-
-        <p class="kind-label">דיוק חשוב</p>
-        <p>תוכן זהה הוא לא תעבורה זהה. גם כשכל המכשירים שולחים אותו תוכן, זמני השליחה, המסלולים והעיכובים נשארים שונים. מכשיר בתל אביב ומכשיר ביפן נמצאים במרחק שונה מכל שרת, והחבילות שלהם עוברות בדרכים שונות. לכן מתג הכיבוי בודק דבר מוגדר: מה קורה לדפוס כשמצמצמים הבדלים מסוימים בין המכשירים.</p>
-
-        <p class="kind-label">שלוש בדיקות, לפי הסדר</p>
-        <p>כל בדיקה נשענת על הבדיקה שלפניה.</p>
-        <ul>
-          <li><strong>שינוי בהקלטות.</strong> מקליטים תעבורה ויוצרים ממנה עותקים שבהם הזרמים הוזזו מעט בזמן. כל זרם שומר על ההתנהגות שלו, ורק התיאום בין הזרמים נשבר. הבדיקה הזו לא מכבה שום דבר ברשת. היא בודקת אם המדד שלנו מגיב לתיאום בין זרמים. לפני כל שימוש, המדד צריך לעבור כיול על תופעה מוכרת: סנכרון של TCP בזמן עומס.</li>
-          <li><strong>התערבות רחבה, ברשת מדומה.</strong> מצמצמים הבדלים מוגדרים בין כל המכשירים. זו הגרסה הישירה של מתג הכיבוי.</li>
-          <li><strong>התערבות נקודתית, ברשת מדומה.</strong> משנים את ההתנהגות של צומת אחד בלבד, ובודקים אם יש לזה השפעה על הדפוס.</li>
-        </ul>
-
-        <p class="kind-label">מה מודדים בכל התערבות</p>
-        <ul>
-          <li><strong>האם הדפוס נחלש או נעלם:</strong> לפי המדד שעבר כיול.</li>
-          <li><strong>האם הרשת ממשיכה לתפקד:</strong> לפי כמות המידע שעוברת ומהירות ההגעה שלו.</li>
-          <li><strong>האם הדפוס חוזר כשההתערבות נפסקת:</strong> ממשיכים למדוד גם אחרי ההתערבות.</li>
-        </ul>
-        <p>אלה שלוש תוצאות נפרדות. דפוס יכול להיעלם לזמן מה ואז להיווצר מחדש.</p>
-
-        <p class="kind-label">תוצאות אפשריות, ומה הן אומרות</p>
-        <ul>
-          <li><strong>הדפוס נעלם:</strong> תומך בכך שהוא תלוי במה ששינינו בניסוי.</li>
-          <li><strong>הדפוס נשמר:</strong> השינוי לא הספיק כדי להעלים אותו. זה עדיין לא אומר מה המקור שלו.</li>
-          <li><strong>הדפוס משתנה:</strong> הוא רגיש לשינוי. זה לבד לא מראה כמה מהדפוס תלוי במכשירים וכמה במבנה של הרשת.</li>
-        </ul>
-
-        <p class="kind-label">השראה: פקק רפאים</p>
-        <p>בכביש בלי תאונה ובלי צומת יכול להיווצר גל של האטה שנע לאורך הכביש. המכוניות נכנסות אליו ויוצאות ממנו, והגל ממשיך. ב־2008 שחזרו את זה ביפן: 22 מכוניות במסלול מעגלי, בלי שום מכשול, והגל נוצר בכל זאת. בניסוי שפורסם ב־2017, מכונית אחת שנסעה במהירות מבוקרת פיזרה את הגלים בזמן שהתנועה המשיכה.</p>
-        <p>זו השראה לבדיקה הנקודתית. היא לא מוכיחה שצומת אחד יספיק ברשת מחשבים.</p>
-
-        <p class="kind-label">שאלה פתוחה</p>
-        <p>אולי אי אפשר לבטל את כל ההבדלים כל עוד הרשת פועלת, ולכן אי אפשר לכבות את הדפוס לגמרי. אבל "מתג הכיבוי שלנו לא עבד" הוא לא "אי אפשר לכבות".</p>
-        <p class="our-q">האם אפשר להחליש את הדפוס בזמן שהרשת ממשיכה לפעול, או שהוא תמיד חוזר?</p>
-
-        <p class="kind-label">עקרונות</p>
-        <ul>
-          <li>ההתערבויות נעשות רק ברשת מדומה. ברשת אמיתית רק מקליטים, ורק תעבורה של הרשת הביתית או מאגרים ציבוריים שהוסרו מהם פרטים מזהים.</li>
-          <li>ההשערה מתפרסמת כאן לפני כל ניסוי, ולא תשתנה בדיעבד.</li>
-          <li>רוח הרפאים יכולה גם לא להימצא.</li>
-          <li>גם אם הדפוס יימצא ויגיב למתג הכיבוי, זה עוד לא אומר שיש בו זיכרון, למידה או בינה.</li>
-        </ul>
-      </article>
-    </div>
-  </div>
+<!-- ===== הכפתור למעבדה (המעבדה עצמה בעמוד נפרד) ===== -->
+<section class="lab-link">
+  <a class="log-btn" href="ai-waytoplay-lab.html">
+    המעבדה
+    <small>כאן נתעד שאלות, ביקורת, רעיונות חדשים, וגם טעויות.</small>
+  </a>
 </section>
 
 <script>
