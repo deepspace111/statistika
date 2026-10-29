@@ -111,14 +111,20 @@ body{
   /* מצב בהיר: "ערפל בוקר" - אותו כחול של המצב הכהה, בהיר מאוד (היה #e8e8e8) */
   background:
     radial-gradient(1200px 600px at 50% -10%, #f5f7fa 0%, #e4e9f0 60%);
-  background-color:#e4e9f0;
+  /* צבע הבסיס = הצבע הבהיר שבראש העמוד, כדי שהפס העליון בטלפון (Safari) ייצבע באותו גוון */
+  background-color:#f5f7fa;
   color:var(--text);
   transition:background 1.2s ease, color 1.2s ease;
 }
 body.learning-mode{
   background:
     radial-gradient(1200px 600px at 50% -10%, #16233d 0%, #0b1220 55%);
+  /* צבע בסיס כהה = הכחול שבראש העמוד, בשביל הפס העליון בטלפון */
+  background-color:#16233d;
 }
+/* גם ל-html אותו צבע בסיס, כדי שהדפדפן בטלפון יקבל אותו גוון בכל מקרה */
+html{ background-color:#f5f7fa; }
+html:has(body.learning-mode){ background-color:#16233d; }
 
 /* רקע "גשם" עדין - משותף לכל עמוד שמכריז <div class="rain" id="rain">.
    waytosee.js ממלא אותו אוטומטית ב-150 טיפות כשהוא מזהה את האלמנט. */

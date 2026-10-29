@@ -515,3 +515,19 @@ document.addEventListener("DOMContentLoaded", () => {
     applyMode(currentMode, previousMode);
   });
 });
+
+// צבע הפס העליון בטלפון (theme-color): בעיקר לאנדרואיד ולאייפונים ישנים.
+// בהיר במצב רגיל, כחול כהה במצב תודעת לימוד. מתעדכן לבד כשהמצב מתחלף.
+(function () {
+  let meta = document.querySelector('meta[name="theme-color"]');
+  if (!meta) {
+    meta = document.createElement("meta");
+    meta.name = "theme-color";
+    document.head.appendChild(meta);
+  }
+  function syncThemeColor() {
+    meta.content = document.body.classList.contains("learning-mode") ? "#16233d" : "#f5f7fa";
+  }
+  syncThemeColor();
+  new MutationObserver(syncThemeColor).observe(document.body, { attributes: true, attributeFilter: ["class"] });
+})();
