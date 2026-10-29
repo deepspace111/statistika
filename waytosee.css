@@ -122,9 +122,6 @@ body.learning-mode{
   /* צבע בסיס כהה = הכחול שבראש העמוד, בשביל הפס העליון בטלפון */
   background-color:#16233d;
 }
-/* גם ל-html אותו צבע בסיס, כדי שהדפדפן בטלפון יקבל אותו גוון בכל מקרה */
-html{ background-color:#f5f7fa; }
-html:has(body.learning-mode){ background-color:#16233d; }
 
 /* רקע "גשם" עדין - משותף לכל עמוד שמכריז <div class="rain" id="rain">.
    waytosee.js ממלא אותו אוטומטית ב-150 טיפות כשהוא מזהה את האלמנט. */
