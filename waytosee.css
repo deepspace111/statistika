@@ -108,16 +108,15 @@ body.learning-mode .focus-toggle::after{
 }
 body{
   font-family: 'Heebo', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  /* מצב בהיר: "ערפל בוקר" - אותו כחול של המצב הכהה, בהיר מאוד (היה #e8e8e8) */
-  background:
-    radial-gradient(1200px 600px at 50% -10%, #f5f7fa 0%, #e4e9f0 60%);
-  background-color:#e4e9f0;
+  /* מצב בהיר: "ערפל בוקר" - אותו כחול של המצב הכהה, בהיר מאוד (היה #e8e8e8).
+     צבע אחיד בכל הדף, כדי שהפסים למעלה ולמטה בטלפון ייצבעו באותו גוון */
+  background:#e4e9f0;
   color:var(--text);
   transition:background 1.2s ease, color 1.2s ease;
 }
+/* מצב כהה: כחול כהה אחיד בכל הדף, מאותה סיבה (הפסים למעלה ולמטה בטלפון) */
 body.learning-mode{
-  background:
-    radial-gradient(1200px 600px at 50% -10%, #16233d 0%, #0b1220 55%);
+  background:#0b1220;
 }
 
 /* רקע "גשם" עדין - משותף לכל עמוד שמכריז <div class="rain" id="rain">.
