@@ -135,6 +135,10 @@ body.learning-mode{
 body.learning-mode .rain{
   opacity:0.48; /* חוזק מעט (היה 0.34), כדי שהגשם ייראה מעל תמונת הרקע */
 }
+/* מצב כהה 1 (כהה + רעש): הגשם עוד קצת חזק */
+body.learning-mode.lbg-on .rain{ opacity:0.55; }
+/* מצב כהה 2 (כהה בלי רעש): בלי גשם. נעלם בהדרגה */
+body.learning-mode.mode-quiet .rain{ opacity:0; }
 
 .rain .drop{
   position:absolute;

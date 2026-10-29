@@ -499,6 +499,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.classList.toggle("learning-mode", isDark);
     // תמונת הרקע מופיעה רק במצב "כהה + רעש". במעבר ל"כהה בלי רעש" היא נעלמת בהדרגה, כמו הרעש
     document.body.classList.toggle("lbg-on", mode === "on");
+    // במצב "כהה בלי רעש" גם הגשם נעלם (העיצוב ב-waytosee.css)
+    document.body.classList.toggle("mode-quiet", mode === "quiet");
     syncFlicker();
     focusButton.classList.toggle("active", isDark);
     if (mode === "on" && !wasNoise) startBrownNoise();
