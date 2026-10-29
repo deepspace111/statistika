@@ -517,16 +517,15 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // צבע הפס העליון בטלפון (theme-color): בעיקר לאנדרואיד ולאייפונים ישנים.
-// בהיר במצב רגיל, כחול כהה במצב תודעת לימוד. מתעדכן לבד כשהמצב מתחלף.
+// רק במצב רגיל (ערפל בוקר). במצב תודעת לימוד התגית יוצאת מהעמוד, כדי שהמצב הכהה יישאר כמו שהיה.
 (function () {
-  let meta = document.querySelector('meta[name="theme-color"]');
-  if (!meta) {
-    meta = document.createElement("meta");
-    meta.name = "theme-color";
-    document.head.appendChild(meta);
-  }
+  const meta = document.createElement("meta");
+  meta.name = "theme-color";
+  meta.content = "#e4e9f0";
   function syncThemeColor() {
-    meta.content = document.body.classList.contains("learning-mode") ? "#16233d" : "#f5f7fa";
+    const dark = document.body.classList.contains("learning-mode");
+    if (dark && meta.parentNode) meta.remove();
+    if (!dark && !meta.parentNode) document.head.appendChild(meta);
   }
   syncThemeColor();
   new MutationObserver(syncThemeColor).observe(document.body, { attributes: true, attributeFilter: ["class"] });
