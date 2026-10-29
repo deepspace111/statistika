@@ -515,18 +515,3 @@ document.addEventListener("DOMContentLoaded", () => {
     applyMode(currentMode, previousMode);
   });
 });
-
-// צבע הפס העליון בטלפון (theme-color): בעיקר לאנדרואיד ולאייפונים ישנים.
-// רק במצב רגיל (ערפל בוקר). במצב תודעת לימוד התגית יוצאת מהעמוד, כדי שהמצב הכהה יישאר כמו שהיה.
-(function () {
-  const meta = document.createElement("meta");
-  meta.name = "theme-color";
-  meta.content = "#e4e9f0";
-  function syncThemeColor() {
-    const dark = document.body.classList.contains("learning-mode");
-    if (dark && meta.parentNode) meta.remove();
-    if (!dark && !meta.parentNode) document.head.appendChild(meta);
-  }
-  syncThemeColor();
-  new MutationObserver(syncThemeColor).observe(document.body, { attributes: true, attributeFilter: ["class"] });
-})();
