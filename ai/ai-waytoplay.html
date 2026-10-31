@@ -238,6 +238,27 @@ body.overview-page .container.row-b{ padding-top:0; }
   .row-title{ font-size:25px; }
   .main-q{ font-size:26px; }
 }
+
+/* רקע העיר ההרוסה (learning-bg.webp) - רק בעמוד הזה.
+   מופיע רק במצב "כהה + רעש" (lbg-on), ומתעמעם ככל שגוללים למטה (הקוד בתחתית העמוד).
+   0.4 = עוצמת התמונה המרבית. כדי לחזק או להחליש, משנים רק את המספר הזה */
+.learning-bg{
+  position:fixed;
+  /* 2px מהקצה העליון והתחתון, כמו הגשם: כדי שספארי באייפון יצבע את הפסים לפי צבע הרקע */
+  top:2px;
+  bottom:2px;
+  left:0;
+  right:0;
+  z-index:-1;
+  pointer-events:none;
+  background:
+    linear-gradient(rgba(8,13,24,0.45), rgba(8,13,24,0.65)),
+    url("../learning-bg.webp") center / cover no-repeat;
+  filter:brightness(0.8) saturate(0.85);
+  opacity:0;
+  transition:opacity 0.9s ease;
+}
+body.learning-mode.lbg-on .learning-bg{ opacity:calc(var(--lbg-op, 1) * 0.4); }
 </style>
 </head>
 
@@ -552,5 +573,24 @@ body.overview-page .container.row-b{ padding-top:0; }
 <!-- שלוחת המחקר -->
 <script src="../research.js"></script>
 <script src="../waytosee.js"></script>
+
+<script>
+  // רקע העיר ההרוסה - רק בעמוד הזה. בראש הדף נראה במלואו,
+  // ונעלם בהדרגה עד 80% מגובה המסך. כשחוזרים לראש הדף הוא חוזר.
+  document.addEventListener("DOMContentLoaded", () => {
+    const learningBg = document.createElement("div");
+    learningBg.className = "learning-bg";
+    learningBg.setAttribute("aria-hidden", "true");
+    document.body.prepend(learningBg);
+    function updateLearningBg() {
+      const fadeDistance = window.innerHeight * 0.8;
+      const op = Math.max(0, 1 - window.scrollY / fadeDistance);
+      document.body.style.setProperty("--lbg-op", op.toFixed(3));
+    }
+    updateLearningBg();
+    window.addEventListener("scroll", updateLearningBg, { passive: true });
+    window.addEventListener("resize", updateLearningBg);
+  });
+</script>
 </body>
 </html>
