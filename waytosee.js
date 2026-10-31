@@ -190,13 +190,14 @@ document.addEventListener("DOMContentLoaded", () => {
         "statistika/statistika-shape.html",
       ],
     },
-    { // רשתות: כתובת ← זיהוי הרשת המקומית ← ARP ← שער יציאה ← DHCP ← ...
+    { // רשתות: כתובת ← זיהוי הרשת המקומית ← MAC ← ARP ← שער יציאה ← DHCP ← ...
       home: "intro.html",
       pages: [
         "ccna-introduction/ccna-introduction.html",
         "internet/internet.html",
         "ip/ip.html",
         "subnet/index.html",
+        "MAC/mac.html",
         "ARP/arp.html",
         "Gateway/gateway.html",
         "DHCP/dhcp.html",

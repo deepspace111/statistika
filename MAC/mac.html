@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script src="../waytosee-analytics.js"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAC ו־Ethernet | הצעד הבא ברשת המקומית | WayToSee</title>
+<meta name="description" content="איך חבילת IP עוברת בקישור המקומי? מסגרת Ethernet (Frame), כתובת MAC, בסיס 16, ה־Switch, שכבות 1, 2 ו־3 במודל OSI, ויעד מקומי לעומת יעד מרוחק.">
+
+<link rel="stylesheet" href="../waytosee.css">
+
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+
+<style>
+/* שלד העמוד מגיע מ-waytosee.css תחת body.overview-page (כמו עמוד ה-IP).
+   כאן רק: כותרות השורות, שורות שמסתיימות באותו קו, תרשים העטיפות, תרשים הכתובת וקישור ההמשך. */
+
+.page-sub{
+  position:relative;
+  z-index:5;
+  text-align:center;
+  font-size:20px;
+  color:var(--text-dim);
+  margin:-6px 0 0;
+}
+
+.row-title{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:0 auto;
+  padding:30px 24px 0;
+  text-align:center;
+  font-size:30px;
+  font-weight:800;
+  color:var(--text);
+}
+
+/* שלוש העמודות בשורה נגמרות באותו קו */
+body.overview-page .container.even-row{ align-items:stretch; padding-bottom:20px; }
+.even-row .col{ justify-content:space-between; }
+.even-row .col > .section:only-child{ flex:1; }
+.even-row .col > .section:not(:only-child){ flex:1; }
+
+.our-q{
+  margin-top:12px !important;
+  font-weight:600;
+  border-inline-start:2px solid var(--accent);
+  padding-inline-start:10px;
+}
+
+.ltr{ direction:ltr; unicode-bidi:isolate; }
+
+/* כפתור קטן לעמוד ההמשך (העיצוב מ-waytosee.css, כאן רק המרווח) */
+body.overview-page .next-btn{
+  margin-top:10px;
+  font-size:16px;
+  padding:6px 20px;
+}
+
+/* ===== תרשים העטיפות: מידע בתוך חבילת IP, חבילת IP בתוך Frame ===== */
+.wrap-diagram{
+  position:relative;
+  z-index:5;
+  max-width:760px;
+  margin:0 auto;
+  padding:6px 24px 10px;
+  text-align:center;
+}
+
+.wrap-box{
+  border:1px solid var(--panel-border);
+  border-radius:16px;
+  background:var(--panel);
+  padding:12px 14px 14px;
+}
+.wrap-box .wrap-box{ margin-top:10px; }
+
+.wrap-label{
+  font-weight:800;
+  font-size:19px;
+  color:var(--text);
+  margin-bottom:8px;
+}
+.wrap-frame > .wrap-label{ color:var(--accent); }
+.wrap-packet > .wrap-label{ color:var(--accent-2); }
+
+.wrap-addrs{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.wrap-addr{
+  font-size:15px;
+  color:var(--text-dim);
+  border:1px dashed var(--panel-border);
+  border-radius:10px;
+  padding:4px 12px;
+}
+
+.wrap-data{
+  font-size:17px;
+  color:var(--text);
+  padding:10px 0 2px;
+}
+
+.wrap-caption{
+  font-size:16px;
+  color:var(--text-dim);
+  margin:14px 0 0;
+}
+
+/* ===== תרשים הכתובת: הקסה־דצימלי מעל בינארי ===== */
+.mac-diagram{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:0 auto;
+  padding:6px 24px 10px;
+  text-align:center;
+}
+
+.mac-example{
+  direction:ltr;
+  display:inline-block;
+  padding:10px 20px;
+  font-size:30px;
+  letter-spacing:3px;
+  font-family:'JetBrains Mono', monospace;
+  color:var(--num);
+  border:1px solid var(--panel-border);
+  border-radius:16px;
+  background:var(--panel);
+}
+
+.mac-wrapper{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  margin-top:24px;
+  direction:ltr;
+}
+
+.mac-column{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.mac-cell{
+  width:150px;
+  height:64px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--panel);
+  border:1px solid var(--panel-border);
+  border-radius:14px;
+  font-weight:bold;
+  font-size:1.7rem;
+}
+
+.binary{
+  color:#3a4a72;
+  font-family:'VT323', monospace;
+  font-size:1.8rem;
+  letter-spacing:2px;
+}
+body.learning-mode .binary{
+  color:#52618f;
+  text-shadow:
+    1px 0 rgba(120,170,255,0.18),
+   -1px 0 rgba(120,170,255,0.10),
+    0 0 8px rgba(70,120,255,0.12);
+}
+
+.hex{ color:var(--text); font-family:'JetBrains Mono', monospace; }
+
+.colon{
+  color:var(--text-dim);
+  font-size:2rem;
+  margin-bottom:76px;
+}
+
+.mac-caption{
+  font-size:16px;
+  color:var(--text-dim);
+  margin:14px 0 0;
+}
+
+/* ===== סיום ===== */
+.closing-block{
+  position:relative;
+  z-index:5;
+  max-width:760px;
+  margin:0 auto;
+  padding:20px 24px 70px;
+  text-align:center;
+}
+.closing-block p{ line-height:1.5; margin:8px 0; }
+.closing-block .summary{ font-size:22px; font-weight:700; }
+.closing-block .our-q{
+  display:inline-block;
+  text-align:right;
+  margin-top:18px !important;
+}
+
+@media (max-width:600px){
+  .row-title{ font-size:25px; }
+  .even-row .col{ justify-content:flex-start; }
+  .wrap-diagram, .mac-diagram{ padding-left:18px; padding-right:18px; }
+  .wrap-box{ padding:10px 8px 10px; border-radius:12px; }
+  .wrap-label{ font-size:16px; }
+  .wrap-addr{ font-size:13px; padding:3px 8px; }
+  .mac-example{ font-size:20px; letter-spacing:1px; padding:8px 14px; }
+  .mac-wrapper{ gap:2px; }
+  .mac-column{ gap:8px; }
+  .mac-cell{ width:48px; height:44px; font-size:1rem; border-radius:8px; }
+  .binary, .binary *{ font-size:0.62rem !important; letter-spacing:0; }
+  .colon{ font-size:1.1rem; margin-bottom:48px; }
+  .closing-block{ padding-left:18px; padding-right:18px; }
+}
+</style>
+</head>
+
+<body class="overview-page">
+
+<div class="rain" id="rain"></div>
+
+<h1 class="page-title">MAC ו־Ethernet</h1>
+<p class="page-sub">הצעד הבא ברשת המקומית</p>
+
+<!-- ===== שורה 1: איזו עטיפה? ===== -->
+<h2 class="row-title">איזו עטיפה?</h2>
+
+<div class="container even-row">
+
+  <div class="col">
+    <div class="section">
+      <h2>הצורך</h2>
+      <p>אחרי בדיקת ה־Subnet אפשר לקבוע שכתובת היעד נמצאת ברשת המקומית.</p>
+      <p>אבל חבילת IP אינה נשלחת לבדה בקישור Ethernet.</p>
+      <p class="our-q">איזו עטיפה מאפשרת להעביר אותה בקישור המקומי, וכיצד מסומן בה למי היא מיועדת?</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section">
+      <h2>שתי עטיפות לאותו מידע</h2>
+      <p>המידע עצמו נמצא בתוך חבילת IP. על החבילה רשומות כתובת ה־IP של המקור וכתובת ה־IP של היעד.</p>
+      <p>לפני שהחבילה יוצאת לקישור המקומי, היא נעטפת פעם נוספת, במסגרת Ethernet שנקראת <strong>Frame</strong>.</p>
+      <p>על המסגרת רשומות כתובות אחרות: כתובת MAC של המקור וכתובת MAC של היעד.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section">
+      <h2>Frame</h2>
+      <p>ב־Frame יש גם שדה שמציין מה נמצא בתוכה, למשל חבילת IPv4.</p>
+      <p>בסופה יש שדה לבדיקת שגיאות, שבעזרתו אפשר לזהות מסגרת שנפגעה בדרך.</p>
+      <p class="our-q">Frame = יחידת המידע של Ethernet בקישור המקומי.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- תרשים העטיפות -->
+<div class="wrap-diagram">
+  <div class="wrap-box wrap-frame">
+    <div class="wrap-label">Frame</div>
+    <div class="wrap-addrs">
+      <span class="wrap-addr">MAC יעד</span>
+      <span class="wrap-addr">MAC מקור</span>
+    </div>
+    <div class="wrap-box wrap-packet">
+      <div class="wrap-label">חבילת IP</div>
+      <div class="wrap-addrs">
+        <span class="wrap-addr">IP יעד</span>
+        <span class="wrap-addr">IP מקור</span>
+      </div>
+      <div class="wrap-data">המידע</div>
+    </div>
+  </div>
+  <p class="wrap-caption">עטיפה בתוך עטיפה. לכל אחת כתובות מקור ויעד משלה.</p>
+</div>
+
+<!-- ===== שורה 2: כתובת MAC ===== -->
+<h2 class="row-title">כתובת MAC</h2>
+
+<div class="container even-row">
+
+  <div class="col">
+    <div class="section">
+      <h2>48 ביטים</h2>
+      <p>כתובת MAC, ‏Media Access Control, משמשת לזיהוי ממשק רשת בתקשורת המקומית. כאן נתחיל מכתובת של ממשק יחיד.</p>
+      <p>היא בנויה מ־48 ביטים, שהם שש אוקטטות.</p>
+      <p>בכתובות שהוקצו לפי החלוקה הנפוצה, שלוש האוקטטות הראשונות מציינות את הארגון שקיבל את הקצאת הכתובות, והשלוש האחרונות מוקצות על ידו.</p>
+      <p>את אותה כתובת אפשר לכתוב בכמה צורות:</p>
+      <p class="ltr">00:1A:2B:3C:4D:5E<br>00-1A-2B-3C-4D-5E<br>001A.2B3C.4D5E</p>
+      <p>הצורה האחרונה היא זו שבה ציוד Cisco מציג אותה.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section">
+      <h2>למה יש בה אותיות?</h2>
+      <p>כתובת MAC כתובה בבסיס 16, שנקרא הקסה־דצימלי.</p>
+      <p>בבסיס 16 יש 16 ספרות: 0 עד 9, ואחריהן A עד F, שערכן 10 עד 15.</p>
+      <p>כל ספרה הקסה־דצימלית שווה בדיוק לארבעה ביטים. לכן שתי ספרות הן אוקטטה אחת.</p>
+      <p><span class="ltr">1A</span> בבסיס 16 = <span class="ltr">00011010</span> בבסיס 2 = 26 בבסיס 10</p>
+      <p>48 ביטים בבינארי הם שורה ארוכה של אפסים ואחדות. בבסיס 16 אותה כתובת נכתבת ב־12 ספרות בלבד.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section">
+      <h2>קבועה, אבל לא תמיד</h2>
+      <p>כתובת MAC מוטבעת בכרטיס הרשת כבר במפעל.</p>
+      <p>אבל מערכת ההפעלה יכולה להשתמש בכתובת אחרת.</p>
+      <p>למשל, באייפון מופעלת כברירת מחדל "כתובת Wi-Fi פרטית": כתובת MAC שונה לכל רשת, שעשויה גם להתחלף מעת לעת. כך קשה יותר לעקוב אחרי המכשיר ממקום למקום.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- תרשים הכתובת -->
+<div class="mac-diagram">
+  <div class="mac-example">00:1A:2B:3C:4D:5E</div>
+
+  <div class="mac-wrapper">
+    <div class="mac-column">
+      <div class="mac-cell hex">00</div>
+      <div class="mac-cell binary">00000000</div>
+    </div>
+    <div class="colon">:</div>
+    <div class="mac-column">
+      <div class="mac-cell hex">1A</div>
+      <div class="mac-cell binary">00011010</div>
+    </div>
+    <div class="colon">:</div>
+    <div class="mac-column">
+      <div class="mac-cell hex">2B</div>
+      <div class="mac-cell binary">00101011</div>
+    </div>
+    <div class="colon">:</div>
+    <div class="mac-column">
+      <div class="mac-cell hex">3C</div>
+      <div class="mac-cell binary">00111100</div>
+    </div>
+    <div class="colon">:</div>
+    <div class="mac-column">
+      <div class="mac-cell hex">4D</div>
+      <div class="mac-cell binary">01001101</div>
+    </div>
+    <div class="colon">:</div>
+    <div class="mac-column">
+      <div class="mac-cell hex">5E</div>
+      <div class="mac-cell binary">01011110</div>
+    </div>
+  </div>
+
+  <p class="mac-caption">שש אוקטטות. למעלה, בבסיס 16. למטה, אותם ביטים בבסיס 2.</p>
+</div>
+
+<!-- ===== שורה 3: הצעד הבא ===== -->
+<h2 class="row-title">הצעד הבא</h2>
+
+<div class="container even-row">
+
+  <div class="col">
+    <div class="section">
+      <h2>כאן נותנים שם לשכבות</h2>
+      <p>ראינו עטיפה בתוך עטיפה. לכל עטיפה יש תפקיד משלה, ולכן מקובל לתאר את התקשורת כשכבות. מודל OSI ממספר אותן:</p>
+      <p><strong>שכבה 1:</strong> העברת ביטים באמצעות אותות, האפסים והאחדות שכבר פגשנו.</p>
+      <p><strong>שכבה 2:</strong> מסגרות Ethernet וכתובות MAC, הצעד בקישור המקומי.</p>
+      <p><strong>שכבה 3:</strong> חבילות IP וכתובות IP, המסע מהמקור ועד היעד.</p>
+      <p>בשליחה, כל שכבה עוטפת את מה שהגיע מהשכבה שמעליה. בקבלה, העטיפות נפתחות בסדר הפוך.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section">
+      <h2>ה־Switch</h2>
+      <p>ברשת Ethernet המכשירים מחוברים בדרך כלל ל־Switch.</p>
+      <p>ה־Switch משתמש בכתובת MAC של היעד כדי לקבוע לאן להעביר את המסגרת.</p>
+      <p class="our-q">ואיך נקבע לאן? לזה יהיה עמוד משלו.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="section">
+      <h2>יעד מקומי, יעד מרוחק</h2>
+      <p><strong>כשהיעד ברשת המקומית:</strong> ה־Frame נשלח לכתובת ה־MAC של היעד עצמו.</p>
+      <p><strong>כשהיעד ברשת אחרת:</strong> ה־Frame נשלח לכתובת ה־MAC של ה־Default GateWay. כתובת ה־IP של היעד הרחוק נשארת בתוך חבילת ה־IP.</p>
+      <p>בכל מעבר דרך נתב מוסרת מסגרת הקישור הנכנס, וחבילת ה־IP מועברת בקישור הבא בעטיפה המתאימה לו. אם גם הקישור הבא הוא Ethernet, נוצרת מסגרת Ethernet חדשה עם כתובות MAC המתאימות לצעד הבא.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== סיום ===== -->
+<section class="closing-block">
+  <p class="summary">IP מתאר את המסע; Ethernet מתאר את הצעד הבא.</p>
+  <p class="our-q">נבחרה כתובת ה־IP של התחנה הבאה. כיצד מתקבלת כתובת ה־MAC שלה?</p>
+  <p><a class="next-btn" href="../ARP/arp.html">ARP ←</a></p>
+</section>
+
+<script>window.waytoseeHomeOverride = "../intro.html";</script>
+<script src="../waytosee.js"></script>
+</body>
+</html>
