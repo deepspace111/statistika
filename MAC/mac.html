@@ -115,6 +115,38 @@ body.overview-page .next-btn{
   margin:14px 0 0;
 }
 
+
+/* צבעי השכבות בתרשים העטיפות - כמו בסרטון: Ethernet כחול, IP ורוד, המידע טורקיז */
+.wrap-diagram{
+  --eth: #2a5fd0;
+  --ip: #c2338f;
+  --tcp: #b8640f;
+  --data: #0f8f97;
+}
+body.learning-mode .wrap-diagram{
+  --eth: #4d8dff;
+  --ip: #ff5ec4;
+  --tcp: #ffb04a;
+  --data: #7ff3f5;
+}
+.wrap-frame{ border-color:var(--eth); box-shadow:0 0 14px color-mix(in srgb, var(--eth) 35%, transparent); }
+.wrap-packet{ border-color:var(--ip); box-shadow:0 0 14px color-mix(in srgb, var(--ip) 35%, transparent); }
+.wrap-frame > .wrap-label{ color:var(--eth); }
+.wrap-packet > .wrap-label{ color:var(--ip); }
+.wrap-frame > .wrap-addrs .wrap-addr{ color:var(--eth); border-color:var(--eth); }
+.wrap-packet > .wrap-addrs .wrap-addr{ color:var(--ip); border-color:var(--ip); }
+.wrap-segment{ border-color:var(--tcp); box-shadow:0 0 14px color-mix(in srgb, var(--tcp) 35%, transparent); }
+.wrap-segment > .wrap-label{ color:var(--tcp); }
+.wrap-segment > .wrap-addrs .wrap-addr{ color:var(--tcp); border-color:var(--tcp); }
+body.learning-mode .wrap-segment > .wrap-label,
+body.learning-mode .wrap-segment > .wrap-addrs .wrap-addr{ text-shadow:0 0 8px var(--tcp); }
+.wrap-data{ color:var(--data); }
+body.learning-mode .wrap-frame > .wrap-label,
+body.learning-mode .wrap-frame > .wrap-addrs .wrap-addr{ text-shadow:0 0 8px var(--eth); }
+body.learning-mode .wrap-packet > .wrap-label,
+body.learning-mode .wrap-packet > .wrap-addrs .wrap-addr{ text-shadow:0 0 8px var(--ip); }
+body.learning-mode .wrap-data{ text-shadow:0 0 8px var(--data); }
+
 /* ===== תרשים הכתובת: הקסה־דצימלי מעל בינארי ===== */
 .mac-diagram{
   position:relative;
@@ -273,21 +305,28 @@ body.learning-mode .binary{
 <!-- תרשים העטיפות -->
 <div class="wrap-diagram">
   <div class="wrap-box wrap-frame">
-    <div class="wrap-label">Frame</div>
+    <div class="wrap-label">מסגרת אתרנט - Frame</div>
     <div class="wrap-addrs">
       <span class="wrap-addr">MAC יעד</span>
       <span class="wrap-addr">MAC מקור</span>
     </div>
     <div class="wrap-box wrap-packet">
-      <div class="wrap-label">חבילת IP</div>
+      <div class="wrap-label">חבילת IP - Packet</div>
       <div class="wrap-addrs">
         <span class="wrap-addr">IP יעד</span>
         <span class="wrap-addr">IP מקור</span>
       </div>
-      <div class="wrap-data">המידע</div>
+      <div class="wrap-box wrap-segment">
+        <div class="wrap-label">מקטע TCP - Segment</div>
+        <div class="wrap-addrs">
+          <span class="wrap-addr">פורט יעד</span>
+          <span class="wrap-addr">פורט מקור</span>
+        </div>
+        <div class="wrap-data">המידע</div>
+      </div>
     </div>
   </div>
-  <p class="wrap-caption">המידע מתעטף שכבה אחר שכבה בהתאם לפרוטוקול. לכל שכבה כתובות מקור ויעד משלה.</p>
+  <p class="wrap-caption">המידע נעטף בהדרגה, וכל פרוטוקול מוסיף כותרת עם פרטי הבקרה והזיהוי שלו: פורטים ב־TCP, כתובות IP בשכבת הרשת וכתובות MAC במסגרת Ethernet.</p>
 </div>
 
 <!-- סרטון העטיפות -->
