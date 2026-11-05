@@ -116,6 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "statistika/statistika-mode.html": "statistika/statistika.html",
     "statistika/statistika-relative.html": "statistika/statistika.html",
     "statistika/statistika-shape.html": "statistika/statistika.html",
+    "statistika/statistika-loss.html": "statistika/statistika.html",
     "statistika/statistika-dispersion.html": "statistika/statistika.html",
     "philosophia/philosophia-introduction.html": "professions.html",
     "psychologia/psychologia-introduction.html": "professions.html",
@@ -188,6 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "statistika/statistika-relative.html",
         "statistika/statistika-zscores.html",
         "statistika/statistika-shape.html",
+        "statistika/statistika-loss.html",
       ],
     },
     { // רשתות: כתובת ← זיהוי הרשת המקומית ← MAC ← ARP ← שער יציאה ← DHCP ← ...

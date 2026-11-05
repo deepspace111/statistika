@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script src="../waytosee-analytics.js"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>פונקציות הפסד: איך מודדים כמה מספר מייצג מפספס? | WayToSee</title>
+<meta name="description" content="כשמספר אחד מייצג קבוצה שלמה, איך מודדים כמה הוא מפספס? הפסד 0/1, הפסד מוחלט והפסד ריבועי, ולמה כל אחד מהם בוחר בשכיח, בחציון או בממוצע.">
+
+<link rel="stylesheet" href="../waytosee.css">
+
+<style>
+/* שלד העמוד (page-title / page-subtitle / container / col / section / data-table /
+   calc / next-line / numbers) נמצא ב-waytosee.css תחת body.stat-page.
+   נשאר כאן רק הייחודי לעמוד הזה: טבלת השיטות והסמן של "נסו בעצמכם". */
+
+.col > .section:only-child { flex: 1; }
+
+.loss-table td, .loss-table th { text-align: center; vertical-align: middle; }
+.loss-table td:first-child, .loss-table th:first-child { text-align: right; }
+.loss-table td:first-child small { display: block; }
+
+/* ===== הסמן ===== */
+.loss-lab {
+  margin: 14px 0 6px;
+  padding: 12px 12px 8px;
+  border-radius: 10px;
+  background: var(--code-bg);
+}
+
+.loss-lab .strip { display: block; width: 100%; height: auto; direction: ltr; }
+.loss-lab .strip .axis { stroke: currentColor; stroke-width: 1; opacity: 0.35; }
+.loss-lab .strip .tick { stroke: currentColor; stroke-width: 1; opacity: 0.35; }
+.loss-lab .strip text { fill: currentColor; text-anchor: middle; font-family: 'JetBrains Mono', monospace; font-size: 11px; opacity: 0.6; }
+.loss-lab .strip .dot { fill: currentColor; opacity: 0.7; }
+.loss-lab .strip .far { font-size: 12px; opacity: 0.85; }
+.loss-lab .strip .marker { stroke: var(--accent); stroke-width: 2; }
+.loss-lab .strip .marker-head { fill: var(--accent); }
+
+.loss-lab .controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  direction: ltr;
+  margin: 6px 0 4px;
+}
+.loss-lab input[type=range] { flex: 1; accent-color: var(--accent); }
+.loss-lab button {
+  font: inherit;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  padding: 2px 10px;
+  cursor: pointer;
+}
+.loss-lab button:hover { border-color: var(--accent); }
+.loss-lab button.on { border-color: var(--accent); color: var(--accent); }
+
+.loss-lab .pick {
+  text-align: center;
+  margin: 4px 0 2px;
+}
+.loss-lab .mono {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--num);
+  direction: ltr;
+  unicode-bidi: isolate;
+  display: inline-block;
+}
+.loss-lab .pick .mono { font-size: 20px; }
+
+.loss-lab .high {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  margin: 6px 0 2px;
+}
+
+.loss-lab .data-table { margin: 8px 0 4px; }
+.loss-lab .data-table td:last-child { text-align: left; }
+
+/* בטלפון העמודות נערמות זו על זו. כדי ש"לסיכום" ו"בדף הבא" יופיעו בסוף העמוד,
+   אחרי "נסו בעצמכם", הסקשנים מסודרים מחדש ו"לסיכום" עובר לסוף. */
+@media (max-width:600px){
+  body.stat-page .col { display: contents; }
+  body.stat-page .summary-section { order: 10; border-bottom: 1px solid var(--panel-border); }
+}
+</style>
+</head>
+
+<body class="stat-page">
+
+<div class="rain" id="rain"></div>
+
+<h1 class="page-title">כשמספר אחד מייצג קבוצה שלמה, איך מודדים כמה הוא מפספס?</h1>
+<p class="page-subtitle">פונקציות הפסד</p>
+
+<div class="container">
+
+<div class="col">
+
+  <div class="section">
+    <h2>הצורך</h2>
+    <p>בפרק הקודם ראינו תשע משכורות באלפי שקלים.</p>
+    <div class="numbers">8, 8, 9, 10, 10, 10, 12, 15, 40</div>
+    <p>נניח שבוחרים <strong>10</strong> כדי לייצג את כל המשכורות. אצל שלושה עובדים פגענו בדיוק. אצל העובד שמרוויח 12 פספסנו ב־2, ואצל העובד שמרוויח 40 פספסנו ב־30.</p>
+    <p>איך נספור את הפספוסים? האם כל פספוס שווה נקודה אחת? האם פספוס של 30 עולה פי 15 מפספוס של 2? ואולי הוא צריך לעלות הרבה יותר?</p>
+  </div>
+
+  <div class="section">
+    <h2>שלוש דרכים למדוד פספוס</h2>
+    <p><strong>פונקציית הפסד</strong> היא כלל שנותן לכל פספוס מחיר. כדי להשוות בין מספרים מייצגים, מחברים את המחירים שכל אחד מהם קיבל על פני כל העובדים.</p>
+    <table class="data-table loss-table">
+      <tr><th>שיטת ההפסד</th><th>פספוס של 2</th><th>פספוס של 30</th><th>איזה מדד נותן את סך ההפסד הקטן ביותר?</th></tr>
+      <tr><td><strong>0/1</strong><small>פגיעה מדויקת עולה 0, וכל פספוס עולה 1.</small></td><td>1</td><td>1</td><td><strong>השכיח</strong></td></tr>
+      <tr><td><strong>מוחלט</strong><small>המחיר הוא גודל הפער.</small></td><td>2</td><td>30</td><td><strong>החציון</strong></td></tr>
+      <tr><td><strong>ריבועי</strong><small>המחיר הוא גודל הפער בריבוע.</small></td><td>4</td><td>900</td><td><strong>הממוצע</strong></td></tr>
+    </table>
+    <p>בהפסד <strong>0/1</strong>, בחירה ב־10 נותנת שלוש פגיעות מדויקות ושישה פספוסים. 10 מופיע הכי הרבה פעמים, ולכן הוא נותן את סך ההפסד הקטן ביותר. בהפסד <strong>מוחלט</strong>, החציון נותן את הסכום הקטן ביותר, ובדוגמה הוא גם 10. בהפסד <strong>ריבועי</strong>, הממוצע נותן את הסכום הקטן ביותר, ובדוגמה הוא כ־13.6.</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>מתי כדאי להשתמש בכל אחד?</h2>
+    <p><strong>הפסד 0/1</strong> מתאים כשחשוב רק אם פגענו בדיוק. הוא עובד גם בסולם שמי. למשל, בניחוש צבע עיניים אפשר לספור פגיעות וטעויות, כי אין מרחק מספרי בין חום לכחול.</p>
+    <p><strong>הפסד מוחלט</strong> מתאים כשכל שקל נוסף של פער מוסיף אותו מחיר. בשיטה הזו החציון הוא המדד הטוב ביותר. בדוגמה, גם אם המשכורת של 40 תעלה, המשכורת שבאמצע תישאר 10.</p>
+    <p><strong>הפסד ריבועי</strong> מתאים כשפספוסים גדולים יקרים במיוחד. המחיר עולה מהר יותר ככל שהפער גדל, ולכן המשכורת של 40 מושכת את הממוצע כלפיה.</p>
+  </div>
+
+  <div class="section">
+    <h2>הקשר למדדי פיזור</h2>
+    <p>בפרק מדדי פיזור השתמשנו בערך מוחלט ובריבוע כדי שפערים מעל המרכז ומתחתיו לא יבטלו זה את זה. כאן אותן פעולות קובעות את המחיר של כל פספוס.</p>
+    <p>אם בוחרים בממוצע כמדד, מחברים את ריבועי הפערים ממנו ומחלקים במספר העובדים, מקבלים את <strong>השונות</strong>. סטיית התקן היא השורש של השונות.</p>
+  </div>
+
+  <div class="section summary-section">
+    <h2>לסיכום</h2>
+    <p>כשבוחרים מספר אחד שייצג קבוצה, כדאי לשאול איזה פספוס עולה לנו יותר.</p>
+    <p>אם כל פספוס עולה אותו דבר, <strong>השכיח</strong> נותן הכי הרבה פגיעות מדויקות.</p>
+    <p>אם כל יחידה נוספת של פער עולה אותו דבר, <strong>החציון</strong> נותן את סכום הפערים המוחלטים הקטן ביותר.</p>
+    <p>אם מחיר הפספוס גדל לפי ריבוע הפער, <strong>הממוצע</strong> נותן את סכום ריבועי הפערים הקטן ביותר.</p>
+    <p class="next-line">בדף הבא: אם יש לנו ממוצע ופיזור לכל אחת משתי כיתות, איך מחשבים את הממוצע והפיזור של שתיהן יחד? ← ממוצע משוקלל ושונות משולבת</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>נסו בעצמכם</h2>
+    <p>הזיזו את הסמן כדי לבחור משכורת מייצגת. ליד כל אחת משלוש השיטות מופיע סך ההפסד שלה. התחילו ב־10 והזיזו את הסמן ימינה. איזו שיטה מגיעה לסכום הקטן ביותר בסביבות 13.6?</p>
+
+    <div class="loss-lab" id="lossLab">
+      <svg class="strip" id="lossStrip" viewBox="0 0 300 74" aria-hidden="true"></svg>
+      <div class="controls">
+        <button type="button" id="lossDown" aria-label="הורדה ב־0.1">−</button>
+        <input type="range" id="lossRange" min="5" max="20" step="0.1" value="10" aria-label="המשכורת המייצגת">
+        <button type="button" id="lossUp" aria-label="העלאה ב־0.1">+</button>
+      </div>
+      <p class="pick">המשכורת המייצגת: <span class="mono" id="lossPick">10.0</span></p>
+      <table class="data-table">
+        <tr><th>שיטת ההפסד</th><th>סך ההפסד</th></tr>
+        <tr><td>0/1</td><td><span class="mono" id="loss01">6</span></td></tr>
+        <tr><td>מוחלט</td><td><span class="mono" id="lossAbs">42.0</span></td></tr>
+        <tr><td>ריבועי</td><td><span class="mono" id="lossSq">938.0</span></td></tr>
+      </table>
+      <div class="high">
+        <span>המשכורת הגבוהה:</span>
+        <button type="button" class="on" id="lossHigh40">40</button>
+        <button type="button" id="lossHigh60">60</button>
+      </div>
+    </div>
+
+    <p>עכשיו העלו את המשכורת הגבוהה מ־40 ל־60. חפשו שוב את הנקודה שבה סך ההפסד הוא הקטן ביותר בכל שיטה. באיזו שיטה הנקודה זזה?</p>
+    <p><strong>תשובה.</strong> השכיח והחציון נשארים 10. רק הממוצע זז, מכ־13.6 לכ־15.8 אלף ש״ח. הוא עולה בכ־2.2 כי התוספת של 20 מתחלקת בחישוב בין תשעת העובדים.</p>
+  </div>
+
+
+</div>
+
+</div>
+
+<script>
+// הסמן של "נסו בעצמכם": כל החישובים בעשיריות שלמות (מספרים שלמים),
+// כדי שפגיעה מדויקת בהפסד 0/1 תיספר נכון ולא תיפגע משגיאות עיגול.
+(function () {
+  const BASE = [8, 8, 9, 10, 10, 10, 12, 15];
+  let high = 40;
+  const range = document.getElementById("lossRange");
+  const strip = document.getElementById("lossStrip");
+  const MIN = 5, MAX = 20;
+  const X0 = 16, X1 = 262;
+  const xOf = v => X0 + (v - MIN) / (MAX - MIN) * (X1 - X0);
+  const NS = "http://www.w3.org/2000/svg";
+
+  function el(name, attrs, text) {
+    const n = document.createElementNS(NS, name);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    if (text != null) n.textContent = text;
+    return n;
+  }
+
+  // ציר, נקודות המשכורות, והמשכורת הגבוהה שמחוץ לציר
+  function drawStrip() {
+    strip.innerHTML = "";
+    strip.appendChild(el("line", { class: "axis", x1: X0, y1: 50, x2: X1, y2: 50 }));
+    for (let v = MIN; v <= MAX; v += 5) {
+      strip.appendChild(el("line", { class: "tick", x1: xOf(v), y1: 50, x2: xOf(v), y2: 54 }));
+      strip.appendChild(el("text", { x: xOf(v), y: 67 }, String(v)));
+    }
+    const count = {};
+    BASE.forEach(v => {
+      count[v] = (count[v] || 0) + 1;
+      strip.appendChild(el("circle", { class: "dot", cx: xOf(v), cy: 50 - 8 * count[v], r: 3.6 }));
+    });
+    strip.appendChild(el("circle", { class: "dot", cx: 282, cy: 42, r: 3.6 }));
+    strip.appendChild(el("text", { class: "far", x: 282, y: 30 }, String(high)));
+    strip.appendChild(el("text", { x: 282, y: 67 }, "→"));
+    strip.appendChild(el("line", { class: "marker", id: "lossMarker", x1: 0, y1: 8, x2: 0, y2: 52 }));
+    strip.appendChild(el("polygon", { class: "marker-head", id: "lossHead", points: "" }));
+  }
+
+  function update() {
+    const t = Math.round(parseFloat(range.value) * 10);   // הנציג בעשיריות
+    const data = BASE.concat([high]).map(v => v * 10);
+    let hits = 0, abs = 0, sq = 0;
+    data.forEach(d => {
+      const gap = d - t;
+      if (gap === 0) hits++;
+      abs += Math.abs(gap);
+      sq += gap * gap;
+    });
+    document.getElementById("lossPick").textContent = (t / 10).toFixed(1);
+    document.getElementById("loss01").textContent = String(data.length - hits);
+    document.getElementById("lossAbs").textContent = (abs / 10).toFixed(1);
+    document.getElementById("lossSq").textContent = (sq / 100).toFixed(1);
+    const x = xOf(t / 10);
+    const m = document.getElementById("lossMarker");
+    m.setAttribute("x1", x); m.setAttribute("x2", x);
+    document.getElementById("lossHead").setAttribute("points", `${x - 5},4 ${x + 5},4 ${x},11`);
+  }
+
+  function step(d) {
+    const v = Math.min(MAX, Math.max(MIN, Math.round(parseFloat(range.value) * 10 + d) / 10));
+    range.value = v.toFixed(1);
+    update();
+  }
+
+  function setHigh(v) {
+    high = v;
+    document.getElementById("lossHigh40").classList.toggle("on", v === 40);
+    document.getElementById("lossHigh60").classList.toggle("on", v === 60);
+    drawStrip();
+    update();
+  }
+
+  range.addEventListener("input", update);
+  document.getElementById("lossDown").addEventListener("click", () => step(-1));
+  document.getElementById("lossUp").addEventListener("click", () => step(1));
+  document.getElementById("lossHigh40").addEventListener("click", () => setHigh(40));
+  document.getElementById("lossHigh60").addEventListener("click", () => setHigh(60));
+
+  drawStrip();
+  update();
+})();
+</script>
+
+<script src="../waytosee.js"></script>
+</body>
+</html>

@@ -132,6 +132,10 @@ body.stat-page .hist .bar.tail path { fill: var(--ctail); opacity: 0.7; }
 .bell .pct { font-size: 12px; font-weight: bold; }
 .bell .taillbl { font-size: 12px; font-weight: bold; direction: rtl; unicode-bidi: plaintext; }
 
+
+/* הקישור בשורת "בדף הבא": באותו צבע של הטקסט סביבו (בלי הכחול/סגול של הדפדפן) */
+body.stat-page .next-line a { color: inherit; text-underline-offset: 3px; }
+
 </style>
 </head>
 
@@ -264,7 +268,7 @@ body.stat-page .hist .bar.tail path { fill: var(--ctail); opacity: 0.7; }
     <h2>לסיכום</h2>
     <p>ציון תקן אומר <strong>כמה רחוק</strong>. צורת ההתפלגות אומרת <strong>כמה אנשים נמצאים שם</strong>.</p>
     <p>הכלל 68–95–99.7 הוא לא חוק של כל הנתונים, אלא של ההתפלגות הנורמלית בלבד.</p>
-    <p class="next-line">בדף הבא: ראינו שהממוצע הושפע מאוד מהמשכורת החריגה, והחציון כמעט שלא. למה? ומתי כדאי להשתמש בכל אחד? ← פונקציות הפסד</p>
+    <p class="next-line">בדף הבא: ראינו שהממוצע הושפע מאוד מהמשכורת החריגה, והחציון כמעט שלא. למה? ומתי כדאי להשתמש בכל אחד? ← <a href="statistika-loss.html">פונקציות הפסד</a></p>
   </div>
 
 </div>
