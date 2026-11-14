@@ -189,6 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "statistika/statistika-relative.html",
         "statistika/statistika-zscores.html",
         "statistika/statistika-shape.html",
+        "statistika/statistika-ztable.html",
         "statistika/statistika-loss.html",
       ],
     },
