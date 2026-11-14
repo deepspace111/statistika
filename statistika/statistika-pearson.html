@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script src="../waytosee-analytics.js"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>מתאם פירסון: כמה חזק הקשר? | WayToSee</title>
+<meta name="description" content="מקדם המתאם של פירסון: איך ציוני תקן מבטלים את היחידות של השונות המשותפת, איך קוראים את r בין מינוס 1 ל־1, ושלוש מלכודות: סיבתיות, קשר לא ליניארי ונקודה חריגה.">
+
+<link rel="stylesheet" href="../waytosee.css">
+
+<style>
+/* שלד העמוד נמצא ב-waytosee.css תחת body.stat-page. כאן רק הייחודי לעמוד הזה. */
+
+@font-face {
+  font-family: "WTS Math";
+  src: url("math-font.woff") format("woff");
+}
+math { font-family: "WTS Math", "Latin Modern Math", "Cambria Math", "STIX Two Math", math; }
+.formula-math { margin: 14px 0 6px; font-size: 21px; text-align: center; }
+.formula-math mfrac > * { math-style: normal; }
+
+.stat-page { --cpos: #8a9a5b; --cneg: #8b6b4a; }
+body.learning-mode { --cpos: #4fb3ff; --cneg: #b59cf2; }
+.pos { color: var(--cpos); font-weight: bold; }
+
+/* ===== דיאגרמות פיזור ===== */
+.scatter .pt { fill: currentColor; opacity: 0.8; }
+.scatter .pt.out { fill: var(--cneg); opacity: 1; }
+.scatter .grid { stroke: currentColor; stroke-width: 1; opacity: 0.12; }
+.scatter .zero { stroke: var(--accent); stroke-width: 1.2; stroke-dasharray: 4 3; opacity: 0.8; }
+.scatter .drag { cursor: grab; }
+body.stat-page .scatter .axl { font-size: 11px; opacity: 0.7; direction: rtl; unicode-bidi: plaintext; }
+
+.r-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px 10px; margin: 10px 0 4px; }
+.r-gallery figure { margin: 0; }
+.r-gallery figcaption { text-align: center; font-size: 13px; line-height: 1.3; opacity: 0.8; }
+.r-gallery figcaption .ltr { font-family: 'JetBrains Mono', monospace; color: var(--num); }
+.r-gallery .hist { margin: 0 0 2px; }
+
+/* סרגל r: ממינוס 1 עד 1 */
+.r-scale { display: block; width: 100%; height: auto; direction: ltr; margin: 10px 0 4px; }
+.r-scale .band { opacity: 0.85; }
+.r-scale text { fill: currentColor; text-anchor: middle; font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+.r-scale .heb { font-family: 'Heebo', sans-serif; font-size: 11px; opacity: 0.75; direction: rtl; unicode-bidi: plaintext; }
+.r-scale .mark { fill: var(--accent); }
+
+body.stat-page .z-table td, body.stat-page .z-table th { text-align: center; padding: 5px 1px; white-space: nowrap; }
+body.stat-page .z-table { font-size: 12.5px; }
+/* בטלפון הטבלה גוללת לרוחב בתוך עצמה, בלי להזיז את העמוד */
+.zt-wrap { overflow-x: auto; }
+@media (max-width: 700px) { .z-table { font-size: 12px; } .z-table td, .z-table th { padding: 4px 1px; } }
+.z-table td { direction: ltr; unicode-bidi: isolate; }
+
+.traps { margin: 0; padding: 0; list-style: none; counter-reset: t; }
+.traps > li { counter-increment: t; margin: 0 0 10px; }
+.traps > li > strong::before { content: counter(t) ". "; }
+
+.sb-btns { display: flex; gap: 8px; justify-content: center; margin: 4px 0; flex-wrap: wrap; }
+.sb-btns button {
+  font: inherit; font-size: 14px; color: var(--text);
+  background: var(--panel); border: 1px solid var(--panel-border);
+  border-radius: 999px; padding: 3px 14px; cursor: pointer;
+}
+.sb-btns button:hover { border-color: var(--accent); }
+.sb-out { font-size: 15px; line-height: 1.7; }
+.sb-out .ltr { font-family: 'JetBrains Mono', monospace; color: var(--num); }
+body.stat-page .next-line a { color: inherit; text-underline-offset: 3px; }
+</style>
+</head>
+
+<body class="stat-page">
+
+<div class="rain" id="rain"></div>
+
+<h1 class="page-title">כמה חזק הקשר?</h1>
+<p class="page-subtitle">מתאם פירסון</p>
+
+<div class="container">
+
+<div class="col">
+
+  <div class="section">
+    <h2>הצורך</h2>
+    <p>בדף הקודם מדדנו שינה וקשב אצל שמונה סטודנטים. השונות המשותפת יצאה 12 כשמדדנו שינה בשעות, ו־720 כשמדדנו בדקות.</p>
+    <p>אותם סטודנטים, אותו קשר, ושני מספרים שונים לגמרי. מהשונות המשותפת אפשר לדעת רק את <strong>הכיוון</strong>.</p>
+    <p><strong>איך מודדים כמה חזק הקשר, בלי שהמספר יהיה תלוי ביחידות?</strong></p>
+  </div>
+
+  <div class="section">
+    <h2>הכלי כבר אצלנו: ציוני תקן</h2>
+    <p>ציון תקן אומר כמה סטיות תקן ערך רחוק מהממוצע, בלי יחידות. אם ממירים את שני המשתנים לציוני תקן, שעות ודקות נותנות בדיוק אותם מספרים.</p>
+    <p>סטיית התקן של השינה היא כ־1.87 שעות, ושל הקשב כ־6.71 נקודות. ממירים כל סטודנט, וכופלים את שני ציוני התקן שלו:</p>
+    <div class="zt-wrap"><table class="data-table z-table">
+      <tr><th>z שינה</th><td>−1.6</td><td>−1.07</td><td>−0.53</td><td>0</td><td>0</td><td>0.53</td><td>1.07</td><td>1.6</td></tr>
+      <tr><th>z קשב</th><td>−1.79</td><td>−1.19</td><td>0</td><td>−0.3</td><td>0.3</td><td>0.6</td><td>1.19</td><td>1.19</td></tr>
+      <tr><th>מכפלה</th><td class="pos">2.87</td><td class="pos">1.27</td><td>0</td><td>0</td><td>0</td><td class="pos">0.32</td><td class="pos">1.27</td><td class="pos">1.91</td></tr>
+    </table></div>
+    <p>שלוש מכפלות הן אפס, כי לשלושה סטודנטים אחד מציוני התקן הוא 0. בטבלה כל מכפלה מעוגלת. מהערכים המלאים, סכום כל שמונה המכפלות הוא כ־7.65, והממוצע שלהן:</p>
+    <div class="calc">7.65 ÷ 8 ≈ <strong>0.96</strong></div>
+    <p>זה <strong>מקדם המתאם של פירסון</strong>, ומסמנים אותו באות r. זה אותו רעיון כמו בשונות המשותפת, רק בסרגל של ציוני תקן.</p>
+    <p>ובדקות? כל סטייה של השינה מהממוצע גדלה פי 60, ולכן השונות המשותפת גדלה פי 60, ל־720. מה קורה ל־r נראה מיד אחרי הנוסחה.</p>
+    <p>סטיות התקן והשונות המשותפת מחושבות באותה שיטה, בחלוקה ב־N, כמו בכל הפרק.</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>הנוסחה</h2>
+    <p>לא חייבים להמיר כל סטודנט. מחלקים את השונות המשותפת במכפלת שתי סטיות התקן, וזה נותן אותו מספר:</p>
+    <div class="formula-math"><math display="block" dir="ltr"><mi>r</mi><mo>=</mo><mfrac><mrow><mi>cov</mi><mo>(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>)</mo></mrow><mrow><msub><mi>σ</mi><mi>x</mi></msub><mo>·</mo><msub><mi>σ</mi><mi>y</mi></msub></mrow></mfrac></math></div>
+    <div class="calc">12 ÷ (1.87 × 6.71) ≈ <strong>0.96</strong></div>
+    <p>ובדקות: השונות המשותפת גדלה פי 60, אבל גם סטיית התקן של השינה גדלה פי 60, מ־1.87 ל־112.25. ה־60 מופיע גם במונה וגם במכנה, ומצטמצם:</p>
+    <div class="calc">720 ÷ (112.25 × 6.71) ≈ <strong>0.96</strong></div>
+  </div>
+
+  <div class="section">
+    <h2>איך קוראים את r</h2>
+    <svg class="r-scale" viewBox="0 0 320 64" aria-label="סרגל r ממינוס 1 עד 1. ב־0.96 מסומנת הדוגמה שלנו.">
+      <defs><linearGradient id="rg" x1="0" x2="1"><stop offset="0" stop-color="var(--cneg)"/><stop offset="0.5" stop-color="currentColor" stop-opacity="0.15"/><stop offset="1" stop-color="var(--cpos)"/></linearGradient></defs>
+      <rect class="band" x="20" y="20" width="280" height="10" rx="5" fill="url(#rg)"/>
+      <text x="20" y="56">−1</text><text x="160" y="56">0</text><text x="300" y="56">1</text>
+      <text class="heb" x="62" y="14">שלילי חזק</text><text class="heb" x="160" y="14">אין קשר ליניארי</text><text class="heb" x="258" y="14">חיובי חזק</text>
+      <polygon class="mark" points="294.4,32 290,41 298.8,41"/>
+    </svg>
+    <ul>
+      <li>r תמיד בין <span class="ltr">−1</span> ל־1.</li>
+      <li><strong>הסימן</strong> הוא הכיוון, כמו בשונות המשותפת.</li>
+      <li><strong>|r|</strong>, המרחק מ־0, מודד את העוצמה של הקשר <strong>הליניארי</strong>: עד כמה הנקודות צמודות לקו ישר. ב־1 או ב־<span class="ltr">−1</span> כל הנקודות על קו ישר אחד.</li>
+    </ul>
+    <div class="r-gallery">
+      <figure><svg class="hist scatter" id="g1" viewBox="0 0 100 80" aria-hidden="true"></svg><figcaption id="g1c"></figcaption></figure>
+      <figure><svg class="hist scatter" id="g2" viewBox="0 0 100 80" aria-hidden="true"></svg><figcaption id="g2c"></figcaption></figure>
+      <figure><svg class="hist scatter" id="g3" viewBox="0 0 100 80" aria-hidden="true"></svg><figcaption id="g3c"></figcaption></figure>
+      <figure><svg class="hist scatter" id="g4" viewBox="0 0 100 80" aria-hidden="true"></svg><figcaption id="g4c"></figcaption></figure>
+      <figure><svg class="hist scatter" id="g5" viewBox="0 0 100 80" aria-hidden="true"></svg><figcaption id="g5c"></figcaption></figure>
+      <figure><svg class="hist scatter" id="g6" viewBox="0 0 100 80" aria-hidden="true"></svg><figcaption id="g6c"></figcaption></figure>
+    </div>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>שלוש מלכודות</h2>
+    <ol class="traps">
+      <li><strong>מתאם הוא לא סיבתיות.</strong> מי שישן יותר מקבל ציון גבוה יותר, אבל ייתכן שמשהו שלישי, כמו לחץ, משפיע על שניהם. r מתאר קשר, לא סיבה.</li>
+      <li><strong>פירסון רואה רק קו ישר.</strong> בצורת U יש קשר ברור, ובכל זאת r קרוב ל־0. בגלריה, הענן בלי כיוון והקשר בצורת U מקבלים אותו r, ושני הדפוסים שונים לגמרי. לכן תמיד מסתכלים קודם על דיאגרמת הפיזור.</li>
+      <li><strong>נקודה חריגה אחת יכולה לשנות הכול.</strong> נסו בארגז החול.</li>
+    </ol>
+  </div>
+
+  <div class="section">
+    <h2>ארגז חול</h2>
+    <p>גררו נקודות, או הוסיפו סטודנט אחד שישן 10 שעות וקיבל 52.</p>
+    <svg class="hist scatter" id="scSb" viewBox="0 0 320 210" role="img" aria-label="דיאגרמת פיזור עם נקודות שאפשר לגרור, ומקדם המתאם שמתעדכן"></svg>
+    <div class="sb-btns">
+      <button type="button" id="sbOut">הוספת נקודה חריגה</button>
+      <button type="button" id="sbReset">חזרה לנתונים</button>
+    </div>
+    <div class="sb-out" id="sbTxt"></div>
+  </div>
+
+  <div class="section">
+    <h2>לסיכום</h2>
+    <p>מתאם פירסון הוא השונות המשותפת בסרגל של ציוני תקן. הוא בין <span class="ltr">−1</span> ל־1, לא תלוי ביחידות, והסימן שלו הוא הכיוון. הוא מודד רק קשר ליניארי, ונקודה חריגה אחת יכולה להזיז אותו מאוד.</p>
+    <p class="next-line">בדף הבא: ומה עושים כשיש נקודה חריגה, או כשהמשתנים הם דירוגים ולא מדידות? ← מתאם ספירמן</p>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const NS = "http://www.w3.org/2000/svg";
+  const DATA = [[4,58],[5,62],[6,70],[7,68],[7,72],[8,74],[9,78],[10,78]];
+  const OUTLIER = [10, 52];
+
+  function add(svg, name, attrs, text) {
+    const e = document.createElementNS(NS, name);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    svg.appendChild(e);
+    return e;
+  }
+  // מקדם פירסון, בחלוקה ב־N כמו בכל הפרק
+  function pearson(pts) {
+    const n = pts.length;
+    const mx = pts.reduce((s, p) => s + p[0], 0) / n, my = pts.reduce((s, p) => s + p[1], 0) / n;
+    let c = 0, vx = 0, vy = 0;
+    pts.forEach(([x, y]) => { c += (x - mx) * (y - my); vx += (x - mx) ** 2; vy += (y - my) ** 2; });
+    return vx && vy ? c / Math.sqrt(vx * vy) : 0;
+  }
+  const fmt = v => { const r = Math.round(v * 100) / 100; return (r < 0 ? "−" : "") + Math.abs(r).toFixed(2); };
+
+  // ===== גלריה: שש דוגמאות. r מחושב מהנקודות עצמן =====
+  let seed = 7;
+  const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+  const gauss = () => { let s = 0; for (let i = 0; i < 6; i++) s += rnd(); return s - 3; };
+  function cloud(rho, n) {
+    const pts = [];
+    for (let i = 0; i < n; i++) { const a = gauss(), b = gauss(); pts.push([a, rho * a + Math.sqrt(1 - rho * rho) * b]); }
+    if (rho === 0) {
+      // ענן בלי כיוון: מנקים את השארית הליניארית, כדי ש־r ייצא בדיוק 0
+      const mx = pts.reduce((s, p) => s + p[0], 0) / n, my = pts.reduce((s, p) => s + p[1], 0) / n;
+      let c = 0, v = 0;
+      pts.forEach(([x, y]) => { c += (x - mx) * (y - my); v += (x - mx) ** 2; });
+      pts.forEach(p => { p[1] -= c / v * (p[0] - mx); });
+    }
+    return pts;
+  }
+  const U = [];
+  for (let i = -10; i <= 10; i++) { const x = i / 5; U.push([x, x * x + (i % 3 === 0 ? 0.15 : i % 2 ? -0.1 : 0.05)]); }
+  const gal = [
+    ["g1", cloud(0.98, 30), "חיובי חזק"],
+    ["g2", cloud(0.6, 30), "חיובי בינוני"],
+    ["g3", cloud(-0.85, 30), "שלילי חזק"],
+    ["g4", [[-2,2],[-1,1],[0,0],[1,-1],[2,-2],[-1.5,1.5],[0.5,-0.5],[1.5,-1.5],[-0.5,0.5]], "שלילי מושלם"],
+    ["g5", cloud(0.0, 30), "ענן בלי כיוון"],
+    ["g6", U, "קשר בצורת U"],
+  ];
+  gal.forEach(([id, pts, name]) => {
+    const svg = $(id);
+    const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
+    const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+    add(svg, "line", { class: "axis", x1: 6, y1: 74, x2: 96, y2: 74 });
+    add(svg, "line", { class: "axis", x1: 6, y1: 4, x2: 6, y2: 74 });
+    pts.forEach(([x, y]) => add(svg, "circle", { class: "pt", cx: 10 + (x - x0) / (x1 - x0 || 1) * 82, cy: 70 - (y - y0) / (y1 - y0 || 1) * 62, r: 2.2 }));
+    $(id + "c").innerHTML = name + '<br><span class="ltr">r ≈ ' + fmt(pearson(pts)) + "</span>";
+  });
+
+  // ===== ארגז חול =====
+  const L = 34, R = 308, T = 12, B = 176;
+  const X = x => L + (x - 3) * (R - L) / 8;
+  const Y = y => B - (y - 50) * (B - T) / 40;
+  const fx = px => 3 + (px - L) * 8 / (R - L);
+  const fy = py => 50 + (B - py) * 40 / (B - T);
+  const svg = $("scSb");
+  let pts = DATA.map(p => p.slice()), hasOut = false, dragI = -1;
+
+  function draw() {
+    svg.textContent = "";
+    for (let x = 4; x <= 10; x += 2) add(svg, "line", { class: "grid", x1: X(x), y1: T, x2: X(x), y2: B });
+    for (let y = 60; y <= 80; y += 10) add(svg, "line", { class: "grid", x1: L, y1: Y(y), x2: R, y2: Y(y) });
+    add(svg, "line", { class: "axis", x1: L, y1: B, x2: R, y2: B });
+    add(svg, "line", { class: "axis", x1: L, y1: T, x2: L, y2: B });
+    for (let x = 4; x <= 10; x += 2) add(svg, "text", { class: "lbl", x: X(x), y: B + 13 }, x);
+    for (let y = 60; y <= 80; y += 10) add(svg, "text", { class: "lbl", x: L - 6, y: Y(y) + 4, style: "text-anchor:end" }, y);
+    add(svg, "text", { class: "axl", x: (L + R) / 2, y: B + 28 }, "שעות שינה");
+    add(svg, "text", { class: "axl", x: 8, y: (T + B) / 2, transform: "rotate(-90 8 " + (T + B) / 2 + ")" }, "ציון קשב");
+    pts.forEach(([x, y], i) => {
+      const c = add(svg, "circle", { class: "pt drag" + (hasOut && i === pts.length - 1 ? " out" : ""), cx: X(x), cy: Y(y), r: 6 });
+      c.dataset.i = i;
+    });
+    const r = pearson(pts);
+    let html = 'r עכשיו: <span class="ltr"><strong>' + fmt(r) + "</strong></span>";
+    if (hasOut) {
+      const before = pearson(pts.slice(0, -1));
+      html = 'בלי הנקודה החריגה: <span class="ltr">' + fmt(before) + '</span> &nbsp;·&nbsp; איתה: <span class="ltr"><strong>' + fmt(r) + "</strong></span>" +
+        "<br>סטודנט אחד מתוך תשעה, ו־r ירד מ־" + '<span class="ltr">' + fmt(before) + "</span> ל־" + '<span class="ltr">' + fmt(r) + "</span>.";
+    }
+    $("sbTxt").innerHTML = html;
+  }
+  function toData(evt) {
+    const r = svg.getBoundingClientRect();
+    const px = (evt.clientX - r.left) * 320 / r.width, py = (evt.clientY - r.top) * 210 / r.height;
+    return [Math.max(3.2, Math.min(10.8, Math.round(fx(px) * 2) / 2)), Math.max(51, Math.min(89, Math.round(fy(py))))];
+  }
+  svg.addEventListener("pointerdown", e => {
+    if (e.target.dataset && e.target.dataset.i != null) { dragI = +e.target.dataset.i; svg.setPointerCapture(e.pointerId); e.preventDefault(); }
+  });
+  svg.addEventListener("pointermove", e => { if (dragI >= 0) { pts[dragI] = toData(e); draw(); } });
+  svg.addEventListener("pointerup", () => { dragI = -1; });
+  svg.addEventListener("pointercancel", () => { dragI = -1; });
+  svg.style.touchAction = "none";
+  $("sbOut").addEventListener("click", () => { if (!hasOut) { pts.push(OUTLIER.slice()); hasOut = true; draw(); } });
+  $("sbReset").addEventListener("click", () => { pts = DATA.map(p => p.slice()); hasOut = false; draw(); });
+  draw();
+})();
+</script>
+
+<script>
+  // המשולש מחזיר לרשימת הנושאים של הסטטיסטיקה.
+  window.waytoseeParentOverride = "statistika/statistika.html";
+</script>
+<script src="../waytosee.js"></script>
+</body>
+</html>

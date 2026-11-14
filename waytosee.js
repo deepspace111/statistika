@@ -193,6 +193,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "statistika/statistika-loss.html",
         "statistika/statistika-weighted.html",
         "statistika/statistika-covariance.html",
+        "statistika/statistika-pearson.html",
       ],
     },
     { // רשתות: כתובת ← זיהוי הרשת המקומית ← MAC ← ARP ← שער יציאה ← DHCP ← ...
