@@ -93,6 +93,9 @@
   body.stat-page .col { display: contents; }
   body.stat-page .summary-section { order: 10; border-bottom: 1px solid var(--panel-border); }
 }
+
+/* הקישור בשורת "בדף הבא": באותו צבע של הטקסט סביבו, כמו בעמוד צורת ההתפלגות */
+body.stat-page .next-line a { color: inherit; text-underline-offset: 3px; }
 </style>
 </head>
 
@@ -185,7 +188,7 @@
     <p>אם כל פספוס עולה אותו דבר, <strong>השכיח</strong> נותן הכי הרבה פגיעות מדויקות.</p>
     <p>אם כל יחידה נוספת של פער עולה אותו דבר, <strong>החציון</strong> נותן את סכום הפערים המוחלטים הקטן ביותר.</p>
     <p>אם מחיר הפספוס גדל לפי ריבוע הפער, <strong>הממוצע</strong> נותן את סכום ריבועי הפערים הקטן ביותר.</p>
-    <p class="next-line">בדף הבא: אם יש לנו ממוצע ופיזור לכל אחת משתי כיתות, איך מחשבים את הממוצע והפיזור של שתיהן יחד? ← ממוצע משוקלל ושונות משולבת</p>
+    <p class="next-line">בדף הבא: אם יש לנו ממוצע ופיזור לכל אחת משתי כיתות, איך מחשבים את הממוצע והפיזור של שתיהן יחד? ← <a href="statistika-weighted.html">ממוצע משוקלל ושונות משולבת</a></p>
   </div>
 
 </div>
