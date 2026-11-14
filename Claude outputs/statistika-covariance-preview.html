@@ -1,0 +1,1973 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+  <!-- Google tag (gtag.js) -->
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>דיאגרמת פיזור ושונות משותפת: האם שני דברים זזים יחד? | WayToSee</title>
+<meta name="description" content="איך רואים קשר בין שני משתנים: דיאגרמת פיזור, קווים דרך שני הממוצעים, מכפלות הסטיות, והשונות המשותפת (קווריאנס) שמראה את כיוון הקשר.">
+
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800&family=JetBrains+Mono:wght@400;600&family=Varela+Round&display=swap");
+
+/* === משתני עיצוב משותפים - אותם ערכים שהיו רק ב-Subnet/NAT, מורחבים לכל האתר ===
+   מצב רגיל: פלטת האור. מצב תודעת לימוד: פלטת "טיפת המים" הכהה (body.learning-mode). */
+:root{
+  --panel: rgba(255,255,255,0.55);
+  --panel-border: rgba(82,68,54,0.16);
+  --text: rgba(22,35,61,0.94);
+  --text-dim: rgba(22,35,61,0.62);
+  --accent: #2f6fb3;
+  --accent-2: #1f8f7c;
+  --code-bg: rgba(255,255,255,0.6);
+  /* צבע המספרים: במצב רגיל כמו הטקסט, במצב תודעת לימוד ירוק */
+  --num: var(--text);
+}
+body.learning-mode{
+  --panel: #131f36;
+  --panel-border: #22314f;
+  --text: #e8edf7;
+  --text-dim: #9fb0cc;
+  --accent: #4fb3ff;
+  --accent-2: #7ce0d3;
+  --code-bg: #0d1626;
+  --num: var(--accent-2);
+}
+
+html{
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  /* צבע רקע מוצק לכל הדף - ממנו ספארי באייפון (iOS 26) צובע את הפסים למעלה ולמטה */
+  background-color:#e4e9f0;
+}
+html:has(body.learning-mode){
+  background-color:#0b1220;
+}
+
+html::-webkit-scrollbar{
+  display: none;
+}
+
+
+.focus-toggle {
+  position: fixed !important;
+  top: 18px !important;
+  right: 26px !important;
+  transform: none  !important;
+
+  z-index: 999999 !important;
+
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+
+  cursor: pointer !important;
+  line-height: 1 !important;
+}
+
+.focus-toggle img {
+  display: none !important;
+}
+
+.focus-toggle {
+  width: 21px !important;
+  height: 16px !important;
+  background-color: rgba(20, 20, 20, 0.55) !important;
+  -webkit-mask-image: url('waytosee-clef.png') !important;
+  mask-image: url('waytosee-clef.png') !important;
+  -webkit-mask-size: contain !important;
+  mask-size: contain !important;
+  -webkit-mask-repeat: no-repeat !important;
+  mask-repeat: no-repeat !important;
+  -webkit-mask-position: center !important;
+  mask-position: center !important;
+  transition: background-color 0.8s ease, transform 0.3s ease !important;
+}
+
+body.learning-mode .focus-toggle {
+  background-color: rgba(180, 180, 180, 0.55) !important;
+}
+
+/* מפתח הפה: אור עדין שעובר לאורכו, לאט (7.2 שניות לסבב), באותו קצב בשני המצבים.
+   הפס הוא שכבה פנימית (::after) - ה-mask של הכפתור חותך גם אותה,
+   כך שהאור נראה רק על צורת מפתח הפה עצמה.
+   במצב בהיר: פס אור לבן. במצב כהה: פס עדין יותר. */
+.focus-toggle::after{
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  left: -100%;
+  width: 300%;
+  background: linear-gradient(100deg, transparent 38%, rgba(255, 255, 255, 0.38) 50%, transparent 62%);
+  animation: clefShade 7.2s ease-in-out infinite;
+  pointer-events: none;
+}
+body.learning-mode .focus-toggle::after{
+  background: linear-gradient(100deg, transparent 40%, rgba(240, 240, 240, 0.34) 50%, transparent 60%);
+}
+@keyframes clefShade{
+  0%, 100%{ transform: translateX(-34%); }
+  50%{ transform: translateX(34%); }
+}
+@media (prefers-reduced-motion: reduce){
+  .focus-toggle::after{ animation: none; opacity: 0; }
+}
+
+.focus-toggle:hover {
+  transform: scale(1.08) !important;
+}
+body{
+  font-family: 'Heebo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* מצב בהיר: "ערפל בוקר" - אותו כחול של המצב הכהה, בהיר מאוד (היה #e8e8e8) */
+  /* רקע אחיד, בלי זוהר בראש הדף, כדי שהפסים של הדפדפן בטלפון יתמזגו עם האתר */
+  background-color:#e4e9f0;
+  color:var(--text);
+  transition:background-color 1.2s ease, color 1.2s ease;
+}
+body.learning-mode{
+  background-color:#0b1220;
+}
+
+/* רקע "גשם" עדין - משותף לכל עמוד שמכריז <div class="rain" id="rain">.
+   waytosee.js ממלא אותו אוטומטית ב-150 טיפות כשהוא מזהה את האלמנט. */
+.rain{
+  position:fixed;
+  /* 2px מהקצה העליון והתחתון: כדי שספארי באייפון לא יחשוב שזו שכבה של "פס עליון/תחתון"
+     ויצבע את הפסים שלו לפיה (במקום לפי צבע הרקע של הדף) */
+  top:2px;
+  bottom:2px;
+  left:0;
+  right:0;
+  z-index:1;
+  pointer-events:none;
+  overflow:hidden;
+  opacity:0;
+  transition:opacity 1.4s ease;
+}
+
+body.learning-mode .rain{
+  opacity:0.48; /* חוזק מעט (היה 0.34), כדי שהגשם ייראה מעל תמונת הרקע */
+}
+/* מצב כהה 1 (כהה + רעש): הגשם עוד קצת חזק */
+body.learning-mode.lbg-on .rain{ opacity:0.55; }
+/* מצב כהה 2 (כהה בלי רעש): בלי גשם. נעלם בהדרגה */
+body.learning-mode.mode-quiet .rain{ opacity:0; }
+
+.rain .drop{
+  position:absolute;
+  top:-120vh;
+  width:1px;
+  height:78px;
+  background:linear-gradient(
+    to bottom,
+    rgba(110,170,255,0),
+    rgba(110,170,255,0.34),
+    rgba(110,170,255,0)
+  );
+  animation:rain linear infinite;
+}
+
+@keyframes rain{
+  from{ transform:translateY(-20vh); }
+  to{ transform:translateY(150vh); }
+}
+
+
+
+/* כפתור דו – חזרה לדף הבית */
+
+#homeBtn {
+  position: fixed;
+  top: 14px;
+  left: 26px;
+  right: auto;
+
+  display: block;
+  color: rgba(20, 20, 20, 0.68);
+  transition: color 0.8s ease, transform 0.3s ease;
+
+  text-decoration: none;
+
+  z-index: 1000;
+  cursor: pointer;
+}
+
+#homeBtn:hover {
+  transform: scale(1.08);
+}
+
+/* סבב קבוע של שלושת ערכי השקיפות המקוריים (1 / 0.78 / 0.55) בין צלעות
+   משולש הבית, בכיוון השעון: שמאל -> ימין -> תחתית -> חזרה לשמאל.
+   הערכים עצמם לא משתנים, רק "נוסעים" בין הצלעות. */
+.home-seg{
+  animation: homeShade 3.6s ease-in-out infinite;
+}
+
+.home-seg-1{ animation-delay: 0s; }
+.home-seg-2{ animation-delay: -1.2s; }
+.home-seg-3{ animation-delay: -2.4s; }
+
+@keyframes homeShade{
+  0%, 100%{ opacity: 1; }
+  33.333%{ opacity: 0.55; }
+  66.667%{ opacity: 0.78; }
+}
+/* כפתור כללי – כניסה לתחנת חשיבה */
+
+.thinking-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(20, 20, 20, 0.68);
+  text-decoration: none;
+  font-size: 17px;
+  transition: color 0.8s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+.thinking-btn:hover {
+  transform: scale(1.06);
+}
+
+body.learning-mode .thinking-btn {
+  color: rgba(240, 240, 240, 0.88);
+}
+
+.thinking-btn svg {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  stroke: currentColor;
+}
+body.learning-mode #homeBtn {
+  color: rgba(240, 240, 240, 0.88);
+}
+
+/* כפתור מעבר לעמוד "המרחב" */
+
+#spaceBtn {
+  position: fixed;
+  bottom: 16px;
+  right: 26px;
+
+  display: block;
+  color: rgba(20, 20, 20, 0.68);
+  transition: color 0.8s ease, transform 0.3s ease;
+
+  text-decoration: none;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+#spaceBtn svg {
+  display: block;
+  fill: currentColor;
+}
+
+#spaceBtn:hover {
+  transform: scale(1.12);
+}
+
+body.learning-mode #spaceBtn {
+  color: rgba(240, 240, 240, 0.88);
+}
+
+/* הנקודה הבהירה נעה הלוך ושוב בין שלוש הנקודות, בלי הפסקה:
+   ימין -> אמצע -> שמאל -> אמצע -> ימין ...
+   באותו קצב צעד של משולש הבית (1.2 שניות לכל מעבר).
+   ערכי השקיפות המקוריים (1 / 0.65 / 0.35) לא משתנים, רק "נוסעים". */
+.space-dot-1,
+.space-dot-3{
+  animation: spaceShadeEdge 4.8s ease-in-out infinite;
+}
+
+.space-dot-2{
+  animation: spaceShadeMid 4.8s ease-in-out infinite;
+}
+
+.space-dot-1{ animation-delay: 0s; }
+.space-dot-3{ animation-delay: -2.4s; }
+
+@keyframes spaceShadeEdge{
+  0%, 100%{ opacity: 1; }
+  25%, 75%{ opacity: 0.65; }
+  50%{ opacity: 0.35; }
+}
+
+@keyframes spaceShadeMid{
+  0%, 50%, 100%{ opacity: 0.65; }
+  25%, 75%{ opacity: 1; }
+}
+
+
+/* ========================================
+   פריסת עיתון רספונסיבית
+======================================== */
+
+.newspaper-page {
+  position: relative;
+  z-index: 5;
+  max-width: 1450px;
+  margin: 0 auto;
+  padding: 80px 48px 70px;
+}
+
+.newspaper-page > h1 {
+  margin: 0 0 46px;
+  text-align: center;
+  font-size: 42px;
+  font-weight: 300;
+}
+
+.newspaper-content {
+  column-width: 340px;
+  column-gap: 54px;
+  column-rule: 1px solid rgba(82, 68, 54, 0.22);
+  text-align: justify;
+  line-height: 1.8;
+}
+
+body.learning-mode .newspaper-content {
+  column-rule-color: rgba(255, 255, 255, 0.16);
+}
+
+.newspaper-content .section {
+  margin: 0 0 34px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(82, 68, 54, 0.18);
+}
+
+body.learning-mode .newspaper-content .section {
+  border-top-color: rgba(255, 255, 255, 0.14);
+}
+
+.newspaper-content .section:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+
+.newspaper-content h2 {
+  break-after: avoid;
+  margin: 28px 0 14px;
+  font-size: 23px;
+}
+
+.newspaper-content p {
+  break-inside: avoid;
+  margin: 10px 0;
+  font-size: 17px;
+}
+
+.newspaper-content .term {
+  font-weight: bold;
+}
+
+/* טאבלט */
+
+@media (min-width: 601px) and (max-width: 1050px) {
+  .newspaper-page {
+    padding-inline: 34px;
+  }
+  .newspaper-content {
+    column-gap: 42px;
+  }
+}
+
+/* טלפון */
+
+@media (max-width: 600px) {
+  .newspaper-page {
+    max-width: 760px;
+    padding: 80px 24px 70px;
+  }
+
+  .newspaper-page > h1 {
+    font-size: 34px;
+  }
+
+  .newspaper-content {
+    column-count: 1;
+    text-align: center;
+  }
+
+  .newspaper-content p {
+    font-size: 18px;
+  }
+}
+/* פריסת טורים בסגנון עיתון - לדפי תוכן/מאמר בלבד */
+.article-columns {
+  column-width: 340px;
+  column-gap: 60px;
+}
+
+.article-columns > h1,
+.article-columns > h2 {
+  column-span: all;
+}
+
+@media (max-width: 700px) {
+  .article-columns {
+    column-width: auto;
+    column-count: 1;
+  }
+}
+
+p {
+  margin: 0 0 0.3em;
+}
+
+.section {
+  margin-bottom: 24px;
+  padding-top: 18px;
+}
+
+/* הבהוב טורקיז במצב כהה: מהיר כמו התחשמלות. כל פעימה קצרה וקבועה
+   (--flash-cycle), ורק מספר הפעימות משתנה (--flash-count: 1, 2 או 3).
+   שני הערכים נקבעים ב-waytosee.js. הבהירות הורדה ב-18% ואז בעוד 10% (היה #4ff0e0).
+   waytosee.js מסמן ב-.wts-flash כל רכיב טקסט בתוכן העמוד, חוץ מכותרות,
+   גרפים, ורכיבים שכבר יש להם אנימציה משלהם. חצי פעימה דלוק, חצי כבוי
+   (steps(2, jump-none)), ובחצי הכבוי כל רכיב חוזר לצבע המקורי שלו. */
+.wts-flash {
+  animation: turquoise-flicker var(--flash-cycle, 80ms) steps(2, jump-none) var(--flash-count, 2);
+}
+@keyframes turquoise-flicker {
+  from {
+    color: #3ab1a6;
+    text-shadow: 0 0 7px rgba(64, 224, 208, 0.70), 0 0 18px rgba(64, 224, 208, 0.41);
+  }
+}
+/* בטלפון הטקסט קטן, אז הזוהר חזק יותר */
+@media (max-width: 600px), (max-height: 500px) {
+  .wts-flash { animation-name: turquoise-flicker-strong; }
+}
+@keyframes turquoise-flicker-strong {
+  from {
+    color: #3ab1a6;
+    text-shadow: 0 0 9px rgba(64, 224, 208, 0.74), 0 0 24px rgba(64, 224, 208, 0.51);
+  }
+}
+/* טלפון - גם במצב מאוזן (מסך נמוך), לא רק עומד */
+@media (max-width: 600px), (max-height: 500px) {
+  #homeBtn {
+    left: 6px;
+  }
+  .focus-toggle {
+    right: 6px !important;
+  }
+  #spaceBtn {
+    right: 6px;
+    bottom: 10px;
+  }
+  /* בטלפון שלוש הנקודות של המרחב עומדות במאונך.
+     הסיבוב ב-90 מעלות, והשוליים השליליים מתאימים את גבולות הכפתור לצורה העומדת,
+     כך שהוא נשאר באותו מקום בפינה. */
+  #spaceBtn svg {
+    transform: rotate(90deg);
+    margin: 8px -8px;
+  }
+}
+
+/* ========================================
+   שלד עמוד תוכן משותף - ARP / DHCP / TCP / Gateway / ICMP ועמודי תוכן עתידיים
+   באותה צורה: page-title + subtitle + container של 3 עמודות + info-box
+   ל"מה פירוש השם". עמוד שצריך לסטות מערך ספציפי (לדוגמה רוחב עמודת
+   term-box, ב-.info-box.term-box .info-row) מגדיר מחדש את אותו selector
+   ב-<style> המקומי שלו - הוא יגבר כי הוא מגיע אחרי קובץ זה ב-<head>.
+
+   כל הכללים כאן מוגבלים ל-body.proto-page (קלאס שמוגדר ב-<body> של כל אחד
+   מחמשת העמודים האלה) - כדי שלא "ידלפו" לעמודים אחרים באתר שמשתמשים
+   באותם שמות מחלקה כלליים כמו .container/.subtitle/.section (לדוגמה
+   intro.html, עמודי הסטטיסטיקה וכו').
+======================================== */
+
+body.proto-page .page-title{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:0 auto;
+  padding:96px 24px 0;
+  font-size:36px;
+  font-weight:800;
+  text-align:center;
+  color:var(--text);
+}
+
+body.proto-page.learning-mode .page-title{
+  background: linear-gradient(90deg, #fff, var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+body.proto-page .subtitle{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:10px auto 0;
+  padding:0 24px;
+  text-align:center;
+  font-size:18px;
+  color:var(--text-dim);
+}
+
+body.proto-page .container{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:0 auto;
+  padding:34px 24px 100px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0 60px;
+  align-items:start;
+}
+
+body.proto-page .col{
+  display:flex;
+  flex-direction:column;
+}
+
+body.proto-page .container h2{
+  font-size:25px;
+  margin:16px 0 8px;
+  font-weight:700;
+  color:var(--text);
+}
+
+body.proto-page .container p{
+  font-size:18px;
+  line-height:1.6;
+  color:var(--text);
+  margin:10px 0;
+}
+
+body.proto-page .section{
+  position:relative;
+  border-top:1px solid var(--panel-border);
+  padding-top:10px;
+  padding-bottom:8px;
+}
+
+body.proto-page .section > h2:first-child,
+body.proto-page .section > p:first-child{
+  margin-top:0;
+}
+
+body.proto-page .section > :last-child{
+  margin-bottom:0;
+}
+
+body.proto-page .col > .section:last-child{
+  border-bottom:1px solid var(--panel-border);
+  padding-bottom:12px;
+}
+
+body.proto-page .term{
+  font-weight:bold;
+  color:var(--accent);
+}
+
+body.proto-page .meaning-signal{
+  margin:16px 0;
+  padding:20px 18px 22px;
+  border-radius:22px;
+  border:1px solid var(--panel-border);
+  background:var(--panel);
+}
+
+body.proto-page.learning-mode .meaning-signal{
+  box-shadow:0 0 34px rgba(79,179,255,0.08);
+}
+
+body.proto-page .meaning-signal p{
+  margin:10px 0;
+}
+
+body.proto-page .meaning-signal p:first-child{
+  margin-top:0;
+}
+
+body.proto-page .meaning-signal p:last-child{
+  margin-bottom:0;
+}
+
+body.proto-page .info-box{
+  direction:ltr;
+  margin:14px 0 0;
+  padding:16px 18px;
+  border-radius:18px;
+  border:1px solid var(--panel-border);
+  background:var(--code-bg);
+  font-family:'JetBrains Mono', monospace;
+}
+
+body.proto-page .info-row{
+  display:grid;
+  grid-template-columns:120px 1fr;
+  gap:10px;
+  align-items:center;
+  margin:7px 0;
+  font-size:15px;
+  color:var(--text-dim);
+}
+
+body.proto-page .info-label{
+  opacity:0.7;
+}
+
+body.proto-page .info-value{
+  font-weight:bold;
+  letter-spacing:0.5px;
+  color:var(--num);
+}
+
+body.proto-page .info-box.term-box{
+  direction:rtl;
+  font-family:'Heebo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+body.proto-page .info-box.term-box .info-row{
+  grid-template-columns:110px 1fr;
+}
+
+body.proto-page .info-box.term-box .info-value{
+  font-weight:normal;
+  letter-spacing:normal;
+}
+
+@media (max-width:900px){
+  body.proto-page .container{
+    grid-template-columns:1fr;
+    max-width:620px;
+  }
+}
+
+@media (max-width:768px){
+  body.proto-page .page-title{
+    padding-top:88px;
+    font-size:28px;
+  }
+  body.proto-page .subtitle{
+    font-size:16px;
+  }
+  body.proto-page .container{
+    padding:24px 22px 90px;
+  }
+  body.proto-page .container h2{
+    font-size:22px;
+  }
+  body.proto-page .container p{
+    font-size:17px;
+  }
+  body.proto-page .info-row{
+    grid-template-columns:100px 1fr;
+    font-size:14px;
+  }
+  body.proto-page .info-box.term-box .info-row{
+    grid-template-columns:1fr;
+    gap:2px;
+  }
+}
+/* מספרים וחישובים בתוך שורת טקסט – אותו סגנון כמו קופסאות המספרים */
+.num{
+  font-family:'JetBrains Mono', monospace;
+  color:var(--num);
+  direction:ltr;
+  unicode-bidi:isolate;
+  display:inline-block;
+}
+
+/* כל הספרות באתר בפונט JetBrains Mono (העטיפה נעשית ב-waytosee.js). הצבע נשאר כמו הטקסט שמסביב. */
+.wts-digit{
+  font-family:'JetBrains Mono', monospace;
+}
+
+/* ========================================
+   שלד עמוד "מבוא" משותף - statistika-introduction / ccna-introduction / internet
+   כותרת + Grid של שלוש עמודות, בלי page-subtitle.
+
+   כל הכללים כאן מוגבלים ל-body.overview-page (קלאס שמוגדר ב-<body> של כל אחד
+   מהעמודים האלה) - כדי שלא "ידלפו" לעמודים אחרים באתר שמשתמשים באותם שמות
+   מחלקה כלליים כמו .container/.page-title/.section (לדוגמה intro.html,
+   professions.html, index.html, ip/ip.html, NAT/index.html, subnet/index.html).
+   עמוד שצריך לסטות מערך ספציפי מגדיר מחדש את אותו selector ב-<style> המקומי
+   שלו - הוא יגבר כי הוא מגיע אחרי קובץ זה ב-<head>.
+   ======================================== */
+
+body.overview-page .page-title{
+  max-width:1200px;
+  margin:0 auto;
+  padding:24px 24px 0;
+  font-size:42px;
+  margin-bottom:0;
+  padding-bottom:18px;
+  font-weight:800;
+  text-align:center;
+  color:var(--text);
+}
+
+body.overview-page.learning-mode .page-title{
+  background: linear-gradient(90deg, #fff, var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+body.overview-page .container{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:0 auto;
+  padding:24px 24px 70px;
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:0 70px;
+  align-items:start;
+}
+
+body.overview-page .col{
+  display:flex;
+  flex-direction:column;
+}
+
+body.overview-page .container h2{ font-size:25px; margin:16px 0 8px; font-weight:700; color:var(--text); }
+
+body.overview-page .container p{
+  line-height:1.35;
+  margin:8px 0;
+}
+
+body.overview-page .section{
+  position:relative;
+  border-top:1px solid var(--panel-border);
+  padding-top:6px;
+  padding-bottom:8px;
+}
+
+body.overview-page .section > h2:first-child,
+body.overview-page .section > p:first-child{
+  margin-top:0;
+}
+
+body.overview-page .section > :last-child{
+  margin-bottom:0;
+}
+
+body.overview-page .col > .section:last-child{
+  border-bottom:1px solid var(--panel-border);
+  padding-bottom:12px;
+}
+
+body.overview-page .next-btn{
+  display:inline-block;
+  margin-top:34px;
+  padding:9px 28px;
+  border-radius:22px;
+  border:1px solid var(--panel-border);
+  color:var(--text-dim);
+  text-decoration:none;
+  font-size:18px;
+  background:var(--panel);
+  transition:0.3s ease;
+}
+
+body.overview-page .next-btn:hover{ color:var(--text); border-color:var(--accent); }
+
+body.overview-page.learning-mode .next-btn:hover{ box-shadow:0 0 24px rgba(79,179,255,0.10); }
+
+@media (max-width:600px){
+  body.overview-page .container{ grid-template-columns:1fr; }
+  body.overview-page .page-title{ font-size:34px; }
+  body.overview-page .container h2{ font-size:22px; }
+  body.overview-page .container p{ font-size:18px; }
+  body.overview-page .next-btn{ font-size:17px; padding:8px 24px; }
+}
+
+/* ========================================
+   שלד עמוד "סטטיסטיקה" משותף - statistika-scales / statistika-data-display /
+   statistika-dispersion / statistika-mode / statistika-relative / statistika-shape
+   כותרת + page-subtitle + Grid של שלוש עמודות (align-items:stretch) +
+   טבלאות/חישוב/ציטוט/היסטוגרמות משותפים.
+
+   כל הכללים כאן מוגבלים ל-body.stat-page (קלאס שמוגדר ב-<body> של כל אחד
+   מהעמודים האלה) - כדי שלא "ידלפו" לעמודים אחרים באתר שמשתמשים באותם שמות
+   מחלקה כלליים (לדוגמה statistika/statistika.html, שהוא בעצם מהמשפחה של
+   intro.html ולא מהמשפחה הזו, או thinking-station.html שמשתמש ב-.quote).
+   עמוד שצריך לסטות מערך ספציפי (לדוגמה statistika-relative.html ו-
+   statistika-shape.html עם .col > .section:only-child) מגדיר את זה ב-<style>
+   המקומי שלו.
+   ======================================== */
+
+body.stat-page .page-title{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:0 auto;
+  padding:24px 24px 0;
+  font-size:42px;
+  font-weight:800;
+  text-align:center;
+  color:var(--text);
+}
+
+body.stat-page.learning-mode .page-title{
+  background: linear-gradient(90deg, #fff, var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+body.stat-page .page-subtitle{
+  position:relative;
+  z-index:5;
+  text-align:center;
+  font-size:19px;
+  margin:6px 0 18px;
+  opacity:0.65;
+}
+
+body.stat-page .container{
+  position:relative;
+  z-index:5;
+  max-width:1200px;
+  margin:0 auto;
+  padding:24px 24px 70px;
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:0 70px;
+  align-items:stretch;
+}
+
+body.stat-page .col{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  gap:18px;
+}
+
+body.stat-page .container h2{ font-size:25px; margin:0 0 8px; font-weight:700; color:var(--text); }
+
+body.stat-page .container p{
+  line-height:1.45;
+  margin:8px 0;
+}
+
+body.stat-page .section{
+  position:relative;
+  border-top:1px solid var(--panel-border);
+  padding-top:10px;
+  padding-bottom:8px;
+  margin-bottom:0;
+}
+
+body.stat-page .section > :last-child{
+  margin-bottom:0;
+}
+
+body.stat-page .col > .section:last-child{
+  border-bottom:1px solid var(--panel-border);
+  padding-bottom:12px;
+}
+
+body.stat-page .data-table{
+  width:100%;
+  border-collapse:collapse;
+  margin:14px 0;
+  font-size:16px;
+  line-height:1.5;
+  text-align:right;
+}
+
+body.stat-page .data-table th,
+body.stat-page .data-table td{
+  padding:7px 6px;
+  border-bottom:1px solid var(--panel-border);
+  vertical-align:top;
+}
+
+body.stat-page .data-table th{
+  font-weight:500;
+  opacity:0.7;
+}
+
+body.stat-page .data-table td small{
+  display:block;
+  opacity:0.65;
+  font-size:14px;
+}
+
+body.stat-page .calc{
+  direction:ltr;
+  text-align:center;
+  font-size:18px;
+  margin:14px 0;
+  padding:10px;
+  border-radius:10px;
+  font-family:'JetBrains Mono', monospace;
+  color:var(--num);
+  background:var(--code-bg);
+}
+
+body.stat-page .calc strong{
+  font-size:21px;
+}
+
+body.stat-page .ltr{
+  direction:ltr;
+  unicode-bidi:isolate;
+  display:inline-block;
+}
+
+body.stat-page .pause{
+  font-style:italic;
+  opacity:0.6;
+}
+
+body.stat-page .container .quote{
+  text-align:center;
+  font-size:22px;
+  font-weight:300;
+  margin:22px 0;
+}
+
+body.stat-page .next-line{
+  margin-top:22px;
+  opacity:0.7;
+}
+
+body.stat-page .hist{
+  display:block;
+  width:100%;
+  height:auto;
+  direction:ltr;
+  margin:14px 0 6px;
+}
+
+body.stat-page .hist .bar path{
+  fill:currentColor;
+  opacity:0.55;
+  transition:opacity 0.2s ease;
+}
+
+body.stat-page .hist .bar:hover path{
+  opacity:0.85;
+}
+
+body.stat-page .hist .axis{
+  stroke:currentColor;
+  stroke-width:1;
+  opacity:0.35;
+}
+
+body.stat-page .hist text{
+  fill:currentColor;
+  text-anchor:middle;
+  font-family:Arial, sans-serif;
+}
+
+body.stat-page .hist .val{ font-size:13px; font-weight:bold; opacity:0.85; }
+body.stat-page .hist .lbl{ font-size:12px; opacity:0.6; }
+body.stat-page .hist.small .val{ font-size:13px; }
+body.stat-page .hist.small .lbl{ font-size:12px; }
+
+body.stat-page .hist-pair{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin:14px 0 6px;
+}
+
+body.stat-page .hist-pair figure{
+  margin:0;
+}
+
+body.stat-page .hist-pair figcaption{
+  text-align:center;
+  font-size:14px;
+  opacity:0.65;
+}
+
+body.stat-page .hist-pair .hist{
+  margin:0 0 4px;
+}
+
+body.stat-page .section{
+  container-type:inline-size;
+}
+
+body.stat-page .numbers{
+  direction:ltr;
+  text-align:center;
+  font-size:16px;
+  /* הגופן מתכווץ לפי רוחב העמודה (עד 12px), כדי ששורת מספרים לא תישבר במסך קטן.
+     cqi = אחוז מרוחב ה-section (מוגדר כ-container למטה). דפדפן ישן נשאר על 16px. */
+  font-size:clamp(12px, calc((100cqi - 40px) / 17.5), 16px);
+  line-height:1.7;
+  margin:12px 0;
+  padding:10px;
+  border-radius:10px;
+  font-family:'JetBrains Mono', monospace;
+  color:var(--num);
+  background:var(--code-bg);
+  word-spacing:2px;
+}
+
+@media (max-width:600px){
+  body.stat-page .container{ grid-template-columns:1fr; }
+  body.stat-page .col{ gap:0; }
+  body.stat-page .col > .section:last-child{ border-bottom:none; }
+  body.stat-page .container > .col:last-child > .section:last-child{ border-bottom:1px solid var(--panel-border); }
+  body.stat-page .page-title{ font-size:34px; }
+  body.stat-page .container h2{ font-size:22px; }
+  body.stat-page .container p{ font-size:18px; }
+  body.stat-page .data-table{ font-size:15px; }
+}
+
+/* יישור לשני הצדדים ("כמו בעיתון") בפסקאות של עמודי המבוא ועמודי הפרוטוקולים.
+   :where שומר על משקל נמוך, כך ששורות שמוגדרות במפורש אחרת (למשל .final-line במרכז) נשארות כמו שהן. */
+:where(body.overview-page .section, body.proto-page .section) p{
+  text-align:justify;
+}
+
+/* טלפון: הכפתורים הצפים (בית, המרחב, מצב למידה) נעלמים בגלילה למטה
+   וחוזרים בגלילה למעלה. המחלקה floats-hidden נקבעת ב-waytosee.js,
+   ורק במסך טלפון (צר או נמוך). */
+@media (max-width: 600px), (max-height: 500px) {
+  #homeBtn,
+  #spaceBtn {
+    transition: color 0.8s ease, transform 0.3s ease, opacity 0.3s ease;
+  }
+  .focus-toggle {
+    transition: opacity 0.3s ease !important;
+  }
+  body.floats-hidden #homeBtn,
+  body.floats-hidden #spaceBtn,
+  body.floats-hidden .focus-toggle {
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+}
+
+/* ========================================
+   שורת זכויות יוצרים - נוצרת ב-waytosee.js בסוף כל דף.
+   יושבת בסוף התוכן ונגללת איתו (לא position:fixed), קטנה ועמומה.
+   הריווח התחתון משאיר מקום לכפתורים הצפים בתחתית המסך.
+   ======================================== */
+.wts-copyright{
+  position:relative;
+  z-index:5;
+  width:100%;
+  flex-basis:100%;
+  box-sizing:border-box;
+  padding:28px 16px 64px;
+  text-align:center;
+  font-size:11px;
+  letter-spacing:0.12em;
+  color:var(--text-dim);
+  opacity:0.56;
+  transition:color 0.8s ease;
+}
+@media (max-width: 600px), (max-height: 500px) {
+  .wts-copyright{
+    padding:22px 16px 56px;
+    font-size:10px;
+  }
+}
+
+/* ========================================
+   כפתור "הנושא הבא" - אותו משולש של כפתור הבית, הפוך (עומד על קודקודו),
+   בפינה השמאלית התחתונה. נוצר ב-waytosee.js רק בעמודים שיש להם המשך. */
+#nextBtn {
+  position: fixed;
+  bottom: 16px;
+  left: 26px;
+  right: auto;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(20, 20, 20, 0.68);
+  transition: color 0.8s ease, transform 0.3s ease;
+
+  text-decoration: none;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+#nextBtn svg {
+  display: block;
+}
+
+#nextBtn:hover {
+  transform: scale(1.08);
+}
+
+body.learning-mode #nextBtn {
+  color: rgba(240, 240, 240, 0.88);
+}
+
+/* כיתוב היעד - רק בפרקים של עמוד אחד, כשהכפתור מוביל לעמוד התחומים */
+#nextBtn .next-label {
+  font-family: 'Heebo', system-ui, sans-serif;
+  font-size: 13px;
+  opacity: 0.8;
+  white-space: nowrap;
+}
+
+@media (max-width: 600px), (max-height: 500px) {
+  #nextBtn {
+    left: 6px;
+    bottom: 10px;
+    transition: color 0.8s ease, transform 0.3s ease, opacity 0.3s ease;
+  }
+  body.floats-hidden #nextBtn {
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+  /* במסך מגע אין ריחוף: בלי הגדלה שנתקעת אחרי נגיעה */
+  #homeBtn:hover,
+  #nextBtn:hover,
+  #spaceBtn:hover {
+    transform: none;
+  }
+  /* שטח לחיצה קצת גדול יותר לאצבע (מתון, כדי שלא יהיו רגישים מדי): ריפוד שקוף מסביב, והשוליים השליליים
+     משאירים את המשולשים ואת הנקודות בדיוק באותו מקום על המסך */
+  #homeBtn,
+  #nextBtn,
+  #spaceBtn {
+    padding: 6px;
+    margin: -6px;
+  }
+}
+
+/* ========================================
+   טאבלט במצב מאוזן (מסך מגע רחב): כפתורי הניווט יושבים בפינות, והטקסט הגיע
+   עד הקצוות ונכנס מתחתם. כאן מרחיקים את התוכן מהצדדים, כך שלכפתורים
+   יש "שוליים" משלהם ואין התנגשות עם הטקסט. מחשב וטלפון לא מושפעים.
+   ======================================== */
+@media (pointer: coarse) and (orientation: landscape) and (min-width: 900px) and (max-width: 1400px) {
+  body {
+    padding-left: 64px !important;
+    padding-right: 64px !important;
+    box-sizing: border-box;
+  }
+}
+
+
+/* ========================================
+   גופן הכותרות: Varela Round, בכל האתר
+   כותרות הדפים, כותרות המשנה, הסיסמה "כשמבינים — רואים"
+   והכיתוב בדף הבית (Way To See והסיסמה שמתחתיו).
+   ל-Varela Round יש משקל אחד בלבד. font-synthesis:none מונע מהדפדפן
+   "לעבות" אותו באופן מלאכותי בכותרות שמוגדרות כעבות.
+   "body" לפני שמות המחלקות של דף הבית נותן לכלל הזה עדיפות
+   על הגופנים שמוגדרים מקומית ב-index.html.
+   ======================================== */
+h1, h2, h3, h4,
+.page-title,
+.motto,
+body .brand-en,
+body .brand-he{
+  font-family:'Varela Round', 'Heebo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-synthesis:none;
+}
+
+
+</style>
+
+<style>
+/* שלד העמוד נמצא ב-waytosee.css תחת body.stat-page. כאן רק הייחודי לעמוד הזה. */
+
+/* נוסחאות בכתיבה מתמטית (MathML), כמו בעמוד ציוני התקן */
+@font-face {
+  font-family: "WTS Math";
+  src: url("math-font.woff") format("woff");
+}
+math { font-family: "WTS Math", "Latin Modern Math", "Cambria Math", "STIX Two Math", math; }
+.formula-math { margin: 14px 0 6px; font-size: 21px; text-align: center; }
+.formula-math mfrac > * { math-style: normal; }
+
+/* מכפלה חיובית = ירוק זית, מכפלה שלילית = חום אדמה */
+.stat-page { --cpos: #8a9a5b; --cneg: #8b6b4a; }
+body.learning-mode { --cpos: #4fb3ff; --cneg: #b59cf2; }
+.pos { color: var(--cpos); font-weight: bold; }
+.neg { color: var(--cneg); font-weight: bold; }
+
+/* ===== דיאגרמות פיזור ===== */
+.scatter .pt { fill: currentColor; opacity: 0.8; }
+.scatter .grid { stroke: currentColor; stroke-width: 1; opacity: 0.12; }
+.scatter .mean { stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 4 3; }
+.scatter .rect.p { fill: var(--cpos); opacity: 0.22; stroke: var(--cpos); stroke-opacity: 0.6; }
+.scatter .rect.n { fill: var(--cneg); opacity: 0.22; stroke: var(--cneg); stroke-opacity: 0.6; }
+.scatter .drag { cursor: grab; }
+.scatter .drag:active { cursor: grabbing; }
+body.stat-page .scatter .axl { font-size: 11px; opacity: 0.7; direction: rtl; unicode-bidi: plaintext; }
+body.stat-page .scatter .meanl { font-size: 11px; font-weight: bold; fill: var(--accent); direction: rtl; unicode-bidi: plaintext; }
+body.stat-page .scatter .q { font-size: 15px; font-weight: bold; opacity: 0.55; }
+body.stat-page .scatter .q.p { fill: var(--cpos); }
+body.stat-page .scatter .q.n { fill: var(--cneg); }
+.scatter-trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 10px 0 4px; }
+.scatter-trio figure { margin: 0; }
+.scatter-trio figcaption { text-align: center; font-size: 13px; opacity: 0.75; line-height: 1.3; }
+.scatter-trio .hist { margin: 0 0 4px; }
+
+.center-table td, .center-table th { text-align: center; }
+.prod-table td, .prod-table th { text-align: center; padding: 4px 4px; }
+.prod-table { font-size: 15px; }
+/* מספרים שליליים: המינוס משמאל למספר */
+.prod-table td { direction: ltr; unicode-bidi: isolate; }
+
+.sb-out { font-size: 15px; line-height: 1.7; }
+.sb-out .ltr { font-family: 'JetBrains Mono', monospace; color: var(--num); }
+.sb-btns { display: flex; gap: 8px; justify-content: center; margin: 4px 0; }
+.sb-btns button {
+  font: inherit; font-size: 14px; color: var(--text);
+  background: var(--panel); border: 1px solid var(--panel-border);
+  border-radius: 999px; padding: 3px 14px; cursor: pointer;
+}
+.sb-btns button:hover { border-color: var(--accent); }
+</style>
+</head>
+
+<body class="stat-page">
+
+<div class="rain" id="rain"></div>
+
+<h1 class="page-title">האם שני דברים זזים יחד?</h1>
+<p class="page-subtitle">דיאגרמת פיזור ושונות משותפת</p>
+
+<div class="container">
+
+<div class="col">
+
+  <div class="section">
+    <h2>הצורך</h2>
+    <p><strong>האם סטודנטים שישנים יותר נוטים גם להשיג ציון גבוה יותר במטלת קשב?</strong></p>
+    <p>עד עכשיו תיארנו משתנה אחד בכל פעם. כאן לכל סטודנט יש שני מספרים: כמה שעות ישן, ואיזה ציון קיבל.</p>
+    <table class="data-table center-table">
+      <tr><th>שעות שינה</th><td>4</td><td>5</td><td>6</td><td>7</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
+      <tr><th>ציון קשב</th><td>58</td><td>62</td><td>70</td><td>68</td><td>72</td><td>74</td><td>78</td><td>78</td></tr>
+    </table>
+    <p>מהטבלה קשה לראות תשובה. צריך תמונה.</p>
+  </div>
+
+  <div class="section">
+    <h2>דיאגרמת פיזור</h2>
+    <p>כל נקודה היא סטודנט אחד. המיקום שלה לרוחב הוא שעות השינה, והגובה שלה הוא ציון הקשב.</p>
+    <svg class="hist scatter" id="scBasic" viewBox="0 0 320 210" role="img" aria-label="דיאגרמת פיזור של שמונה סטודנטים: ככל ששעות השינה עולות, ציון הקשב נוטה לעלות"></svg>
+    <p>הנקודות עולות משמאל לימין: מי שישן יותר נוטה לקבל ציון גבוה יותר. זה <strong>קשר חיובי</strong>. לא כל נקודה גבוהה מקודמתה, ולכן אומרים "נוטה".</p>
+  </div>
+
+  <div class="section">
+    <h2>שלושה דפוסים</h2>
+    <div class="scatter-trio">
+      <figure><svg class="hist scatter" id="trioPos" viewBox="0 0 120 100" aria-hidden="true"></svg><figcaption>קשר חיובי<br>שניהם עולים יחד</figcaption></figure>
+      <figure><svg class="hist scatter" id="trioNeg" viewBox="0 0 120 100" aria-hidden="true"></svg><figcaption>קשר שלילי<br>אחד עולה, השני יורד</figcaption></figure>
+      <figure><svg class="hist scatter" id="trioNone" viewBox="0 0 120 100" aria-hidden="true"></svg><figcaption>אין קשר<br>אין כיוון</figcaption></figure>
+    </div>
+    <p>לעין זה ברור. אבל איך הופכים את הכיוון הזה למספר?</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>קווים דרך שני הממוצעים</h2>
+    <p>ממוצע שעות השינה הוא 7, וממוצע הקשב הוא 70. מעבירים קו דרך כל אחד מהם, והדיאגרמה מתחלקת לארבעה רבעים.</p>
+    <svg class="hist scatter" id="scQuad" viewBox="0 0 320 210" role="img" aria-label="אותה דיאגרמה עם קו בממוצע 7 וקו בממוצע 70. כל הנקודות ברבעים הימני־עליון והשמאלי־תחתון, או על הקווים."></svg>
+    <p>מכל נקודה מודדים שתי סטיות: כמה היא רחוקה מממוצע השינה, וכמה מממוצע הקשב. אחר כך <strong>כופלים</strong> את שתיהן.</p>
+    <p>ימין־למעלה <span class="ltr">(+) × (+)</span>, ושמאל־למטה <span class="ltr">(−) × (−)</span>: מכפלה <span class="pos">חיובית</span>. בשני הרבעים האחרים: <span class="neg">שלילית</span>.</p>
+    <p>כל מכפלה היא השטח של מלבן, מהמפגש של שני הקווים ועד הנקודה.</p>
+  </div>
+
+  <div class="section">
+    <h2>שונות משותפת</h2>
+    <table class="data-table prod-table">
+      <tr><th>x</th><td>4</td><td>5</td><td>6</td><td>7</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
+      <tr><th>y</th><td>58</td><td>62</td><td>70</td><td>68</td><td>72</td><td>74</td><td>78</td><td>78</td></tr>
+      <tr><th><span class="ltr">x − 7</span></th><td>−3</td><td>−2</td><td>−1</td><td>0</td><td>0</td><td>1</td><td>2</td><td>3</td></tr>
+      <tr><th><span class="ltr">y − 70</span></th><td>−12</td><td>−8</td><td>0</td><td>−2</td><td>2</td><td>4</td><td>8</td><td>8</td></tr>
+      <tr><th>מכפלה</th><td class="pos">36</td><td class="pos">16</td><td>0</td><td>0</td><td>0</td><td class="pos">4</td><td class="pos">16</td><td class="pos">24</td></tr>
+    </table>
+    <p>ממצעים את המכפלות:</p>
+    <div class="calc">96 ÷ 8 = <strong>12</strong></div>
+    <p>הממוצע הזה נקרא <strong>שונות משותפת</strong> (קווריאנס):</p>
+    <div class="formula-math"><math display="block" dir="ltr"><mi>cov</mi><mo>(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>)</mo><mo>=</mo><mfrac><mrow><mo>∑</mo><mo>(</mo><mi>x</mi><mo>−</mo><mover><mi>x</mi><mo>¯</mo></mover><mo>)</mo><mo>(</mo><mi>y</mi><mo>−</mo><mover><mi>y</mi><mo>¯</mo></mover><mo>)</mo></mrow><mi>N</mi></mfrac></math></div>
+    <p><strong>הסימן הוא הכיוון:</strong> חיובי = קשר חיובי, שלילי = קשר שלילי, קרוב ל־0 = אין קשר בכיוון אחד.</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>הטוויסט: אותו קשר, מספר אחר</h2>
+    <p>נמדוד את השינה <strong>בדקות</strong> במקום בשעות. אף נקודה לא זזה, רק הסרגל של ציר x השתנה.</p>
+    <p>כל סטייה מהממוצע גדלה פי 60, ולכן גם כל מכפלה:</p>
+    <div class="calc">12 × 60 = <strong>720</strong></div>
+    <p>אותם סטודנטים, אותו קשר, ושונות משותפת גדולה פי 60. המספר תלוי ביחידות המדידה, ולכן <strong>הגודל שלו לא אומר כמה חזק הקשר</strong>. רק הסימן שלו אמין.</p>
+    <p>ועוד דבר: ואם במקום y שמים שוב את x? מקבלים ממוצע של <span class="ltr">(x − x̄)²</span>, כלומר את השונות הרגילה. מכאן השם.</p>
+  </div>
+
+  <div class="section">
+    <h2>ארגז חול</h2>
+    <p>גררו נקודות לרבעים אחרים, וראו איך המלבנים והשונות המשותפת משתנים. הקווים זזים עם הממוצעים.</p>
+    <svg class="hist scatter" id="scSb" viewBox="0 0 320 210" role="img" aria-label="דיאגרמת פיזור עם נקודות שאפשר לגרור, קווי ממוצע ומלבני מכפלות"></svg>
+    <div class="sb-btns">
+      <button type="button" id="sbReset">חזרה לנתונים</button>
+      <button type="button" id="sbFlip">היפוך הכיוון</button>
+    </div>
+    <div class="sb-out" id="sbOut"></div>
+  </div>
+
+  <div class="section">
+    <h2>לסיכום</h2>
+    <p>דיאגרמת פיזור מראה שני משתנים יחד. השונות המשותפת היא ממוצע מכפלות הסטיות משני הממוצעים, והסימן שלה אומר מה כיוון הקשר. הגודל שלה תלוי ביחידות, ולכן הוא לא מודד עוצמה.</p>
+    <p class="next-line">בדף הבא: איך משווים את עוצמת הקשר כשהמשתנים נמדדים ביחידות שונות? ← מתאם פירסון</p>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const NS = "http://www.w3.org/2000/svg";
+  const DATA = [[4,58],[5,62],[6,70],[7,68],[7,72],[8,74],[9,78],[10,78]];
+
+  // מיפוי: שעות 3 עד 11, ציון 50 עד 90
+  const L = 34, R = 308, T = 12, B = 176;
+  const X = x => L + (x - 3) * (R - L) / 8;
+  const Y = y => B - (y - 50) * (B - T) / 40;
+  const fx = px => 3 + (px - L) * 8 / (R - L);
+  const fy = py => 50 + (B - py) * 40 / (B - T);
+  const fmt = v => { const r = Math.round(v * 100) / 100; return (r < 0 ? "−" : "") + Math.abs(r); };
+
+  function add(svg, name, attrs, text) {
+    const e = document.createElementNS(NS, name);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    svg.appendChild(e);
+    return e;
+  }
+  const means = pts => [pts.reduce((s, p) => s + p[0], 0) / pts.length, pts.reduce((s, p) => s + p[1], 0) / pts.length];
+
+  // דיאגרמה מלאה: צירים, ואופציונלית קווי ממוצע, מלבנים ונקודות לגרירה
+  // הטקסט בתוויות מימין לשמאל, ולכן העוגנים הפוכים: end = הקצה השמאלי של הטקסט
+  function scatter(svg, pts, opt) {
+    svg.textContent = "";
+    for (let x = 4; x <= 10; x += 2) add(svg, "line", { class: "grid", x1: X(x), y1: T, x2: X(x), y2: B });
+    for (let y = 60; y <= 80; y += 10) add(svg, "line", { class: "grid", x1: L, y1: Y(y), x2: R, y2: Y(y) });
+    const [mx, my] = means(pts);
+    if (opt.rects) pts.forEach(([x, y]) => {
+      const p = (x - mx) * (y - my);
+      if (Math.abs(p) < 1e-9) return;
+      add(svg, "rect", {
+        class: "rect " + (p > 0 ? "p" : "n"),
+        x: Math.min(X(x), X(mx)), y: Math.min(Y(y), Y(my)),
+        width: Math.abs(X(x) - X(mx)), height: Math.abs(Y(y) - Y(my))
+      });
+    });
+    if (opt.means) {
+      add(svg, "line", { class: "mean", x1: X(mx), y1: T, x2: X(mx), y2: B });
+      add(svg, "line", { class: "mean", x1: L, y1: Y(my), x2: R, y2: Y(my) });
+      add(svg, "text", { class: "meanl", x: X(mx) + 4, y: T + 10, style: "text-anchor:end" }, "ממוצע " + fmt(mx));
+      add(svg, "text", { class: "meanl", x: R - 2, y: Y(my) - 4, style: "text-anchor:start" }, "ממוצע " + fmt(my));
+      if (opt.quads) {
+        add(svg, "text", { class: "q p", x: R - 14, y: T + 16 }, "+");
+        add(svg, "text", { class: "q p", x: L + 14, y: B - 8 }, "+");
+        add(svg, "text", { class: "q n", x: L + 14, y: T + 16 }, "−");
+        add(svg, "text", { class: "q n", x: R - 14, y: B - 8 }, "−");
+      }
+    }
+    add(svg, "line", { class: "axis", x1: L, y1: B, x2: R, y2: B });
+    add(svg, "line", { class: "axis", x1: L, y1: T, x2: L, y2: B });
+    for (let x = 4; x <= 10; x += 2) add(svg, "text", { class: "lbl", x: X(x), y: B + 13 }, x);
+    for (let y = 60; y <= 80; y += 10) add(svg, "text", { class: "lbl", x: L - 6, y: Y(y) + 4, style: "text-anchor:end" }, y);
+    add(svg, "text", { class: "axl", x: (L + R) / 2, y: B + 28 }, "שעות שינה");
+    add(svg, "text", { class: "axl", x: 8, y: (T + B) / 2, transform: "rotate(-90 8 " + (T + B) / 2 + ")" }, "ציון קשב");
+    pts.forEach(([x, y], i) => {
+      const c = add(svg, "circle", { class: "pt" + (opt.drag ? " drag" : ""), cx: X(x), cy: Y(y), r: opt.drag ? 6 : 4.5 });
+      c.dataset.i = i;
+      const t = document.createElementNS(NS, "title"); t.textContent = x + " שעות, ציון " + y; c.appendChild(t);
+    });
+  }
+
+  scatter($("scBasic"), DATA, {});
+  scatter($("scQuad"), DATA, { means: true, rects: true, quads: true });
+
+  // שלוש דוגמאות קטנות
+  function mini(svg, pts) {
+    const x0 = 10, x1 = 112, y0 = 8, y1 = 90;
+    add(svg, "line", { class: "axis", x1: x0, y1: y1, x2: x1, y2: y1 });
+    add(svg, "line", { class: "axis", x1: x0, y1: y0, x2: x0, y2: y1 });
+    pts.forEach(([a, b]) => add(svg, "circle", { class: "pt", cx: x0 + a * (x1 - x0), cy: y1 - b * (y1 - y0), r: 3 }));
+  }
+  mini($("trioPos"), [[.1,.15],[.2,.3],[.3,.25],[.4,.45],[.5,.5],[.6,.55],[.7,.72],[.8,.7],[.9,.88]]);
+  mini($("trioNeg"), [[.1,.85],[.2,.8],[.3,.7],[.4,.6],[.5,.55],[.6,.4],[.7,.35],[.8,.2],[.9,.15]]);
+  mini($("trioNone"), [[.1,.5],[.2,.2],[.3,.8],[.4,.4],[.5,.65],[.6,.25],[.7,.75],[.8,.45],[.9,.3]]);
+
+  // ===== ארגז חול: נקודות לגרירה =====
+  const svg = $("scSb");
+  let pts = DATA.map(p => p.slice());
+  let dragI = -1;
+  function draw() {
+    scatter(svg, pts, { means: true, rects: true, quads: true, drag: true });
+    const [mx, my] = means(pts);
+    let pos = 0, neg = 0;
+    pts.forEach(([x, y]) => { const p = (x - mx) * (y - my); if (p > 0) pos += p; else neg += p; });
+    const cov = (pos + neg) / pts.length;
+    const dir = Math.abs(cov) < 0.5 ? "קרוב ל־0: אין כיוון ברור." : cov > 0 ? "חיובית: קשר חיובי." : "שלילית: קשר שלילי.";
+    $("sbOut").innerHTML =
+      'סכום המכפלות החיוביות: <span class="ltr pos">' + fmt(pos) + '</span> &nbsp;·&nbsp; השליליות: <span class="ltr neg">' + fmt(neg) + "</span>" +
+      '<br>שונות משותפת: <span class="ltr">(' + fmt(pos) + " + " + (neg < -1e-9 ? "(" + fmt(neg) + ")" : "0") + ") ÷ " + pts.length + " = <strong>" + fmt(cov) + "</strong></span>" +
+      "<br>השונות המשותפת " + dir;
+  }
+  function toData(evt) {
+    const r = svg.getBoundingClientRect();
+    const px = (evt.clientX - r.left) * 320 / r.width, py = (evt.clientY - r.top) * 210 / r.height;
+    return [Math.max(3.2, Math.min(10.8, Math.round(fx(px) * 2) / 2)), Math.max(51, Math.min(89, Math.round(fy(py))))];
+  }
+  svg.addEventListener("pointerdown", e => {
+    if (e.target.dataset && e.target.dataset.i != null) {
+      dragI = +e.target.dataset.i;
+      svg.setPointerCapture(e.pointerId);
+      e.preventDefault();
+    }
+  });
+  svg.addEventListener("pointermove", e => { if (dragI >= 0) { pts[dragI] = toData(e); draw(); } });
+  const stop = () => { dragI = -1; };
+  svg.addEventListener("pointerup", stop);
+  svg.addEventListener("pointercancel", stop);
+  svg.style.touchAction = "none";
+  $("sbReset").addEventListener("click", () => { pts = DATA.map(p => p.slice()); draw(); });
+  $("sbFlip").addEventListener("click", () => { pts = pts.map(([x, y]) => [x, 140 - y]); draw(); });
+  draw();
+})();
+</script>
+
+<script>
+  // המשולש מחזיר לרשימת הנושאים של הסטטיסטיקה.
+  window.waytoseeParentOverride = "statistika/statistika.html";
+</script>
+<script>
+// קנה מידה למסכי מחשב רחבים: הקוד גר ב-waytosee-scale.js (באותה תיקייה),
+// ונטען מכאן מיד, לפני שהעמוד מוצג.
+if (!window.__wtsScaleReady && document.currentScript) {
+  const scaleSrc = document.currentScript.src.replace(/waytosee\.js(\?.*)?$/, "waytosee-scale.js");
+  document.write('<script src="' + scaleSrc + '"><\/script>');
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  // שורת זכויות יוצרים בסוף כל דף שמחובר למערכת העצבים המרכזית.
+  // יושבת בסוף התוכן (לא מקובעת למסך), כך שהיא זזה עם הגלילה ולא מכסה טקסט.
+  // שלוחה (למשל research.js) יכולה להחליף את השם דרך window.waytoseeCopyrightOwner.
+  // נוצרת לפני עטיפת הספרות, כדי שגם השנה תקבל את פונט הספרות של האתר.
+  // מוצגת רק בעמוד תחומי הדעת (professions.html).
+  const isTopicsPage = /\/professions(\.html)?$/.test(location.pathname);
+  if (isTopicsPage && !document.getElementById("wtsCopyright")) {
+    const copyright = document.createElement("footer");
+    copyright.id = "wtsCopyright";
+    copyright.className = "wts-copyright";
+    copyright.setAttribute("dir", "ltr");
+    const owner = window.waytoseeCopyrightOwner || "WayToSee";
+    copyright.textContent = "\u00A9 2026 " + owner;
+    document.body.appendChild(copyright);
+  }
+
+  // ספרות בפונט JetBrains Mono בכל האתר - כל רצף ספרות בטקסט עוטף ב-<span class="wts-digit">
+  // (בתוך גרפי SVG - ב-<tspan>). העיצוב עצמו גר ב-waytosee.css (.wts-digit).
+  // לא נוגעים בתוך script / style / textarea / code / pre, ולא עוטפים פעמיים.
+  // וגם לא בתוך נוסחאות (<math>): שם הספרות נשארות בגופן המתמטי של הנוסחה.
+  (function wrapDigits(root) {
+    if (!root) return;
+    const SVG_NS = "http://www.w3.org/2000/svg";
+    const DIGITS = /\d+(?:[.,:]\d+)*%?/g;
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        if (!/\d/.test(node.nodeValue)) return NodeFilter.FILTER_REJECT;
+        const parent = node.parentElement;
+        if (!parent || parent.closest("script, style, textarea, code, pre, noscript, math, .wts-digit")) {
+          return NodeFilter.FILTER_REJECT;
+        }
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach((node) => {
+      const text = node.nodeValue;
+      const inSvg = node.parentElement.namespaceURI === SVG_NS;
+      const fragment = document.createDocumentFragment();
+      let last = 0;
+      text.replace(DIGITS, (match, offset) => {
+        if (offset > last) fragment.appendChild(document.createTextNode(text.slice(last, offset)));
+        const wrap = inSvg ? document.createElementNS(SVG_NS, "tspan") : document.createElement("span");
+        wrap.setAttribute("class", "wts-digit");
+        wrap.textContent = match;
+        fragment.appendChild(wrap);
+        last = offset + match.length;
+        return match;
+      });
+      if (last < text.length) fragment.appendChild(document.createTextNode(text.slice(last)));
+      node.parentNode.replaceChild(fragment, node);
+    });
+  })(document.body);
+
+
+  // רקע "גשם" עדין - רק בעמודים שכוללים ב-HTML <div class="rain" id="rain">.
+  // ה-CSS (.rain / .drop / @keyframes rain) גר ב-waytosee.css; כאן רק יוצרים
+  // את 150 הטיפות בפעם הראשונה שהעמוד נטען.
+  const rainContainer = document.getElementById("rain");
+  if (rainContainer && !rainContainer.dataset.waytoseeRainReady) {
+    rainContainer.dataset.waytoseeRainReady = "true";
+    for (let i = 0; i < 150; i++) {
+      const drop = document.createElement("div");
+      drop.classList.add("drop");
+      drop.style.left = Math.random() * 100 + "vw";
+      drop.style.top = Math.random() * -120 + "vh";
+      drop.style.animationDuration = (5.2 + Math.random() * 7.2) + "s";
+      drop.style.opacity = 0.07 + Math.random() * 0.14;
+      drop.style.height = 46 + Math.random() * 95 + "px";
+      drop.style.animationDelay = Math.random() * -8 + "s";
+      rainContainer.appendChild(drop);
+    }
+  }
+
+  const skipFocusSetup = window.waytoseeSkipFocusSetup === true;
+  const mainScript =
+    document.querySelector('script[src$="waytosee.js"]');
+  const homeAddress = window.waytoseeHomeOverride || (mainScript
+    ? new URL("index.html", mainScript.src).href
+    : "../index.html");
+  let homeButton = document.getElementById("homeBtn");
+  if (!homeButton) {
+    homeButton = document.createElement("a");
+    homeButton.id = "homeBtn";
+    document.body.appendChild(homeButton);
+  }
+  homeButton.innerHTML = `<svg viewBox="0 0 100 78" width="30" height="24" fill="currentColor" aria-hidden="true">
+    <polygon class="home-seg home-seg-1" points="50.00,14.00 32.85,43.70 40.39,45.15 50.00,28.50"/>
+    <polygon class="home-seg home-seg-2" points="21.42,63.50 55.72,63.50 53.20,56.25 33.98,56.25"/>
+    <polygon class="home-seg home-seg-3" points="78.58,63.50 61.43,33.80 56.41,39.60 66.02,56.25"/>
+  </svg>`;
+  homeButton.href = homeAddress;
+
+  // מפת ההורים של כל דף במבנה האתר - מרוכזת כאן במקום אחד ("מערכת העצבים
+  // המרכזית") במקום שכל דף יצטרך להצהיר על ההורה שלו בנפרד. המפתח הוא
+  // הנתיב היחסי לתיקיית השורש של האתר (איפה ש-waytosee.js נמצא, באותיות
+  // קטנות), הערך הוא הנתיב היחסי לאותה תיקיית שורש של דף ה"הורה".
+  const PARENT_MAP = {
+    "professions.html": "index.html",
+    "intro.html": "professions.html",
+    "statistika/statistika.html": "professions.html",
+    "statistika/statistika-introduction.html": "statistika/statistika.html",
+    "statistika/statistika-scales.html": "statistika/statistika.html",
+    "statistika/statistika-data-display.html": "statistika/statistika.html",
+    "statistika/statistika-mean.html": "statistika/statistika.html",
+    "statistika/statistika-median.html": "statistika/statistika.html",
+    "statistika/statistika-mode.html": "statistika/statistika.html",
+    "statistika/statistika-relative.html": "statistika/statistika.html",
+    "statistika/statistika-shape.html": "statistika/statistika.html",
+    "statistika/statistika-loss.html": "statistika/statistika.html",
+    "statistika/statistika-dispersion.html": "statistika/statistika.html",
+    "philosophia/philosophia-introduction.html": "professions.html",
+    "psychologia/psychologia-introduction.html": "professions.html",
+    "astrophysica/astrophysica-introduction.html": "professions.html",
+    "ai/ai-introduction.html": "professions.html",
+    "arp/arp.html": "intro.html",
+    "tcp/tcp.html": "intro.html",
+    "udp/udp.html": "intro.html",
+    "ports/ports.html": "intro.html",
+    "dns/dns.html": "intro.html",
+    "gateway/gateway.html": "intro.html",
+    "icmp/icmp.html": "intro.html",
+    "dhcp/dhcp.html": "intro.html",
+    "ip/ip.html": "intro.html",
+    "subnet/index.html": "intro.html",
+    "nat/index.html": "intro.html",
+    "internet/internet.html": "intro.html",
+    "ccna-introduction/ccna-introduction.html": "intro.html",
+  };
+
+  // נתיב הדף הנוכחי יחסית לתיקיית השורש של האתר
+  const rootDirURL = mainScript ? new URL(".", mainScript.src) : null;
+  // כתובת בלי ".html" בסוף (למשל waytosee.io/ip/ip, כפי שהאתר החי מאפשר) מושלמת ל-ip/ip.html,
+  // כדי שכפתור הבית וכפתור "הנושא הבא" יזהו את העמוד גם כשנכנסים אליו כך
+  let currentRelativePath = rootDirURL
+    ? decodeURIComponent(location.pathname.slice(rootDirURL.pathname.length)).toLowerCase()
+    : "";
+  if (currentRelativePath && !currentRelativePath.endsWith("/") &&
+      !/\.[a-z0-9]+$/.test(currentRelativePath.split("/").pop())) {
+    currentRelativePath += ".html";
+  }
+
+  // כפתור הבית עולה שלב אחד קבוע במבנה האתר (לא תלוי בהיסטוריית דפדפן,
+  // כדי שזה יעבוד תמיד באותו אופן, גם אם נכנסו ישר לעמוד). ההורה נקבע
+  // לפי PARENT_MAP למעלה, או לפי window.waytoseeParentOverride אם הוצהר
+  // ידנית בעמוד מסוים (נתיב יחסי לשורש האתר). אם אין הורה ידוע - חוזרים
+  // להיסטוריית הדפדפן כברירת מחדל (למשל בעמוד "המרחב").
+  const parentRelativePath =
+    window.waytoseeParentOverride || PARENT_MAP[currentRelativePath] || null;
+  const parentAddress = parentRelativePath
+    ? (rootDirURL ? new URL(parentRelativePath, rootDirURL).href : parentRelativePath)
+    : null;
+  homeButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (parentAddress) {
+      window.location.href = parentAddress;
+    } else if (window.history.length > 1) {
+      window.history.back();
+    } else {
+      window.location.href = homeAddress;
+    }
+  });
+
+  // כפתור "הנושא הבא" - המשולש ההפוך (עומד על קודקודו) בפינה השמאלית התחתונה.
+  // כל פרק הוא רשימה לפי הסדר הפדגוגי. בעמוד האחרון בפרק הכפתור מוביל לעמוד
+  // הנושאים של הפרק (ולא שלב אחורה). תחנות חשיבה ועמודי משנה חוזרים לעמוד האב שלהם.
+  // נתיבים יחסיים לתיקיית השורש של האתר, בדיוק כמו שמות התיקיות (האתר החי מבחין
+  // בין אותיות גדולות לקטנות). ההשוואה לעמוד הנוכחי נעשית באותיות קטנות.
+  const NEXT_CHAPTERS = [
+    { // סטטיסטיקה
+      home: "statistika/statistika.html",
+      pages: [
+        "statistika/statistika-introduction.html",
+        "statistika/statistika-scales.html",
+        "statistika/statistika-data-display.html",
+        "statistika/statistika-mean.html",
+        "statistika/statistika-median.html",
+        "statistika/statistika-mode.html",
+        "statistika/statistika-dispersion.html",
+        "statistika/statistika-relative.html",
+        "statistika/statistika-zscores.html",
+        "statistika/statistika-shape.html",
+        "statistika/statistika-loss.html",
+      ],
+    },
+    { // רשתות: כתובת ← זיהוי הרשת המקומית ← MAC ← ARP ← שער יציאה ← DHCP ← ...
+      home: "intro.html",
+      pages: [
+        "ccna-introduction/ccna-introduction.html",
+        "internet/internet.html",
+        "ip/ip.html",
+        "subnet/index.html",
+        "MAC/mac.html",
+        "ARP/arp.html",
+        "Gateway/gateway.html",
+        "DHCP/dhcp.html",
+        "ICMP/icmp.html",
+        "TCP/tcp.html",
+        "UDP/udp.html",
+        "Ports/ports.html",
+        "DNS/dns.html",
+        "NAT/index.html",
+      ],
+    },
+    { // בינה מלאכותית
+      home: "ai/ai.html",
+      pages: [
+        "ai/ai-introduction.html",
+        "ai/ai-consciousness-ethics.html",
+        "ai/ai-waytohear.html",
+        "ai/ai-self-research.html",
+        "ai/ai-waytoplay.html",
+      ],
+    },
+    // פרקים של עמוד אחד (עדיין אין להם עמוד נושאים): מובילים לעמוד התחומים, עם כיתוב
+    { home: "professions.html", homeLabel: "לעמוד התחומים", pages: ["philosophia/philosophia-introduction.html"] },
+    { home: "professions.html", homeLabel: "לעמוד התחומים", pages: ["psychologia/psychologia-introduction.html"] },
+    { home: "professions.html", homeLabel: "לעמוד התחומים", pages: ["astrophysica/astrophysica-introduction.html"] },
+  ];
+  // תחנות חשיבה ועמודי משנה: חוזרים לעמוד האב
+  const NEXT_RETURN = {
+    "statistika/statistika-thinking-sd.html": "statistika/statistika-dispersion.html",
+    "statistika/statistika-thinking-z.html": "statistika/statistika-zscores.html",
+    "ai/ai-self-research-log.html": "ai/ai-self-research.html",
+  };
+
+  // כתובת שנגמרת ב-/ (למשל subnet/) היא בעצם index.html שבתוכה
+  const nextLookupPath = currentRelativePath === "" || currentRelativePath.endsWith("/")
+    ? currentRelativePath + "index.html"
+    : currentRelativePath;
+  let nextTarget = NEXT_RETURN[nextLookupPath] || null;
+  let nextLabel = "";
+  if (!nextTarget) {
+    for (const chapter of NEXT_CHAPTERS) {
+      const i = chapter.pages.findIndex((p) => p.toLowerCase() === nextLookupPath);
+      if (i === -1) continue;
+      if (i < chapter.pages.length - 1) {
+        nextTarget = chapter.pages[i + 1];
+      } else {
+        nextTarget = chapter.home;
+        nextLabel = chapter.homeLabel || "";
+      }
+      break;
+    }
+  }
+  if (nextTarget && rootDirURL) {
+    const nextButton = document.createElement("a");
+    nextButton.id = "nextBtn";
+    nextButton.href = new URL(nextTarget, rootDirURL).href;
+    nextButton.setAttribute("aria-label", nextLabel || "לנושא הבא");
+    nextButton.innerHTML = `<svg viewBox="0 0 100 78" width="30" height="24" fill="currentColor" aria-hidden="true">
+    <g transform="rotate(180 50 38.75)">
+      <polygon class="home-seg home-seg-1" points="50.00,14.00 32.85,43.70 40.39,45.15 50.00,28.50"/>
+      <polygon class="home-seg home-seg-2" points="21.42,63.50 55.72,63.50 53.20,56.25 33.98,56.25"/>
+      <polygon class="home-seg home-seg-3" points="78.58,63.50 61.43,33.80 56.41,39.60 66.02,56.25"/>
+    </g>
+  </svg>` + (nextLabel ? `<span class="next-label">${nextLabel}</span>` : "");
+    document.body.appendChild(nextButton);
+  }
+
+  const currentFile = (location.pathname.split("/").pop() || "").toLowerCase();
+
+  // כפתור מעבר לעמוד "המרחב" - בכל עמוד חוץ מעמוד הנושאים (intro.html) ועמוד המקצועות (professions.html)
+  // בתוך המרחב עצמו - אותו כפתור (שלוש הנקודות) נשאר מוצג, אבל לחיצה עליו חוזרת אחורה
+  // בדיוק כמו כפתור הבית - כניסה למרחב ויציאה ממנו באותו כפתור
+  if (currentFile !== "intro.html" && currentFile !== "professions.html") {
+    let spaceButton = document.getElementById("spaceBtn");
+    if (!spaceButton) {
+      spaceButton = document.createElement("a");
+      spaceButton.id = "spaceBtn";
+      spaceButton.setAttribute("aria-label", "המרחב");
+      spaceButton.innerHTML = `<svg viewBox="0 0 64 24" width="30" height="14" aria-hidden="true">
+        <circle class="space-dot space-dot-3" cx="10" cy="12" r="5" opacity="0.35"/>
+        <circle class="space-dot space-dot-2" cx="32" cy="12" r="5" opacity="0.65"/>
+        <circle class="space-dot space-dot-1" cx="54" cy="12" r="5" opacity="1"/>
+      </svg>`;
+      document.body.appendChild(spaceButton);
+    }
+    if (currentFile === "merchav.html") {
+      spaceButton.href = homeAddress;
+      spaceButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (window.history.length > 1) {
+          window.history.back();
+        } else {
+          window.location.href = homeAddress;
+        }
+      });
+    } else {
+      spaceButton.href = mainScript
+        ? new URL("merchav.html", mainScript.src).href
+        : "../merchav.html";
+    }
+  }
+
+  // טלפון: הכפתורים הצפים נעלמים בזמן גלילה (למעלה או למטה), וחוזרים
+  // רגע אחרי שהטקסט נעצר. כך הם לא מסתירים טקסט בזמן קריאה, ותמיד זמינים
+  // כשעוצרים, גם בסוף העמוד (שם צריך את "הנושא הבא"). במחשב ובטאבלט - אין שינוי.
+  const phoneScreen = window.matchMedia("(max-width: 600px), (max-height: 500px)");
+  let scrollStopTimer = null;
+  let lastScrollAt = 0;
+  function showFloats() {
+    clearTimeout(scrollStopTimer);
+    document.body.classList.remove("floats-hidden");
+  }
+  function showFloatsSoon(delay) {
+    clearTimeout(scrollStopTimer);
+    scrollStopTimer = setTimeout(showFloats, delay);
+  }
+  window.addEventListener("scroll", () => {
+    if (!phoneScreen.matches) { showFloats(); return; }
+    lastScrollAt = Date.now();
+    document.body.classList.add("floats-hidden");
+    showFloatsSoon(250);
+  }, { passive: true });
+  // גיבוי, כדי שהכפתורים תמיד יחזרו: כשהדפדפן מודיע שהגלילה נגמרה,
+  // וכשהאצבע עוזבת את המסך
+  window.addEventListener("scrollend", showFloats);
+  window.addEventListener("touchend", () => showFloatsSoon(400), { passive: true });
+
+  // פחות רגישים בטלפון: לחיצה שמגיעה מיד אחרי גלילה (למשל נגיעה כדי לעצור
+  // את הגלילה) לא מפעילה את הכפתורים
+  document.addEventListener("click", (e) => {
+    if (!phoneScreen.matches) return;
+    if (!e.target.closest || !e.target.closest("#homeBtn, #nextBtn, #spaceBtn")) return;
+    if (Date.now() - lastScrollAt < 400) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    }
+  }, true);
+
+  let flickerTimeout = null;
+
+  // מספר הפעימות בכל הבהוב: 1, 2 או 3. בכל סבב שלושתם מופיעים פעם אחת,
+  // בסדר אקראי, ואותו מספר לא חוזר פעמיים ברצף.
+  let flashBag = [];
+  let lastFlashCount = 0;
+  function nextFlashCount() {
+    if (flashBag.length === 0) {
+      flashBag = [1, 2, 3].sort(() => Math.random() - 0.5);
+      if (flashBag[flashBag.length - 1] === lastFlashCount) flashBag.reverse();
+    }
+    lastFlashCount = flashBag.pop();
+    return lastFlashCount;
+  }
+
+  // אילו רכיבים מהבהבים: כל רכיב בתוכן העמוד שיש בו טקסט ישיר, חוץ מכותרות,
+  // גרפים (svg), כפתורים ושדות, ורכיבים שכבר יש להם אנימציה משלהם.
+  // .container / .grid - התוכן ברוב העמודים. (בלי המרחב ובלי תחנות החשיבה - שם אין הבהוב.)
+  const FLASH_AREAS = ".container, .grid";
+  const FLASH_SKIP = "h1, h2, h3, h4, h5, h6, svg, script, style, button, input, textarea, select, .page-title";
+  function flashTargets() {
+    const targets = [];
+    document.querySelectorAll(FLASH_AREAS).forEach((area) => {
+      if (area.parentElement && area.parentElement.closest(FLASH_AREAS)) return;
+      area.querySelectorAll("*").forEach((el) => {
+        if (el.closest(FLASH_SKIP)) return;
+        const hasText = [...el.childNodes].some((n) => n.nodeType === 3 && n.nodeValue.trim());
+        if (!hasText) return;
+        const anim = getComputedStyle(el).animationName;
+        if (anim && anim !== "none" && !el.classList.contains("wts-flash")) return;
+        targets.push(el);
+      });
+    });
+    return targets;
+  }
+
+  function scheduleFlicker() {
+    // הבהוב מהיר כמו התחשמלות: כל פעימה קצרה וקבועה, ורק מספר הפעימות משתנה.
+    // בטלפון הפעימה קצת ארוכה יותר, כדי שתיראה.
+    const isPhone = window.matchMedia("(max-width: 600px), (max-height: 500px)").matches;
+    const cycleMs = isPhone ? 100 : 80;
+    const count = nextFlashCount(); // 1, 2 או 3 פעימות, בסדר משתנה
+    const root = document.documentElement;
+    root.style.setProperty("--flash-cycle", cycleMs + "ms");
+    root.style.setProperty("--flash-count", count);
+    const targets = flashTargets();
+    targets.forEach((el) => el.classList.remove("wts-flash"));
+    void root.offsetWidth; // מאפס את האנימציה כדי שתתחיל מחדש
+    targets.forEach((el) => el.classList.add("wts-flash"));
+    setTimeout(() => targets.forEach((el) => el.classList.remove("wts-flash")), cycleMs * count);
+    const nextDelay = 1625 + Math.random() * 5680; // בין 1.6 ל-7.3 שניות (הורד ב-30% ואז בעוד 12%)
+    flickerTimeout = setTimeout(scheduleFlicker, nextDelay);
+  }
+
+  function stopFlicker() {
+    if (flickerTimeout) {
+      clearTimeout(flickerTimeout);
+      flickerTimeout = null;
+    }
+  }
+
+  // ההבהוב פועל בכל עמוד שנמצא במצב כהה, גם בעמודים שמנהלים את כפתור
+  // מפתח הפה בעצמם (כמו ARP והאינטרנט): עוקבים אחרי הקלאס learning-mode.
+  // בעמודים עם כפתור מפתח הפה המרכזי, ההבהוב רק במצב "כהה + רעש":
+  // בלחיצה השנייה, כשהרעש נפסק, גם ההבהוב נפסק (flickerAllowed נקבע ב-applyMode).
+  let flickerAllowed = true;
+  function syncFlicker() {
+    const dark = document.body.classList.contains("learning-mode") && flickerAllowed;
+    if (dark && !flickerTimeout) scheduleFlicker();
+    if (!dark && flickerTimeout) stopFlicker();
+  }
+  new MutationObserver(syncFlicker).observe(document.body, { attributes: true, attributeFilter: ["class"] });
+  syncFlicker();
+
+  if (skipFocusSetup) return;
+  let focusButton = document.getElementById("focusBtn");
+  if (!focusButton) {
+    focusButton = document.createElement("button");
+    focusButton.className = "focus-toggle";
+    focusButton.id = "focusBtn";
+    document.body.appendChild(focusButton);
+  }
+  const clefAddress = mainScript
+    ? new URL("waytosee-clef.png", mainScript.src).href
+    : "../waytosee-clef.png";
+  focusButton.innerHTML = `<img src="${clefAddress}" alt="מפתח פה">`;
+  let brownNoise = document.getElementById("brownNoise");
+  if (!brownNoise) {
+    brownNoise = document.createElement("audio");
+    brownNoise.id = "brownNoise";
+    brownNoise.loop = true;
+    brownNoise.preload = "auto";
+    const scriptPath = mainScript
+      ? mainScript.getAttribute("src")
+      : "../waytosee.js";
+    brownNoise.src = scriptPath.replace("waytosee.js", "brown-noise.mp3");
+    document.body.appendChild(brownNoise);
+  }
+  function fadeAudio(audio, targetVolume, duration) {
+    const steps = 24;
+    const startVolume = audio.volume;
+    const difference = targetVolume - startVolume;
+    let step = 0;
+    const interval = setInterval(() => {
+      step++;
+      audio.volume = Math.max(0, Math.min(1, startVolume + difference * (step / steps)));
+      if (step >= steps) {
+        clearInterval(interval);
+        audio.volume = targetVolume;
+        if (targetVolume === 0) {
+          audio.pause();
+        }
+      }
+    }, duration / steps);
+  }
+  function startBrownNoise() {
+    if (!brownNoise) return;
+    brownNoise.volume = 0;
+    brownNoise
+      .play()
+      .then(() => {
+        fadeAudio(brownNoise, 0.60, 1600);
+      })
+      .catch((error) => {
+        console.warn("שגיאת שמע:", error.message, brownNoise.src);
+      });
+  }
+  function stopBrownNoise() {
+    if (!brownNoise) return;
+    fadeAudio(brownNoise, 0, 900);
+  }
+
+  // כפתור תודעת למידה (מפתח פה) עובר בין שלושה מצבים, בסבב:
+  // "off"   = מצב רגיל (בהיר)
+  // "on"    = כהה + רעש
+  // "quiet" = כהה בלי רעש
+  // לחיצה: רגיל → כהה + רעש → כהה בלי רעש → רגיל
+  const MODE_ORDER = ["off", "on", "quiet"];
+  let currentMode = localStorage.getItem("waytoseeLearningMode");
+  if (!MODE_ORDER.includes(currentMode)) currentMode = "off";
+
+  function applyMode(mode, previousMode) {
+    const isDark = mode !== "off";
+    const wasDark = previousMode !== undefined && previousMode !== "off";
+    const wasNoise = previousMode === "on";
+    flickerAllowed = mode === "on";
+    document.body.classList.toggle("learning-mode", isDark);
+    // תמונת הרקע מופיעה רק במצב "כהה + רעש". במעבר ל"כהה בלי רעש" היא נעלמת בהדרגה, כמו הרעש
+    document.body.classList.toggle("lbg-on", mode === "on");
+    // במצב "כהה בלי רעש" גם הגשם נעלם (העיצוב ב-waytosee.css)
+    document.body.classList.toggle("mode-quiet", mode === "quiet");
+    syncFlicker();
+    focusButton.classList.toggle("active", isDark);
+    if (mode === "on" && !wasNoise) startBrownNoise();
+    if (mode !== "on" && wasNoise) stopBrownNoise();
+  }
+
+  applyMode(currentMode);
+  focusButton.addEventListener("click", () => {
+    const previousMode = currentMode;
+    currentMode = MODE_ORDER[(MODE_ORDER.indexOf(currentMode) + 1) % MODE_ORDER.length];
+    localStorage.setItem("waytoseeLearningMode", currentMode);
+    applyMode(currentMode, previousMode);
+  });
+});
+
+</script>
+</body>
+</html>
