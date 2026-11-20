@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script src="../waytosee-analytics.js"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>מתאם ספירמן: קשר בין דירוגים | WayToSee</title>
+<meta name="description" content="מתאם ספירמן: איך מודדים קשר בין שני דירוגים, למה הוא פשוט פירסון על הדירוגים, איך מחשבים אותו מהפרשי הדירוג, ומה עושים כששתי תצפיות חולקות מקום.">
+
+<link rel="stylesheet" href="../waytosee.css">
+
+<style>
+/* שלד העמוד נמצא ב-waytosee.css תחת body.stat-page. כאן רק הייחודי לעמוד הזה. */
+
+@font-face {
+  font-family: "WTS Math";
+  src: url("math-font.woff") format("woff");
+}
+math { font-family: "WTS Math", "Latin Modern Math", "Cambria Math", "STIX Two Math", math; }
+.formula-math { margin: 14px 0 6px; font-size: 21px; text-align: center; }
+.formula-math mfrac > * { math-style: normal; }
+
+.center-table td, .center-table th { text-align: center; }
+.rank-table td, .rank-table th { text-align: center; padding: 5px 4px; }
+.rank-table { font-size: 15px; }
+.rank-table td.seq { direction: ltr; unicode-bidi: isolate; white-space: nowrap; }
+
+body.stat-page .container h3 { font-size: 19px; margin: 16px 0 6px; font-weight: 700; color: var(--text); }
+.bridge { text-align: center; font-size: 20px; font-weight: bold; margin: 14px 0; }
+.mini-q { font-weight: bold; }
+</style>
+</head>
+
+<body class="stat-page">
+
+<div class="rain" id="rain"></div>
+
+<h1 class="page-title">קשר בין דירוגים</h1>
+<p class="page-subtitle">מתאם ספירמן</p>
+
+<div class="container">
+
+<div class="col">
+
+  <div class="section">
+    <h2>הצורך</h2>
+    <p><strong>האם שני שופטים רואים את אותו סדר?</strong></p>
+    <p>שני שופטים דירגו חמישה מתמודדים. אצל שניהם, 1 הוא הדירוג הטוב ביותר.</p>
+    <table class="data-table center-table">
+      <tr><th>מתמודד</th><th>המקום אצל שופט א׳</th><th>המקום אצל שופט ב׳</th></tr>
+      <tr><td>א</td><td>1</td><td>1</td></tr>
+      <tr><td>ב</td><td>2</td><td>3</td></tr>
+      <tr><td>ג</td><td>3</td><td>2</td></tr>
+      <tr><td>ד</td><td>4</td><td>4</td></tr>
+      <tr><td>ה</td><td>5</td><td>5</td></tr>
+    </table>
+    <p>השופטים מסכימים לגבי המקום הראשון, הרביעי והחמישי. רק שני מתמודדים החליפו מקומות.</p>
+    <p><strong>איך נהפוך את הדמיון בין שני הסדרים למספר?</strong></p>
+    <p>מהדירוג יודעים מי לפני מי, אבל לא בכמה הראשון טוב מהשני. הפער באיכות יכול להיות זעיר או עצום, ובשני המקרים המקומות יישארו 1 ו־2.</p>
+  </div>
+
+  <div class="section">
+    <h2>קודם רואים, אחר כך מחשבים</h2>
+    <p>נשאיר את הסדר של שופט א׳ קבוע ונשנה את הדירוג של שופט ב׳.</p>
+    <table class="data-table rank-table">
+      <tr><th>מצב</th><th>דירוגי שופט א׳, לפי המתמודדים א–ה</th><th>דירוגי שופט ב׳, באותו סדר מתמודדים</th></tr>
+      <tr><td>אותו סדר בדיוק</td><td class="seq">1, 2, 3, 4, 5</td><td class="seq">1, 2, 3, 4, 5</td></tr>
+      <tr><td>סדר הפוך בדיוק</td><td class="seq">1, 2, 3, 4, 5</td><td class="seq">5, 4, 3, 2, 1</td></tr>
+      <tr><td>החלפה בין שני מקומות סמוכים</td><td class="seq">1, 2, 3, 4, 5</td><td class="seq">1, 3, 2, 4, 5</td></tr>
+    </table>
+    <p>לפני החישוב: באיזה מצב הקשר חיובי? באיזה מצב הוא שלילי? ואיפה נצפה לקשר חיובי חזק, שאינו מושלם?</p>
+    <p>במצב הראשון הסדר זהה. בשני הוא הפוך. בשלישי נשמר רוב הסדר, עם החלפה קטנה.</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>השם: מתאם ספירמן</h2>
+    <p>מתאם ספירמן מודד את כיוון הקשר ואת עוצמתו לפי הדירוגים של התצפיות.</p>
+    <p>הגשר לפירסון פשוט:</p>
+    <p class="bridge">ספירמן = פירסון על הדירוגים</p>
+    <p>כשמתחילים מערכים מספריים, מדרגים את הערכים בכל משתנה בנפרד. אחר כך מחשבים מתאם פירסון בין שתי רשימות הדירוגים. כך עוברים מבדיקת הקשר בין הערכים לבדיקת הקשר בין מיקומיהם היחסיים.</p>
+    <p>בדוגמת השופטים כבר קיבלנו דירוגים מוכנים. פירסון על שתי עמודות המקומות הוא בדיוק ספירמן.</p>
+  </div>
+
+  <div class="section">
+    <h2>מהפרשי דירוג למספר אחד</h2>
+    <p>נחזור לדוגמה הראשונה.</p>
+    <p>לכל מתמודד נחשב את ההפרש בין שני דירוגיו. נסמן אותו <span class="ltr" dir="ltr"><math><mi>d</mi></math></span>.</p>
+    <p>אצל המתמודדים א, ד וה ההפרש הוא אפס. אצל ב ההפרש הוא <span class="ltr" dir="ltr">2 − 3 = −1</span>, ואצל ג הוא <span class="ltr" dir="ltr">3 − 2 = 1</span>.</p>
+    <p>אם נחבר את ההפרשים ישירות, מינוס 1 ופלוס 1 יתבטלו. לכן נעלה כל הפרש בריבוע:</p>
+    <div class="calc">Σd² = 0 + 1 + 1 + 0 + 0 = <strong>2</strong></div>
+    <p>כשאין דירוגים שווים, אפשר לחשב ספירמן בנוסחה המקוצרת:</p>
+    <div class="formula-math"><math display="block" dir="ltr"><msub><mi>r</mi><mi>s</mi></msub><mo>=</mo><mn>1</mn><mo>−</mo><mfrac><mrow><mn>6</mn><mo>∑</mo><msubsup><mi>d</mi><mi>i</mi><mn>2</mn></msubsup></mrow><mrow><mi>n</mi><mo>(</mo><msup><mi>n</mi><mn>2</mn></msup><mo>−</mo><mn>1</mn><mo>)</mo></mrow></mfrac></math></div>
+    <p>כאן יש חמישה מתמודדים:</p>
+    <div class="calc">1 − (6 × 2) ÷ (5 × (5² − 1)) = 1 − 12 ÷ 120 = <strong>0.9</strong></div>
+    <p>קיבלנו קשר חיובי חזק בין הדירוגים. התוצאה מתאימה למה שראינו: רוב הסדר נשמר, ורק שני מקומות סמוכים התחלפו.</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>מה המספר אומר?</h2>
+    <p>המתאם נע בין מינוס 1 לפלוס 1.</p>
+    <table class="data-table">
+      <tr><th>תוצאה</th><th>פירוש</th></tr>
+      <tr><td><span class="ltr" dir="ltr">r<sub>s</sub> = 1</span></td><td>סדר הדירוגים זהה</td></tr>
+      <tr><td><span class="ltr" dir="ltr">r<sub>s</sub> = −1</span></td><td>סדר הדירוגים הפוך בדיוק</td></tr>
+      <tr><td>ערך קרוב לאפס</td><td>קשר חלש במובן של מגמת עלייה או ירידה עקבית</td></tr>
+    </table>
+    <p>אפס אינו מוכיח שאין שום קשר. ייתכן דפוס שהמדד אינו מתאר היטב.</p>
+
+    <h3>האם קשר מושלם חייב להיות קו ישר?</h3>
+    <p>ניקח את הערכים <span class="ltr" dir="ltr">1, 2, 3, 4, 5</span> ונשווה אותם לריבועיהם: <span class="ltr" dir="ltr">1, 4, 9, 16, 25</span>.</p>
+    <p>הערכים עולים יחד, אבל העלייה נעשית תלולה יותר. מתאם פירסון הוא כ־0.98, כלומר קשר ליניארי חזק מאוד. מתאם ספירמן הוא 1, משום שסדר הערכים זהה לחלוטין בשני המשתנים.</p>
+    <p>שני המדדים מתארים היבטים שונים: פירסון בודק עד כמה הנקודות קרובות לקו ישר, וספירמן עד כמה הסדר נשמר.</p>
+    <p>קשר ששומר על כיוון העלייה או הירידה נקרא <strong>קשר מונוטוני</strong>. ספירמן נועד למדוד קשר כזה, גם כשהוא אינו ישר.</p>
+  </div>
+
+  <div class="section">
+    <h2>ומה קורה כשחולקים מקום?</h2>
+    <p>נניח שהתקבלו הציונים הבאים:</p>
+    <table class="data-table center-table">
+      <tr><th>ציון</th><th>דירוג מהקטן לגדול</th></tr>
+      <tr><td>60</td><td>1</td></tr>
+      <tr><td>80</td><td>2.5</td></tr>
+      <tr><td>80</td><td>2.5</td></tr>
+      <tr><td>95</td><td>4</td></tr>
+      <tr><td>100</td><td>5</td></tr>
+    </table>
+    <p>שני הציונים 80 תופסים יחד את המקומות 2 ו־3. אין הצדקה להחליט שאחד קודם לאחר, ולכן שניהם מקבלים את ממוצע המקומות:</p>
+    <div class="calc">(2 + 3) ÷ 2 = <strong>2.5</strong></div>
+    <p>מדרגים כך כל משתנה בנפרד, ואז מחשבים פירסון על הדירוגים שהתקבלו. הנוסחה המקוצרת אינה תקפה באופן כללי כשיש דירוגים שווים.</p>
+    <p class="mini-q">שאלת סיום: שלוש תצפיות שוות תופסות את המקומות 2, 3 ו־4. איזה דירוג תקבל כל אחת?</p>
+    <p>משוב: כולן יקבלו דירוג 3. התצפית הבאה תקבל דירוג 5.</p>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+  // המשולש מחזיר לרשימת הנושאים של הסטטיסטיקה.
+  window.waytoseeParentOverride = "statistika/statistika.html";
+</script>
+<script src="../waytosee.js"></script>
+</body>
+</html>

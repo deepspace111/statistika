@@ -194,6 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "statistika/statistika-weighted.html",
         "statistika/statistika-covariance.html",
         "statistika/statistika-pearson.html",
+        "statistika/statistika-spearman.html",
       ],
     },
     { // רשתות: כתובת ← זיהוי הרשת המקומית ← MAC ← ARP ← שער יציאה ← DHCP ← ...
@@ -359,8 +360,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // אילו רכיבים מהבהבים: כל רכיב בתוכן העמוד שיש בו טקסט ישיר, חוץ מכותרות,
   // גרפים (svg), כפתורים ושדות, ורכיבים שכבר יש להם אנימציה משלהם.
-  // .container / .grid - התוכן ברוב העמודים. (בלי המרחב ובלי תחנות החשיבה - שם אין הבהוב.)
-  const FLASH_AREAS = ".container, .grid";
+  // .container / .grid - התוכן ברוב העמודים. .research-log - יומני המחקר (למשל המעבדה של WayToPlay).
+  // (בלי המרחב ובלי תחנות החשיבה - שם אין הבהוב.)
+  const FLASH_AREAS = ".container, .grid, .research-log";
   const FLASH_SKIP = "h1, h2, h3, h4, h5, h6, svg, script, style, button, input, textarea, select, .page-title";
   function flashTargets() {
     const targets = [];
