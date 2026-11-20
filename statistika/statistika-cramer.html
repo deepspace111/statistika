@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script src="../waytosee-analytics.js"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>מדד קרמר: קשר בין קטגוריות | WayToSee</title>
+<meta name="description" content="מדד קרמר: איך מודדים קשר בין שני משתנים בסולם שמי, מה זו טבלה צפויה בהנחת אי־תלות, איך חי־בריבוע מודד את הפער, ולמה צריך לנרמל אותו.">
+
+<link rel="stylesheet" href="../waytosee.css">
+
+<style>
+/* שלד העמוד נמצא ב-waytosee.css תחת body.stat-page. כאן רק הייחודי לעמוד הזה. */
+
+@font-face {
+  font-family: "WTS Math";
+  src: url("math-font.woff") format("woff");
+}
+math { font-family: "WTS Math", "Latin Modern Math", "Cambria Math", "STIX Two Math", math; }
+.formula-math { margin: 14px 0 6px; font-size: 21px; text-align: center; }
+.formula-math mfrac > * { math-style: normal; }
+
+.ct td, .ct th { text-align: center; padding: 6px 3px; }
+.ct { font-size: 15px; }
+.ct .tot { opacity: 0.6; }
+.ct tr > :first-child { text-align: right; }
+.contrib td.seq, .contrib th:last-child { direction: ltr; unicode-bidi: isolate; white-space: nowrap; font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+
+body.stat-page .container h3 { font-size: 19px; margin: 16px 0 6px; font-weight: 700; color: var(--text); }
+.mini-q { font-weight: bold; }
+.rule { text-align: center; font-size: 18px; font-weight: bold; margin: 14px 0; }
+
+/* ===== פסי אחוזים: כל פס הוא 100% של קבוצה אחת ===== */
+.pbars { margin: 12px 0 6px; }
+.prow { display: flex; align-items: center; gap: 8px; margin: 6px 0; }
+.prow.all { opacity: 0.7; }
+.plab { width: 5.6em; flex: none; font-size: 14px; }
+.pbar { flex: 1; display: flex; height: 24px; border-radius: 6px; overflow: hidden; }
+.pbar i { font-style: normal; font-size: 12px; color: #fff; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; white-space: nowrap; overflow: hidden; }
+.c1 { background: #8a9a5b; } .c2 { background: #b8963e; } .c3 { background: #8b6b4a; }
+/* במצב הלמידה: גווני הכחול של עמוד צורת ההתפלגות */
+body.learning-mode .c1 { background: #366cad; } body.learning-mode .c2 { background: #2f5a90; } body.learning-mode .c3 { background: #1f3d6e; }
+.plegend { display: flex; justify-content: center; gap: 14px; font-size: 13px; opacity: 0.8; margin-top: 6px; }
+.plegend b { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-inline-end: 4px; vertical-align: middle; }
+
+/* ===== ארגז חול ===== */
+.sb-table input {
+  width: 3.2em; font: inherit; font-family: 'JetBrains Mono', monospace; font-size: 15px;
+  color: var(--num); text-align: center; direction: ltr;
+  background: var(--panel); border: 1px solid var(--panel-border); border-radius: 8px; padding: 3px 2px;
+}
+.sb-table input:focus { outline: none; border-color: var(--accent); }
+.sb-btns { display: flex; gap: 8px; justify-content: center; margin: 6px 0; flex-wrap: wrap; }
+.sb-btns button {
+  font: inherit; font-size: 14px; color: var(--text);
+  background: var(--panel); border: 1px solid var(--panel-border);
+  border-radius: 999px; padding: 3px 14px; cursor: pointer;
+}
+.sb-btns button:hover { border-color: var(--accent); }
+.sb-out { font-size: 15px; line-height: 1.7; text-align: center; }
+.sb-out .ltr { font-family: 'JetBrains Mono', monospace; color: var(--num); }
+</style>
+</head>
+
+<body class="stat-page">
+
+<div class="rain" id="rain"></div>
+
+<h1 class="page-title">קשר בין קטגוריות</h1>
+<p class="page-subtitle">מדד קרמר</p>
+
+<div class="container">
+
+<div class="col">
+
+  <div class="section">
+    <h2>הצורך</h2>
+    <p>ארבעים סטודנטים נשאלו מהו כלי הלמידה המועדף עליהם. עשרים לומדים פסיכולוגיה ועשרים ביולוגיה. כל משתתף בחר אפשרות אחת: סרטון, טקסט או תרגול.</p>
+    <p><strong>האם יש קשר בין תחום הלימודים לבין ההעדפה?</strong></p>
+    <p>לכלי הלמידה אין סדר טבעי. סרטון אינו גבוה מטקסט, ותרגול אינו נמוך משניהם. גם אם נסמן אותם במספרים, אלה יהיו קודים לזיהוי בלבד.</p>
+    <p>דרוש לנו מדד שמתאים לקטגוריות.</p>
+  </div>
+
+  <div class="section">
+    <h2>קודם רואים: טבלה משותפת</h2>
+    <p>כך התחלקו הבחירות:</p>
+    <table class="data-table ct">
+      <tr><th>תחום לימודים</th><th>סרטון</th><th>טקסט</th><th>תרגול</th><th>סך הכול</th></tr>
+      <tr><td>פסיכולוגיה</td><td>12</td><td>6</td><td>2</td><td class="tot">20</td></tr>
+      <tr><td>ביולוגיה</td><td>4</td><td>10</td><td>6</td><td class="tot">20</td></tr>
+      <tr class="tot"><td>סך הכול</td><td>16</td><td>16</td><td>8</td><td>40</td></tr>
+    </table>
+    <div class="pbars" aria-label="אחוזי בחירה בכל תחום ובכלל המדגם">
+      <div class="prow"><span class="plab">פסיכולוגיה</span><div class="pbar"><i class="c1" style="width:60%">60%</i><i class="c2" style="width:30%">30%</i><i class="c3" style="width:10%">10%</i></div></div>
+      <div class="prow"><span class="plab">ביולוגיה</span><div class="pbar"><i class="c1" style="width:20%">20%</i><i class="c2" style="width:50%">50%</i><i class="c3" style="width:30%">30%</i></div></div>
+      <div class="prow all"><span class="plab">כלל המדגם</span><div class="pbar"><i class="c1" style="width:40%">40%</i><i class="c2" style="width:40%">40%</i><i class="c3" style="width:20%">20%</i></div></div>
+      <div class="plegend"><span><b class="c1"></b>סרטון</span><span><b class="c2"></b>טקסט</span><span><b class="c3"></b>תרגול</span></div>
+    </div>
+    <p>בפסיכולוגיה, 60% בחרו בסרטון. בביולוגיה, רק 20% העדיפו אותו.</p>
+    <p>כבר אפשר לזהות הבדל. כאן שתי הקבוצות שוות בגודלן. כשהן לא שוות, השוואת אחוזים בתוך כל קבוצה הכרחית.</p>
+    <p><strong>מה היינו מצפים לראות אילו לא היה קשר?</strong></p>
+    <p>בכלל המדגם, 40% בחרו בסרטון, 40% בטקסט ו־20% בתרגול. בהנחת אי־תלות, נצפה לאותה חלוקה בשני התחומים.</p>
+  </div>
+
+  <div class="section">
+    <h2>השם: מדד קרמר</h2>
+    <p>מדד קרמר, המסומן <span class="ltr" dir="ltr"><math><mi>V</mi></math></span>, מתאר את עוצמת הקשר בין שני משתנים קטגוריאליים באמצעות טבלת שכיחויות משותפת.</p>
+    <p>זה המקום לחזור לסולמות המדידה:</p>
+    <table class="data-table">
+      <tr><th>הנתונים והשאלה</th><th>מדד מתאים</th></tr>
+      <tr><td>ערכים בסולם רווח או מנה, ובדיקת קשר ליניארי</td><td>פירסון</td></tr>
+      <tr><td>דירוגים, או בדיקת קשר מונוטוני</td><td>ספירמן</td></tr>
+      <tr><td>קטגוריות, ובדיקת קשר ללא שימוש בסדר ביניהן</td><td>קרמר</td></tr>
+    </table>
+    <p>זו נקודת פתיחה לבחירה. סולם המדידה וסוג הקשר חשובים יחד.</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>מהטבלה הצפויה למספר אחד</h2>
+    <p>כדי למדוד את ההבדל, נחשב כמה תצפיות צפויות בכל תא בהנחת אי־תלות:</p>
+    <p class="rule">ערך צפוי =<br>(סכום השורה × סכום העמודה) ÷ <span class="ltr" dir="ltr">n</span></p>
+    <p>למשל, בתא של פסיכולוגיה וסרטון:</p>
+    <div class="calc">E = (20 × 16) ÷ 40 = <strong>8</strong></div>
+    <p>כך מתקבלת הטבלה הצפויה:</p>
+    <table class="data-table ct">
+      <tr><th>תחום לימודים</th><th>סרטון</th><th>טקסט</th><th>תרגול</th><th>סך הכול</th></tr>
+      <tr><td>פסיכולוגיה</td><td>8</td><td>8</td><td>4</td><td class="tot">20</td></tr>
+      <tr><td>ביולוגיה</td><td>8</td><td>8</td><td>4</td><td class="tot">20</td></tr>
+      <tr class="tot"><td>סך הכול</td><td>16</td><td>16</td><td>8</td><td>40</td></tr>
+    </table>
+    <p>הסכומים נשמרו. השתנתה החלוקה בתוך הטבלה. הערכים הצפויים מחושבים מסכומי השורות והעמודות בהנחת אי־תלות.</p>
+    <p>עכשיו נמדוד את הפער בין הנצפה, <span class="ltr" dir="ltr"><math><mi>O</mi></math></span>, לצפוי, <span class="ltr" dir="ltr"><math><mi>E</mi></math></span>. בכל תא נחשב:</p>
+    <div class="formula-math"><math display="block" dir="ltr"><mfrac><msup><mrow><mo>(</mo><mi>O</mi><mo>−</mo><mi>E</mi><mo>)</mo></mrow><mn>2</mn></msup><mi>E</mi></mfrac></math></div>
+    <p>הריבוע מונע מפערים חיוביים ושליליים לבטל זה את זה. החלוקה בצפוי מתחשבת בגודל השכיחות שאליה משווים.</p>
+    <p>כך זה נראה בכל אחד משישת התאים:</p>
+    <table class="data-table ct contrib">
+      <tr><th>תא</th><th>O</th><th>E</th><th>(O − E)² ÷ E</th></tr>
+      <tr><td>פסיכולוגיה, סרטון</td><td>12</td><td>8</td><td class="seq">(12 − 8)² ÷ 8 = <strong>2</strong></td></tr>
+      <tr><td>פסיכולוגיה, טקסט</td><td>6</td><td>8</td><td class="seq">(6 − 8)² ÷ 8 = <strong>0.5</strong></td></tr>
+      <tr><td>פסיכולוגיה, תרגול</td><td>2</td><td>4</td><td class="seq">(2 − 4)² ÷ 4 = <strong>1</strong></td></tr>
+      <tr><td>ביולוגיה, סרטון</td><td>4</td><td>8</td><td class="seq">(4 − 8)² ÷ 8 = <strong>2</strong></td></tr>
+      <tr><td>ביולוגיה, טקסט</td><td>10</td><td>8</td><td class="seq">(10 − 8)² ÷ 8 = <strong>0.5</strong></td></tr>
+      <tr><td>ביולוגיה, תרגול</td><td>6</td><td>4</td><td class="seq">(6 − 4)² ÷ 4 = <strong>1</strong></td></tr>
+    </table>
+    <p>נחבר את שש התרומות. התוצאה נקראת <strong>חי־בריבוע</strong>:</p>
+    <div class="calc">χ² = 2 + 0.5 + 1 + 2 + 0.5 + 1 = <strong>7</strong></div>
+    <p>כדי לקבל מדד עוצמה מנורמל, משתמשים בקרמר:</p>
+    <div class="formula-math"><math display="block" dir="ltr"><mi>V</mi><mo>=</mo><msqrt><mfrac><msup><mi>χ</mi><mn>2</mn></msup><mrow><mi>n</mi><mo>·</mo><mo>[</mo><mi>min</mi><mo>(</mo><mi>R</mi><mo>,</mo><mi>C</mi><mo>)</mo><mo>−</mo><mn>1</mn><mo>]</mo></mrow></mfrac></msqrt></math></div>
+    <p><span class="ltr" dir="ltr"><math><mi>R</mi></math></span> הוא מספר השורות ו־<span class="ltr" dir="ltr"><math><mi>C</mi></math></span> מספר העמודות, ללא שורת ועמודת הסיכום.</p>
+    <p>אצלנו הטבלה היא <span class="ltr" dir="ltr">2 × 3</span>, ולכן הגורם שבסוגריים שווה ל־1:</p>
+    <div class="calc">V = √(7 ÷ 40) ≈ <strong>0.42</strong></div>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>מה התוצאה אומרת?</h2>
+    <p>קרמר נע בין 0 ל־1:</p>
+    <table class="data-table">
+      <tr><th>ערך</th><th>משמעות בטבלה שנבדקה</th></tr>
+      <tr><td>0</td><td>השכיחויות הנצפות זהות לצפויות בהנחת אי־תלות</td></tr>
+      <tr><td>ערך גדול יותר</td><td>קשר בעוצמה גבוהה יותר לפי המדד</td></tr>
+      <tr><td>1</td><td>עוצמה מרבית לפי קרמר</td></tr>
+    </table>
+    <p>כך נראית טבלה שבה <span class="ltr" dir="ltr">V = 1</span>:</p>
+    <table class="data-table ct">
+      <tr><th>תחום</th><th>סרטון</th><th>טקסט</th><th>תרגול</th></tr>
+      <tr><td>פסיכולוגיה</td><td>10</td><td>10</td><td>0</td></tr>
+      <tr><td>ביולוגיה</td><td>0</td><td>0</td><td>20</td></tr>
+    </table>
+    <p>כאן בחירת הכלי מאפשרת לזהות בוודאות את תחום הלימודים.</p>
+    <p>בדוגמה שלנו קיבלנו כ־0.42. כדי להבין איך ההעדפות שונות, חוזרים לאחוזים בטבלה.</p>
+    <p>למדד אין סימן חיובי או שלילי. אין כאן כיוון טבעי של עלייה וירידה. גם אין בסיס לקבוע שתחום הלימודים גרם להעדפה.</p>
+  </div>
+
+  <div class="section">
+    <h2>ארגז חול: מה משנה את העוצמה?</h2>
+    <p>שנו את המספרים בטבלה, והתוצאה תתעדכן.</p>
+    <table class="data-table ct sb-table" id="sbTable"></table>
+    <div class="sb-out" id="sbTxt" dir="ltr"></div>
+    <div class="sb-btns">
+      <button type="button" id="sbMove">הזזת עמודת הסרטון לסוף</button>
+      <button type="button" id="sbDouble">הכפלת כל השכיחויות</button>
+      <button type="button" id="sbReset">חזרה לנתונים</button>
+    </div>
+
+    <h3>בדיקה ראשונה: מחליפים סדר או קודים</h3>
+    <p>מזיזים את עמודת הסרטון לסוף, יחד עם הנתונים שלה. אחר כך מחליפים את שמות הכלים בקודים אחרים. האם התוצאה אמורה להשתנות?</p>
+    <p>משוב: לא. השיוך של כל תצפית לקטגוריות נשאר זהה. קרמר אינו תלוי בסדר ההצגה או בקודים שנבחרו לזיהוי.</p>
+
+    <h3>בדיקה שנייה: מכפילים את כל השכיחויות</h3>
+    <p>כעת יש 80 משתתפים, אבל האחוזים בכל קבוצה נשארו בדיוק כפי שהיו. מה יקרה לחי־בריבוע ולקרמר?</p>
+    <p>משוב: גם השכיחויות הצפויות מוכפלות. כל תרומה לחי־בריבוע גדלה פי שניים, ולכן:</p>
+    <div class="calc">χ² = 14, n = 80 → V = √(14 ÷ 80) = √(7 ÷ 40) ≈ <strong>0.42</strong></div>
+    <p>זה הצורך בנרמול: חי־בריבוע גדל אף שהיחסים בטבלה נשמרו. קרמר נשאר זהה.</p>
+
+    <p class="mini-q">משימת סיום: שנו את הטבלה כך שבשני התחומים יהיו אותם אחוזי העדפה. לפני החישוב, נסו לחזות את התוצאה.</p>
+    <p>משוב: <span class="ltr" dir="ltr">V = 0</span>, כי הטבלה הנצפית זהה לצפויה, וכל התרומות לחי־בריבוע הן אפס.</p>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const ROWS = ["פסיכולוגיה", "ביולוגיה"];
+  const START_COLS = ["סרטון", "טקסט", "תרגול"];
+  const START = [[12, 6, 2], [4, 10, 6]];
+  let cols, data;
+
+  function reset() { cols = START_COLS.slice(); data = START.map(r => r.slice()); build(); }
+
+  // קרמר. שורות ועמודות שסכומן אפס לא נכנסות לחישוב, כי אין בהן ערך צפוי.
+  // אם נשארו פחות משתי שורות או משתי עמודות פעילות, המדד אינו מוגדר.
+  function cramer(t) {
+    const R = t.map(r => r.reduce((s, v) => s + v, 0));
+    const C = t[0].map((_, j) => t.reduce((s, r) => s + r[j], 0));
+    const n = R.reduce((s, v) => s + v, 0);
+    const ri = R.map((v, i) => v > 0 ? i : -1).filter(i => i >= 0);
+    const ci = C.map((v, j) => v > 0 ? j : -1).filter(j => j >= 0);
+    if (n === 0 || ri.length < 2 || ci.length < 2) return { n, chi: null, v: null };
+    let chi = 0;
+    ri.forEach(i => ci.forEach(j => { const e = R[i] * C[j] / n; chi += (t[i][j] - e) ** 2 / e; }));
+    const k = Math.min(ri.length, ci.length) - 1;
+    return { n, chi, v: Math.sqrt(chi / (n * k)) };
+  }
+  const fmt = (v, d) => (Math.round(v * 10 ** d) / 10 ** d).toString();
+
+  function build() {
+    const tb = $("sbTable");
+    let h = "<tr><th>תחום</th>" + cols.map(c => "<th>" + c + "</th>").join("") + "</tr>";
+    data.forEach((r, i) => {
+      h += "<tr><td>" + ROWS[i] + "</td>" + r.map((v, j) =>
+        '<td><input type="number" min="0" max="999" step="1" inputmode="numeric" data-i="' + i + '" data-j="' + j + '" value="' + v + '" aria-label="' + ROWS[i] + ", " + cols[j] + '"></td>').join("") + "</tr>";
+    });
+    tb.innerHTML = h;
+    tb.querySelectorAll("input").forEach(inp => inp.addEventListener("input", () => {
+      let v = Math.floor(Number(inp.value));
+      if (!isFinite(v) || v < 0) v = 0;
+      if (v > 999) v = 999;
+      data[+inp.dataset.i][+inp.dataset.j] = v;
+      show();
+    }));
+    show();
+  }
+
+  function show() {
+    const r = cramer(data);
+    if (r.v === null) {
+      $("sbTxt").innerHTML = '<span dir="rtl">המדד אינו מוגדר: צריך לפחות שתי שורות ושתי עמודות שאינן ריקות.</span>';
+      return;
+    }
+    $("sbTxt").innerHTML = 'n = <span class="ltr" dir="ltr">' + r.n + '</span> &nbsp;·&nbsp; χ² = <span class="ltr" dir="ltr">' + fmt(r.chi, 2) +
+      '</span> &nbsp;·&nbsp; V ≈ <span class="ltr" dir="ltr"><strong>' + fmt(r.v, 2) + "</strong></span>";
+  }
+
+  $("sbMove").addEventListener("click", () => {
+    const j = cols.indexOf("סרטון");
+    if (j < 0 || j === cols.length - 1) return;
+    cols.push(cols.splice(j, 1)[0]);
+    data.forEach(r => r.push(r.splice(j, 1)[0]));
+    build();
+  });
+  $("sbDouble").addEventListener("click", () => {
+    data = data.map(r => r.map(v => Math.min(999, v * 2)));
+    build();
+  });
+  $("sbReset").addEventListener("click", reset);
+  reset();
+})();
+</script>
+
+<script>
+  // המשולש מחזיר לרשימת הנושאים של הסטטיסטיקה.
+  window.waytoseeParentOverride = "statistika/statistika.html";
+</script>
+<script src="../waytosee.js"></script>
+</body>
+</html>
