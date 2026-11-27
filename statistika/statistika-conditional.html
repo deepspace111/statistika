@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script src="../waytosee-analytics.js"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>הסתברות מותנית: מה משתנה כשיודעים עוד משהו? | WayToSee</title>
+<meta name="description" content="הסתברות מותנית מתוך צורך: מידע חדש מצמצם את מרחב המדגם, הנוסחה P(A|B), למה הסדר חשוב, וכלל הכפל כשמגרילים שני נציגים.">
+
+<link rel="stylesheet" href="../waytosee.css">
+
+<style>
+/* שלד העמוד נמצא ב-waytosee.css תחת body.stat-page. כאן רק הייחודי לעמוד הזה. */
+
+@font-face {
+  font-family: "WTS Math";
+  src: url("math-font.woff") format("woff");
+}
+math { font-family: "WTS Math", "Latin Modern Math", "Cambria Math", "STIX Two Math", math; }
+p math, td math, li math { font-size: 1.1em; }
+.calc math { font-size: 1.05em; color: var(--text); }
+
+body.stat-page .container h3 { font-size: 19px; margin: 16px 0 6px; font-weight: 700; color: var(--text); }
+.key { font-weight: bold; }
+.note { opacity: 0.8; }
+body.stat-page .container ul { margin: 6px 0; padding-inline-start: 18px; line-height: 1.5; }
+body.stat-page .container li { margin: 4px 0; }
+
+/* ===== צבעי השייכות, כמו בעמודי תורת הקבוצות וההסתברות ===== */
+:root { --setA: #8a9a5b; --setB: #b8963e; }
+body.learning-mode { --setA: #7cc0ff; --setB: #2b4f86; }
+
+/* ===== כרטיסים ===== */
+.deck { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 12px 0 6px; }
+.card {
+  position: relative; font: inherit; font-size: 14px; color: var(--text);
+  background: var(--panel); border: 1px solid var(--panel-border); border-radius: 10px;
+  padding: 7px 2px 12px; text-align: center;
+  transition: opacity 0.3s ease, border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+}
+.card .marks { position: absolute; left: 6px; right: 6px; bottom: 4px; display: flex; gap: 3px; height: 4px; }
+.card .marks i { flex: 1; border-radius: 2px; opacity: 0; }
+.card .marks .mA { background: var(--setA); }
+.card .marks .mB { background: var(--setB); }
+.card.showA .marks .mA, .card.showB .marks .mB { opacity: 1; }
+/* פתק הפוך */
+.card.folded { color: transparent; background: color-mix(in srgb, var(--text) 8%, var(--panel)); }
+.card.folded::after { content: "?"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--text); opacity: 0.4; }
+.card.folded .marks { visibility: hidden; }
+/* מחוץ למרחב החדש: כמעט נעלם */
+.card.out { opacity: 0.12; }
+/* בתוך המרחב החדש: מסגרת */
+.card.whole { border-color: var(--accent); }
+/* החלק שמעניין אותנו בתוך המרחב החדש */
+.card.part { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, var(--panel)); }
+.legend { display: flex; justify-content: center; gap: 14px; font-size: 13px; opacity: 0.8; margin-top: 4px; }
+.legend b { display: inline-block; width: 12px; height: 4px; border-radius: 2px; margin-inline-end: 5px; vertical-align: middle; }
+.legend .lA { background: var(--setA); } .legend .lB { background: var(--setB); }
+
+/* ===== כפתורים ותוצאות ===== */
+.btns { display: flex; gap: 8px; justify-content: center; margin: 8px 0; flex-wrap: wrap; align-items: center; }
+.btns .lab { font-size: 14px; opacity: 0.75; }
+.btns button {
+  font: inherit; font-size: 14px; color: var(--text);
+  background: var(--panel); border: 1px solid var(--panel-border);
+  border-radius: 999px; padding: 3px 14px; cursor: pointer;
+}
+.btns button:hover { border-color: var(--accent); }
+.btns button.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--panel)); }
+.out { text-align: center; font-size: 15px; min-height: 1.6em; }
+.cnt { font-family: 'JetBrains Mono', monospace; color: var(--num); }
+
+/* ===== כלל הכפל: שתי שורות נקודות ===== */
+.draws { margin: 10px 0 4px; }
+.draws .row { display: flex; align-items: center; gap: 8px; margin: 8px 0; }
+.draws .rl { font-size: 13px; opacity: 0.75; width: 5.4em; flex: none; }
+.draws .dots { display: flex; gap: 4px; flex-wrap: wrap; }
+.draws .d {
+  width: 15px; height: 15px; border-radius: 50%;
+  background: color-mix(in srgb, var(--text) 14%, transparent);
+  transition: opacity 0.3s ease, background 0.3s ease;
+}
+.draws .d.a { background: var(--setA); }
+.draws .d.gone { opacity: 0.15; outline: 1px dashed var(--text); outline-offset: 1px; background: transparent; }
+.draws .rv { font-size: 14px; margin-inline-start: auto; white-space: nowrap; }
+.draws .row.wait { opacity: 0.25; }
+
+[hidden] { display: none !important; }
+
+@media (max-width: 600px) {
+  .card { font-size: 13px; }
+  .draws .d { width: 12px; height: 12px; }
+}
+</style>
+</head>
+
+<body class="stat-page">
+
+<div class="rain" id="rain"></div>
+
+<h1 class="page-title">הסתברות מותנית</h1>
+<p class="page-subtitle">מה משתנה כשיודעים עוד משהו?</p>
+
+<div class="container">
+
+<div class="col">
+
+  <div class="section">
+    <h2>הצורך: מקבלים רמז</h2>
+    <p>חוזרים להגרלה מהעמוד הקודם: 12 פתקים, שם אחד יוצא. כבר חישבנו שהסיכוי שהשם שייך לסטודנט שלומד פסיכולוגיה הוא 7 ÷ 12.</p>
+    <p>עכשיו מישהו מציץ בפתק ואומר רק דבר אחד: <strong>״הסטודנט שיצא לומד סוציולוגיה.״</strong></p>
+    <div class="deck" id="deckHint"></div>
+    <div class="legend"><span><b class="lA"></b>פסיכולוגיה</span><span><b class="lB"></b>סוציולוגיה</span></div>
+    <div class="btns"><button type="button" id="hintBtn">מקבלים את הרמז</button></div>
+    <div class="out" id="outHint"></div>
+    <p><strong>האם הסיכוי שהוא לומד פסיכולוגיה עדיין 7 ÷ 12?</strong></p>
+  </div>
+
+  <div class="section">
+    <h2>המרחב מצטמצם</h2>
+    <p>הרמז לא משנה את הפתק שכבר יצא. הוא משנה את מה שאנחנו יודעים עליו: שישה סטודנטים כבר לא באים בחשבון.</p>
+    <p>נשארו 6 פתקים אפשריים, הסטודנטים שלומדים סוציולוגיה. ההגרלה הייתה הוגנת, ולכן לכל אחד מהם עדיין אותו סיכוי. מתוך השישה, 3 לומדים גם פסיכולוגיה:</p>
+    <div class="calc">3 ÷ 6 = <strong>50%</strong></div>
+    <p>הסיכוי ירד מ־58.3% ל־50%. זו <strong>הסתברות מותנית</strong>: הסיכוי של מאורע, כשידוע שמאורע אחר קרה.</p>
+    <p>מסמנים <span class="ltr" dir="ltr"><math><mi>P</mi><mo>(</mo><mi>A</mi><mo>|</mo><mi>B</mi><mo>)</mo></math></span>, וקוראים: ״הסיכוי ל־<span class="ltr" dir="ltr"><math><mi>A</mi></math></span> בהינתן <span class="ltr" dir="ltr"><math><mi>B</mi></math></span>״. מה שאחרי הקו הוא מה שכבר ידוע.</p>
+    <p>ומה אם הרמז היה הפוך: ״הסטודנט שיצא <strong>לא</strong> לומד סוציולוגיה״? נשארים 6 פתקים אחרים, ו־4 מהם של לומדי פסיכולוגיה:</p>
+    <div class="calc"><math><mi>P</mi><mo>(</mo><mi>A</mi><mo>|</mo><msup><mi>B</mi><mi>c</mi></msup><mo>)</mo></math> = 4 ÷ 6 ≈ <strong>66.7%</strong></div>
+    <p>הפעם הסיכוי עלה. מידע חדש יכול להוריד סיכוי וגם להעלות אותו, לפי מה שנשאר אפשרי.</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>הנוסחה: חלק מתוך השלם החדש</h2>
+    <p>כשהמרחב אחיד, ספרנו: כמה מתוך <span class="ltr" dir="ltr"><math><mi>B</mi></math></span> נמצאים גם ב־<span class="ltr" dir="ltr"><math><mi>A</mi></math></span>.</p>
+    <div class="calc"><math><mi>P</mi><mo>(</mo><mi>A</mi><mo>|</mo><mi>B</mi><mo>)</mo></math> = <math><mo>|</mo><mi>A</mi><mo>∩</mo><mi>B</mi><mo>|</mo></math> ÷ <math><mo>|</mo><mi>B</mi><mo>|</mo></math> = 3 ÷ 6</div>
+    <p>אם מחלקים את המונה ואת המכנה ב־12, היחס לא משתנה, ומקבלים נוסחה שמדברת רק על סיכויים:</p>
+    <div class="calc"><math><mi>P</mi><mo>(</mo><mi>A</mi><mo>|</mo><mi>B</mi><mo>)</mo></math> = <math><mi>P</mi><mo>(</mo><mi>A</mi><mo>∩</mo><mi>B</mi><mo>)</mo></math> ÷ <math><mi>P</mi><mo>(</mo><mi>B</mi><mo>)</mo></math> = (3 ÷ 12) ÷ (6 ÷ 12) = <strong>½</strong></div>
+    <p>הנוסחה הזאת תקפה גם כשהמרחב אינו אחיד. היא דורשת רק ש־<span class="ltr" dir="ltr"><math><mi>P</mi><mo>(</mo><mi>B</mi><mo>)</mo></math></span> לא יהיה 0: אי אפשר לדעת שקרה משהו שלא יכול לקרות.</p>
+    <p class="key"><span class="ltr" dir="ltr"><math><mi>B</mi></math></span> הוא השלם החדש. מחלקים בו, כי רק הוא נשאר אפשרי.</p>
+  </div>
+
+  <div class="section">
+    <h2>הסדר חשוב</h2>
+    <p>מה ההבדל בין <span class="ltr" dir="ltr"><math><mi>P</mi><mo>(</mo><mi>A</mi><mo>|</mo><mi>B</mi><mo>)</mo></math></span> ל־<span class="ltr" dir="ltr"><math><mi>P</mi><mo>(</mo><mi>B</mi><mo>|</mo><mi>A</mi><mo>)</mo></math></span>? החיתוך זהה, 3 סטודנטים בשניהם. מה שמשתנה הוא השלם.</p>
+    <div class="deck" id="deckOrder"></div>
+    <div class="btns" id="orderBtns">
+      <button type="button" data-op="AgB"><math><mi>P</mi><mo>(</mo><mi>A</mi><mo>|</mo><mi>B</mi><mo>)</mo></math></button>
+      <button type="button" data-op="BgA"><math><mi>P</mi><mo>(</mo><mi>B</mi><mo>|</mo><mi>A</mi><mo>)</mo></math></button>
+    </div>
+    <div class="out" id="outOrder"></div>
+    <ul>
+      <li>מתוך 6 לומדי הסוציולוגיה, 3 לומדים פסיכולוגיה: 3 ÷ 6.</li>
+      <li>מתוך 7 לומדי הפסיכולוגיה, 3 לומדים סוציולוגיה: 3 ÷ 7.</li>
+    </ul>
+    <p class="key">״כמה מהסוציולוגים לומדים פסיכולוגיה״ ו״כמה מהפסיכולוגים לומדים סוציולוגיה״ הן שתי שאלות שונות, עם שתי תשובות שונות.</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>כלל הכפל: שני נציגים, אחד אחרי השני</h2>
+    <p>בעמוד הקודם הגרלנו שני נציגים וספרנו זוגות: הסיכוי ששניהם לומדים פסיכולוגיה יצא 21 ÷ 66. עכשיו נגיע לאותה תשובה בלי לספור זוגות, רק בעזרת הסתברות מותנית.</p>
+    <p>מגרילים שני פתקים שונים, ללא החזרה. <strong>מה ההסתברות ששני הנציגים לומדים פסיכולוגיה?</strong></p>
+    <div class="draws" id="draws">
+      <div class="row" id="row1"><span class="rl">נציג ראשון</span><span class="dots" id="dots1"></span><span class="rv" id="rv1"></span></div>
+      <div class="row wait" id="row2"><span class="rl">נציג שני</span><span class="dots" id="dots2"></span><span class="rv" id="rv2"></span></div>
+    </div>
+    <div class="btns"><button type="button" id="stepBtn">מגרילים את הנציג הראשון</button></div>
+    <div class="out" id="outStep"></div>
+    <p>אחרי שיצא לומד פסיכולוגיה אחד, נשארו 11 פתקים, ורק 6 מהם של לומדי פסיכולוגיה. הסיכוי בהגרלה השנייה תלוי במה שיצא בראשונה:</p>
+    <div class="calc">7 ÷ 12 × 6 ÷ 11 = 42 ÷ 132 = <strong>21 ÷ 66</strong></div>
+    <p>זו אותה תשובה. מה שעשינו כאן הוא <strong>כלל הכפל</strong>, שמתקבל מהנוסחה כשמעבירים אגף:</p>
+    <div class="calc"><math><mi>P</mi><mo>(</mo><mi>A</mi><mo>∩</mo><mi>B</mi><mo>)</mo></math> = <math><mi>P</mi><mo>(</mo><mi>B</mi><mo>)</mo></math> × <math><mi>P</mi><mo>(</mo><mi>A</mi><mo>|</mo><mi>B</mi><mo>)</mo></math></div>
+  </div>
+
+  <div class="section">
+    <h2>ארגז החול</h2>
+    <p>בחרו מה ידוע, ומה שואלים.</p>
+    <div class="deck" id="deckSb"></div>
+    <div class="btns" id="sbGiven">
+      <span class="lab">ידוע:</span>
+      <button type="button" data-g="all" class="on">שום דבר</button>
+      <button type="button" data-g="A"><math><mi>A</mi></math></button>
+      <button type="button" data-g="B"><math><mi>B</mi></math></button>
+      <button type="button" data-g="notA"><math><msup><mi>A</mi><mi>c</mi></msup></math></button>
+      <button type="button" data-g="notB"><math><msup><mi>B</mi><mi>c</mi></msup></math></button>
+    </div>
+    <div class="btns" id="sbAsk">
+      <span class="lab">שואלים:</span>
+      <button type="button" data-q="A" class="on"><math><mi>A</mi></math></button>
+      <button type="button" data-q="B"><math><mi>B</mi></math></button>
+      <button type="button" data-q="notA"><math><msup><mi>A</mi><mi>c</mi></msup></math></button>
+      <button type="button" data-q="notB"><math><msup><mi>B</mi><mi>c</mi></msup></math></button>
+    </div>
+    <div class="out" id="sbOut"></div>
+    <p>בכל הדוגמאות כאן, המידע שינה את הסיכוי. בעמוד הבא נשאל: מתי מידע חדש לא משנה דבר?</p>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+(function () {
+  // אותה כיתה: 4 רק פסיכולוגיה, 3 רק סוציולוגיה, 3 בשניהם, 2 באף תחום.
+  const CLASS = [
+    ["נועה", 1, 0], ["שירה", 0, 1], ["אורי", 1, 1], ["הילה", 0, 0],
+    ["איתי", 1, 0], ["ליה", 1, 1], ["עומר", 0, 1], ["מאיה", 1, 0],
+    ["אמיר", 0, 0], ["תמר", 0, 1], ["דניאל", 1, 1], ["יונתן", 1, 0]
+  ].map(([name, a, b]) => ({ name, A: !!a, B: !!b }));
+  const SETS = {
+    all: () => true,
+    A: s => s.A, B: s => s.B,
+    notA: s => !s.A, notB: s => !s.B
+  };
+  const NAMES = { all: "Ω", A: "A", B: "B", notA: "Aᶜ", notB: "Bᶜ" };
+  const $ = id => document.getElementById(id);
+  const num = n => '<span class="cnt">' + n + "</span>";
+  const pct = (a, b) => (Math.round(1000 * a / b) / 10) + "%";
+  const ltr = s => '<span dir="ltr">' + s + "</span>";
+
+  function makeDeck(el) {
+    el.innerHTML = CLASS.map(s =>
+      '<div class="card' + (s.A ? " showA" : "") + (s.B ? " showB" : "") + '"><span>' + s.name +
+      '</span><span class="marks"><i class="mA"></i><i class="mB"></i></span></div>').join("");
+    const cards = [...el.children];
+    return {
+      cards,
+      // given: מה שנשאר אפשרי. ask: מה שמעניין אותנו בתוכו.
+      show(given, ask) {
+        let w = 0, p = 0;
+        cards.forEach((c, i) => {
+          const s = CLASS[i];
+          const inG = !given || given(s);
+          const inP = inG && !!ask && ask(s);
+          c.classList.toggle("out", !!given && !inG);
+          c.classList.toggle("whole", !!given && inG && !inP);
+          c.classList.toggle("part", inP);
+          if (inG) w++;
+          if (inP) p++;
+        });
+        return { w, p };
+      }
+    };
+  }
+
+  // ===== הצורך: הרמז =====
+  (function () {
+    const d = makeDeck($("deckHint"));
+    let shown = false;
+    $("hintBtn").addEventListener("click", () => {
+      shown = !shown;
+      if (shown) {
+        const r = d.show(SETS.B, SETS.A);
+        $("outHint").innerHTML = "נשארו " + num(r.w) + " פתקים אפשריים. " + num(r.p) + " מהם של לומדי פסיכולוגיה.";
+        $("hintBtn").textContent = "מבטלים את הרמז";
+      } else {
+        d.show(null, null);
+        $("outHint").innerHTML = "";
+        $("hintBtn").textContent = "מקבלים את הרמז";
+      }
+    });
+  })();
+
+  // ===== הסדר חשוב =====
+  (function () {
+    const d = makeDeck($("deckOrder"));
+    const btns = [...$("orderBtns").querySelectorAll("button")];
+    const CASES = {
+      AgB: { g: SETS.B, q: SETS.A, txt: "השלם: לומדי הסוציולוגיה." },
+      BgA: { g: SETS.A, q: SETS.B, txt: "השלם: לומדי הפסיכולוגיה." }
+    };
+    btns.forEach(b => b.addEventListener("click", () => {
+      const was = b.classList.contains("on");
+      btns.forEach(x => x.classList.remove("on"));
+      if (was) { d.show(null, null); $("outOrder").innerHTML = ""; return; }
+      b.classList.add("on");
+      const c = CASES[b.dataset.op];
+      const r = d.show(c.g, c.q);
+      $("outOrder").innerHTML = c.txt + " " + ltr(num(r.p + " ÷ " + r.w)) + " ≈ " + num(pct(r.p, r.w));
+    }));
+  })();
+
+  // ===== כלל הכפל: שני נציגים =====
+  (function () {
+    // 12 נקודות, 7 מהן לומדי פסיכולוגיה
+    const dot = cls => '<span class="d' + cls + '"></span>';
+    const row1 = () => Array.from({ length: 12 }, (_, i) => dot(i < 7 ? " a" : "")).join("");
+    let step = 0;
+    function render() {
+      if (step === 0) {
+        $("dots1").innerHTML = row1();
+        $("dots2").innerHTML = Array.from({ length: 11 }, () => dot("")).join("");
+        $("rv1").innerHTML = ""; $("rv2").innerHTML = "";
+        $("row2").classList.add("wait");
+        $("outStep").innerHTML = "";
+        $("stepBtn").textContent = "מגרילים את הנציג הראשון";
+      } else if (step === 1) {
+        $("rv1").innerHTML = ltr(num("7 ÷ 12"));
+        $("outStep").innerHTML = "יצא לומד פסיכולוגיה. הפתק שלו כבר לא בקופסה.";
+        $("stepBtn").textContent = "מגרילים את הנציג השני";
+      } else {
+        // שורה שנייה: אחד מלומדי הפסיכולוגיה כבר יצא
+        $("dots2").innerHTML = dot(" gone") + Array.from({ length: 11 }, (_, i) => dot(i < 6 ? " a" : "")).join("");
+        $("row2").classList.remove("wait");
+        $("rv2").innerHTML = ltr(num("6 ÷ 11"));
+        $("outStep").innerHTML = "בהינתן שהראשון לומד פסיכולוגיה: " + ltr(num("6 ÷ 11"));
+        $("stepBtn").textContent = "מתחילים מחדש";
+      }
+    }
+    $("stepBtn").addEventListener("click", () => { step = (step + 1) % 3; render(); });
+    render();
+  })();
+
+  // ===== ארגז החול =====
+  (function () {
+    const d = makeDeck($("deckSb"));
+    let g = "all", q = "A";
+    function update() {
+      const r = d.show(g === "all" ? null : SETS[g], SETS[q]);
+      const before = CLASS.filter(SETS[q]).length;
+      const label = g === "all" ? "P(" + NAMES[q] + ")" : "P(" + NAMES[q] + " | " + NAMES[g] + ")";
+      let h = ltr(label + " = " + num(r.p + " ÷ " + r.w)) + " ≈ " + num(pct(r.p, r.w));
+      if (g !== "all") {
+        const was = before / 12, now = r.p / r.w;
+        const dir = now > was + 1e-9 ? "עלה" : now < was - 1e-9 ? "ירד" : "לא השתנה";
+        h += "<br>בלי המידע: " + ltr(num(before + " ÷ 12")) + " ≈ " + num(pct(before, 12)) + ". הסיכוי " + dir + ".";
+      }
+      $("sbOut").innerHTML = h;
+    }
+    function group(scope, key, set) {
+      const btns = [...scope.querySelectorAll("button")];
+      btns.forEach(b => b.addEventListener("click", () => {
+        btns.forEach(x => x.classList.toggle("on", x === b));
+        set(b.dataset[key]);
+        update();
+      }));
+    }
+    group($("sbGiven"), "g", v => g = v);
+    group($("sbAsk"), "q", v => q = v);
+    update();
+  })();
+})();
+</script>
+
+<script>
+  // המשולש מחזיר לרשימת הנושאים של הסטטיסטיקה.
+  window.waytoseeParentOverride = "statistika/statistika.html";
+</script>
+<script src="../waytosee.js"></script>
+</body>
+</html>
