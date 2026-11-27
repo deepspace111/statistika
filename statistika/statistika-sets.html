@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script src="../waytosee-analytics.js"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>תורת הקבוצות: מי בפנים? | WayToSee</title>
+<meta name="description" content="תורת הקבוצות מתוך צורך: למה 7 + 6 יוצא 13 בכיתה של 12. שייכות, חיתוך, איחוד, משלים, קבוצה ריקה וקבוצות זרות, עם כרטיסי סטודנטים וארגז חול.">
+
+<link rel="stylesheet" href="../waytosee.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik+Bubbles&family=Rubik+Doodle+Shadow&display=swap">
+
+<style>
+/* שלד העמוד נמצא ב-waytosee.css תחת body.stat-page. כאן רק הייחודי לעמוד הזה. */
+
+@font-face {
+  font-family: "WTS Math";
+  src: url("math-font.woff") format("woff");
+}
+math { font-family: "WTS Math", "Latin Modern Math", "Cambria Math", "STIX Two Math", math; }
+p math, td math { font-size: 1.1em; }
+.formula-math { margin: 12px 0 6px; font-size: 21px; text-align: center; }
+.calc math { font-size: 1.05em; color: var(--text); }
+
+body.stat-page .container h3 { font-size: 19px; margin: 16px 0 6px; font-weight: 700; color: var(--text); }
+.mini-q { font-weight: bold; }
+.notation { text-align: center; line-height: 1.9; }
+
+/* ===== צבעי השייכות: אדמה במצב בהיר, כחולים במצב הלמידה ===== */
+:root { --setA: #8a9a5b; --setB: #b8963e; }
+body.learning-mode { --setA: #7cc0ff; --setB: #2b4f86; }
+
+/* ===== כרטיסי הסטודנטים ===== */
+.deck {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin: 12px 0 6px;
+}
+.card {
+  position: relative;
+  font: inherit;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  padding: 7px 2px 12px;
+  text-align: center;
+  cursor: default;
+  transition: opacity 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+.deck.clickable .card { cursor: pointer; }
+.deck.clickable .card:hover { border-color: var(--accent); }
+/* פסי השייכות בתחתית הכרטיס */
+.card .marks { position: absolute; left: 6px; right: 6px; bottom: 4px; display: flex; gap: 3px; height: 4px; }
+.card .marks i { flex: 1; border-radius: 2px; opacity: 0; transition: opacity 0.3s ease; }
+.card .marks .mA { background: var(--setA); }
+.card .marks .mB { background: var(--setB); }
+.card.showA .marks .mA, .card.showB .marks .mB { opacity: 1; }
+/* הדגשה לפי פעולה */
+.deck.filtering .card { opacity: 0.3; }
+.deck.filtering .card.hit { opacity: 1; border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--panel)); }
+
+.legend { display: flex; justify-content: center; gap: 14px; font-size: 13px; opacity: 0.8; margin-top: 4px; }
+.legend b { display: inline-block; width: 12px; height: 4px; border-radius: 2px; margin-inline-end: 5px; vertical-align: middle; }
+.legend .lA { background: var(--setA); } .legend .lB { background: var(--setB); }
+
+/* ===== כפתורים ותוצאות ===== */
+.btns { display: flex; gap: 8px; justify-content: center; margin: 8px 0; flex-wrap: wrap; }
+.btns button {
+  font: inherit; font-size: 14px; color: var(--text);
+  background: var(--panel); border: 1px solid var(--panel-border);
+  border-radius: 999px; padding: 3px 14px; cursor: pointer;
+}
+.btns button:hover { border-color: var(--accent); }
+.btns button.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--panel)); }
+.out { text-align: center; font-size: 15px; min-height: 1.6em; }
+.cnt { font-family: 'JetBrains Mono', monospace; color: var(--num); }
+
+/* ===== הקישור לתחנת החשיבה: אותו סגנון כמו "לא להיבהל מהנוסחה" ===== */
+body.stat-page .container p.calm-link { text-align: center; margin: 12px 0 6px; }
+.calm-link a {
+  display: inline-block;
+  font-family: 'Rubik Doodle Shadow', 'Heebo', sans-serif;
+  font-size: 21px;
+  line-height: 1.35;
+  color: var(--text);
+  text-decoration: none;
+  transition: transform 0.25s ease;
+}
+body.learning-mode .calm-link a { font-family: 'Rubik Bubbles', 'Heebo', sans-serif; }
+.calm-link a:hover { transform: scale(1.06) rotate(-2deg); }
+
+@media (max-width: 600px) {
+  .card { font-size: 13px; }
+}
+</style>
+</head>
+
+<body class="stat-page">
+
+<div class="rain" id="rain"></div>
+
+<h1 class="page-title">תורת הקבוצות</h1>
+<p class="page-subtitle">מי בפנים?</p>
+
+<div class="container">
+
+<div class="col">
+
+  <div class="section">
+    <h2>הצורך: למה החיבור לא מסתדר?</h2>
+    <p>בכיתה יש 12 סטודנטים. 7 מהם לומדים פסיכולוגיה, 6 לומדים סוציולוגיה, ו־3 לומדים את שני התחומים.</p>
+    <p><strong>כמה סטודנטים לומדים לפחות אחד משני התחומים?</strong></p>
+    <p>הדבר הראשון שעולה הוא לחבר: <span class="ltr" dir="ltr">7 + 6 = 13</span>. אבל בכיתה יש רק 12 סטודנטים, כך שמשהו בספירה לא מסתדר.</p>
+    <div class="deck" id="deckNeed"></div>
+    <div class="legend"><span><b class="lA"></b>פסיכולוגיה</span><span><b class="lB"></b>סוציולוגיה</span></div>
+    <div class="btns">
+      <button type="button" data-mark="A">פסיכולוגיה</button>
+      <button type="button" data-mark="B">סוציולוגיה</button>
+    </div>
+    <div class="out" id="outNeed"></div>
+    <p>כשמסתכלים על הכרטיסים רואים מה קרה: שלושה סטודנטים נספרו פעמיים, פעם בכל תחום. כדי לספור נכון צריך דרך מדויקת לתאר מי שייך לאיזו קבוצה, גם כשיש חפיפה.</p>
+  </div>
+
+  <div class="section">
+    <h2>קבוצה ושייכות: מי עומד בתנאי?</h2>
+    <p>לחצו על כרטיס כדי לראות לאילו תחומים הסטודנט שייך.</p>
+    <div class="deck clickable" id="deckBelong"></div>
+    <div class="legend"><span><b class="lA"></b>פסיכולוגיה</span><span><b class="lB"></b>סוציולוגיה</span></div>
+    <p>לגבי כל סטודנט בכיתה אפשר לענות על שאלה פשוטה: האם הוא לומד פסיכולוגיה? התשובה היא תמיד כן או לא, אין אפשרות באמצע.</p>
+    <p>קבוצה היא אוסף של איברים. כאן נגדיר את הקבוצות שלנו לפי תנאי ברור: תחום הלימודים.</p>
+    <p><span class="ltr" dir="ltr"><math><mi>A</mi></math></span>: הסטודנטים בכיתה שלומדים פסיכולוגיה.<br>
+       <span class="ltr" dir="ltr"><math><mi>B</mi></math></span>: הסטודנטים בכיתה שלומדים סוציולוגיה.</p>
+    <p>אותו סטודנט יכול להיות איבר ביותר מקבוצה אחת. זה בדיוק מה שקרה לשלושת הסטודנטים שנספרו פעמיים.</p>
+    <p class="notation">
+      <span class="ltr" dir="ltr"><math><mi>x</mi><mo>∈</mo><mi>A</mi></math></span> פירושו ״x שייך ל־A״.<br>
+      <span class="ltr" dir="ltr"><math><mi>x</mi><mo>∉</mo><mi>A</mi></math></span> פירושו ״x לא שייך ל־A״.
+    </p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>חיתוך ואיחוד: ״גם״ ו״לפחות אחד״</h2>
+    <p>אפשר לשאול על הכיתה שתי שאלות שונות:</p>
+    <div class="deck" id="deckOps"></div>
+    <div class="btns">
+      <button type="button" data-op="both">שני התחומים</button>
+      <button type="button" data-op="any">לפחות אחד</button>
+    </div>
+    <div class="out" id="outOps"></div>
+    <p><strong>מי לומד את שני התחומים?</strong> אלה הסטודנטים ששייכים ל־A וגם ל־B. יש 3 כאלה.</p>
+    <p><strong>מי לומד לפחות אחד מהתחומים?</strong> אלה הסטודנטים ששייכים ל־A, ל־B או לשתיהן. יש 10 כאלה.</p>
+    <p>שימו לב: בשפה היומיומית ״או״ מתפרש לפעמים כ״רק אחד מהשניים״. כאן ״או״ כולל גם את מי שלומד את שני התחומים.</p>
+    <table class="data-table">
+      <tr><th>הבקשה</th><th>הפעולה</th><th>הסימון</th><th>סטודנטים</th></tr>
+      <tr><td>לומדים את שני התחומים</td><td>חיתוך</td><td><span class="ltr" dir="ltr"><math><mi>A</mi><mo>∩</mo><mi>B</mi></math></span></td><td>3</td></tr>
+      <tr><td>לומדים לפחות תחום אחד</td><td>איחוד</td><td><span class="ltr" dir="ltr"><math><mi>A</mi><mo>∪</mo><mi>B</mi></math></span></td><td>10</td></tr>
+    </table>
+    <p>עכשיו אפשר לתקן את הספירה מההתחלה. כשמחברים את שתי הקבוצות, מי שנמצא בחיתוך נספר פעמיים, ולכן מחסירים אותו פעם אחת:</p>
+    <div class="calc"><math><mo>|</mo><mi>A</mi><mo>∪</mo><mi>B</mi><mo>|</mo></math> = <math><mo>|</mo><mi>A</mi><mo>|</mo></math> + <math><mo>|</mo><mi>B</mi><mo>|</mo></math> − <math><mo>|</mo><mi>A</mi><mo>∩</mo><mi>B</mi><mo>|</mo></math> = 7 + 6 − 3 = <strong>10</strong></div>
+    <p>הקווים משני צידי שם הקבוצה מציינים את מספר האיברים שבה.</p>
+  </div>
+
+  <div class="section">
+    <h2>משלים: מי נשאר בחוץ?</h2>
+    <p><strong>מי לא לומד פסיכולוגיה?</strong></p>
+    <p>לפני שעונים צריך לשאול: מתוך מי? מתוך הכיתה, מתוך הפקולטה, מתוך כל האוניברסיטה? התשובה עשויה להשתנות לפי האוכלוסייה שאליה מתייחסים.</p>
+    <p>לכן מגדירים קודם את הקבוצה האוניברסלית, <span class="ltr" dir="ltr"><math><mi>U</mi></math></span>: כל 12 הסטודנטים בכיתה.</p>
+    <div class="deck" id="deckComp"></div>
+    <div class="btns">
+      <button type="button" data-op="notA">לא פסיכולוגיה</button>
+      <button type="button" data-op="none">אף תחום</button>
+    </div>
+    <div class="out" id="outComp"></div>
+    <p>המשלים של קבוצה הוא כל מי שנמצא ב־U ואינו בקבוצה.</p>
+    <p><span class="ltr" dir="ltr"><math><msup><mi>A</mi><mi>c</mi></msup></math></span>: הסטודנטים שלא לומדים פסיכולוגיה. יש 5 כאלה.<br>
+       <span class="ltr" dir="ltr"><math><msup><mrow><mo>(</mo><mi>A</mi><mo>∪</mo><mi>B</mi><mo>)</mo></mrow><mi>c</mi></msup></math></span>: הסטודנטים שלא לומדים אף אחד מהתחומים. יש 2 כאלה.</p>
+    <p>כדי לדעת מי בחוץ, צריך להגדיר קודם מה נחשב ״בפנים״.</p>
+    <p class="calm-link"><a href="statistika-thinking-demorgan.html">מחוץ לשתי הקבוצות: שתי דרכים לומר אותו דבר?</a></p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>קבוצה ריקה וקבוצות זרות: האם אפשר בלי חפיפה?</h2>
+    <p><strong>בכיתה של 12 סטודנטים, האם יכולים להיות 7 שלומדים פסיכולוגיה ו־6 שלומדים סוציולוגיה, בלי שאף אחד לומד את שניהם?</strong></p>
+    <p id="tryHint">נסו: בחרו תחום, ואז לחצו על כרטיסים כדי לשייך אותם אליו. כל סטודנט לומד תחום אחד לכל היותר.</p>
+    <div class="btns" id="trySets">
+      <button type="button" data-set="A" class="on">משייכים לפסיכולוגיה</button>
+      <button type="button" data-set="B">משייכים לסוציולוגיה</button>
+    </div>
+    <div class="deck clickable" id="deckTry"></div>
+    <div class="legend"><span><b class="lA"></b>פסיכולוגיה</span><span><b class="lB"></b>סוציולוגיה</span></div>
+    <div class="out" id="outTry"></div>
+    <p>בלי חפיפה צריך 13 סטודנטים שונים, ובכיתה יש רק 12. בכיתה הזאת זה בלתי אפשרי.</p>
+
+    <h3>תרחיש חדש</h3>
+    <p>7 לומדים פסיכולוגיה. 4 לומדים סוציולוגיה. אף אחד לא לומד את שניהם. סטודנט אחד לא לומד אף אחד מהתחומים.</p>
+    <div class="deck" id="deckEmpty"></div>
+    <div class="btns">
+      <button type="button" data-op="both">שני התחומים</button>
+    </div>
+    <div class="out" id="outEmpty"></div>
+    <p>כשמבקשים ״שני התחומים״, לא מודגש אף כרטיס. החיתוך קיים, אבל אין בו איברים.</p>
+    <p>קבוצה שאין בה אף איבר נקראת <strong>קבוצה ריקה</strong>, ומסמנים אותה <span class="ltr" dir="ltr"><math><mi>∅</mi></math></span>:</p>
+    <div class="formula-math"><math display="block" dir="ltr"><mi>A</mi><mo>∩</mo><mi>B</mi><mo>=</mo><mi>∅</mi></math></div>
+    <p>שתי קבוצות שהחיתוך שלהן ריק נקראות <strong>קבוצות זרות</strong>. בדוגמה הזאת שתי הקבוצות אינן ריקות, אבל החיתוך שלהן ריק.</p>
+    <p>בקבוצות זרות אין מה להחסיר, כי אף אחד לא נספר פעמיים:</p>
+    <div class="calc"><math><mo>|</mo><mi>A</mi><mo>∪</mo><mi>B</mi><mo>|</mo></math> = 7 + 4 = <strong>11</strong></div>
+  </div>
+
+  <div class="section">
+    <h2>ארגז החול: בונים את הקבוצות</h2>
+    <p>כל לחיצה על כרטיס מעבירה אותו לשלב הבא: בלי תחום, פסיכולוגיה, סוציולוגיה, שניהם.</p>
+    <div class="deck clickable" id="deckSand"></div>
+    <div class="legend"><span><b class="lA"></b>A: פסיכולוגיה</span><span><b class="lB"></b>B: סוציולוגיה</span></div>
+    <div class="btns" id="sandOps">
+      <button type="button" data-op="both"><math><mi>A</mi><mo>∩</mo><mi>B</mi></math></button>
+      <button type="button" data-op="any"><math><mi>A</mi><mo>∪</mo><mi>B</mi></math></button>
+      <button type="button" data-op="notA"><math><msup><mi>A</mi><mi>c</mi></msup></math></button>
+      <button type="button" data-op="none"><math><msup><mrow><mo>(</mo><mi>A</mi><mo>∪</mo><mi>B</mi><mo>)</mo></mrow><mi>c</mi></msup></math></button>
+    </div>
+    <div class="out" id="outSand" dir="ltr"></div>
+    <p class="mini-q">נסו:</p>
+    <p>1. צרו שתי קבוצות שהחיתוך שלהן הוא בדיוק שני סטודנטים.<br>
+       2. צרו שתי קבוצות זרות שאף אחת מהן אינה ריקה.<br>
+       3. דאגו שכל סטודנט ישתייך לפחות לקבוצה אחת.</p>
+    <p>עכשיו אפשר לתאר בדיוק את הקבוצות. בעמוד הבא נלמד לספור אפשרויות גם כשאי אפשר להציג את כולן בכרטיסים.</p>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+(function () {
+  // הכיתה המקורית: 4 רק פסיכולוגיה, 3 רק סוציולוגיה, 3 בשניהם, 2 באף תחום. מעורבבים בתצוגה.
+  const CLASS = [
+    ["נועה", 1, 0], ["שירה", 0, 1], ["אורי", 1, 1], ["הילה", 0, 0],
+    ["איתי", 1, 0], ["ליה", 1, 1], ["עומר", 0, 1], ["מאיה", 1, 0],
+    ["אמיר", 0, 0], ["תמר", 0, 1], ["דניאל", 1, 1], ["יונתן", 1, 0]
+  ].map(([name, a, b]) => ({ name, A: !!a, B: !!b }));
+
+  // התרחיש החדש: 7 פסיכולוגיה, 4 סוציולוגיה, אין חפיפה, אחד באף תחום.
+  const DISJOINT = [
+    ["נועה", 1, 0], ["שירה", 0, 1], ["אורי", 1, 0], ["הילה", 0, 0],
+    ["איתי", 1, 0], ["ליה", 0, 1], ["עומר", 0, 1], ["מאיה", 1, 0],
+    ["אמיר", 1, 0], ["תמר", 0, 1], ["דניאל", 1, 0], ["יונתן", 1, 0]
+  ].map(([name, a, b]) => ({ name, A: !!a, B: !!b }));
+
+  const OPS = {
+    both: s => s.A && s.B,
+    any:  s => s.A || s.B,
+    notA: s => !s.A,
+    none: s => !s.A && !s.B
+  };
+  const $ = id => document.getElementById(id);
+  const num = n => '<span class="cnt">' + n + '</span>';
+
+  // יוצר חפיסת כרטיסים. כל חפיסה מקבלת עותק משלה של הנתונים.
+  function makeDeck(el, data) {
+    const students = data.map(s => ({ ...s }));
+    el.innerHTML = students.map(s =>
+      '<button type="button" class="card"><span>' + s.name + '</span><span class="marks"><i class="mA"></i><i class="mB"></i></span></button>').join("");
+    const cards = [...el.children];
+    return {
+      students, cards,
+      marks(showA, showB) {
+        cards.forEach((c, i) => {
+          c.classList.toggle("showA", showA === true ? students[i].A : !!(showA && showA[i]));
+          c.classList.toggle("showB", showB === true ? students[i].B : !!(showB && showB[i]));
+        });
+      },
+      filter(pred) {
+        el.classList.toggle("filtering", !!pred);
+        let n = 0;
+        cards.forEach((c, i) => { const hit = !!pred && pred(students[i]); c.classList.toggle("hit", hit); if (hit) n++; });
+        return n;
+      }
+    };
+  }
+  // כפתורים שמדליקים פעולה אחת בכל פעם. לחיצה נוספת מכבה.
+  function opButtons(scope, onPick) {
+    const btns = [...scope.querySelectorAll("button[data-op]")];
+    btns.forEach(b => b.addEventListener("click", () => {
+      const was = b.classList.contains("on");
+      btns.forEach(x => x.classList.remove("on"));
+      if (!was) b.classList.add("on");
+      onPick(was ? null : b.dataset.op);
+    }));
+  }
+
+  // ===== הצורך: סימון שני התחומים, כל אחד בנפרד =====
+  (function () {
+    const d = makeDeck($("deckNeed"), CLASS);
+    const sec = $("deckNeed").closest(".section");
+    const on = { A: false, B: false };
+    sec.querySelectorAll("button[data-mark]").forEach(b => b.addEventListener("click", () => {
+      on[b.dataset.mark] = !on[b.dataset.mark];
+      b.classList.toggle("on", on[b.dataset.mark]);
+      d.marks(on.A, on.B);
+      const a = on.A ? 7 : 0, bb = on.B ? 6 : 0;
+      const cards = d.students.filter(s => (on.A && s.A) || (on.B && s.B)).length;
+      $("outNeed").innerHTML = (on.A || on.B)
+        ? "סימונים: " + num(a + bb) + " &nbsp;·&nbsp; כרטיסים מסומנים: " + num(cards)
+        : "";
+    }));
+  })();
+
+  // ===== קבוצה ושייכות: לחיצה חושפת =====
+  (function () {
+    const d = makeDeck($("deckBelong"), CLASS);
+    d.cards.forEach((c, i) => c.addEventListener("click", () => {
+      c.classList.add("showA", "showB");
+      if (!d.students[i].A) c.classList.remove("showA");
+      if (!d.students[i].B) c.classList.remove("showB");
+    }));
+  })();
+
+  // ===== חיתוך ואיחוד, משלים =====
+  [["deckOps", "outOps"], ["deckComp", "outComp"]].forEach(([deckId, outId]) => {
+    const d = makeDeck($(deckId), CLASS);
+    d.marks(true, true);
+    opButtons($(deckId).closest(".section"), op => {
+      const n = d.filter(op ? OPS[op] : null);
+      $(outId).innerHTML = op ? "מודגשים: " + num(n) : "";
+    });
+  });
+
+  // ===== האם אפשר בלי חפיפה? =====
+  (function () {
+    const el = $("deckTry");
+    const d = makeDeck(el, CLASS.map(s => ({ name: s.name, A: false, B: false })));
+    let cur = "A";
+    const setBtns = [...$("trySets").querySelectorAll("button")];
+    setBtns.forEach(b => b.addEventListener("click", () => {
+      cur = b.dataset.set;
+      setBtns.forEach(x => x.classList.toggle("on", x === b));
+    }));
+    function show() {
+      const a = d.students.filter(s => s.A).length, b = d.students.filter(s => s.B).length;
+      d.marks(true, true);
+      let msg = "פסיכולוגיה: " + num(a + "/7") + " &nbsp;·&nbsp; סוציולוגיה: " + num(b + "/6");
+      if (a + b === 12 && (a < 7 || b < 6)) msg += "<br>הכרטיסים נגמרו, ועדיין חסרים סטודנטים.";
+      $("outTry").innerHTML = msg;
+    }
+    d.cards.forEach((c, i) => c.addEventListener("click", () => {
+      const s = d.students[i];
+      if (s[cur]) { s[cur] = false; }
+      else {
+        const limit = cur === "A" ? 7 : 6;
+        if (d.students.filter(x => x[cur]).length >= limit) return;
+        s.A = cur === "A"; s.B = cur === "B"; // תחום אחד לכל היותר
+      }
+      show();
+    }));
+    show();
+  })();
+
+  // ===== התרחיש החדש: חיתוך ריק =====
+  (function () {
+    const d = makeDeck($("deckEmpty"), DISJOINT);
+    d.marks(true, true);
+    opButtons($("deckEmpty").closest(".section").querySelector("#outEmpty").previousElementSibling, op => {
+      const n = d.filter(op ? OPS[op] : null);
+      $("outEmpty").innerHTML = op ? "מודגשים: " + num(n) : "";
+    });
+  })();
+
+  // ===== ארגז החול =====
+  (function () {
+    const d = makeDeck($("deckSand"), CLASS);
+    let op = null;
+    function show() {
+      d.marks(true, true);
+      d.filter(op ? OPS[op] : null);
+      const S = d.students;
+      const A = S.filter(s => s.A).length, B = S.filter(s => s.B).length;
+      const AB = S.filter(OPS.both).length, U = S.filter(OPS.any).length;
+      const m = x => "<math><mo>|</mo>" + x + "<mo>|</mo></math> = ";
+      $("outSand").innerHTML = m("<mi>A</mi>") + num(A) + " &nbsp;·&nbsp; " + m("<mi>B</mi>") + num(B) +
+        " &nbsp;·&nbsp; " + m("<mi>A</mi><mo>∩</mo><mi>B</mi>") + num(AB) +
+        " &nbsp;·&nbsp; " + m("<mi>A</mi><mo>∪</mo><mi>B</mi>") + num(U);
+    }
+    // סבב: בלי תחום ← פסיכולוגיה ← סוציולוגיה ← שניהם ← בלי תחום
+    d.cards.forEach((c, i) => c.addEventListener("click", () => {
+      const s = d.students[i];
+      const k = (s.A ? 1 : 0) + (s.B ? 2 : 0);
+      const next = { 0: 1, 1: 2, 2: 3, 3: 0 }[k];
+      s.A = !!(next & 1); s.B = !!(next & 2);
+      show();
+    }));
+    opButtons($("sandOps"), p => { op = p; show(); });
+    show();
+  })();
+})();
+</script>
+
+<script>
+  // המשולש מחזיר לרשימת הנושאים של הסטטיסטיקה.
+  window.waytoseeParentOverride = "statistika/statistika.html";
+</script>
+<script src="../waytosee.js"></script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script src="../waytosee-analytics.js"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>תחנת חשיבה: מחוץ לשתי הקבוצות | WayToSee</title>
+<meta name="description" content="״מחוץ לשתי הקבוצות״ ו״לא בזו וגם לא בזו״: שתי דרכים לומר אותו דבר. קודם רואים את אותם סטודנטים, ורק אחר כך את אחד מכללי דה מורגן.">
+
+<link rel="stylesheet" href="../waytosee.css">
+
+<style>
+/* תחנת חשיבה: בהירה או כהה לפי מפתח הפה, כמו בשאר האתר. */
+
+@font-face {
+  font-family: "WTS Math";
+  src: url("math-font.woff") format("woff");
+}
+math { font-family: "WTS Math", "Latin Modern Math", "Cambria Math", "STIX Two Math", math; }
+
+body { min-height: 100svh; margin: 0; }
+:root { --setA: #8a9a5b; --setB: #b8963e; --hl: #c2410c; }
+body.learning-mode { --setA: #7cc0ff; --setB: #2b4f86; --hl: var(--accent-2); }
+
+.room { position: relative; z-index: 5; max-width: 640px; margin: 0 auto; padding: 0 22px 90px; }
+.room-head { text-align: center; padding: 70px 0 10px; }
+.room-head .kicker { font-size: 14px; letter-spacing: 0.12em; opacity: 0.55; }
+.room-head h1 { font-size: 30px; font-weight: 300; margin: 8px 0 0; }
+
+.step { padding: 26px 0; border-top: 1px solid var(--panel-border); }
+.step h2 { font-size: 20px; font-weight: 700; margin: 0 0 6px; }
+.step p { font-size: 17px; line-height: 1.65; margin: 0 0 8px; text-align: justify; }
+.ltr { direction: ltr; unicode-bidi: isolate; display: inline-block; }
+p math { font-size: 1.1em; }
+
+/* ===== כרטיסי הסטודנטים, אותו מראה כמו בעמוד ===== */
+.deck { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 14px 0 6px; }
+.card {
+  position: relative; font: inherit; font-size: 14px; color: var(--text);
+  background: var(--panel); border: 1px solid var(--panel-border); border-radius: 10px;
+  padding: 7px 2px 12px; text-align: center;
+  transition: opacity 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+.card .marks { position: absolute; left: 6px; right: 6px; bottom: 4px; display: flex; gap: 3px; height: 4px; }
+.card .marks i { flex: 1; border-radius: 2px; opacity: 0; }
+.card .marks .mA { background: var(--setA); }
+.card .marks .mB { background: var(--setB); }
+.card.showA .marks .mA, .card.showB .marks .mB { opacity: 1; }
+.deck.filtering .card { opacity: 0.3; }
+.deck.filtering .card.hit { opacity: 1; border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--panel)); }
+.legend { display: flex; justify-content: center; gap: 14px; font-size: 13px; opacity: 0.8; margin-top: 4px; }
+.legend b { display: inline-block; width: 12px; height: 4px; border-radius: 2px; margin-inline-end: 5px; vertical-align: middle; }
+.legend .lA { background: var(--setA); } .legend .lB { background: var(--setB); }
+
+.btns { display: flex; flex-direction: column; gap: 8px; align-items: center; margin: 12px 0 6px; }
+.btns button {
+  font: inherit; font-size: 15px; color: var(--text);
+  background: var(--panel); border: 1px solid var(--panel-border);
+  border-radius: 999px; padding: 4px 16px; cursor: pointer;
+}
+.btns button:hover { border-color: var(--accent); }
+.btns button.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--panel)); }
+.out { text-align: center; font-size: 15px; min-height: 1.6em; }
+.cnt { font-family: 'JetBrains Mono', monospace; color: var(--num); }
+
+/* הנוסחה נחשפת רק אחרי ששני התיאורים נבדקו */
+#reveal.hidden { display: none; }
+#reveal.shown { animation: revealIn 0.6s ease; }
+@keyframes revealIn { from { opacity: 0; } to { opacity: 1; } }
+.hint { text-align: center; font-size: 15px; opacity: 0.6; }
+.formula { text-align: center; font-size: 30px; margin: 10px 0 14px; color: var(--hl); }
+
+.end { border-top: 1px solid var(--panel-border); padding-top: 26px; text-align: center; }
+.end p { font-size: 18px; line-height: 1.7; }
+
+@media (max-width: 600px) {
+  .room { padding: 0 16px 70px; }
+  .room-head { padding-top: 60px; }
+  .room-head h1 { font-size: 25px; }
+  .step p { font-size: 16px; }
+  .card { font-size: 13px; }
+  .formula { font-size: 24px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="rain" id="rain"></div>
+
+<main class="room">
+
+  <header class="room-head">
+    <div class="kicker">תחנת חשיבה</div>
+    <h1>מחוץ לשתי הקבוצות: שתי דרכים לומר אותו דבר?</h1>
+  </header>
+
+  <section class="step">
+    <p>חוזרים לכיתה המקורית: 7 בפסיכולוגיה, 6 בסוציולוגיה, 3 בשני התחומים.</p>
+    <p>יש שתי דרכים לתאר קבוצה של סטודנטים:</p>
+    <p><strong>תיאור ראשון:</strong> מי שנמצא מחוץ לשתי הקבוצות.<br>
+       <strong>תיאור שני:</strong> מי שלא לומד פסיכולוגיה וגם לא לומד סוציולוגיה.</p>
+    <p><strong>האם אלה אותם סטודנטים?</strong></p>
+    <div class="deck" id="deck"></div>
+    <div class="legend"><span><b class="lA"></b>פסיכולוגיה</span><span><b class="lB"></b>סוציולוגיה</span></div>
+    <div class="btns">
+      <button type="button" data-d="1">מחוץ לשתי הקבוצות</button>
+      <button type="button" data-d="2">לא פסיכולוגיה וגם לא סוציולוגיה</button>
+    </div>
+    <div class="out" id="out"></div>
+  </section>
+
+  <p class="hint" id="hint">בדקו את שני התיאורים.</p>
+
+  <section class="step hidden" id="reveal">
+    <p>כן. כדי להיות מחוץ לאיחוד, לא מספיק להיות מחוץ לאחת הקבוצות, צריך להיות מחוץ לכל אחת מהן.</p>
+    <p>בסימון:</p>
+    <div class="formula"><math display="block" dir="ltr"><msup><mrow><mo>(</mo><mi>A</mi><mo>∪</mo><mi>B</mi><mo>)</mo></mrow><mi>c</mi></msup><mo>=</mo><msup><mi>A</mi><mi>c</mi></msup><mo>∩</mo><msup><mi>B</mi><mi>c</mi></msup></math></div>
+    <p>זהו אחד מכללי דה מורגן.</p>
+  </section>
+
+</main>
+
+<script>
+(function () {
+  // עותק עצמאי של הכיתה המקורית: 4 רק פסיכולוגיה, 3 רק סוציולוגיה, 3 בשניהם, 2 באף תחום.
+  const S = [
+    ["נועה", 1, 0], ["שירה", 0, 1], ["אורי", 1, 1], ["הילה", 0, 0],
+    ["איתי", 1, 0], ["ליה", 1, 1], ["עומר", 0, 1], ["מאיה", 1, 0],
+    ["אמיר", 0, 0], ["תמר", 0, 1], ["דניאל", 1, 1], ["יונתן", 1, 0]
+  ].map(([name, a, b]) => ({ name, A: !!a, B: !!b }));
+  // שני תיאורים, שתי דרכים שונות לחשב, ואותה תוצאה
+  const DESC = {
+    1: s => !(s.A || s.B),   // מחוץ לאיחוד
+    2: s => !s.A && !s.B     // לא A וגם לא B
+  };
+  const deck = document.getElementById("deck");
+  deck.innerHTML = S.map(s =>
+    '<div class="card' + (s.A ? " showA" : "") + (s.B ? " showB" : "") + '"><span>' + s.name +
+    '</span><span class="marks"><i class="mA"></i><i class="mB"></i></span></div>').join("");
+  const cards = [...deck.children];
+  const seen = new Set();
+  const btns = [...document.querySelectorAll("button[data-d]")];
+  btns.forEach(b => b.addEventListener("click", () => {
+    const k = b.dataset.d;
+    btns.forEach(x => x.classList.toggle("on", x === b));
+    deck.classList.add("filtering");
+    let n = 0;
+    cards.forEach((c, i) => { const hit = DESC[k](S[i]); c.classList.toggle("hit", hit); if (hit) n++; });
+    document.getElementById("out").innerHTML = 'מודגשים: <span class="cnt">' + n + "</span>";
+    seen.add(k);
+    if (seen.size === 2) {
+      const r = document.getElementById("reveal");
+      if (r.classList.contains("hidden")) { r.classList.remove("hidden"); r.classList.add("shown"); }
+      document.getElementById("hint").style.display = "none";
+    }
+  }));
+})();
+</script>
+
+<script>
+  // המשולש מחזיר לעמוד תורת הקבוצות.
+  window.waytoseeParentOverride = "statistika/statistika-sets.html";
+</script>
+<script src="../waytosee.js"></script>
+
+</body>
+</html>

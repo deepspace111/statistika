@@ -196,6 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "statistika/statistika-pearson.html",
         "statistika/statistika-spearman.html",
         "statistika/statistika-cramer.html",
+        "statistika/statistika-sets.html",
       ],
     },
     { // רשתות: כתובת ← זיהוי הרשת המקומית ← MAC ← ARP ← שער יציאה ← DHCP ← ...
@@ -236,6 +237,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const NEXT_RETURN = {
     "statistika/statistika-thinking-sd.html": "statistika/statistika-dispersion.html",
     "statistika/statistika-thinking-z.html": "statistika/statistika-zscores.html",
+    "statistika/statistika-thinking-demorgan.html": "statistika/statistika-sets.html",
     "ai/ai-self-research-log.html": "ai/ai-self-research.html",
   };
 
