@@ -52,7 +52,8 @@ p math { font-size: 1.1em; }
 .card .marks .mB { background: var(--setB); }
 .card.showA .marks .mA, .card.showB .marks .mB { opacity: 1; }
 .deck.filtering .card { opacity: 0.3; }
-.deck.filtering .card.hit { opacity: 1; border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--panel)); }
+.deck.filtering .card.hit { animation: hitPulse 0.5s ease; opacity: 1; border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--panel)); }
+@keyframes hitPulse { 0% { transform: scale(1); } 40% { transform: scale(1.08); } 100% { transform: scale(1); } }
 .legend { display: flex; justify-content: center; gap: 14px; font-size: 13px; opacity: 0.8; margin-top: 4px; }
 .legend b { display: inline-block; width: 12px; height: 4px; border-radius: 2px; margin-inline-end: 5px; vertical-align: middle; }
 .legend .lA { background: var(--setA); } .legend .lB { background: var(--setB); }
@@ -146,19 +147,36 @@ p math { font-size: 1.1em; }
   const cards = [...deck.children];
   const seen = new Set();
   const btns = [...document.querySelectorAll("button[data-d]")];
+  const NAMES = { 1: "תיאור ראשון", 2: "תיאור שני" };
+  let timer = null;
   btns.forEach(b => b.addEventListener("click", () => {
     const k = b.dataset.d;
-    btns.forEach(x => x.classList.toggle("on", x === b));
-    deck.classList.add("filtering");
-    let n = 0;
-    cards.forEach((c, i) => { const hit = DESC[k](S[i]); c.classList.toggle("hit", hit); if (hit) n++; });
-    document.getElementById("out").innerHTML = 'מודגשים: <span class="cnt">' + n + "</span>";
-    seen.add(k);
-    if (seen.size === 2) {
-      const r = document.getElementById("reveal");
-      if (r.classList.contains("hidden")) { r.classList.remove("hidden"); r.classList.add("shown"); }
-      document.getElementById("hint").style.display = "none";
+    clearTimeout(timer);
+    // לחיצה נוספת על התיאור הפעיל מכבה אותו
+    if (b.classList.contains("on")) {
+      b.classList.remove("on");
+      deck.classList.remove("filtering");
+      cards.forEach(c => c.classList.remove("hit"));
+      document.getElementById("out").innerHTML = "";
+      return;
     }
+    btns.forEach(x => x.classList.toggle("on", x === b));
+    // מכבים לרגע ומדליקים מחדש, כדי שיהיה ברור שהתיאור החדש נבדק מההתחלה
+    deck.classList.remove("filtering");
+    cards.forEach(c => c.classList.remove("hit"));
+    document.getElementById("out").innerHTML = "";
+    timer = setTimeout(() => {
+      deck.classList.add("filtering");
+      const hits = [];
+      cards.forEach((c, i) => { const hit = DESC[k](S[i]); c.classList.toggle("hit", hit); if (hit) hits.push(S[i].name); });
+      document.getElementById("out").innerHTML = NAMES[k] + ": " + hits.join(" ו") ;
+      seen.add(k);
+      if (seen.size === 2) {
+        const r = document.getElementById("reveal");
+        if (r.classList.contains("hidden")) { r.classList.remove("hidden"); r.classList.add("shown"); }
+        document.getElementById("hint").style.display = "none";
+      }
+    }, 250);
   }));
 })();
 </script>

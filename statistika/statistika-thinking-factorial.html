@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script src="../waytosee-analytics.js"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>תחנת חשיבה: למה 0! = 1? | WayToSee</title>
+<meta name="description" content="בכמה דרכים אפשר לבחור אפס נציגים? בדיוק אחת: לא לבחור אף אחד. מכאן n מעל 0 שווה 1, ומכאן גם 0! = 1.">
+
+<link rel="stylesheet" href="../waytosee.css">
+
+<style>
+/* תחנת חשיבה: בהירה או כהה לפי מפתח הפה, כמו בשאר האתר. */
+
+@font-face {
+  font-family: "WTS Math";
+  src: url("math-font.woff") format("woff");
+}
+math { font-family: "WTS Math", "Latin Modern Math", "Cambria Math", "STIX Two Math", math; }
+
+body { min-height: 100svh; margin: 0; }
+:root { --hl: #c2410c; }
+body.learning-mode { --hl: var(--accent-2); }
+
+.room { position: relative; z-index: 5; max-width: 640px; margin: 0 auto; padding: 0 22px 90px; }
+.room-head { text-align: center; padding: 70px 0 10px; }
+.room-head .kicker { font-size: 14px; letter-spacing: 0.12em; opacity: 0.55; }
+.room-head h1 { font-size: 30px; font-weight: 300; margin: 8px 0 0; }
+
+.step { padding: 26px 0; border-top: 1px solid var(--panel-border); }
+.step h2 { font-size: 20px; font-weight: 700; margin: 0 0 6px; }
+.step p { font-size: 17px; line-height: 1.65; margin: 0 0 8px; text-align: justify; }
+.ltr { direction: ltr; unicode-bidi: isolate; display: inline-block; }
+p math { font-size: 1.1em; }
+
+.btns { display: flex; gap: 8px; justify-content: center; margin: 12px 0 6px; flex-wrap: wrap; }
+.btns button {
+  font: inherit; font-size: 15px; color: var(--text);
+  background: var(--panel); border: 1px solid var(--panel-border);
+  border-radius: 999px; padding: 4px 16px; cursor: pointer;
+}
+.btns button:hover { border-color: var(--accent); }
+.btns button.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--panel)); }
+.out { text-align: center; font-size: 16px; min-height: 3.4em; line-height: 1.7; }
+.cnt { font-family: 'JetBrains Mono', monospace; color: var(--num); }
+
+.ex {
+  margin: 10px 0; padding: 10px 12px; border-radius: 10px;
+  background: var(--code-bg); text-align: center; font-size: 16px; line-height: 1.9;
+}
+.ex .num { font-family: 'JetBrains Mono', monospace; color: var(--num); }
+.formula { text-align: center; font-size: 26px; margin: 12px 0; }
+.formula.hl { color: var(--hl); }
+
+.end { border-top: 1px solid var(--panel-border); padding-top: 26px; text-align: center; }
+.end p { font-size: 18px; line-height: 1.7; }
+
+@media (max-width: 600px) {
+  .room { padding: 0 16px 70px; }
+  .room-head { padding-top: 60px; }
+  .room-head h1 { font-size: 25px; }
+  .step p { font-size: 16px; }
+  .formula { font-size: 21px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="rain" id="rain"></div>
+
+<main class="room">
+
+  <header class="room-head">
+    <div class="kicker">תחנת חשיבה</div>
+    <h1>ולמה <bdi dir="ltr">0! = 1</bdi>?</h1>
+  </header>
+
+  <section class="step">
+    <h2>בכמה דרכים אפשר לבחור אפס נציגים?</h2>
+    <p>חוזרים לכיתה של 12 סטודנטים, ויורדים צעד אחרי צעד במספר הנציגים:</p>
+    <div class="btns" id="kBtns">
+      <button type="button" data-k="3">3 נציגים</button>
+      <button type="button" data-k="2">2 נציגים</button>
+      <button type="button" data-k="1">נציג אחד</button>
+      <button type="button" data-k="0">0 נציגים</button>
+    </div>
+    <div class="out" id="out"></div>
+    <p>יש בדיוק בחירה אחת: לא לבחור אף אחד. זו לא ״אין בחירה״, זו בחירה אחת, והיא ריקה.</p>
+  </section>
+
+  <section class="step">
+    <h2>מה הנוסחה צריכה לתת?</h2>
+    <p>אם הנוסחה של ״n מעל k״ נכונה תמיד, היא צריכה לתת 1 גם כש־<bdi dir="ltr">k = 0</bdi>:</p>
+    <div class="formula"><math display="block" dir="ltr"><mrow><mo>(</mo><mfrac linethickness="0"><mn>12</mn><mn>0</mn></mfrac><mo>)</mo></mrow><mo>=</mo><mfrac><mrow><mn>12</mn><mo>!</mo></mrow><mrow><mn>0</mn><mo>!</mo><mo>·</mo><mn>12</mn><mo>!</mo></mrow></mfrac><mo>=</mo><mfrac><mn>1</mn><mrow><mn>0</mn><mo>!</mo></mrow></mfrac></math></div>
+    <p>כדי שהתוצאה תהיה 1, כמו מספר הבחירות שמצאנו, <bdi dir="ltr">0!</bdi> חייב להיות 1.</p>
+  </section>
+
+  <section class="step">
+    <h2>אותו דבר, מכיוון אחר</h2>
+    <p>כל עצרת היא העצרת הקודמת לה כפול המספר עצמו. לכן אפשר לרדת, ובכל צעד לחלק:</p>
+    <div class="ex">
+      <span class="num">3! = 6</span><br>
+      <span class="num">2! = 6 ÷ 3 = 2</span><br>
+      <span class="num">1! = 2 ÷ 2 = 1</span><br>
+      <span class="num">0! = 1 ÷ 1 = 1</span>
+    </div>
+    <p>הדפוס ממשיך בלי לשבור שום כלל, ומגיע לאותה תשובה.</p>
+    <div class="formula hl"><math display="block" dir="ltr"><mn>0</mn><mo>!</mo><mo>=</mo><mn>1</mn></math></div>
+  </section>
+
+  <div class="end">
+    <p>גם כשאין אנשים לסדר, יש סידור אחד: השורה הריקה.</p>
+  </div>
+
+</main>
+
+<script>
+(function () {
+  // מספר הדרכים לבחור k נציגים מתוך 12, בלי חשיבות לסדר
+  const W = {
+    3: ["(12 × 11 × 10) ÷ (3 × 2 × 1) = 220", "220 שלישיות"],
+    2: ["(12 × 11) ÷ (2 × 1) = 66", "66 זוגות"],
+    1: ["12 ÷ 1 = 12", "12 נציגים אפשריים, אחד לכל סטודנט"],
+    0: ["1", "בחירה אחת: לא בוחרים אף אחד"]
+  };
+  const btns = [...document.querySelectorAll("#kBtns button")];
+  btns.forEach(b => b.addEventListener("click", () => {
+    btns.forEach(x => x.classList.toggle("on", x === b));
+    const [calc, words] = W[b.dataset.k];
+    document.getElementById("out").innerHTML = '<span class="cnt" dir="ltr">' + calc + "</span><br>" + words;
+  }));
+})();
+</script>
+
+<script>
+  // המשולש מחזיר לעמוד הקומבינטוריקה.
+  window.waytoseeParentOverride = "statistika/statistika-combinatorics.html";
+</script>
+<script src="../waytosee.js"></script>
+
+</body>
+</html>

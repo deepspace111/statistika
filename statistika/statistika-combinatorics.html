@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script src="../waytosee-analytics.js"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>קומבינטוריקה: מה נחשב אפשרות אחרת? | WayToSee</title>
+<meta name="description" content="קומבינטוריקה מתוך צורך: למה שני נציגים ויו״ר וסגן נותנים תשובות שונות. עקרון הכפל, חשיבות הסדר, חזרות, עצרת ו־n מעל k, עם עץ הסתעפות וארגז חול.">
+
+<link rel="stylesheet" href="../waytosee.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik+Bubbles&family=Rubik+Doodle+Shadow&display=swap">
+
+<style>
+/* שלד העמוד נמצא ב-waytosee.css תחת body.stat-page. כאן רק הייחודי לעמוד הזה. */
+
+@font-face {
+  font-family: "WTS Math";
+  src: url("math-font.woff") format("woff");
+}
+math { font-family: "WTS Math", "Latin Modern Math", "Cambria Math", "STIX Two Math", math; }
+p math, td math { font-size: 1.1em; }
+.calc math { font-size: 1.05em; color: var(--text); }
+.formula-math { margin: 12px 0 6px; font-size: 21px; text-align: center; }
+
+body.stat-page .container h3 { font-size: 19px; margin: 16px 0 6px; font-weight: 700; color: var(--text); }
+.key { font-weight: bold; }
+
+/* ===== צבעי התפקידים: הצבע מציין תפקיד, לא אדם ===== */
+:root { --chair: #8a9a5b; --vice: #b8963e; }
+body.learning-mode { --chair: #7cc0ff; --vice: #2b4f86; }
+
+/* ===== כרטיסי הסטודנטים ===== */
+.deck { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 12px 0 6px; }
+.card {
+  font: inherit; font-size: 14px; color: var(--text);
+  background: var(--panel); border: 1px solid var(--panel-border); border-radius: 10px;
+  padding: 7px 2px; text-align: center; cursor: pointer;
+  transition: opacity 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+.card:hover { border-color: var(--accent); }
+.card.picked { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--panel)); }
+.card.gone { opacity: 0.3; cursor: default; }
+.card.gone:hover { border-color: var(--panel-border); }
+.card.chair { border-color: var(--chair); background: color-mix(in srgb, var(--chair) 22%, var(--panel)); }
+.card.vice { border-color: var(--vice); background: color-mix(in srgb, var(--vice) 22%, var(--panel)); }
+
+/* משבצות הבחירה */
+.slots { display: flex; justify-content: center; gap: 10px; margin: 10px 0 4px; }
+.slot {
+  min-width: 6.5em; padding: 6px 10px; text-align: center; border-radius: 10px;
+  border: 1px dashed var(--panel-border); font-size: 15px; min-height: 1.6em;
+}
+.slot .role { display: block; font-size: 12px; opacity: 0.7; }
+.slot.chair { border: 1px solid var(--chair); background: color-mix(in srgb, var(--chair) 18%, transparent); }
+.slot.vice { border: 1px solid var(--vice); background: color-mix(in srgb, var(--vice) 18%, transparent); }
+.slot.filled { border-style: solid; }
+
+/* ===== כפתורים ותוצאות ===== */
+.btns { display: flex; gap: 8px; justify-content: center; margin: 8px 0; flex-wrap: wrap; }
+.btns button {
+  font: inherit; font-size: 14px; color: var(--text);
+  background: var(--panel); border: 1px solid var(--panel-border);
+  border-radius: 999px; padding: 3px 14px; cursor: pointer;
+}
+.btns button:hover { border-color: var(--accent); }
+.btns button.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--panel)); }
+.btns[hidden], .btns button[hidden] { display: none; }
+.out { text-align: center; font-size: 15px; min-height: 1.6em; }
+.cnt { font-family: 'JetBrains Mono', monospace; color: var(--num); }
+
+/* ===== עץ ההסתעפות ===== */
+.tree { display: block; width: 100%; height: auto; margin: 10px 0 4px; }
+.tree line { stroke: currentColor; stroke-opacity: 0.35; }
+.tree .n-chair { fill: color-mix(in srgb, var(--chair) 25%, transparent); stroke: var(--chair); stroke-width: 1.5; }
+.tree .n-vice { fill: color-mix(in srgb, var(--vice) 25%, transparent); stroke: var(--vice); stroke-width: 1.5; }
+.tree text { fill: currentColor; font-size: 16px; text-anchor: middle; dominant-baseline: middle; }
+.tree .hdr { font-size: 16px; font-weight: 700; opacity: 0.8; }
+.tree .num { font-family: 'JetBrains Mono', monospace; font-size: 14px; opacity: 0.6; }
+
+/* ===== טבלת 3 × 3 ===== */
+body.stat-page .grid33 { text-align: center; font-size: 14px; }
+body.stat-page .grid33 th, body.stat-page .grid33 td { text-align: center; padding: 6px 3px; vertical-align: middle; }
+.grid33 th.ch { color: var(--text); opacity: 1; background: color-mix(in srgb, var(--chair) 18%, transparent); }
+.grid33 th.vh { color: var(--text); opacity: 1; background: color-mix(in srgb, var(--vice) 18%, transparent); }
+.grid33 td { color: var(--num); }
+.grid33 td.no { color: var(--text); opacity: 0.4; text-decoration: line-through; font-size: 13px; }
+
+/* ===== מורידים תפקידים ===== */
+.pairs { margin: 10px 0 4px; text-align: center; font-size: 15px; line-height: 2; }
+.pairs .tag { display: inline-block; padding: 0 8px; border-radius: 8px; font-size: 13px; }
+.pairs .tag.chair { background: color-mix(in srgb, var(--chair) 25%, transparent); }
+.pairs .tag.vice { background: color-mix(in srgb, var(--vice) 25%, transparent); }
+.pairs .row { transition: opacity 0.4s ease; }
+.pairs.merged .row.two { display: none; }
+
+/* ===== שבועות ההגרלה ===== */
+.weeks .slot { min-width: 5.5em; }
+
+/* ===== סידורי השלישייה ===== */
+.trio { display: flex; justify-content: center; gap: 8px; margin: 10px 0 6px; }
+.trio .card { min-width: 4.5em; }
+.orders { text-align: center; font-size: 14px; line-height: 1.8; min-height: 1.8em; }
+
+/* ===== טבלת הסימון הכללי ===== */
+body.stat-page .data-table.gen { table-layout: fixed; }
+.gen th:nth-child(1) { width: 43%; } .gen th:nth-child(2) { width: 37%; } .gen th:nth-child(3) { width: 20%; }
+.gen td { vertical-align: middle; }
+.gen td:nth-child(3) { font-size: 14px; }
+.gen td:nth-child(2) math { font-size: 1.35em; }
+
+/* ===== ארגז החול ===== */
+.sb-row { display: flex; justify-content: center; gap: 14px; align-items: center; margin: 8px 0; flex-wrap: wrap; font-size: 15px; }
+.sb-row input {
+  width: 3.2em; font: inherit; font-family: 'JetBrains Mono', monospace; font-size: 15px;
+  color: var(--num); text-align: center; direction: ltr;
+  background: var(--panel); border: 1px solid var(--panel-border); border-radius: 8px; padding: 3px 2px;
+}
+.sb-row input:focus { outline: none; border-color: var(--accent); }
+.predict { text-align: center; }
+.predict[hidden] { display: none; }
+
+/* ===== הקישור לתחנת החשיבה ===== */
+body.stat-page .container p.calm-link { text-align: center; margin: 12px 0 6px; }
+.calm-link a {
+  display: inline-block;
+  font-family: 'Rubik Doodle Shadow', 'Heebo', sans-serif;
+  font-size: 21px; line-height: 1.35;
+  color: var(--text); text-decoration: none;
+  transition: transform 0.25s ease;
+}
+body.learning-mode .calm-link a { font-family: 'Rubik Bubbles', 'Heebo', sans-serif; }
+.calm-link a:hover { transform: scale(1.06) rotate(-2deg); }
+
+@media (max-width: 600px) {
+  .card { font-size: 13px; }
+}
+</style>
+</head>
+
+<body class="stat-page">
+
+<div class="rain" id="rain"></div>
+
+<h1 class="page-title">קומבינטוריקה</h1>
+<p class="page-subtitle">מה נחשב אפשרות אחרת?</p>
+
+<div class="container">
+
+<div class="col">
+
+  <div class="section">
+    <h2>הצורך: אותם אנשים, מספר אפשרויות שונה</h2>
+    <p>חוזרים לאותה כיתה של 12 סטודנטים. הפעם רוצים לבחור שני אנשים, בשתי משימות שונות:</p>
+    <p>שני נציגים לכיתה.<br>יו״ר וסגן.</p>
+    <p><strong>האם בשתי המשימות יש אותו מספר אפשרויות?</strong></p>
+    <div class="btns" id="needMode">
+      <button type="button" data-mode="reps" class="on">נציגים</button>
+      <button type="button" data-mode="roles">יו״ר וסגן</button>
+    </div>
+    <div class="slots" id="needSlots"></div>
+    <div class="deck" id="deckNeed"></div>
+    <div class="btns"><button type="button" id="needSwap">החלפה</button></div>
+    <div class="out" id="outNeed"></div>
+    <p>כשבוחרים נציגים, אורי וליה הם אותו זוג, גם אחרי ההחלפה. כשמחלקים תפקידים, ההחלפה משנה מי היו״ר ומי הסגן, ולכן זו כבר בחירה אחרת.</p>
+    <p class="key">לפני שסופרים, צריך להגדיר מתי שתי בחירות נחשבות שונות.</p>
+  </div>
+
+  <div class="section">
+    <h2>עקרון הכפל: כמה המשכים יש לכל בחירה?</h2>
+    <p>מתחילים מהיו״ר והסגן. אותו סטודנט לא יכול למלא את שני התפקידים.</p>
+    <p>קודם בכיתה קטנה, של שלושה סטודנטים: אורי, ליה ודניאל.</p>
+    <svg class="tree" viewBox="0 0 300 340" role="img" aria-label="עץ הסתעפות: 3 אפשרויות ליו״ר, ולכל אחת 2 אפשרויות לסגן, סך הכול 6 מסלולים">
+      <text class="hdr" x="232" y="16">יו״ר</text>
+      <text class="hdr" x="112" y="16">סגן</text>
+      <g id="treeG"></g>
+    </svg>
+    <p>יש 3 אפשרויות ליו״ר, ולכל אחת מהן נשארות 2 אפשרויות לסגן: <span class="ltr" dir="ltr">3 × 2 = 6</span>.</p>
+    <h3>למה לא <span class="ltr" dir="ltr">3 × 3</span>?</h3>
+    <p>בטבלה, כל שורה היא בחירה ליו״ר וכל עמודה היא בחירה לסגן. יש בה 9 צמדים:</p>
+    <table class="data-table grid33">
+      <tr><th></th><th class="vh">סגן: אורי</th><th class="vh">סגן: ליה</th><th class="vh">סגן: דניאל</th></tr>
+      <tr><th class="ch">יו״ר: אורי</th><td class="no">אותו אדם</td><td>✓</td><td>✓</td></tr>
+      <tr><th class="ch">יו״ר: ליה</th><td>✓</td><td class="no">אותו אדם</td><td>✓</td></tr>
+      <tr><th class="ch">יו״ר: דניאל</th><td>✓</td><td>✓</td><td class="no">אותו אדם</td></tr>
+    </table>
+    <p>שלושה צמדים נפסלים, כי אותו אדם ממלא את שני התפקידים. נשארים שישה:</p>
+    <div class="calc">3 × 2 = <strong>6</strong></div>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>בכיתה המלאה: 12 × 11</h2>
+    <p>עכשיו חוזרים לכיתה המלאה. בחרו יו״ר, ואחר כך סגן:</p>
+    <div class="slots" id="mulSlots"></div>
+    <div class="deck" id="deckMul"></div>
+    <div class="out" id="outMul"></div>
+    <div class="btns"><button type="button" id="mulReset">מתחילים מחדש</button></div>
+    <p>יש 12 אפשרויות ליו״ר, ולכל אחת מהן 11 אפשרויות לסגן:</p>
+    <div class="calc">12 × 11 = <strong>132</strong></div>
+    <p>כשבכל שלב מספר ההמשכים זהה לכל בחירה שקדמה לו, מכפילים את מספר האפשרויות של כל השלבים. זה <strong>עקרון הכפל</strong>.</p>
+  </div>
+
+  <div class="section">
+    <h2>שני נציגים: מתי ספרנו פעמיים?</h2>
+    <p>לוקחים את 132 הבחירות שכבר ספרנו, ומורידים מהן את התפקידים.</p>
+    <div class="pairs" id="pairs">
+      <div class="row one"><span class="who">אורי</span> <span class="tag chair">יו״ר</span>, <span class="who">ליה</span> <span class="tag vice">סגנית</span></div>
+      <div class="row two"><span class="who">ליה</span> <span class="tag chair">יו״ר</span>, <span class="who">אורי</span> <span class="tag vice">סגן</span></div>
+    </div>
+    <div class="btns"><button type="button" id="dropRoles">מורידים תפקידים</button></div>
+    <p>כל זוג הופיע בספירה פעמיים, פעם בכל סדר. אבל עכשיו שני הסדרים מתארים את אותה בחירה, ולכן מחלקים ב־2:</p>
+    <div class="calc">(12 × 11) ÷ 2 = <strong>66</strong></div>
+    <p class="key">בחלוקת תפקידים, שני הסדרים הם אפשרויות שונות. בבחירת נציגים, הם אותה אפשרות.</p>
+  </div>
+
+  <div class="section">
+    <h2>חזרות: האם מי שנבחר יכול להיבחר שוב?</h2>
+    <p>בכל שבוע מגרילים זוכה בפרס מתוך הכיתה, במשך שלושה שבועות, ומותר לזכות שוב. תוצאה היא רשימת הזוכים לפי השבועות: ראשון, שני ושלישי.</p>
+    <div class="btns" id="drawMode">
+      <button type="button" data-rep="1" class="on">מותר לזכות שוב</button>
+      <button type="button" data-rep="0">מי שזכה יוצא</button>
+    </div>
+    <div class="slots weeks" id="weeks"></div>
+    <div class="btns"><button type="button" id="drawBtn">מגרילים</button></div>
+    <div class="out" id="outDraw"></div>
+    <p>כשמותר לזכות שוב, בכל שבוע יש 12 אפשרויות:</p>
+    <div class="calc">12 × 12 × 12 = <strong>1,728</strong></div>
+    <p>עכשיו משנים כלל אחד: מי שזכה יוצא מההגרלות הבאות.</p>
+    <div class="calc">12 × 11 × 10 = <strong>1,320</strong></div>
+    <p>אותה ספירה מתקבלת בבחירת יו״ר, סגן ומזכיר: שלושה מקומות מובחנים, ובכל מקום אדם אחר.</p>
+    <p class="key">השאלה אם יש חזרות קובעת אם מי שנבחר נשאר זמין בשלבים הבאים.</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>למה בזוג חילקנו דווקא ב־2?</h2>
+    <p>בוחרים שלושה נציגים: אורי, ליה ודניאל. בכמה סדרים שונים אפשר לכתוב את אותה שלישייה?</p>
+    <p>לחצו על שני כרטיסים כדי להחליף ביניהם את המקום:</p>
+    <div class="trio" id="trio"></div>
+    <div class="orders" id="orders"></div>
+    <p>אותה שלישייה מופיעה 6 פעמים בספירה לפי סדר. כדי לספור כל שלישייה פעם אחת, מחלקים ב־6:</p>
+    <div class="calc">(12 × 11 × 10) ÷ (3 × 2 × 1) = <strong>220</strong></div>
+    <p>בזוג חילקנו ב־2 כי לשני אנשים יש 2 סדרים. לשלושה אנשים יש 6 סדרים. מחלקים במספר הסידורים של אותם נבחרים, ולא במספר הסטודנטים בכיתה.</p>
+  </div>
+
+  <div class="section">
+    <h2>הסימון הכללי</h2>
+    <p>עכשיו הסימון: מכפלת כל המספרים מ־n ועד 1 נקראת <strong>n עצרת</strong>, ונכתבת <span class="ltr" dir="ltr"><math><mi>n</mi><mo>!</mo></math></span>.</p>
+    <div class="calc">3! = 3 × 2 × 1 = <strong>6</strong></div>
+    <p>כך נראות כל הספירות של העמוד בסימון הכללי. n הוא מספר האנשים השונים הזמינים, ו־k הוא מספר הבחירות:</p>
+    <table class="data-table gen">
+      <tr><th>המצב</th><th>מספר האפשרויות</th><th>אצלנו</th></tr>
+      <tr><td>סידור כל n האנשים בשורה</td><td><span class="ltr" dir="ltr"><math><mi>n</mi><mo>!</mo></math></span></td><td><span class="ltr" dir="ltr">3! = 6</span></td></tr>
+      <tr><td>בחירת k בעלי תפקידים שונים, בלי חזרות</td><td><span class="ltr" dir="ltr"><math><mfrac><mrow><mi>n</mi><mo>!</mo></mrow><mrow><mo>(</mo><mi>n</mi><mo>−</mo><mi>k</mi><mo>)</mo><mo>!</mo></mrow></mfrac></math></span></td><td>132<br>1,320</td></tr>
+      <tr><td>בחירת k נציגים, בלי חשיבות לסדר ובלי חזרות</td><td><span class="ltr" dir="ltr"><math><mrow><mo>(</mo><mfrac linethickness="0"><mi>n</mi><mi>k</mi></mfrac><mo>)</mo></mrow></math></span><br><span class="ltr" dir="ltr"><math><mo>=</mo><mfrac><mrow><mi>n</mi><mo>!</mo></mrow><mrow><mi>k</mi><mo>!</mo><mo>(</mo><mi>n</mi><mo>−</mo><mi>k</mi><mo>)</mo><mo>!</mo></mrow></mfrac></math></span></td><td>66<br>220</td></tr>
+      <tr><td>k בחירות לפי סדר, עם חזרות</td><td><span class="ltr" dir="ltr"><math><msup><mi>n</mi><mi>k</mi></msup></math></span></td><td>1,728</td></tr>
+    </table>
+    <p>הסימון <span class="ltr" dir="ltr"><math><mrow><mo>(</mo><mfrac linethickness="0"><mi>n</mi><mi>k</mi></mfrac><mo>)</mo></mrow></math></span> נקרא ״n מעל k״. בבחירה בלי חזרות, <span class="ltr" dir="ltr"><math><mn>0</mn><mo>≤</mo><mi>k</mi><mo>≤</mo><mi>n</mi></math></span>. בנוסחאות האלה עשוי להופיע <bdi dir="ltr">0!</bdi>, וערכו מוגדר כ־1.</p>
+    <p class="calm-link"><a href="statistika-thinking-factorial.html">ולמה <bdi dir="ltr">0! = 1</bdi>?</a></p>
+  </div>
+
+  <div class="section">
+    <h2>ארגז החול: משנים כלל, משנים את הספירה</h2>
+    <div class="btns" id="sbMode">
+      <button type="button" data-m="roles" class="on">תפקידים שונים</button>
+      <button type="button" data-m="reps">קבוצת נציגים</button>
+      <button type="button" data-m="rep">זוכים לפי שבועות, עם חזרות</button>
+      <button type="button" data-m="norep">זוכים לפי שבועות, בלי חזרות</button>
+    </div>
+    <div class="sb-row">
+      <label>סטודנטים (n): <input type="number" id="sbN" min="1" max="30" step="1" value="12" inputmode="numeric"></label>
+      <label>בחירות (k): <input type="number" id="sbK" min="0" max="10" step="1" value="2" inputmode="numeric"></label>
+    </div>
+    <div class="predict" id="sbPredict" hidden>
+      <p><strong>השינוי יגדיל את מספר האפשרויות, יקטין אותו, או ישאיר אותו כמו שהוא?</strong></p>
+      <div class="btns">
+        <button type="button" data-g="up">יגדל</button>
+        <button type="button" data-g="down">יקטן</button>
+        <button type="button" data-g="same">יישאר</button>
+      </div>
+    </div>
+    <div class="out" id="sbOut"></div>
+    <p>לפני כל שינוי, נסו לחזות: <strong>השינוי יגדיל את מספר האפשרויות, יקטין אותו, או ישאיר אותו כמו שהוא?</strong></p>
+    <p>עכשיו אנחנו יודעים לספור אפשרויות. בעמוד הבא נבדוק איך הספירה הזאת עוזרת לחשב סיכוי.</p>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+(function () {
+  const NAMES = ["נועה", "שירה", "אורי", "הילה", "איתי", "ליה", "עומר", "מאיה", "אמיר", "תמר", "דניאל", "יונתן"];
+  const $ = id => document.getElementById(id);
+  const num = n => '<span class="cnt">' + n + '</span>';
+  const fmt = n => n.toLocaleString("en-US");
+  function deck(el) {
+    el.innerHTML = NAMES.map(n => '<button type="button" class="card">' + n + "</button>").join("");
+    return [...el.children];
+  }
+  function choice(scope, attr, onPick) {
+    const btns = [...scope.querySelectorAll("button[" + attr + "]")];
+    btns.forEach(b => b.addEventListener("click", () => {
+      btns.forEach(x => x.classList.toggle("on", x === b));
+      onPick(b.getAttribute(attr));
+    }));
+  }
+
+  // ===== הצורך: נציגים מול יו״ר וסגן =====
+  (function () {
+    const cards = deck($("deckNeed"));
+    let mode = "reps", sel = [], swapped = false;
+    function show() {
+      cards.forEach((c, i) => c.classList.toggle("picked", sel.includes(i)));
+      const roles = mode === "roles";
+      $("needSlots").innerHTML = [0, 1].map(j => {
+        const cls = roles ? (j === 0 ? "chair" : "vice") : "";
+        const role = roles ? '<span class="role">' + (j === 0 ? "יו״ר" : "סגן") + "</span>" : '<span class="role">נציג</span>';
+        return '<div class="slot ' + cls + (sel[j] !== undefined ? " filled" : "") + '">' + role + (sel[j] !== undefined ? NAMES[sel[j]] : "&nbsp;") + "</div>";
+      }).join("");
+      let msg = "";
+      if (sel.length === 2 && swapped) msg = roles ? "אחרי ההחלפה: בחירה אחרת. מי שהיה יו״ר הוא עכשיו הסגן." : "אחרי ההחלפה: אותו זוג בדיוק.";
+      else if (sel.length < 2) msg = "בחרו שני כרטיסים.";
+      $("outNeed").textContent = msg;
+    }
+    cards.forEach((c, i) => c.addEventListener("click", () => {
+      const at = sel.indexOf(i);
+      if (at >= 0) sel.splice(at, 1);
+      else if (sel.length < 2) sel.push(i);
+      swapped = false;
+      show();
+    }));
+    $("needSwap").addEventListener("click", () => {
+      if (sel.length === 2) { sel.reverse(); swapped = true; show(); }
+    });
+    choice($("needMode"), "data-mode", m => { mode = m; swapped = false; show(); });
+    // מתחילים עם אורי וליה
+    sel = [NAMES.indexOf("אורי"), NAMES.indexOf("ליה")];
+    show();
+  })();
+
+  // ===== עץ ההסתעפות: 3 יו״ר, לכל אחד 2 סגנים =====
+  (function () {
+    const T = ["אורי", "ליה", "דניאל"];
+    let h = "", leaf = 0;
+    const W = 78, H = 30, XC = 232, XV = 112;
+    const rect = (x, y, cls, t) =>
+      '<rect class="' + cls + '" x="' + (x - W / 2) + '" y="' + (y - H / 2) + '" width="' + W + '" height="' + H + '" rx="7"/>' +
+      '<text x="' + x + '" y="' + y + '">' + t + "</text>";
+    T.forEach((c, i) => {
+      const yc = 70 + i * 100;
+      const others = T.filter(x => x !== c);
+      others.forEach((v, j) => {
+        const yv = yc - 24 + j * 48;
+        h += '<line x1="' + (XC - W / 2) + '" y1="' + yc + '" x2="' + (XV + W / 2) + '" y2="' + yv + '"/>';
+        h += rect(XV, yv, "n-vice", v);
+        h += '<text class="num" x="' + 34 + '" y="' + yv + '">' + (++leaf) + "</text>";
+      });
+      h += rect(XC, yc, "n-chair", c);
+    });
+    $("treeG").innerHTML = h;
+  })();
+
+  // ===== עקרון הכפל בכיתה המלאה =====
+  (function () {
+    const cards = deck($("deckMul"));
+    let chair = null, vice = null;
+    function show() {
+      cards.forEach((c, i) => {
+        c.classList.toggle("chair", i === chair);
+        c.classList.toggle("vice", i === vice);
+      });
+      // אחרי בחירת יו״ר, הכרטיס שלו יוצא מהבחירה לסגן
+      cards.forEach((c, i) => c.classList.toggle("gone", chair !== null && vice === null && i === chair));
+      $("mulSlots").innerHTML =
+        '<div class="slot chair' + (chair !== null ? " filled" : "") + '"><span class="role">יו״ר</span>' + (chair !== null ? NAMES[chair] : "&nbsp;") + "</div>" +
+        '<div class="slot vice' + (vice !== null ? " filled" : "") + '"><span class="role">סגן</span>' + (vice !== null ? NAMES[vice] : "&nbsp;") + "</div>";
+      $("outMul").innerHTML = chair === null
+        ? "אפשרויות ליו״ר: " + num(12)
+        : vice === null ? "אפשרויות לסגן: " + num(11) + " (כל הכיתה חוץ מ" + NAMES[chair] + ")"
+        : "יו״ר: " + num(12) + " אפשרויות · סגן: " + num(11) + " אפשרויות";
+    }
+    cards.forEach((c, i) => c.addEventListener("click", () => {
+      if (chair === null) chair = i;
+      else if (vice === null && i !== chair) vice = i;
+      show();
+    }));
+    $("mulReset").addEventListener("click", () => { chair = vice = null; show(); });
+    show();
+  })();
+
+  // ===== מורידים תפקידים =====
+  (function () {
+    const p = $("pairs"), b = $("dropRoles");
+    const one = p.querySelector(".row.one");
+    const orig = one.innerHTML;
+    b.addEventListener("click", () => {
+      const merged = !p.classList.contains("merged");
+      p.classList.toggle("merged", merged);
+      one.innerHTML = merged ? "אורי וליה" : orig;
+      b.textContent = merged ? "מחזירים תפקידים" : "מורידים תפקידים";
+    });
+  })();
+
+  // ===== הגרלה שבועית =====
+  (function () {
+    let rep = true, res = [];
+    function show() {
+      $("weeks").innerHTML = ["שבוע ראשון", "שבוע שני", "שבוע שלישי"].map((w, j) =>
+        '<div class="slot' + (res[j] !== undefined ? " filled" : "") + '"><span class="role">' + w + "</span>" + (res[j] !== undefined ? NAMES[res[j]] : "&nbsp;") + "</div>").join("");
+      $("outDraw").innerHTML = rep
+        ? "בכל שבוע: " + num(12) + " אפשרויות"
+        : "שבוע ראשון " + num(12) + " · שני " + num(11) + " · שלישי " + num(10);
+    }
+    $("drawBtn").addEventListener("click", () => {
+      res = [];
+      for (let j = 0; j < 3; j++) {
+        let r;
+        do { r = Math.floor(Math.random() * 12); } while (!rep && res.includes(r));
+        res.push(r);
+      }
+      show();
+    });
+    choice($("drawMode"), "data-rep", v => { rep = v === "1"; res = []; show(); });
+    show();
+  })();
+
+  // ===== סידורי השלישייה =====
+  (function () {
+    let order = ["אורי", "ליה", "דניאל"], first = null;
+    const seen = [order.join(", ")];
+    function show() {
+      $("trio").innerHTML = order.map((n, i) => '<button type="button" class="card' + (i === first ? " picked" : "") + '" data-i="' + i + '">' + n + "</button>").join("");
+      $("trio").querySelectorAll(".card").forEach(c => c.addEventListener("click", () => {
+        const i = +c.dataset.i;
+        if (first === null) first = i;
+        else if (first === i) first = null;
+        else {
+          [order[first], order[i]] = [order[i], order[first]];
+          first = null;
+          const key = order.join(", ");
+          if (!seen.includes(key)) seen.push(key);
+        }
+        show();
+      }));
+      $("orders").innerHTML = "סדרים שנמצאו: " + num(seen.length + "/6") + "<br>" + seen.join(" · ");
+    }
+    show();
+  })();
+
+  // ===== ארגז החול =====
+  (function () {
+    let mode = "roles";
+    let shown = null; // התוצאה האחרונה שנחשפה
+    const fall = (n, k) => { let r = 1; for (let i = 0; i < k; i++) r *= (n - i); return r; };
+    const fact = k => fall(k, k);
+    function calc(m, n, k) {
+      const seq = (a, len) => Array.from({ length: len }, (_, i) => a - i).join(" × ");
+      if (m === "rep") return { v: Math.pow(n, k), txt: k === 0 ? "1" : Array(k).fill(n).join(" × ") };
+      if (k > n) return { v: 0, txt: "k גדול מ־n: אין מספיק סטודנטים שונים" };
+      if (m === "reps") return { v: fall(n, k) / fact(k), txt: k === 0 ? "1" : "(" + seq(n, k) + ") ÷ (" + seq(k, k) + ")" };
+      return { v: fall(n, k), txt: k === 0 ? "1" : seq(n, k) };
+    }
+    function read() {
+      let n = Math.floor(+$("sbN").value), k = Math.floor(+$("sbK").value);
+      if (!isFinite(n) || n < 1) n = 1; if (n > 30) n = 30;
+      if (!isFinite(k) || k < 0) k = 0; if (k > 10) k = 10;
+      return { n, k };
+    }
+    function result() { const { n, k } = read(); return calc(mode, n, k); }
+    function reveal(extra) {
+      const r = result();
+      $("sbOut").innerHTML = (extra ? extra + "<br>" : "") + '<span dir="ltr" class="cnt">' + r.txt + (r.v || r.txt === "1" ? " = " + fmt(r.v) : "") + "</span>";
+      shown = r.v;
+      $("sbPredict").hidden = true;
+    }
+    function changed() {
+      // לא חושפים מיד: קודם מבקשים לחזות
+      if (shown === null) return reveal();
+      $("sbPredict").hidden = false;
+      $("sbOut").innerHTML = "";
+    }
+    $("sbPredict").querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
+      const v = result().v;
+      const truth = v > shown ? "up" : v < shown ? "down" : "same";
+      reveal(b.dataset.g === truth ? "צדקתם." : "לא בדיוק. כך יצא:");
+    }));
+    choice($("sbMode"), "data-m", m => { mode = m; changed(); });
+    ["sbN", "sbK"].forEach(id => $(id).addEventListener("change", changed));
+    reveal();
+  })();
+})();
+</script>
+
+<script>
+  // המשולש מחזיר לרשימת הנושאים של הסטטיסטיקה.
+  window.waytoseeParentOverride = "statistika/statistika.html";
+</script>
+<script src="../waytosee.js"></script>
+</body>
+</html>

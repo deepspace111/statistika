@@ -197,6 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "statistika/statistika-spearman.html",
         "statistika/statistika-cramer.html",
         "statistika/statistika-sets.html",
+        "statistika/statistika-combinatorics.html",
       ],
     },
     { // רשתות: כתובת ← זיהוי הרשת המקומית ← MAC ← ARP ← שער יציאה ← DHCP ← ...
@@ -238,6 +239,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "statistika/statistika-thinking-sd.html": "statistika/statistika-dispersion.html",
     "statistika/statistika-thinking-z.html": "statistika/statistika-zscores.html",
     "statistika/statistika-thinking-demorgan.html": "statistika/statistika-sets.html",
+    "statistika/statistika-thinking-factorial.html": "statistika/statistika-combinatorics.html",
     "ai/ai-self-research-log.html": "ai/ai-self-research.html",
   };
 
@@ -348,17 +350,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let flickerTimeout = null;
 
-  // מספר הפעימות בכל הבהוב: 1, 2 או 3. בכל סבב שלושתם מופיעים פעם אחת,
-  // בסדר אקראי, ואותו מספר לא חוזר פעמיים ברצף.
-  let flashBag = [];
-  let lastFlashCount = 0;
+  // מספר הפעימות בכל הבהוב: תמיד פעימה אחת.
+  // (בעבר: 1, 2 או 3 פעימות בסדר אקראי.)
   function nextFlashCount() {
-    if (flashBag.length === 0) {
-      flashBag = [1, 2, 3].sort(() => Math.random() - 0.5);
-      if (flashBag[flashBag.length - 1] === lastFlashCount) flashBag.reverse();
-    }
-    lastFlashCount = flashBag.pop();
-    return lastFlashCount;
+    return 1;
   }
 
   // אילו רכיבים מהבהבים: כל רכיב בתוכן העמוד שיש בו טקסט ישיר, חוץ מכותרות,
@@ -388,7 +383,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // בטלפון הפעימה קצת ארוכה יותר, כדי שתיראה.
     const isPhone = window.matchMedia("(max-width: 600px), (max-height: 500px)").matches;
     const cycleMs = isPhone ? 100 : 80;
-    const count = nextFlashCount(); // 1, 2 או 3 פעימות, בסדר משתנה
+    const count = nextFlashCount(); // פעימה אחת
     const root = document.documentElement;
     root.style.setProperty("--flash-cycle", cycleMs + "ms");
     root.style.setProperty("--flash-count", count);
@@ -397,7 +392,7 @@ document.addEventListener("DOMContentLoaded", () => {
     void root.offsetWidth; // מאפס את האנימציה כדי שתתחיל מחדש
     targets.forEach((el) => el.classList.add("wts-flash"));
     setTimeout(() => targets.forEach((el) => el.classList.remove("wts-flash")), cycleMs * count);
-    const nextDelay = 1625 + Math.random() * 5680; // בין 1.6 ל-7.3 שניות (הורד ב-30% ואז בעוד 12%)
+    const nextDelay = 2031 + Math.random() * 7100; // בין 2 ל-9.1 שניות, אקראי בכל פעם (פי 1.25 מהקודם = 20% פחות הבהובים)
     flickerTimeout = setTimeout(scheduleFlicker, nextDelay);
   }
 
