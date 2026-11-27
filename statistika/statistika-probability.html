@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script src="../waytosee-analytics.js"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>הסתברות פשוטה: מה בכלל יכול לקרות? | WayToSee</title>
+<meta name="description" content="הסתברות פשוטה מתוך צורך: תוצאה יסודית, מרחב מדגם ומאורע, מרחב אחיד, משלים ואיחוד, ומתי הספירה משתנה כשמגרילים זוג ולא סטודנט אחד.">
+
+<link rel="stylesheet" href="../waytosee.css">
+
+<style>
+/* שלד העמוד נמצא ב-waytosee.css תחת body.stat-page. כאן רק הייחודי לעמוד הזה. */
+
+@font-face {
+  font-family: "WTS Math";
+  src: url("math-font.woff") format("woff");
+}
+math { font-family: "WTS Math", "Latin Modern Math", "Cambria Math", "STIX Two Math", math; }
+p math, td math, li math { font-size: 1.1em; }
+.calc math { font-size: 1.05em; color: var(--text); }
+
+body.stat-page .container h3 { font-size: 19px; margin: 16px 0 6px; font-weight: 700; color: var(--text); }
+.key { font-weight: bold; }
+.note { opacity: 0.8; }
+body.stat-page .container ul { margin: 6px 0; padding-inline-start: 18px; line-height: 1.5; }
+body.stat-page .container li { margin: 4px 0; }
+
+/* ===== צבעי השייכות, כמו בעמוד תורת הקבוצות ===== */
+:root { --setA: #8a9a5b; --setB: #b8963e; }
+body.learning-mode { --setA: #7cc0ff; --setB: #2b4f86; }
+
+/* ===== כרטיסים ופתקים ===== */
+.deck { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 12px 0 6px; }
+.card {
+  position: relative; font: inherit; font-size: 14px; color: var(--text);
+  background: var(--panel); border: 1px solid var(--panel-border); border-radius: 10px;
+  padding: 7px 2px 12px; text-align: center;
+  transition: opacity 0.3s ease, border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+}
+.card .marks { position: absolute; left: 6px; right: 6px; bottom: 4px; display: flex; gap: 3px; height: 4px; }
+.card .marks i { flex: 1; border-radius: 2px; opacity: 0; }
+.card .marks .mA { background: var(--setA); }
+.card .marks .mB { background: var(--setB); }
+.card.showA .marks .mA, .card.showB .marks .mB { opacity: 1; }
+.deck.filtering .card { opacity: 0.3; }
+.deck.filtering .card.hit { opacity: 1; border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--panel)); }
+/* פתק הפוך: רואים רק סימן שאלה */
+.card.folded { color: transparent; background: color-mix(in srgb, var(--text) 8%, var(--panel)); }
+.card.folded::after { content: "?"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--text); opacity: 0.4; }
+.card.folded .marks { visibility: hidden; }
+.card.drawn { border-color: var(--accent); transform: scale(1.08); }
+.legend { display: flex; justify-content: center; gap: 14px; font-size: 13px; opacity: 0.8; margin-top: 4px; }
+.legend b { display: inline-block; width: 12px; height: 4px; border-radius: 2px; margin-inline-end: 5px; vertical-align: middle; }
+.legend .lA { background: var(--setA); } .legend .lB { background: var(--setB); }
+
+/* ===== כפתורים ותוצאות ===== */
+.btns { display: flex; gap: 8px; justify-content: center; margin: 8px 0; flex-wrap: wrap; }
+.btns button {
+  font: inherit; font-size: 14px; color: var(--text);
+  background: var(--panel); border: 1px solid var(--panel-border);
+  border-radius: 999px; padding: 3px 14px; cursor: pointer;
+}
+.btns button:hover { border-color: var(--accent); }
+.btns button.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--panel)); }
+.out { text-align: center; font-size: 15px; min-height: 1.6em; }
+.cnt { font-family: 'JetBrains Mono', monospace; color: var(--num); }
+
+/* ===== שני מטבעות: טבלה 2 × 2 ===== */
+.coins { width: 100%; border-collapse: separate; border-spacing: 6px; margin: 10px 0 4px; table-layout: fixed; }
+.coins th { font-size: 13px; font-weight: 500; opacity: 0.75; padding: 4px; }
+.coins th:first-child { width: 28%; }
+.coins td {
+  height: 100px; text-align: center; font-size: 18px;
+  border: 1px solid var(--panel-border); border-radius: 12px; background: var(--panel);
+  transition: opacity 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+.coins.filtering td { opacity: 0.3; }
+.coins.filtering td.hit { opacity: 1; border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--panel)); }
+
+/* ===== מרחב הזוגות ===== */
+.pairgrid { display: grid; grid-template-columns: 3.6em repeat(11, 1fr); gap: 2px; margin: 10px 0 4px; direction: rtl; }
+.pairgrid .lbl { font-size: 12px; opacity: 0.7; text-align: start; line-height: 25px; white-space: nowrap; overflow: hidden; }
+.pairgrid .c { height: 25px; border-radius: 3px; background: color-mix(in srgb, var(--text) 10%, transparent); }
+.pairgrid .c.hit { background: var(--setA); }
+.pairgrid .c { cursor: pointer; }
+.pairgrid .c.sel { outline: 2px solid var(--accent); outline-offset: 1px; }
+.pairgrid .e { height: 25px; }
+
+/* ===== ארגז החול ===== */
+.sb-row { display: flex; justify-content: center; gap: 10px; align-items: center; margin: 8px 0; font-size: 15px; }
+.sb-row input {
+  width: 3.2em; font: inherit; font-family: 'JetBrains Mono', monospace; font-size: 15px;
+  color: var(--num); text-align: center; direction: ltr;
+  background: var(--panel); border: 1px solid var(--panel-border); border-radius: 8px; padding: 3px 2px;
+}
+.sb-row input:focus { outline: none; border-color: var(--accent); }
+.predict { text-align: center; }
+[hidden] { display: none !important; }
+
+@media (max-width: 600px) {
+  .card { font-size: 13px; }
+}
+</style>
+</head>
+
+<body class="stat-page">
+
+<div class="rain" id="rain"></div>
+
+<h1 class="page-title">הסתברות פשוטה</h1>
+<p class="page-subtitle">מה בכלל יכול לקרות?</p>
+
+<div class="container">
+
+<div class="col">
+
+  <div class="section">
+    <h2>הצורך: לפני ששואלים מה הסיכוי</h2>
+    <p>לפני ששואלים מה הסיכוי, צריך להבין מה בכלל יכול לקרות.</p>
+    <p>חוזרים לכיתה של 12 הסטודנטים. כותבים כל שם על פתק, כך שיש 12 פתקים זהים בצורתם, מערבבים ומגרילים פתק אחד.</p>
+    <p><strong>מה הסיכוי שהשם שיצא שייך לסטודנט שלומד פסיכולוגיה?</strong></p>
+    <div class="deck" id="deckDraw"></div>
+    <div class="legend"><span><b class="lA"></b>פסיכולוגיה</span><span><b class="lB"></b>סוציולוגיה</span></div>
+    <div class="btns"><button type="button" id="drawBtn">מגרילים</button></div>
+    <div class="out" id="outDraw"></div>
+    <p>כדי לענות, צריך לדעת שני דברים: מה יכול לצאת, והאם לכל אחת מהאפשרויות אותו סיכוי.</p>
+  </div>
+
+  <div class="section">
+    <h2>מרחב המדגם: כל מה שיכול לצאת</h2>
+    <p>בהגרלה הזאת, <strong>תוצאה יסודית</strong> היא זהותו של הסטודנט שנבחר. יש 12 תוצאות יסודיות, אחת לכל סטודנט.</p>
+    <p>אוסף כל התוצאות היסודיות נקרא <strong>מרחב המדגם</strong>, ומסמנים אותו <span class="ltr" dir="ltr"><math><mi mathvariant="normal">Ω</mi></math></span>. אצלנו <span class="ltr" dir="ltr"><math><mo>|</mo><mi mathvariant="normal">Ω</mi><mo>|</mo></math> = 12</span>.</p>
+    <p><strong>מאורע</strong> הוא קבוצה של תוצאות יסודיות. <span class="ltr" dir="ltr"><math><mi>A</mi></math></span>, ״נבחר סטודנט שלומד פסיכולוגיה״, מכיל 7 תוצאות. זו אותה קבוצה <span class="ltr" dir="ltr"><math><mi>A</mi></math></span> מעמוד תורת הקבוצות. עכשיו היא מתארת משהו שיכול לקרות בהגרלה.</p>
+    <div class="deck" id="deckEvents"></div>
+    <div class="legend"><span><b class="lA"></b>A: פסיכולוגיה</span><span><b class="lB"></b>B: סוציולוגיה</span></div>
+    <div class="btns" id="evBtns">
+      <button type="button" data-op="A"><math><mi>A</mi></math></button>
+      <button type="button" data-op="B"><math><mi>B</mi></math></button>
+      <button type="button" data-op="both"><math><mi>A</mi><mo>∩</mo><mi>B</mi></math></button>
+      <button type="button" data-op="any"><math><mi>A</mi><mo>∪</mo><mi>B</mi></math></button>
+      <button type="button" data-op="notA"><math><msup><mi>A</mi><mi>c</mi></msup></math></button>
+    </div>
+    <div class="out" id="outEvents"></div>
+  </div>
+
+  <div class="section">
+    <h2>מרחב אחיד: כשלכל תוצאה אותו סיכוי</h2>
+    <p>הפתקים זהים ומעורבבים, ולכן לכל סטודנט אותו סיכוי להיבחר. מרחב כזה נקרא <strong>מרחב אחיד</strong>.</p>
+    <p>במרחב אחיד, הסיכוי של מאורע הוא החלק שהוא תופס מכל התוצאות:</p>
+    <div class="calc"><math><mi>P</mi><mo>(</mo><mi>A</mi><mo>)</mo></math> = <math><mo>|</mo><mi>A</mi><mo>|</mo></math> ÷ <math><mo>|</mo><mi mathvariant="normal">Ω</mi><mo>|</mo></math> = 7 ÷ 12 ≈ <strong>58.3%</strong></div>
+    <p class="note">הנוסחה הזאת תקפה במרחב אחיד.</p>
+    <p>אבל לא כל מרחב הוא אחיד, ולכן כדאי לבדוק את ההנחה הזאת.</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>האם כל מרחב אחיד?</h2>
+    <p>מטילים מטבע הוגן פעמיים. אפשר לחשוב שיש שלוש תוצאות: שני עץ, שני פלי, ואחד מכל סוג. <strong>האם לכל אחת מהן סיכוי של שליש?</strong></p>
+    <table class="coins" id="coins">
+      <tr><th></th><th>הטלה שנייה: עץ</th><th>הטלה שנייה: פלי</th></tr>
+      <tr><th>הטלה ראשונה: עץ</th><td data-k="hh">עץ, עץ</td><td data-k="ht">עץ, פלי</td></tr>
+      <tr><th>הטלה ראשונה: פלי</th><td data-k="th">פלי, עץ</td><td data-k="tt">פלי, פלי</td></tr>
+    </table>
+    <div class="btns" id="coinBtns">
+      <button type="button" data-c="hh">שני עץ</button>
+      <button type="button" data-c="tt">שני פלי</button>
+      <button type="button" data-c="mix">אחד מכל סוג</button>
+    </div>
+    <div class="out" id="outCoins"></div>
+    <p>כשרושמים את התוצאות לפי ההטלה הראשונה והשנייה, מתקבלות ארבע תוצאות, ולכל אחת מהן אותו סיכוי. הסיבה: התוצאה של ההטלה הראשונה לא משנה את הסיכויים בהטלה השנייה.</p>
+    <ul>
+      <li>״שני עץ״: תוצאה אחת מתוך ארבע, כלומר ¼.</li>
+      <li>״שני פלי״: ¼.</li>
+      <li>״אחד מכל סוג״: שתי תוצאות מתוך ארבע, כלומר ½.</li>
+    </ul>
+    <p class="key">כדי לחשב סיכוי באמצעות ספירה, צריך לדעת מהן התוצאות האפשריות, והאם לכולן אותו סיכוי.</p>
+  </div>
+
+  <div class="section">
+    <h2>כללי ההסתברות: מה שכבר ידענו על קבוצות</h2>
+    <p>חוזרים לכיתה. כל מה שלמדנו על קבוצות עובר לכאן, רק מחולק ב־12:</p>
+    <ul>
+      <li>מאורע מכיל בין 0 ל־12 תוצאות, ולכן הסיכוי שלו תמיד בין 0 ל־1.</li>
+      <li><strong>המאורע הוודאי</strong>, <span class="ltr" dir="ltr"><math><mi mathvariant="normal">Ω</mi></math></span>, מכיל את כל התוצאות: <span class="ltr" dir="ltr"><math><mi>P</mi><mo>(</mo><mi mathvariant="normal">Ω</mi><mo>)</mo></math> = 1</span>. <strong>המאורע הבלתי אפשרי</strong>, <span class="ltr" dir="ltr"><math><mi>∅</mi></math></span>, לא מכיל אף תוצאה: <span class="ltr" dir="ltr"><math><mi>P</mi><mo>(</mo><mi>∅</mi><mo>)</mo></math> = 0</span>.</li>
+    </ul>
+    <p><strong>משלים:</strong> מי שלא לומד פסיכולוגיה.</p>
+    <div class="calc"><math><mi>P</mi><mo>(</mo><msup><mi>A</mi><mi>c</mi></msup><mo>)</mo></math> = 1 − <math><mi>P</mi><mo>(</mo><mi>A</mi><mo>)</mo></math> = 1 − 7 ÷ 12 = <strong>5 ÷ 12</strong></div>
+    <p><strong>איחוד:</strong> אותה נוסחה מתורת הקבוצות. החיתוך נספר פעמיים, ולכן מחסירים אותו פעם אחת.</p>
+    <div class="calc"><math><mi>P</mi><mo>(</mo><mi>A</mi><mo>∪</mo><mi>B</mi><mo>)</mo></math> = 7 ÷ 12 + 6 ÷ 12 − 3 ÷ 12 = <strong>10 ÷ 12</strong></div>
+    <p><strong>מאורעות זרים:</strong> אין חיתוך, ולכן אין מה להחסיר. <span class="ltr" dir="ltr"><math><mi>P</mi><mo>(</mo><mi>A</mi><mo>∪</mo><mi>B</mi><mo>)</mo><mo>=</mo><mi>P</mi><mo>(</mo><mi>A</mi><mo>)</mo><mo>+</mo><mi>P</mi><mo>(</mo><mi>B</mi><mo>)</mo></math></span>.</p>
+    <p class="note">כללי המשלים והאיחוד תקפים גם כשהמרחב אינו אחיד.</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>ספירה בשירות הסיכוי: מגרילים שני נציגים</h2>
+    <p>עכשיו מגרילים שני פתקים שונים, ללא החזרה, ושני הסטודנטים שיצאו הם נציגי הכיתה.</p>
+    <p><strong>מה הסיכוי ששני הנציגים לומדים פסיכולוגיה?</strong></p>
+    <p>שימו לב: <strong>מרחב המדגם השתנה.</strong> תוצאה יסודית היא כבר לא סטודנט אחד, אלא זוג נציגים. מהעמוד הקודם אנחנו יודעים שיש 66 זוגות, ולכל זוג אותו סיכוי. מתוכם, הזוגות ששני חבריהם לומדים פסיכולוגיה הם כל הזוגות שאפשר לבחור מתוך 7 לומדי הפסיכולוגיה:</p>
+    <div class="calc"><math><mrow><mo>(</mo><mfrac linethickness="0"><mn>7</mn><mn>2</mn></mfrac><mo>)</mo></mrow></math> ÷ <math><mrow><mo>(</mo><mfrac linethickness="0"><mn>12</mn><mn>2</mn></mfrac><mo>)</mo></mrow></math> = 21 ÷ 66 = 7 ÷ 22 ≈ <strong>31.8%</strong></div>
+    <p>כך נראה מרחב הזוגות. כל משבצת היא זוג אחד, ולומדי הפסיכולוגיה מופיעים ראשונים:</p>
+    <div class="pairgrid" id="pairGrid" role="img" aria-label="66 משבצות, אחת לכל זוג. 21 מהן מודגשות: הזוגות ששני חבריהם לומדים פסיכולוגיה"></div>
+    <div class="out" id="outPairs"></div>
+    <p class="key">המכנה הוא 66 ולא 12, כי סופרים זוגות, ולא סטודנטים בודדים.</p>
+    <p>אפשר לספור גם לפי סדר הבחירה. כל זוג מופיע אז פעמיים, גם במונה וגם במכנה, ולכן היחס נשאר זהה:</p>
+    <div class="calc">(7 × 6) ÷ (12 × 11) = 42 ÷ 132 = <strong>21 ÷ 66</strong></div>
+    <p>חשוב לספור באותה דרך בשניהם.</p>
+  </div>
+
+  <div class="section">
+    <h2>ארגז החול</h2>
+    <div class="btns" id="sbMode">
+      <button type="button" data-m="one" class="on">מגרילים סטודנט אחד</button>
+      <button type="button" data-m="two">מגרילים שני נציגים</button>
+    </div>
+
+    <div id="sbOne">
+      <div class="deck" id="deckSb"></div>
+      <div class="btns" id="sbEv">
+        <button type="button" data-op="A"><math><mi>A</mi></math></button>
+        <button type="button" data-op="B"><math><mi>B</mi></math></button>
+        <button type="button" data-op="both"><math><mi>A</mi><mo>∩</mo><mi>B</mi></math></button>
+        <button type="button" data-op="any"><math><mi>A</mi><mo>∪</mo><mi>B</mi></math></button>
+        <button type="button" data-op="notA"><math><msup><mi>A</mi><mi>c</mi></msup></math></button>
+        <button type="button" data-op="none"><math><msup><mrow><mo>(</mo><mi>A</mi><mo>∪</mo><mi>B</mi><mo>)</mo></mrow><mi>c</mi></msup></math></button>
+      </div>
+      <div class="out" id="sbOneOut"></div>
+    </div>
+
+    <div id="sbTwo" hidden>
+      <div class="sb-row">
+        <label>לומדי פסיכולוגיה בכיתה של 12: <input type="number" id="sbP" min="0" max="12" step="1" value="7" inputmode="numeric"></label>
+      </div>
+      <div class="predict" id="sbPredict" hidden>
+        <p><strong>הסיכוי ששני הנציגים לומדים פסיכולוגיה יעלה, ירד או יישאר?</strong></p>
+        <div class="btns">
+          <button type="button" data-g="up">יעלה</button>
+          <button type="button" data-g="down">ירד</button>
+          <button type="button" data-g="same">יישאר</button>
+        </div>
+      </div>
+      <div class="out" id="sbTwoOut"></div>
+    </div>
+
+    <p>עכשיו אנחנו יודעים לחשב סיכוי באמצעות ספירה, כשכל התוצאות היסודיות שוות סיכוי. בעמוד הבא נשאל איך הסיכוי משתנה כשמקבלים מידע נוסף.</p>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+(function () {
+  // הכיתה מעמוד תורת הקבוצות: 4 רק פסיכולוגיה, 3 רק סוציולוגיה, 3 בשניהם, 2 באף תחום.
+  const CLASS = [
+    ["נועה", 1, 0], ["שירה", 0, 1], ["אורי", 1, 1], ["הילה", 0, 0],
+    ["איתי", 1, 0], ["ליה", 1, 1], ["עומר", 0, 1], ["מאיה", 1, 0],
+    ["אמיר", 0, 0], ["תמר", 0, 1], ["דניאל", 1, 1], ["יונתן", 1, 0]
+  ].map(([name, a, b]) => ({ name, A: !!a, B: !!b }));
+  const OPS = {
+    A: s => s.A, B: s => s.B,
+    both: s => s.A && s.B, any: s => s.A || s.B,
+    notA: s => !s.A, none: s => !s.A && !s.B
+  };
+  const $ = id => document.getElementById(id);
+  const num = n => '<span class="cnt">' + n + "</span>";
+  const pct = (a, b) => (Math.round(1000 * a / b) / 10) + "%";
+
+  function makeDeck(el) {
+    el.innerHTML = CLASS.map(s =>
+      '<div class="card' + (s.A ? " showA" : "") + (s.B ? " showB" : "") + '"><span>' + s.name +
+      '</span><span class="marks"><i class="mA"></i><i class="mB"></i></span></div>').join("");
+    const cards = [...el.children];
+    return {
+      cards,
+      filter(pred) {
+        el.classList.toggle("filtering", !!pred);
+        let n = 0;
+        cards.forEach((c, i) => { const hit = !!pred && pred(CLASS[i]); c.classList.toggle("hit", hit); if (hit) n++; });
+        return n;
+      }
+    };
+  }
+  function opButtons(scope, onPick) {
+    const btns = [...scope.querySelectorAll("button")];
+    btns.forEach(b => b.addEventListener("click", () => {
+      const was = b.classList.contains("on");
+      btns.forEach(x => x.classList.remove("on"));
+      if (!was) b.classList.add("on");
+      onPick(was ? null : b.dataset.op || b.dataset.c || b.dataset.m);
+    }));
+  }
+
+  // ===== הצורך: פתקים הפוכים, מגרילים אחד =====
+  (function () {
+    const d = makeDeck($("deckDraw"));
+    d.cards.forEach(c => c.classList.add("folded"));
+    $("drawBtn").addEventListener("click", () => {
+      const i = Math.floor(Math.random() * 12);
+      d.cards.forEach((c, j) => { c.classList.toggle("folded", j !== i); c.classList.toggle("drawn", j === i); });
+      const s = CLASS[i];
+      $("outDraw").innerHTML = "יצא: " + s.name + ". " + (s.A ? "לומד פסיכולוגיה." : "לא לומד פסיכולוגיה.");
+      $("drawBtn").textContent = "מגרילים שוב";
+    });
+  })();
+
+  // ===== מרחב המדגם: מאורעות =====
+  (function () {
+    const d = makeDeck($("deckEvents"));
+    opButtons($("evBtns"), op => {
+      const n = d.filter(op ? OPS[op] : null);
+      $("outEvents").innerHTML = op ? "תוצאות במאורע: " + num(n) + " מתוך " + num(12) : "";
+    });
+  })();
+
+  // ===== שני מטבעות =====
+  (function () {
+    const box = $("coins");
+    const SETS = { hh: ["hh"], tt: ["tt"], mix: ["ht", "th"] };
+    opButtons($("coinBtns"), c => {
+      box.classList.toggle("filtering", !!c);
+      const hit = c ? SETS[c] : [];
+      box.querySelectorAll("td").forEach(x => x.classList.toggle("hit", hit.includes(x.dataset.k)));
+      $("outCoins").innerHTML = c ? num(hit.length) + " מתוך " + num(4) + " תוצאות, כלומר " + num(hit.length === 1 ? "¼" : "½") : "";
+    });
+  })();
+
+  // ===== מרחב הזוגות: 66 משבצות, לומדי הפסיכולוגיה ראשונים =====
+  (function () {
+    const order = CLASS.filter(s => s.A).concat(CLASS.filter(s => !s.A));
+    let h = "", hits = 0;
+    // שורה לכל סטודנט חוץ מהאחרון; בכל שורה הזוגות שלו עם מי שאחריו
+    for (let i = 0; i < 11; i++) {
+      h += '<div class="lbl">' + order[i].name + "</div>";
+      for (let j = 1; j < 12; j++) {
+        if (j <= i) { h += '<div class="e"></div>'; continue; }
+        const both = order[i].A && order[j].A;
+        if (both) hits++;
+        h += '<div class="c' + (both ? " hit" : "") + '" title="' + order[i].name + " ו" + order[j].name + '"></div>';
+      }
+    }
+    $("pairGrid").innerHTML = h;
+    const base = "מודגשים: " + num(hits) + " מתוך " + num(66) + " זוגות. געו במשבצת כדי לראות את הזוג.";
+    $("outPairs").innerHTML = base;
+    const cells = [...$("pairGrid").querySelectorAll(".c")];
+    function pick(c) {
+      cells.forEach(x => x.classList.toggle("sel", x === c));
+      const both = c.classList.contains("hit");
+      $("outPairs").innerHTML = c.title + ": " + (both ? "שניהם לומדים פסיכולוגיה." : "לא שניהם לומדים פסיכולוגיה.");
+    }
+    cells.forEach(c => {
+      c.addEventListener("mouseenter", () => pick(c));
+      c.addEventListener("click", () => pick(c));
+    });
+  })();
+
+  // ===== ארגז החול =====
+  (function () {
+    const d = makeDeck($("deckSb"));
+    opButtons($("sbEv"), op => {
+      const n = d.filter(op ? OPS[op] : null);
+      $("sbOneOut").innerHTML = op ? '<span dir="ltr">' + num(n + " ÷ 12") + "</span> ≈ " + num(pct(n, 12)) : "";
+    });
+    const modeBtns = [...$("sbMode").querySelectorAll("button")];
+    modeBtns.forEach(b => b.addEventListener("click", () => {
+      modeBtns.forEach(x => x.classList.toggle("on", x === b));
+      $("sbOne").hidden = b.dataset.m !== "one";
+      $("sbTwo").hidden = b.dataset.m !== "two";
+    }));
+
+    // שני נציגים מתוך 12, בלי החזרה: (p מעל 2) ÷ 66
+    const pairs = p => p * (p - 1) / 2;
+    let shown = null;
+    function readP() { let p = Math.floor(+$("sbP").value); if (!isFinite(p) || p < 0) p = 0; if (p > 12) p = 12; return p; }
+    function reveal(extra) {
+      const p = readP(), k = pairs(p);
+      $("sbTwoOut").innerHTML = (extra ? extra + "<br>" : "") +
+        '<span dir="ltr">' + num("(" + p + " × " + (p - 1 < 0 ? 0 : p - 1) + " ÷ 2) ÷ 66 = " + k + " ÷ 66") + "</span> ≈ " + num(pct(k, 66));
+      shown = k;
+      $("sbPredict").hidden = true;
+    }
+    $("sbP").addEventListener("change", () => {
+      $("sbPredict").hidden = false;
+      $("sbTwoOut").innerHTML = "";
+    });
+    $("sbPredict").querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
+      const k = pairs(readP());
+      const truth = k > shown ? "up" : k < shown ? "down" : "same";
+      reveal(b.dataset.g === truth ? "צדקתם." : "לא בדיוק. כך יצא:");
+    }));
+    reveal();
+  })();
+})();
+</script>
+
+<script>
+  // המשולש מחזיר לרשימת הנושאים של הסטטיסטיקה.
+  window.waytoseeParentOverride = "statistika/statistika.html";
+</script>
+<script src="../waytosee.js"></script>
+</body>
+</html>

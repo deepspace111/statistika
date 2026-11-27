@@ -198,6 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "statistika/statistika-cramer.html",
         "statistika/statistika-sets.html",
         "statistika/statistika-combinatorics.html",
+        "statistika/statistika-probability.html",
       ],
     },
     { // רשתות: כתובת ← זיהוי הרשת המקומית ← MAC ← ARP ← שער יציאה ← DHCP ← ...
