@@ -79,6 +79,8 @@ body.learning-mode { --setA: #7cc0ff; --setB: #2b4f86; }
   border-radius: 999px; padding: 3px 14px; cursor: pointer;
 }
 .btns button:hover { border-color: var(--accent); }
+.btns[hidden], .btns button[hidden] { display: none; }
+.btns button:disabled { opacity: 0.45; cursor: default; border-color: var(--panel-border); }
 .btns button.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--panel)); }
 .out { text-align: center; font-size: 15px; min-height: 1.6em; }
 .cnt { font-family: 'JetBrains Mono', monospace; color: var(--num); }
@@ -96,6 +98,15 @@ body.stat-page .container p.calm-link { text-align: center; margin: 12px 0 6px; 
 }
 body.learning-mode .calm-link a { font-family: 'Rubik Bubbles', 'Heebo', sans-serif; }
 .calm-link a:hover { transform: scale(1.06) rotate(-2deg); }
+
+/* ===== דיאגרמת ון ===== */
+.venn { display: block; width: 100%; height: auto; margin: 12px 0 4px; direction: ltr; }
+.venn .u { fill: none; stroke: currentColor; stroke-opacity: 0.35; }
+.venn .cA { fill: var(--setA); fill-opacity: 0.22; stroke: var(--setA); stroke-width: 2; }
+.venn .cB { fill: var(--setB); fill-opacity: 0.22; stroke: var(--setB); stroke-width: 2; }
+.venn text { fill: currentColor; font-size: 14px; text-anchor: middle; dominant-baseline: middle; }
+.venn .lbl { font-family: "WTS Math", "Latin Modern Math", "Cambria Math", serif; font-style: italic; font-size: 20px; }
+.venn .cls { font-size: 12px; opacity: 0.6; text-anchor: start; }
 
 @media (max-width: 600px) {
   .card { font-size: 13px; }
@@ -143,6 +154,19 @@ body.learning-mode .calm-link a { font-family: 'Rubik Bubbles', 'Heebo', sans-se
       <span class="ltr" dir="ltr"><math><mi>x</mi><mo>∈</mo><mi>A</mi></math></span> פירושו ״x שייך ל־A״.<br>
       <span class="ltr" dir="ltr"><math><mi>x</mi><mo>∉</mo><mi>A</mi></math></span> פירושו ״x לא שייך ל־A״.
     </p>
+    <svg class="venn" viewBox="0 0 360 250" role="img" aria-label="דיאגרמת ון: 4 רק בפסיכולוגיה, 3 בשני התחומים, 3 רק בסוציולוגיה, 2 מחוץ לשני העיגולים">
+      <rect class="u" x="8" y="8" width="344" height="234" rx="12"/>
+      <text class="cls" x="20" y="26">הכיתה</text>
+      <circle class="cB" cx="140" cy="132" r="88"/>
+      <circle class="cA" cx="220" cy="132" r="88"/>
+      <text class="lbl" x="285" y="70">A</text>
+      <text class="lbl" x="75" y="70">B</text>
+      <text x="262" y="100">נועה</text><text x="266" y="124">איתי</text><text x="266" y="148">מאיה</text><text x="260" y="172">יונתן</text>
+      <text x="180" y="108">אורי</text><text x="180" y="132">ליה</text><text x="180" y="156">דניאל</text>
+      <text x="98" y="108">שירה</text><text x="94" y="132">עומר</text><text x="98" y="156">תמר</text>
+      <text x="44" y="226">הילה</text><text x="316" y="226">אמיר</text>
+    </svg>
+    <p>אותה כיתה, מצוירת כשני עיגולים. מי שנמצא בחפיפה שייך לשתי הקבוצות, ומי שמחוץ לעיגולים לא שייך לאף אחת מהן. ציור כזה נקרא <strong>דיאגרמת ון</strong>.</p>
   </div>
 
 </div>
@@ -203,17 +227,18 @@ body.learning-mode .calm-link a { font-family: 'Rubik Bubbles', 'Heebo', sans-se
     </div>
     <div class="deck clickable" id="deckTry"></div>
     <div class="legend"><span><b class="lA"></b>פסיכולוגיה</span><span><b class="lB"></b>סוציולוגיה</span></div>
+    <div class="btns">
+      <button type="button" data-op="both" id="bothBtn" hidden>שני התחומים</button>
+    </div>
     <div class="out" id="outTry"></div>
     <p>בלי חפיפה צריך 13 סטודנטים שונים, ובכיתה יש רק 12. בכיתה הזאת זה בלתי אפשרי.</p>
 
     <h3>תרחיש חדש</h3>
     <p>7 לומדים פסיכולוגיה. 4 לומדים סוציולוגיה. אף אחד לא לומד את שניהם. סטודנט אחד לא לומד אף אחד מהתחומים.</p>
-    <div class="deck" id="deckEmpty"></div>
     <div class="btns">
-      <button type="button" data-op="both">שני התחומים</button>
+      <button type="button" id="toScenario">לתרחיש החדש</button>
     </div>
-    <div class="out" id="outEmpty"></div>
-    <p>כשמבקשים ״שני התחומים״, לא מודגש אף כרטיס. החיתוך קיים, אבל אין בו איברים.</p>
+    <p>הכרטיסים למעלה עברו לתרחיש החדש. כשמבקשים ״שני התחומים״, לא מודגש אף כרטיס. החיתוך קיים, אבל אין בו איברים.</p>
     <p>קבוצה שאין בה אף איבר נקראת <strong>קבוצה ריקה</strong>, ומסמנים אותה <span class="ltr" dir="ltr"><math><mi>∅</mi></math></span>:</p>
     <div class="formula-math"><math display="block" dir="ltr"><mi>A</mi><mo>∩</mo><mi>B</mi><mo>=</mo><mi>∅</mi></math></div>
     <p>שתי קבוצות שהחיתוך שלהן ריק נקראות <strong>קבוצות זרות</strong>. בדוגמה הזאת שתי הקבוצות אינן ריקות, אבל החיתוך שלהן ריק.</p>
@@ -339,11 +364,11 @@ body.learning-mode .calm-link a { font-family: 'Rubik Bubbles', 'Heebo', sans-se
     });
   });
 
-  // ===== האם אפשר בלי חפיפה? =====
+  // ===== האם אפשר בלי חפיפה? ואחר כך, באותה חפיסה, התרחיש החדש =====
   (function () {
     const el = $("deckTry");
     const d = makeDeck(el, CLASS.map(s => ({ name: s.name, A: false, B: false })));
-    let cur = "A";
+    let cur = "A", scenario = false;
     const setBtns = [...$("trySets").querySelectorAll("button")];
     setBtns.forEach(b => b.addEventListener("click", () => {
       cur = b.dataset.set;
@@ -357,6 +382,7 @@ body.learning-mode .calm-link a { font-family: 'Rubik Bubbles', 'Heebo', sans-se
       $("outTry").innerHTML = msg;
     }
     d.cards.forEach((c, i) => c.addEventListener("click", () => {
+      if (scenario) return;
       const s = d.students[i];
       if (s[cur]) { s[cur] = false; }
       else {
@@ -366,17 +392,25 @@ body.learning-mode .calm-link a { font-family: 'Rubik Bubbles', 'Heebo', sans-se
       }
       show();
     }));
-    show();
-  })();
-
-  // ===== התרחיש החדש: חיתוך ריק =====
-  (function () {
-    const d = makeDeck($("deckEmpty"), DISJOINT);
-    d.marks(true, true);
-    opButtons($("deckEmpty").closest(".section").querySelector("#outEmpty").previousElementSibling, op => {
-      const n = d.filter(op ? OPS[op] : null);
-      $("outEmpty").innerHTML = op ? "מודגשים: " + num(n) : "";
+    // מעבר מפורש לתרחיש החדש: 7 פסיכולוגיה, 4 סוציולוגיה, אין חפיפה, אחד באף תחום
+    $("toScenario").addEventListener("click", () => {
+      if (scenario) return;
+      scenario = true;
+      DISJOINT.forEach((s, i) => { d.students[i].A = s.A; d.students[i].B = s.B; });
+      el.classList.remove("clickable");
+      $("trySets").hidden = true;
+      $("tryHint").hidden = true;
+      $("bothBtn").hidden = false;
+      $("toScenario").disabled = true;
+      d.marks(true, true);
+      $("outTry").innerHTML = "תרחיש חדש: פסיכולוגיה " + num(7) + " &nbsp;·&nbsp; סוציולוגיה " + num(4) + " &nbsp;·&nbsp; אף תחום " + num(1);
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
     });
+    opButtons($("bothBtn").parentElement, op => {
+      const n = d.filter(op ? OPS[op] : null);
+      $("outTry").innerHTML = op ? "מודגשים: " + num(n) : "";
+    });
+    show();
   })();
 
   // ===== ארגז החול =====
