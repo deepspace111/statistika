@@ -394,7 +394,7 @@ document.addEventListener("DOMContentLoaded", () => {
     void root.offsetWidth; // מאפס את האנימציה כדי שתתחיל מחדש
     targets.forEach((el) => el.classList.add("wts-flash"));
     setTimeout(() => targets.forEach((el) => el.classList.remove("wts-flash")), cycleMs * count);
-    const nextDelay = 6000 + Math.random() * 7700; // בין 6 ל-13.7 שניות, אקראי בכל פעם. מרווח מינימלי של 6 שניות, כדי שלא יהיו הבהובים צפופים
+    const nextDelay = 12000 + Math.random() * 15400; // בין 12 ל-27.4 שניות, אקראי בכל פעם. מרווח מינימלי של 12 שניות, כדי שלא יהיו הבהובים צפופים
     flickerTimeout = setTimeout(scheduleFlicker, nextDelay);
   }
 
