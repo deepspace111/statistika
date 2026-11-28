@@ -1188,3 +1188,32 @@ body .brand-he{
   from{ transform: rotate(0deg); }
   to{ transform: rotate(360deg); }
 }
+
+/* ========================================
+   נקודות המרחב: תנועת גל נחשית (עולות ויורדות אחת אחרי השנייה).
+   מעל התנועה ממשיך סבב הבהירות הקיים, בקצב איטי פי 2 מהגל,
+   כך ששני הקצבים השונים יוצרים תנועה קצת מבלבלת שמושכת את העין.
+   ======================================== */
+#spaceBtn svg{
+  overflow: visible;
+}
+
+.space-dot-1{
+  animation: spaceWave 1.2s ease-in-out 0s infinite alternate,
+             spaceShadeEdge 4.8s ease-in-out 0s infinite;
+}
+
+.space-dot-2{
+  animation: spaceWave 1.2s ease-in-out -0.3s infinite alternate,
+             spaceShadeMid 4.8s ease-in-out infinite;
+}
+
+.space-dot-3{
+  animation: spaceWave 1.2s ease-in-out -0.6s infinite alternate,
+             spaceShadeEdge 4.8s ease-in-out -2.4s infinite;
+}
+
+@keyframes spaceWave{
+  from{ transform: translateY(-5px); }
+  to{ transform: translateY(5px); }
+}
