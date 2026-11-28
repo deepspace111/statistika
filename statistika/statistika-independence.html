@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script src="../waytosee-analytics.js"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>אי־תלות: מתי מידע חדש לא משנה דבר? | WayToSee</title>
+<meta name="description" content="אי־תלות מתוך צורך: הגרלה עם החזרה מול הגרלה בלי החזרה, ההגדרה P(A|B)=P(A) ונוסחת המכפלה, בדיקה בכיתה של 12 סטודנטים, למה מאורעות זרים הם תלויים, וכשל המהמר.">
+
+<link rel="stylesheet" href="../waytosee.css">
+
+<style>
+/* שלד העמוד נמצא ב-waytosee.css תחת body.stat-page. כאן רק הייחודי לעמוד הזה. */
+
+@font-face {
+  font-family: "WTS Math";
+  src: url("math-font.woff") format("woff");
+}
+math { font-family: "WTS Math", "Latin Modern Math", "Cambria Math", "STIX Two Math", math; }
+p math, td math, li math { font-size: 1.1em; }
+.calc math { font-size: 1.05em; color: var(--text); }
+
+body.stat-page .container h3 { font-size: 19px; margin: 16px 0 6px; font-weight: 700; color: var(--text); }
+.key { font-weight: bold; }
+.note { opacity: 0.8; }
+body.stat-page .container ul { margin: 6px 0; padding-inline-start: 18px; line-height: 1.5; }
+body.stat-page .container li { margin: 4px 0; }
+
+/* ===== צבעי השייכות, כמו בעמודי תורת הקבוצות וההסתברות ===== */
+:root { --setA: #8a9a5b; --setB: #b8963e; }
+body.learning-mode { --setA: #7cc0ff; --setB: #2b4f86; }
+
+/* ===== כרטיסים ===== */
+.deck { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 12px 0 6px; }
+.card {
+  position: relative; font: inherit; font-size: 14px; color: var(--text);
+  background: var(--panel); border: 1px solid var(--panel-border); border-radius: 10px;
+  padding: 7px 2px 12px; text-align: center;
+  transition: opacity 0.3s ease, border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+}
+.card .marks { position: absolute; left: 6px; right: 6px; bottom: 4px; display: flex; gap: 3px; height: 4px; }
+.card .marks i { flex: 1; border-radius: 2px; opacity: 0; }
+.card .marks .mA { background: var(--setA); }
+.card .marks .mB { background: var(--setB); }
+.card.showA .marks .mA, .card.showB .marks .mB { opacity: 1; }
+/* פתק הפוך */
+.card.folded { color: transparent; background: color-mix(in srgb, var(--text) 8%, var(--panel)); }
+.card.folded::after { content: "?"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--text); opacity: 0.4; }
+.card.folded .marks { visibility: hidden; }
+/* מחוץ למרחב החדש: כמעט נעלם */
+.card.out { opacity: 0.12; }
+/* בתוך המרחב החדש: מסגרת */
+.card.whole { border-color: var(--accent); }
+/* החלק שמעניין אותנו בתוך המרחב החדש */
+.card.part { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, var(--panel)); }
+.legend { display: flex; justify-content: center; gap: 14px; font-size: 13px; opacity: 0.8; margin-top: 4px; }
+.legend b { display: inline-block; width: 12px; height: 4px; border-radius: 2px; margin-inline-end: 5px; vertical-align: middle; }
+.legend .lA { background: var(--setA); } .legend .lB { background: var(--setB); }
+
+/* ===== כפתורים ותוצאות ===== */
+.btns { display: flex; gap: 8px; justify-content: center; margin: 8px 0; flex-wrap: wrap; align-items: center; }
+.btns .lab { font-size: 14px; opacity: 0.75; }
+.btns button {
+  font: inherit; font-size: 14px; color: var(--text);
+  background: var(--panel); border: 1px solid var(--panel-border);
+  border-radius: 999px; padding: 3px 14px; cursor: pointer;
+}
+.btns button:hover { border-color: var(--accent); }
+.btns button.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--panel)); }
+.out { text-align: center; font-size: 15px; min-height: 1.6em; }
+.cnt { font-family: 'JetBrains Mono', monospace; color: var(--num); }
+
+/* ===== כלל הכפל: שתי שורות נקודות ===== */
+.draws { margin: 10px 0 4px; }
+.draws .row { display: flex; align-items: center; gap: 8px; margin: 8px 0; }
+.draws .rl { font-size: 13px; opacity: 0.75; width: 5.4em; flex: none; }
+.draws .dots { display: flex; gap: 4px; flex-wrap: wrap; }
+.draws .d {
+  width: 15px; height: 15px; border-radius: 50%;
+  background: color-mix(in srgb, var(--text) 14%, transparent);
+  transition: opacity 0.3s ease, background 0.3s ease;
+}
+.draws .d.a { background: var(--setA); }
+.draws .d.gone { opacity: 0.15; outline: 1px dashed var(--text); outline-offset: 1px; background: transparent; }
+.draws .rv { font-size: 14px; margin-inline-start: auto; white-space: nowrap; }
+.draws .row.wait { opacity: 0.25; }
+
+/* ===== כל 12 הנקודות בשורה אחת ===== */
+.draws .rl { width: 3.6em; }
+.draws .dots { flex-wrap: nowrap; gap: 3px; }
+.draws .d { width: 12px; height: 12px; }
+
+/* ===== עם החזרה: הנקודה חוזרת לקופסה ===== */
+.draws .d.back { outline: 1px dashed var(--setA); outline-offset: 1px; }
+/* ===== לקופסה אין זיכרון ===== */
+.streak { display: flex; gap: 4px; flex-wrap: wrap; justify-content: center; min-height: 18px; margin: 8px 0; }
+.streak .d { width: 13px; height: 13px; border-radius: 50%; background: color-mix(in srgb, var(--text) 14%, transparent); }
+.streak .d.a { background: var(--setA); }
+
+/* ביטוי חשבוני לא נשבר בין שורות */
+.ltr, span[dir="ltr"] { white-space: nowrap; }
+
+[hidden] { display: none !important; }
+
+@media (max-width: 600px) {
+  .card { font-size: 13px; }
+  .draws .d { width: 12px; height: 12px; }
+}
+</style>
+</head>
+
+<body class="stat-page">
+
+<div class="rain" id="rain"></div>
+
+<h1 class="page-title">אי־תלות</h1>
+<p class="page-subtitle">מתי מידע חדש לא משנה דבר?</p>
+
+<div class="container">
+
+<div class="col">
+
+  <div class="section">
+    <h2>הצורך: הפתק חוזר לקופסה</h2>
+    <p>בעמוד הקודם הגרלנו שני נציגים מתוך 12 הפתקים, בלי להחזיר. אחרי שיצא לומד פסיכולוגיה, נשארו בקופסה 11 פתקים ורק 6 מהם של לומדי פסיכולוגיה, ולכן הסיכוי בהגרלה השנייה השתנה.</p>
+    <p>עכשיו משנים כלל אחד: <strong>אחרי כל הגרלה מחזירים את הפתק לקופסה ומערבבים</strong>. כך לפני כל הגרלה יש שוב 12 פתקים, ואותו סטודנט יכול לעלות פעמיים.</p>
+    <div class="draws">
+      <div class="row" id="row1"><span class="rl">ראשונה</span><span class="dots" id="dots1"></span><span class="rv" id="rv1"></span></div>
+      <div class="row wait" id="row2"><span class="rl">שנייה</span><span class="dots" id="dots2"></span><span class="rv" id="rv2"></span></div>
+    </div>
+    <div class="btns"><button type="button" id="stepBtn">מגרילים בפעם הראשונה</button></div>
+    <div class="out" id="outStep"></div>
+    <p><strong>האם מה שיצא בהגרלה הראשונה משנה את הסיכוי בשנייה?</strong></p>
+  </div>
+
+  <div class="section">
+    <h2>ההגדרה: המידע לא מזיז את הסיכוי</h2>
+    <p>עם החזרה, הקופסה בהגרלה השנייה זהה לקופסה בראשונה. מה שיצא קודם לא מוסיף מידע, והסיכוי נשאר <span class="ltr" dir="ltr">7 ÷ 12</span>.</p>
+    <p>כשזה המצב, שני המאורעות נקראים <strong>בלתי תלויים</strong>:</p>
+    <div class="calc"><math><mi>P</mi><mo>(</mo><mi>A</mi><mo>|</mo><mi>B</mi><mo>)</mo></math> = <math><mi>P</mi><mo>(</mo><mi>A</mi><mo>)</mo></math></div>
+    <p>הניסוח הזה דורש ש־<span class="ltr" dir="ltr"><math><mi>P</mi><mo>(</mo><mi>B</mi><mo>)</mo></math></span> יהיה גדול מ־0, כי אי אפשר להתנות במשהו שלא יכול לקרות. מכלל הכפל מהעמוד הקודם מקבלים ניסוח שני, שקול:</p>
+    <div class="calc"><math><mi>P</mi><mo>(</mo><mi>A</mi><mo>∩</mo><mi>B</mi><mo>)</mo></math> = <math><mi>P</mi><mo>(</mo><mi>A</mi><mo>)</mo></math> × <math><mi>P</mi><mo>(</mo><mi>B</mi><mo>)</mo></math></div>
+    <p>זו ההגדרה המקובלת של אי־תלות, והיא תקפה גם בלי התנאי על <span class="ltr" dir="ltr"><math><mi>P</mi><mo>(</mo><mi>B</mi><mo>)</mo></math></span>. היא גם סימטרית: אם <span class="ltr" dir="ltr"><math><mi>A</mi></math></span> לא תלוי ב־<span class="ltr" dir="ltr"><math><mi>B</mi></math></span>, אז גם <span class="ltr" dir="ltr"><math><mi>B</mi></math></span> לא תלוי ב־<span class="ltr" dir="ltr"><math><mi>A</mi></math></span>.</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>עם החזרה מול בלי החזרה</h2>
+    <p>המאורע שמחשבים: <strong>בשתי ההגרלות עולה פתק של לומד פסיכולוגיה</strong>.</p>
+    <ul>
+      <li>עם החזרה: <span class="ltr" dir="ltr">(7 ÷ 12) × (7 ÷ 12) = <strong>49 ÷ 144</strong> ≈ 34.0%</span></li>
+      <li>בלי החזרה: <span class="ltr" dir="ltr">(7 ÷ 12) × (6 ÷ 11) = <strong>21 ÷ 66</strong> ≈ 31.8%</span></li>
+    </ul>
+    <p class="key">עם החזרה ההגרלות בלתי תלויות, ומכפילים את הסיכויים כמו שהם. בלי החזרה הן תלויות, והגורם השני הוא הסתברות מותנית.</p>
+  </div>
+
+  <div class="section">
+    <h2>בודקים בכיתה שלנו</h2>
+    <p>אותם 12 סטודנטים. <span class="ltr" dir="ltr"><math><mi>A</mi></math></span>: לומד פסיכולוגיה. <span class="ltr" dir="ltr"><math><mi>B</mi></math></span>: לומד סוציולוגיה. האם שני המאורעות האלה בלתי תלויים?</p>
+    <div class="deck" id="deckCheck"></div>
+    <div class="legend"><span><b class="lA"></b>פסיכולוגיה</span><span><b class="lB"></b>סוציולוגיה</span></div>
+    <div class="btns" id="checkBtns">
+      <button type="button" data-g="all" class="on">שום דבר לא ידוע</button>
+      <button type="button" data-g="B">ידוע: לומד סוציולוגיה</button>
+    </div>
+    <div class="out" id="outCheck"></div>
+    <p>בלי מידע הסיכוי הוא <span class="ltr" dir="ltr">7 ÷ 12 ≈ 58.3%</span>. כשידוע שהסטודנט לומד סוציולוגיה, הוא יורד ל־<span class="ltr" dir="ltr">3 ÷ 6 = 50%</span>. המידע הזיז את הסיכוי, ולכן המאורעות <strong>תלויים</strong>.</p>
+    <p>אותה מסקנה עולה גם מנוסחת המכפלה. <span class="ltr" dir="ltr">7 ÷ 12</span> כפול <span class="ltr" dir="ltr">6 ÷ 12</span>:</p>
+    <div class="calc"><math><mi>P</mi><mo>(</mo><mi>A</mi><mo>)</mo></math> × <math><mi>P</mi><mo>(</mo><mi>B</mi><mo>)</mo></math> = 42 ÷ 144</div>
+    <div class="calc"><math><mi>P</mi><mo>(</mo><mi>A</mi><mo>∩</mo><mi>B</mi><mo>)</mo></math> = 3 ÷ 12 = 36 ÷ 144</div>
+    <p>המספרים שונים, כלומר אין אי־תלות. בכיתה הזאת, לימודי סוציולוגיה מעידים על משהו לגבי לימודי פסיכולוגיה.</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>זרים זה לא בלתי תלויים</h2>
+    <p>טעות נפוצה היא לחשוב שמאורעות שלא נוגעים זה בזה הם בלתי תלויים. נבדוק שני מאורעות זרים, כאלה שאין להם חיתוך:</p>
+    <ul>
+      <li>לומד <strong>רק</strong> פסיכולוגיה: 4 סטודנטים, <span class="ltr" dir="ltr">4 ÷ 12</span>.</li>
+      <li>לומד <strong>רק</strong> סוציולוגיה: 3 סטודנטים, <span class="ltr" dir="ltr">3 ÷ 12</span>.</li>
+    </ul>
+    <p>אם ידוע שהסטודנט לומד רק סוציולוגיה, הסיכוי שהוא לומד רק פסיכולוגיה יורד מ־<span class="ltr" dir="ltr">4 ÷ 12</span> ל־0. המידע שינה את הסיכוי לגמרי.</p>
+    <p class="key">שני מאורעות זרים, שלכל אחד מהם הסתברות חיובית, הם תלויים: אם אחד קרה, השני לא יכול לקרות.</p>
+    <p>גם מנוסחת המכפלה: החיתוך ריק, ולכן ההסתברות שלו 0, אבל <span class="ltr" dir="ltr">(4 ÷ 12) × (3 ÷ 12)</span> גדול מ־0.</p>
+  </div>
+
+  <div class="section">
+    <h2>לקופסה אין זיכרון</h2>
+    <p>מגרילים שוב ושוב, עם החזרה ועם ערבוב לפני כל הגרלה. לפעמים יוצאים כמה לומדי פסיכולוגיה ברצף, ומתעוררת התחושה שעכשיו ״הגיע התור״ של מישהו אחר.</p>
+    <div class="streak" id="streak"></div>
+    <div class="btns">
+      <button type="button" id="drawBtn">מגרילים</button>
+      <button type="button" id="resetBtn">מתחילים מחדש</button>
+    </div>
+    <div class="out" id="outDraw"></div>
+    <p>אבל בקופסה יש בכל הגרלה אותם 12 פתקים. שום דבר בה לא נשמר מההגרלות הקודמות, ולכן הסיכוי לפתק של לומד פסיכולוגיה נשאר <span class="ltr" dir="ltr">7 ÷ 12</span>, גם אחרי רצף ארוך.</p>
+    <p>הציפייה שהרצף ״יתאזן״ בהגרלה הבאה נקראת <strong>כשל המהמר</strong>. בהגרלות בלתי תלויות, העבר לא משנה את הסיכוי של ההגרלה הבאה.</p>
+    <p class="key">אי־תלות פירושה: לדעת מה קרה באחד לא משנה את הסיכוי של השני.</p>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+(function () {
+  // אותה כיתה: 4 רק פסיכולוגיה, 3 רק סוציולוגיה, 3 בשניהם, 2 באף תחום.
+  const CLASS = [
+    ["נועה", 1, 0], ["שירה", 0, 1], ["אורי", 1, 1], ["הילה", 0, 0],
+    ["איתי", 1, 0], ["ליה", 1, 1], ["עומר", 0, 1], ["מאיה", 1, 0],
+    ["אמיר", 0, 0], ["תמר", 0, 1], ["דניאל", 1, 1], ["יונתן", 1, 0]
+  ].map(([name, a, b]) => ({ name, A: !!a, B: !!b }));
+  const $ = id => document.getElementById(id);
+  const num = n => '<span class="cnt">' + n + "</span>";
+  const pct = (a, b) => (Math.round(1000 * a / b) / 10) + "%";
+  const ltr = s => '<span dir="ltr">' + s + "</span>";
+  const dot = cls => '<span class="d' + cls + '"></span>';
+  const box = () => Array.from({ length: 12 }, (_, i) => dot(i < 7 ? " a" : "")).join("");
+
+  // ===== הצורך: שתי הגרלות עם החזרה =====
+  (function () {
+    let step = 0;
+    function render() {
+      $("dots1").innerHTML = box();
+      if (step === 0) {
+        $("dots2").innerHTML = box();
+        $("rv1").innerHTML = ""; $("rv2").innerHTML = "";
+        $("row2").classList.add("wait");
+        $("outStep").innerHTML = "";
+        $("stepBtn").textContent = "מגרילים בפעם הראשונה";
+      } else if (step === 1) {
+        $("rv1").innerHTML = ltr(num("7 ÷ 12"));
+        $("outStep").innerHTML = "יצא לומד פסיכולוגיה. מחזירים את הפתק לקופסה ומערבבים.";
+        $("stepBtn").textContent = "מגרילים בפעם השנייה";
+      } else {
+        // הפתק חזר: שוב 12 פתקים, 7 מהם של לומדי פסיכולוגיה
+        $("dots2").innerHTML = dot(" a back") + Array.from({ length: 11 }, (_, i) => dot(i < 6 ? " a" : "")).join("");
+        $("row2").classList.remove("wait");
+        $("rv2").innerHTML = ltr(num("7 ÷ 12"));
+        $("outStep").innerHTML = "הקופסה זהה לקופסה של ההגרלה הראשונה. הסיכוי לא השתנה: " + ltr(num("7 ÷ 12"));
+        $("stepBtn").textContent = "מתחילים מחדש";
+      }
+    }
+    $("stepBtn").addEventListener("click", () => { step = (step + 1) % 3; render(); });
+    render();
+  })();
+
+  // ===== בודקים בכיתה שלנו =====
+  (function () {
+    const el = $("deckCheck");
+    el.innerHTML = CLASS.map(s =>
+      '<div class="card' + (s.A ? " showA" : "") + (s.B ? " showB" : "") + '"><span>' + s.name +
+      '</span><span class="marks"><i class="mA"></i><i class="mB"></i></span></div>').join("");
+    const cards = [...el.children];
+    const btns = [...$("checkBtns").querySelectorAll("button")];
+    function show(g) {
+      let w = 0, p = 0;
+      cards.forEach((c, i) => {
+        const s = CLASS[i];
+        const inG = g === "all" || s.B;
+        const inP = inG && s.A;
+        c.classList.toggle("out", !inG);
+        c.classList.toggle("whole", g !== "all" && inG && !inP);
+        c.classList.toggle("part", g !== "all" && inP);
+        if (inG) w++;
+        if (inP) p++;
+      });
+      const label = g === "all" ? "P(A)" : "P(A | B)";
+      $("outCheck").innerHTML = ltr(label + " = " + num(p + " ÷ " + w)) + " ≈ " + num(pct(p, w));
+    }
+    btns.forEach(b => b.addEventListener("click", () => {
+      btns.forEach(x => x.classList.toggle("on", x === b));
+      show(b.dataset.g);
+    }));
+    show("all");
+  })();
+
+  // ===== לקופסה אין זיכרון =====
+  (function () {
+    let hist = [];
+    function render() {
+      $("streak").innerHTML = hist.map(a => dot(a ? " a" : "")).join("");
+      if (!hist.length) { $("outDraw").innerHTML = "עוד לא הגרלנו."; return; }
+      let run = 0;
+      for (let i = hist.length - 1; i >= 0 && hist[i] === hist[hist.length - 1]; i--) run++;
+      const last = hist[hist.length - 1] ? "לומדי פסיכולוגיה" : "סטודנטים שלא לומדים פסיכולוגיה";
+      $("outDraw").innerHTML = "רצף נוכחי: " + num(run) + " " + last + ".<br>הסיכוי לפתק של לומד פסיכולוגיה בהגרלה הבאה: " + ltr(num("7 ÷ 12"));
+    }
+    $("drawBtn").addEventListener("click", () => {
+      const s = CLASS[Math.floor(Math.random() * 12)];
+      hist.push(s.A);
+      if (hist.length > 24) hist.shift();
+      render();
+    });
+    $("resetBtn").addEventListener("click", () => { hist = []; render(); });
+    render();
+  })();
+})();
+</script>
+
+<script>
+  // המשולש מחזיר לרשימת הנושאים של הסטטיסטיקה.
+  window.waytoseeParentOverride = "statistika/statistika.html";
+</script>
+<script src="../waytosee.js"></script>
+</body>
+</html>
