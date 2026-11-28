@@ -1167,3 +1167,24 @@ body .brand-he{
   font-synthesis:none;
 }
 
+
+/* ========================================
+   סיבוב איטי ומתמשך של שני משולשי הניווט (סיבוב שלם כל 30 שניות).
+   משולש הבית מחזיר אחורה, ולכן מסתובב נגד כיוון השעון.
+   משולש "הנושא הבא" לוקח קדימה, ולכן מסתובב עם כיוון השעון.
+   כל משולש מסתובב סביב המרכז שלו, כך שהוא נשאר באותו מקום.
+   ======================================== */
+#homeBtn svg{
+  transform-origin: 50% 60%;
+  animation: navTriSpin 30s linear infinite reverse;
+}
+
+#nextBtn svg{
+  transform-origin: 50% 39.4%;
+  animation: navTriSpin 30s linear infinite;
+}
+
+@keyframes navTriSpin{
+  from{ transform: rotate(0deg); }
+  to{ transform: rotate(360deg); }
+}
