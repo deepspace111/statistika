@@ -202,6 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "statistika/statistika-conditional.html",
         "statistika/statistika-independence.html",
         "statistika/statistika-bayes.html",
+        "statistika/statistika-random-variable.html",
       ],
     },
     { // רשתות: כתובת ← זיהוי הרשת המקומית ← MAC ← ARP ← שער יציאה ← DHCP ← ...

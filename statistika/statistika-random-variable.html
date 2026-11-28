@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script src="../waytosee-analytics.js"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>משתנה מקרי: איך הופכים תוצאה למספר? | WayToSee</title>
+<meta name="description" content="משתנה מקרי מתוך צורך: שתי הגרלות עם החזרה מתוך 12 פתקים, X הוא מספר הפעמים שעלה לומד פסיכולוגיה. ההגדרה, ההתפלגות של X, מאורעות בשפה של X, וארגז חול שמשווה שכיחות יחסית להסתברות.">
+
+<link rel="stylesheet" href="../waytosee.css">
+
+<style>
+/* שלד העמוד נמצא ב-waytosee.css תחת body.stat-page. כאן רק הייחודי לעמוד הזה. */
+
+@font-face {
+  font-family: "WTS Math";
+  src: url("math-font.woff") format("woff");
+}
+math { font-family: "WTS Math", "Latin Modern Math", "Cambria Math", "STIX Two Math", math; }
+p math, td math, li math { font-size: 1.1em; }
+.calc math { font-size: 1.05em; color: var(--text); }
+
+body.stat-page .container h3 { font-size: 19px; margin: 16px 0 6px; font-weight: 700; color: var(--text); }
+.key { font-weight: bold; }
+.note { opacity: 0.8; }
+body.stat-page .container ul { margin: 6px 0; padding-inline-start: 18px; line-height: 1.5; }
+body.stat-page .container li { margin: 4px 0; }
+
+/* ===== צבעי השייכות, כמו בעמודי תורת הקבוצות וההסתברות ===== */
+:root { --setA: #8a9a5b; --setB: #b8963e; }
+body.learning-mode { --setA: #7cc0ff; --setB: #2b4f86; }
+
+/* ===== כרטיסים ===== */
+.deck { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 12px 0 6px; }
+.card {
+  position: relative; font: inherit; font-size: 14px; color: var(--text);
+  background: var(--panel); border: 1px solid var(--panel-border); border-radius: 10px;
+  padding: 7px 2px 12px; text-align: center;
+  transition: opacity 0.3s ease, border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+}
+.card .marks { position: absolute; left: 6px; right: 6px; bottom: 4px; display: flex; gap: 3px; height: 4px; }
+.card .marks i { flex: 1; border-radius: 2px; opacity: 0; }
+.card .marks .mA { background: var(--setA); }
+.card .marks .mB { background: var(--setB); }
+.card.showA .marks .mA, .card.showB .marks .mB { opacity: 1; }
+/* פתק הפוך */
+.card.folded { color: transparent; background: color-mix(in srgb, var(--text) 8%, var(--panel)); }
+.card.folded::after { content: "?"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--text); opacity: 0.4; }
+.card.folded .marks { visibility: hidden; }
+/* מחוץ למרחב החדש: כמעט נעלם */
+.card.out { opacity: 0.12; }
+/* בתוך המרחב החדש: מסגרת */
+.card.whole { border-color: var(--accent); }
+/* החלק שמעניין אותנו בתוך המרחב החדש */
+.card.part { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, var(--panel)); }
+.legend { display: flex; justify-content: center; gap: 14px; font-size: 13px; opacity: 0.8; margin-top: 4px; }
+.legend b { display: inline-block; width: 12px; height: 4px; border-radius: 2px; margin-inline-end: 5px; vertical-align: middle; }
+.legend .lA { background: var(--setA); } .legend .lB { background: var(--setB); }
+
+/* ===== כפתורים ותוצאות ===== */
+.btns { display: flex; gap: 8px; justify-content: center; margin: 8px 0; flex-wrap: wrap; align-items: center; }
+.btns .lab { font-size: 14px; opacity: 0.75; }
+.btns button {
+  font: inherit; font-size: 14px; color: var(--text);
+  background: var(--panel); border: 1px solid var(--panel-border);
+  border-radius: 999px; padding: 3px 14px; cursor: pointer;
+}
+.btns button:hover { border-color: var(--accent); }
+.btns button.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--panel)); }
+.out { text-align: center; font-size: 15px; min-height: 1.6em; }
+.cnt { font-family: 'JetBrains Mono', monospace; color: var(--num); }
+
+/* ===== כלל הכפל: שתי שורות נקודות ===== */
+.draws { margin: 10px 0 4px; }
+.draws .row { display: flex; align-items: center; gap: 8px; margin: 8px 0; }
+.draws .rl { font-size: 13px; opacity: 0.75; width: 5.4em; flex: none; }
+.draws .dots { display: flex; gap: 4px; flex-wrap: wrap; }
+.draws .d {
+  width: 15px; height: 15px; border-radius: 50%;
+  background: color-mix(in srgb, var(--text) 14%, transparent);
+  transition: opacity 0.3s ease, background 0.3s ease;
+}
+.draws .d.a { background: var(--setA); }
+.draws .d.gone { opacity: 0.15; outline: 1px dashed var(--text); outline-offset: 1px; background: transparent; }
+.draws .rv { font-size: 14px; margin-inline-start: auto; white-space: nowrap; }
+.draws .row.wait { opacity: 0.25; }
+
+/* ===== טבלאות ===== */
+.rv-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 15.5px; text-align: center; }
+.rv-table th, .rv-table td { padding: 6px 4px; border-bottom: 1px solid var(--panel-border); }
+.rv-table th { font-weight: 600; opacity: 0.85; }
+.rv-table td.x { font-family: 'JetBrains Mono', monospace; color: var(--num); font-weight: 700; }
+.pair { display: inline-flex; gap: 4px; }
+.pair .d { width: 13px; height: 13px; border-radius: 50%; background: color-mix(in srgb, var(--text) 14%, transparent); }
+.pair .d.a { background: var(--setA); }
+
+/* ===== עמודות התפלגות ===== */
+.hbars { margin: 12px 0; }
+.hbars .row { display: flex; align-items: center; gap: 8px; margin: 7px 0; font-size: 14px; }
+.hbars .bl { width: 3.6em; flex: none; font-family: 'JetBrains Mono', monospace; direction: ltr; text-align: right; }
+.hbars .track { flex: 1; position: relative; height: 22px; }
+.hbars .theo { position: absolute; inset: 0 0 0 auto; display: block; height: 100%; border: 1.5px dashed var(--setA); border-radius: 5px; box-sizing: border-box; }
+.hbars .obs { position: absolute; top: 5px; bottom: 5px; right: 0; display: block; background: var(--setA); border-radius: 4px; }
+.hbars .fill { position: absolute; inset: 0 0 0 auto; display: block; height: 100%; background: var(--setA); border-radius: 5px; transition: width 0.4s ease; }
+.hbars .bv { width: 5.6em; flex: none; text-align: left; font-family: 'JetBrains Mono', monospace; color: var(--num); }
+.legend2 { display: flex; justify-content: center; gap: 16px; font-size: 13.5px; opacity: 0.85; }
+.legend2 b { display: inline-block; width: 14px; height: 10px; border-radius: 2px; margin-inline-end: 5px; vertical-align: middle; }
+.legend2 .lt { border: 1.5px dashed var(--setA); box-sizing: border-box; }
+.legend2 .lo { background: var(--setA); }
+
+/* ביטוי חשבוני לא נשבר בין שורות */
+.ltr, span[dir="ltr"] { white-space: nowrap; }
+
+[hidden] { display: none !important; }
+
+@media (max-width: 600px) {
+  .card { font-size: 13px; }
+  .draws .d { width: 12px; height: 12px; }
+}
+</style>
+</head>
+
+<body class="stat-page">
+
+<div class="rain" id="rain"></div>
+
+<h1 class="page-title">משתנה מקרי</h1>
+<p class="page-subtitle">איך הופכים תוצאה למספר?</p>
+
+<div class="container">
+
+<div class="col">
+
+  <div class="section">
+    <h2>הצורך: מה מעניין אותנו בתוצאה?</h2>
+    <p>חוזרים לקופסה עם 12 הפתקים: 7 של לומדי פסיכולוגיה ו־5 של מי שלא לומד פסיכולוגיה. מגרילים פתק, <strong>מחזירים אותו ומערבבים</strong>, ומגרילים שוב.</p>
+    <p>ברמת הפתקים עצמם יש <span class="ltr" dir="ltr">12 × 12 = 144</span> זוגות סדורים, וכולם שווי הסתברות. אם מסתכלים רק על השייכות לפסיכולוגיה, נשארים ארבעה סוגי תוצאות:</p>
+    <table class="rv-table">
+      <tr><th>הגרלה ראשונה, שנייה</th><th>זוגות מתוך 144</th></tr>
+      <tr><td><span class="pair"><span class="d a"></span><span class="d a"></span></span> פסיכולוגיה, פסיכולוגיה</td><td class="cnt"><span class="ltr" dir="ltr">7 × 7 = 49</span></td></tr>
+      <tr><td><span class="pair"><span class="d a"></span><span class="d"></span></span> פסיכולוגיה, לא</td><td class="cnt"><span class="ltr" dir="ltr">7 × 5 = 35</span></td></tr>
+      <tr><td><span class="pair"><span class="d"></span><span class="d a"></span></span> לא, פסיכולוגיה</td><td class="cnt"><span class="ltr" dir="ltr">5 × 7 = 35</span></td></tr>
+      <tr><td><span class="pair"><span class="d"></span><span class="d"></span></span> לא, לא</td><td class="cnt"><span class="ltr" dir="ltr">5 × 5 = 25</span></td></tr>
+    </table>
+    <p>ארבעת הסוגים <strong>אינם</strong> שווי הסתברות. ולפעמים בכלל לא מעניין אותנו מה יצא בכל הגרלה, אלא רק <strong>כמה</strong> לומדי פסיכולוגיה עלו.</p>
+  </div>
+
+  <div class="section">
+    <h2>ההגדרה: כלל שנותן מספר</h2>
+    <p>מגדירים <span class="ltr" dir="ltr"><math><mi>X</mi></math></span>: <strong>מספר הפעמים שעלה פתק של לומד פסיכולוגיה בשתי ההגרלות</strong>. אותו סטודנט יכול לעלות פעמיים, ואז <span class="ltr" dir="ltr"><math><mi>X</mi><mo>=</mo><mn>2</mn></math></span>.</p>
+    <table class="rv-table">
+      <tr><th>תוצאה</th><th><span class="ltr" dir="ltr"><math><mi>X</mi></math></span></th></tr>
+      <tr><td><span class="pair"><span class="d a"></span><span class="d a"></span></span></td><td class="x">2</td></tr>
+      <tr><td><span class="pair"><span class="d a"></span><span class="d"></span></span> &nbsp; <span class="pair"><span class="d"></span><span class="d a"></span></span></td><td class="x">1</td></tr>
+      <tr><td><span class="pair"><span class="d"></span><span class="d"></span></span></td><td class="x">0</td></tr>
+    </table>
+    <p><strong>משתנה מקרי</strong> הוא כלל שמתאים מספר לכל תוצאה במרחב המדגם. הכלל עצמו קבוע. האקראיות נמצאת בהגרלה, שקובעת איזו תוצאה תתקבל.</p>
+    <p>שתי תוצאות שונות יכולות לקבל את אותו מספר: גם <span class="pair"><span class="d a"></span><span class="d"></span></span> וגם <span class="pair"><span class="d"></span><span class="d a"></span></span> נותנות <span class="ltr" dir="ltr"><math><mi>X</mi><mo>=</mo><mn>1</mn></math></span>.</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>ההתפלגות של X</h2>
+    <p>לכל ערך של <span class="ltr" dir="ltr"><math><mi>X</mi></math></span> אוספים את התוצאות שנותנות אותו, ומחברים את ההסתברויות שלהן:</p>
+    <div class="calc"><math display="block"><mi>P</mi><mo stretchy="false">(</mo><mi>X</mi><mo>=</mo><mn>0</mn><mo stretchy="false">)</mo><mo>=</mo><mfrac><mn>5</mn><mn>12</mn></mfrac><mo>×</mo><mfrac><mn>5</mn><mn>12</mn></mfrac><mo>=</mo><mfrac><mn>25</mn><mn>144</mn></mfrac></math></div>
+    <div class="calc"><math display="block"><mi>P</mi><mo stretchy="false">(</mo><mi>X</mi><mo>=</mo><mn>1</mn><mo stretchy="false">)</mo><mo>=</mo><mfrac><mn>35</mn><mn>144</mn></mfrac><mo>+</mo><mfrac><mn>35</mn><mn>144</mn></mfrac><mo>=</mo><mfrac><mn>70</mn><mn>144</mn></mfrac></math></div>
+    <div class="calc"><math display="block"><mi>P</mi><mo stretchy="false">(</mo><mi>X</mi><mo>=</mo><mn>2</mn><mo stretchy="false">)</mo><mo>=</mo><mfrac><mn>7</mn><mn>12</mn></mfrac><mo>×</mo><mfrac><mn>7</mn><mn>12</mn></mfrac><mo>=</mo><mfrac><mn>49</mn><mn>144</mn></mfrac></math></div>
+    <p>כל הגרלה עם החזרה בלתי תלויה בקודמת, ולכן מכפילים את הסיכויים כמו שהם.</p>
+    <div class="hbars" id="distBars"></div>
+    <p>הרשימה של כל הערכים של <span class="ltr" dir="ltr"><math><mi>X</mi></math></span> וההסתברות של כל אחד מהם נקראת <strong>ההתפלגות של <span class="ltr" dir="ltr"><math><mi>X</mi></math></span></strong>. כל ערך מקבל הסתברות בין 0 ל־1, וסכום כולן הוא 1: <span class="ltr" dir="ltr">25 + 70 + 49 = 144</span>.</p>
+  </div>
+
+  <div class="section">
+    <h2>מאורעות בשפה של X</h2>
+    <p>ברגע שיש משתנה מקרי, אפשר לנסח שאלות בעזרתו. ״עלה לפחות לומד פסיכולוגיה אחד״ הוא המאורע <span class="ltr" dir="ltr"><math><mi>X</mi><mo>≥</mo><mn>1</mn></math></span>.</p>
+    <p>הדרך הקצרה עוברת דרך המשלים: המאורע ההפוך הוא שלא עלה אף אחד, כלומר <span class="ltr" dir="ltr"><math><mi>X</mi><mo>=</mo><mn>0</mn></math></span>.</p>
+    <div class="calc"><math display="block"><mi>P</mi><mo stretchy="false">(</mo><mi>X</mi><mo>≥</mo><mn>1</mn><mo stretchy="false">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><mi>P</mi><mo stretchy="false">(</mo><mi>X</mi><mo>=</mo><mn>0</mn><mo stretchy="false">)</mo><mo>=</mo><mstyle mathvariant="bold"><mfrac><mn>119</mn><mn>144</mn></mfrac></mstyle></math></div>
+    <p>כלומר <span class="ltr" dir="ltr">1</span> פחות <span class="ltr" dir="ltr">25 ÷ 144</span>. אותה תוצאה מתקבלת מחיבור: <span class="ltr" dir="ltr">70 ÷ 144 + 49 ÷ 144 = 119 ÷ 144</span>, בערך 82.6%.</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>משתנה אחר, אותה הגרלה</h2>
+    <p>מאותן תוצאות אפשר להגדיר גם משתנה מקרי אחר. נגדיר <span class="ltr" dir="ltr"><math><mi>Y</mi></math></span>: מספר הפעמים שעלה פתק של מי <strong>שלא</strong> לומד פסיכולוגיה.</p>
+    <p>בכל זוג יש בדיוק שתי הגרלות, ולכן תמיד <span class="ltr" dir="ltr"><math><mi>Y</mi><mo>=</mo><mn>2</mn><mo>−</mo><mi>X</mi></math></span>. ההגרלה לא השתנתה, רק הכלל, ולכן גם ההתפלגות שונה: <span class="ltr" dir="ltr"><math><mi>P</mi><mo>(</mo><mi>Y</mi><mo>=</mo><mn>2</mn><mo>)</mo></math></span> הוא <span class="ltr" dir="ltr">25 ÷ 144</span>, ולא <span class="ltr" dir="ltr">49 ÷ 144</span>.</p>
+  </div>
+
+  <div class="section">
+    <h2>ארגז החול: שכיחות מול הסתברות</h2>
+    <p>מגרילים זוגות פתקים, עם החזרה וערבוב לפני כל הגרלה, וסופרים כמה פעמים יצא כל ערך של <span class="ltr" dir="ltr"><math><mi>X</mi></math></span>.</p>
+    <div class="btns">
+      <button type="button" data-n="1">זוג אחד</button>
+      <button type="button" data-n="10">10 זוגות</button>
+      <button type="button" data-n="100">100 זוגות</button>
+    </div>
+    <div class="hbars" id="simBars"></div>
+    <div class="legend2"><span><b class="lt"></b>הסתברות תאורטית</span><span><b class="lo"></b>שכיחות יחסית שנצפתה</span></div>
+    <div class="out" id="simOut"></div>
+    <div class="btns"><button type="button" id="simReset">מתחילים מחדש</button></div>
+  </div>
+
+  <div class="section">
+    <h2>מה רואים בארגז</h2>
+    <p><strong>ההסתברות התאורטית</strong> נקבעת מהקופסה, והיא לא משתנה. <strong>השכיחות היחסית</strong> נספרת מההגרלות שכבר קרו, ומשתנה אחרי כל הגרלה.</p>
+    <p>כשמספר ההגרלות גדל, השכיחויות היחסיות נוטות להתקרב להסתברויות. ההתקרבות הזאת לא רציפה ולא מובטחת אחרי כל הגרלה: לפעמים זוג נוסף דווקא מרחיק את השכיחות מההסתברות.</p>
+    <p>בעמוד הצגת הנתונים ספרנו שכיחויות של נתונים שכבר נאספו. כאן ההתפלגות של <span class="ltr" dir="ltr"><math><mi>X</mi></math></span> מתארת מה צפוי לפני שמגרילים.</p>
+    <p class="key">משתנה מקרי הופך כל תוצאה למספר, וההתפלגות שלו אומרת מה הסיכוי של כל מספר.</p>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const num = n => '<span class="cnt">' + n + "</span>";
+  const ltr = s => '<span dir="ltr">' + s + "</span>";
+  const pct = x => (Math.round(1000 * x) / 10) + "%";
+  const THEO = [25 / 144, 70 / 144, 49 / 144];
+  const FRAC = ["25 ÷ 144", "70 ÷ 144", "49 ÷ 144"];
+  const MAXW = 0.6; // רוחב מלא של עמודה = 60%
+
+  // ===== ההתפלגות של X =====
+  $("distBars").innerHTML = [0, 1, 2].map(x =>
+    '<div class="row"><span class="bl">X = ' + x + '</span><span class="track"><span class="fill" style="width:' +
+    (100 * THEO[x] / MAXW) + '%"></span></span><span class="bv">' + pct(THEO[x]) + "</span></div>").join("");
+
+  // ===== ארגז החול =====
+  (function () {
+    const counts = [0, 0, 0];
+    $("simBars").innerHTML = [0, 1, 2].map(x =>
+      '<div class="row"><span class="bl">X = ' + x + '</span><span class="track"><span class="theo" style="width:' +
+      (100 * THEO[x] / MAXW) + '%"></span><span class="obs" id="obs' + x + '"></span></span><span class="bv" id="bv' + x + '"></span></div>').join("");
+    function drawOne() {
+      // שתי הגרלות עם החזרה: בכל אחת 7 מתוך 12 פתקים של לומדי פסיכולוגיה
+      let x = 0;
+      for (let k = 0; k < 2; k++) if (Math.floor(Math.random() * 12) < 7) x++;
+      counts[x]++;
+    }
+    function render() {
+      const n = counts[0] + counts[1] + counts[2];
+      [0, 1, 2].forEach(x => {
+        const f = n ? counts[x] / n : 0;
+        $("obs" + x).style.width = Math.min(100, 100 * f / MAXW) + "%";
+        $("bv" + x).innerHTML = n ? pct(f) : "";
+      });
+      if (!n) { $("simOut").innerHTML = "עוד לא הגרלנו."; return; }
+      $("simOut").innerHTML = "מספר הזוגות: " + num(n) + "<br>" +
+        [0, 1, 2].map(x => ltr("X = " + x) + ": " + num(counts[x]) + " פעמים, " + ltr(num(pct(counts[x] / n))) +
+          " (תאורטית " + ltr(num(pct(THEO[x]))) + ")").join("<br>");
+    }
+    document.querySelectorAll("[data-n]").forEach(b => b.addEventListener("click", () => {
+      for (let i = 0; i < +b.dataset.n; i++) drawOne();
+      render();
+    }));
+    $("simReset").addEventListener("click", () => { counts.fill(0); render(); });
+    render();
+  })();
+})();
+</script>
+
+<script>
+  // המשולש מחזיר לרשימת הנושאים של הסטטיסטיקה.
+  window.waytoseeParentOverride = "statistika/statistika.html";
+</script>
+<script src="../waytosee.js"></script>
+</body>
+</html>
