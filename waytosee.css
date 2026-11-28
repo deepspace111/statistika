@@ -1217,3 +1217,20 @@ body .brand-he{
   from{ transform: translateY(-5px); }
   to{ transform: translateY(5px); }
 }
+
+/* ========================================
+   מפתח הפה: נדנוד איטי כמו כיסא נדנדה, על הקשת הגדולה שלו
+   (הקשת שמקבילה לשתי הנקודות). נדנוד שלם, הלוך וחזור, כל 7.2 שניות,
+   באותו קצב של פס האור שעובר עליו. 6 מעלות לכל צד.
+   משתמשים ב-rotate וב-translate הנפרדים (ולא ב-transform),
+   כדי לא להתנגש בהגדרות ה-transform הקיימות של הכפתור.
+   ======================================== */
+.focus-toggle{
+  transform-origin: 36% 41% !important;
+  animation: clefRock 3.6s ease-in-out infinite alternate;
+}
+
+@keyframes clefRock{
+  from{ rotate: -6deg; translate: 0 -0.7px; }
+  to{ rotate: 6deg; translate: 0 0.7px; }
+}
