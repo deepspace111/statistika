@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script src="../waytosee-analytics.js"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>חוק בייס: איך הופכים את הכיוון? | WayToSee</title>
+<meta name="description" content="חוק בייס מתוך צורך: יודעים P(B|A) ושואלים על P(A|B). עץ הסתברויות, נוסחת ההסתברות השלמה, עדכון מהסתברות אפריורית לאפוסטריורית, וארגז חול.">
+
+<link rel="stylesheet" href="../waytosee.css">
+
+<style>
+/* שלד העמוד נמצא ב-waytosee.css תחת body.stat-page. כאן רק הייחודי לעמוד הזה. */
+
+@font-face {
+  font-family: "WTS Math";
+  src: url("math-font.woff") format("woff");
+}
+math { font-family: "WTS Math", "Latin Modern Math", "Cambria Math", "STIX Two Math", math; }
+p math, td math, li math { font-size: 1.1em; }
+.calc math { font-size: 1.05em; color: var(--text); }
+
+body.stat-page .container h3 { font-size: 19px; margin: 16px 0 6px; font-weight: 700; color: var(--text); }
+.key { font-weight: bold; }
+.note { opacity: 0.8; }
+body.stat-page .container ul { margin: 6px 0; padding-inline-start: 18px; line-height: 1.5; }
+body.stat-page .container li { margin: 4px 0; }
+
+/* ===== צבעי השייכות, כמו בעמודי תורת הקבוצות וההסתברות ===== */
+:root { --setA: #8a9a5b; --setB: #b8963e; }
+body.learning-mode { --setA: #7cc0ff; --setB: #2b4f86; }
+
+/* ===== כרטיסים ===== */
+.deck { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 12px 0 6px; }
+.card {
+  position: relative; font: inherit; font-size: 14px; color: var(--text);
+  background: var(--panel); border: 1px solid var(--panel-border); border-radius: 10px;
+  padding: 7px 2px 12px; text-align: center;
+  transition: opacity 0.3s ease, border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+}
+.card .marks { position: absolute; left: 6px; right: 6px; bottom: 4px; display: flex; gap: 3px; height: 4px; }
+.card .marks i { flex: 1; border-radius: 2px; opacity: 0; }
+.card .marks .mA { background: var(--setA); }
+.card .marks .mB { background: var(--setB); }
+.card.showA .marks .mA, .card.showB .marks .mB { opacity: 1; }
+/* פתק הפוך */
+.card.folded { color: transparent; background: color-mix(in srgb, var(--text) 8%, var(--panel)); }
+.card.folded::after { content: "?"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--text); opacity: 0.4; }
+.card.folded .marks { visibility: hidden; }
+/* מחוץ למרחב החדש: כמעט נעלם */
+.card.out { opacity: 0.12; }
+/* בתוך המרחב החדש: מסגרת */
+.card.whole { border-color: var(--accent); }
+/* החלק שמעניין אותנו בתוך המרחב החדש */
+.card.part { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, var(--panel)); }
+.legend { display: flex; justify-content: center; gap: 14px; font-size: 13px; opacity: 0.8; margin-top: 4px; }
+.legend b { display: inline-block; width: 12px; height: 4px; border-radius: 2px; margin-inline-end: 5px; vertical-align: middle; }
+.legend .lA { background: var(--setA); } .legend .lB { background: var(--setB); }
+
+/* ===== כפתורים ותוצאות ===== */
+.btns { display: flex; gap: 8px; justify-content: center; margin: 8px 0; flex-wrap: wrap; align-items: center; }
+.btns .lab { font-size: 14px; opacity: 0.75; }
+.btns button {
+  font: inherit; font-size: 14px; color: var(--text);
+  background: var(--panel); border: 1px solid var(--panel-border);
+  border-radius: 999px; padding: 3px 14px; cursor: pointer;
+}
+.btns button:hover { border-color: var(--accent); }
+.btns button.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--panel)); }
+.out { text-align: center; font-size: 15px; min-height: 1.6em; }
+.cnt { font-family: 'JetBrains Mono', monospace; color: var(--num); }
+
+/* ===== כלל הכפל: שתי שורות נקודות ===== */
+.draws { margin: 10px 0 4px; }
+.draws .row { display: flex; align-items: center; gap: 8px; margin: 8px 0; }
+.draws .rl { font-size: 13px; opacity: 0.75; width: 5.4em; flex: none; }
+.draws .dots { display: flex; gap: 4px; flex-wrap: wrap; }
+.draws .d {
+  width: 15px; height: 15px; border-radius: 50%;
+  background: color-mix(in srgb, var(--text) 14%, transparent);
+  transition: opacity 0.3s ease, background 0.3s ease;
+}
+.draws .d.a { background: var(--setA); }
+.draws .d.gone { opacity: 0.15; outline: 1px dashed var(--text); outline-offset: 1px; background: transparent; }
+.draws .rv { font-size: 14px; margin-inline-start: auto; white-space: nowrap; }
+.draws .row.wait { opacity: 0.25; }
+
+/* ===== עץ ההסתברויות ===== */
+.tree { display: block; width: 100%; max-width: 380px; margin: 10px auto 4px; overflow: visible; }
+.tree line { stroke: color-mix(in srgb, var(--text) 35%, transparent); stroke-width: 1.4; transition: stroke 0.3s ease, stroke-width 0.3s ease; }
+.tree line.hot { stroke: var(--accent); stroke-width: 2.6; }
+.tree text { direction: ltr; unicode-bidi: isolate; fill: var(--text); font-size: 13px; text-anchor: middle; font-family: 'Heebo', system-ui, sans-serif; }
+.tree text.p { font-family: 'JetBrains Mono', monospace; font-size: 12px; fill: var(--num); transition: opacity 0.4s ease; }
+.tree text.leaf { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; transition: opacity 0.4s ease; }
+.tree text.leaf.hot { fill: var(--accent); font-weight: 700; }
+.tree .hide { opacity: 0; }
+.tree circle { fill: var(--panel); stroke: var(--panel-border); }
+
+/* ===== לפני ואחרי ===== */
+.bars { margin: 10px 0; }
+.bars .row { display: flex; align-items: center; gap: 8px; margin: 6px 0; font-size: 14px; }
+.bars .bl { width: 3.6em; flex: none; opacity: 0.8; }
+.bars .track { flex: 1; height: 12px; border-radius: 6px; background: color-mix(in srgb, var(--text) 10%, transparent); overflow: hidden; }
+.bars .fill { display: block; height: 100%; width: 0; background: var(--setA); border-radius: 6px; transition: width 0.4s ease; }
+.bars .bv { width: 4.2em; flex: none; text-align: left; }
+
+/* ===== מחוונים ===== */
+.sl { display: flex; align-items: center; gap: 8px; margin: 8px 0; font-size: 14px; }
+.sl label { width: 7.4em; flex: none; }
+.sl input { flex: 1; }
+.sl .v { width: 3.4em; flex: none; text-align: left; }
+
+/* ביטוי חשבוני לא נשבר בין שורות */
+.ltr, span[dir="ltr"] { white-space: nowrap; }
+
+[hidden] { display: none !important; }
+
+@media (max-width: 600px) {
+  .card { font-size: 13px; }
+  .draws .d { width: 12px; height: 12px; }
+}
+</style>
+</head>
+
+<body class="stat-page">
+
+<div class="rain" id="rain"></div>
+
+<h1 class="page-title">חוק בייס</h1>
+<p class="page-subtitle">איך הופכים את הכיוון?</p>
+
+<div class="container">
+
+<div class="col">
+
+  <div class="section">
+    <h2>הצורך: יודעים רק כיוון אחד</h2>
+    <p>הסימונים בעמוד: <span class="ltr" dir="ltr"><math><mi>A</mi></math></span>: הסטודנט לומד פסיכולוגיה. <span class="ltr" dir="ltr"><math><mi>B</mi></math></span>: הסטודנט לומד סוציולוגיה.</p>
+    <p>בעמוד ההסתברות המותנית ראינו ש־<span class="ltr" dir="ltr"><math><mi>P</mi><mo>(</mo><mi>A</mi><mo>|</mo><mi>B</mi><mo>)</mo></math></span> ו־<span class="ltr" dir="ltr"><math><mi>P</mi><mo>(</mo><mi>B</mi><mo>|</mo><mi>A</mi><mo>)</mo></math></span> הם שני דברים שונים. שם הייתה לפנינו הרשימה המלאה של 12 הסטודנטים, ופשוט ספרנו.</p>
+    <p>הפעם אין רשימה. ידועות רק שלוש עובדות על אותה כיתה:</p>
+    <ul>
+      <li><span class="ltr" dir="ltr">7 ÷ 12</span> מהסטודנטים לומדים פסיכולוגיה.</li>
+      <li>מבין לומדי הפסיכולוגיה, <span class="ltr" dir="ltr">3 ÷ 7</span> לומדים גם סוציולוגיה.</li>
+      <li>מבין מי שלא לומד פסיכולוגיה, <span class="ltr" dir="ltr">3 ÷ 5</span> לומדים סוציולוגיה.</li>
+    </ul>
+    <p>מגרילים פתק, ומתקבל הרמז: <strong>״הסטודנט שיצא לומד סוציולוגיה.״</strong></p>
+    <p><strong>מה הסיכוי שהוא לומד פסיכולוגיה?</strong> העובדות מדברות על <span class="ltr" dir="ltr"><math><mi>P</mi><mo>(</mo><mi>B</mi><mo>|</mo><mi>A</mi><mo>)</mo></math></span>, והשאלה היא על <span class="ltr" dir="ltr"><math><mi>P</mi><mo>(</mo><mi>A</mi><mo>|</mo><mi>B</mi><mo>)</mo></math></span>. צריך להפוך את הכיוון.</p>
+  </div>
+
+  <div class="section">
+    <h2>עץ ההסתברויות</h2>
+    <p>מסדרים את שלוש העובדות בעץ. הפיצול הראשון: פסיכולוגיה או לא. הפיצול השני, בתוך כל ענף: סוציולוגיה או לא.</p>
+    <svg class="tree" id="tree" viewBox="0 0 360 240" aria-hidden="true">
+      <line id="e0" x1="180" y1="14" x2="270" y2="82"/><line id="e1" x1="180" y1="14" x2="90" y2="82"/>
+      <line id="e00" x1="270" y1="112" x2="315" y2="176"/><line id="e01" x1="270" y1="112" x2="225" y2="176"/>
+      <line id="e10" x1="90" y1="112" x2="135" y2="176"/><line id="e11" x1="90" y1="112" x2="45" y2="176"/>
+      <circle cx="180" cy="14" r="5"/>
+      <text x="270" y="101">פסיכולוגיה</text><text x="90" y="101">לא פסיכולוגיה</text>
+      <text class="p hide" id="p0" x="252" y="40">7 ÷ 12</text><text class="p hide" id="p1" x="108" y="40">5 ÷ 12</text>
+      <text class="p hide" id="p00" x="324" y="146">3 ÷ 7</text><text class="p hide" id="p01" x="216" y="146">4 ÷ 7</text>
+      <text class="p hide" id="p10" x="144" y="146">3 ÷ 5</text><text class="p hide" id="p11" x="36" y="146">2 ÷ 5</text>
+      <text x="315" y="194">סוציו׳</text><text x="225" y="194">לא סוציו׳</text>
+      <text x="135" y="194">סוציו׳</text><text x="45" y="194">לא סוציו׳</text>
+      <text class="leaf hide" id="l00" x="315" y="218">3 ÷ 12</text><text class="leaf hide" id="l01" x="225" y="218">4 ÷ 12</text>
+      <text class="leaf hide" id="l10" x="135" y="218">3 ÷ 12</text><text class="leaf hide" id="l11" x="45" y="218">2 ÷ 12</text>
+    </svg>
+    <div class="btns"><button type="button" id="treeBtn">הפיצול הראשון</button></div>
+    <div class="out" id="outTree"></div>
+    <p>כל מסלול מהשורש לעלה הוא מכפלה, כמו בכלל הכפל: למשל פסיכולוגיה ואז סוציולוגיה, <span class="ltr" dir="ltr">(7 ÷ 12) × (3 ÷ 7) = 3 ÷ 12</span>. ארבעת העלים יחד מסתכמים ב־1.</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>ההסתברות השלמה</h2>
+    <p>כדי לדעת כמה מהכיתה לומדים סוציולוגיה, אוספים את כל המסלולים שמגיעים לסוציולוגיה. יש שניים: דרך פסיכולוגיה, ודרך לא פסיכולוגיה.</p>
+    <div class="calc"><math display="block"><mi>P</mi><mo stretchy="false">(</mo><mi>B</mi><mo stretchy="false">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false">(</mo><mi>A</mi><mo stretchy="false">)</mo><mo>·</mo><mi>P</mi><mo stretchy="false">(</mo><mi>B</mi><mo stretchy="false">|</mo><mi>A</mi><mo stretchy="false">)</mo></math><math display="block"><mo>+</mo><mi>P</mi><mo stretchy="false">(</mo><msup><mi>A</mi><mi>c</mi></msup><mo stretchy="false">)</mo><mo>·</mo><mi>P</mi><mo stretchy="false">(</mo><mi>B</mi><mo stretchy="false">|</mo><msup><mi>A</mi><mi>c</mi></msup><mo stretchy="false">)</mo></math></div>
+    <div class="calc"><math display="block"><mo>=</mo><mfrac><mn>7</mn><mn>12</mn></mfrac><mo>×</mo><mfrac><mn>3</mn><mn>7</mn></mfrac><mo>+</mo><mfrac><mn>5</mn><mn>12</mn></mfrac><mo>×</mo><mfrac><mn>3</mn><mn>5</mn></mfrac><mo>=</mo><mfrac><mn>3</mn><mn>12</mn></mfrac><mo>+</mo><mfrac><mn>3</mn><mn>12</mn></mfrac><mo>=</mo><mstyle mathvariant="bold"><mfrac><mn>6</mn><mn>12</mn></mfrac></mstyle></math></div>
+    <p>זו <strong>נוסחת ההסתברות השלמה</strong>. היא עובדת כי <span class="ltr" dir="ltr"><math><mi>A</mi></math></span> ו־<span class="ltr" dir="ltr"><math><msup><mi>A</mi><mi>c</mi></msup></math></span> מחלקים את כל הכיתה לשני חלקים זרים, וכל סטודנט שלומד סוציולוגיה נמצא בדיוק באחד מהם.</p>
+  </div>
+
+  <div class="section">
+    <h2>חוק בייס</h2>
+    <p>עכשיו הרמז ידוע: הסטודנט לומד סוציולוגיה. מבין שני המסלולים שמגיעים לסוציולוגיה, מעניין אותנו זה שעובר דרך פסיכולוגיה. מחלקים אותו בסך כל המסלולים שמגיעים לשם:</p>
+    <div class="calc"><math display="block"><mi>P</mi><mo stretchy="false">(</mo><mi>A</mi><mo stretchy="false">|</mo><mi>B</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>A</mi><mo stretchy="false">)</mo><mo>×</mo><mi>P</mi><mo stretchy="false">(</mo><mi>B</mi><mo stretchy="false">|</mo><mi>A</mi><mo stretchy="false">)</mo></mrow><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>B</mi><mo stretchy="false">)</mo></mrow></mfrac></math></div>
+    <div class="calc"><math display="block"><mo>=</mo><mfrac><mn>3</mn><mn>12</mn></mfrac><mo>÷</mo><mfrac><mn>6</mn><mn>12</mn></mfrac><mo>=</mo><mstyle mathvariant="bold"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle></math></div>
+    <p>זו בדיוק התוצאה שקיבלנו בעמוד ההסתברות המותנית, כשספרנו 3 מתוך 6 לומדי סוציולוגיה. הפעם הגענו אליה בלי רשימה, רק משלוש העובדות.</p>
+    <p>כמו בכל הסתברות מותנית, הנוסחה דורשת ש־<span class="ltr" dir="ltr"><math><mi>P</mi><mo>(</mo><mi>B</mi><mo>)</mo></math></span> יהיה גדול מ־0: אי אפשר לקבל רמז שלא יכול לקרות.</p>
+    <p class="key">בייס: מתוך כל הדרכים להגיע לרמז, איזה חלק עובר דרך מה ששואלים עליו?</p>
+    <p class="calm-link"><a href="statistika-thinking-baserate.html">ולמה תוצאה חיובית בבדיקה טובה יכולה להטעות?</a></p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>לפני ואחרי</h2>
+    <p>לפני הרמז, הסיכוי שהסטודנט לומד פסיכולוגיה הוא <span class="ltr" dir="ltr">7 ÷ 12 ≈ 58.3%</span>. אחרי הרמז הוא <span class="ltr" dir="ltr">½ = 50%</span>.</p>
+    <div class="bars">
+      <div class="row"><span class="bl">לפני</span><span class="track"><span class="fill" id="barPrior"></span></span><span class="bv cnt" id="vPrior"></span></div>
+      <div class="row"><span class="bl">אחרי</span><span class="track"><span class="fill" id="barPost"></span></span><span class="bv cnt" id="vPost"></span></div>
+    </div>
+    <p>ההסתברות שלפני המידע נקראת <strong>הסתברות אפריורית</strong>, וזו שאחריו נקראת <strong>הסתברות אפוסטריורית</strong>. חוק בייס הוא הכלל שמעדכן את הראשונה לשנייה.</p>
+  </div>
+
+  <div class="section">
+    <h2>ארגז החול</h2>
+    <p>משנים את שלוש העובדות, ורואים איך הסיכוי שאחרי הרמז זז.</p>
+    <div class="sl"><label for="sA"><span class="ltr" dir="ltr"><math><mi>P</mi><mo>(</mo><mi>A</mi><mo>)</mo></math></span></label><input type="range" id="sA" min="0" max="100" step="1" value="58"><span class="v cnt" id="vA"></span></div>
+    <div class="sl"><label for="sBA"><span class="ltr" dir="ltr"><math><mi>P</mi><mo>(</mo><mi>B</mi><mo>|</mo><mi>A</mi><mo>)</mo></math></span></label><input type="range" id="sBA" min="0" max="100" step="1" value="43"><span class="v cnt" id="vBA"></span></div>
+    <div class="sl"><label for="sBAc"><span class="ltr" dir="ltr"><math><mi>P</mi><mo>(</mo><mi>B</mi><mo>|</mo><msup><mi>A</mi><mi>c</mi></msup><mo>)</mo></math></span></label><input type="range" id="sBAc" min="0" max="100" step="1" value="60"><span class="v cnt" id="vBAc"></span></div>
+    <div class="out" id="sbOut"></div>
+    <div class="btns"><button type="button" id="sbReset">חוזרים לכיתה שלנו</button></div>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const num = n => '<span class="cnt">' + n + "</span>";
+  const ltr = s => '<span dir="ltr">' + s + "</span>";
+  const pct = x => (Math.round(1000 * x) / 10) + "%";
+
+  // ===== עץ ההסתברויות: חושפים שלב אחרי שלב =====
+  (function () {
+    const STEPS = [
+      { show: [], hot: [], btn: "הפיצול הראשון", txt: "" },
+      { show: ["p0", "p1"], hot: [], btn: "הפיצול השני", txt: "7 מתוך 12 לומדים פסיכולוגיה, 5 לא." },
+      { show: ["p0", "p1", "p00", "p01", "p10", "p11"], hot: [], btn: "מכפילים לאורך המסלולים", txt: "בתוך כל ענף, החלק שלומד סוציולוגיה." },
+      { show: ["p0", "p1", "p00", "p01", "p10", "p11", "l00", "l01", "l10", "l11"], hot: [], btn: "מסמנים את הרמז", txt: "כל עלה: מכפלת ההסתברויות במסלול שלו." },
+      { show: ["p0", "p1", "p00", "p01", "p10", "p11", "l00", "l01", "l10", "l11"], hot: ["e0", "e00", "e1", "e10", "l00", "l10"], btn: "מתחילים מחדש",
+        txt: "שני מסלולים מגיעים לסוציולוגיה: " + ltr(num("3 ÷ 12 + 3 ÷ 12 = 6 ÷ 12")) }
+    ];
+    const ALL = ["p0", "p1", "p00", "p01", "p10", "p11", "l00", "l01", "l10", "l11"];
+    const HOT = ["e0", "e00", "e1", "e10", "l00", "l10"];
+    let step = 0;
+    function render() {
+      const s = STEPS[step];
+      ALL.forEach(id => $(id).classList.toggle("hide", !s.show.includes(id)));
+      HOT.forEach(id => $(id).classList.toggle("hot", s.hot.includes(id)));
+      $("treeBtn").textContent = s.btn;
+      $("outTree").innerHTML = s.txt;
+    }
+    $("treeBtn").addEventListener("click", () => { step = (step + 1) % STEPS.length; render(); });
+    render();
+  })();
+
+  // ===== לפני ואחרי =====
+  (function () {
+    $("barPrior").style.width = (100 * 7 / 12) + "%";
+    $("vPrior").textContent = "58.3%";
+    $("barPost").style.width = "50%";
+    $("vPost").textContent = "50%";
+  })();
+
+  // ===== ארגז החול =====
+  (function () {
+    const DEF = { sA: 7 / 12, sBA: 3 / 7, sBAc: 3 / 5 };
+    const val = { ...DEF };
+    const ids = ["sA", "sBA", "sBAc"];
+    const outIds = { sA: "vA", sBA: "vBA", sBAc: "vBAc" };
+    function update() {
+      ids.forEach(id => $(outIds[id]).textContent = pct(val[id]));
+      const a = val.sA, ba = val.sBA, bac = val.sBAc;
+      const pAB = a * ba, pAcB = (1 - a) * bac, pB = pAB + pAcB;
+      if (pB < 1e-12) {
+        $("sbOut").innerHTML = ltr("P(B) = " + num("0")) + "<br>ההסתברות המותנית אינה מוגדרת, כי הרמז אינו יכול להתקבל.";
+        return;
+      }
+      const post = pAB / pB;
+      const dir = post > a + 1e-9 ? "עלה" : post < a - 1e-9 ? "ירד" : "לא השתנה";
+      $("sbOut").innerHTML =
+        ltr("P(B) = " + num(pct(pB))) + "<br>" +
+        ltr("P(A | B) = " + num(pct(post))) + "<br>" +
+        "לפני הרמז: " + ltr(num(pct(a))) + ". הסיכוי " + dir + ".";
+    }
+    ids.forEach(id => $(id).addEventListener("input", e => { val[id] = e.target.value / 100; update(); }));
+    $("sbReset").addEventListener("click", () => {
+      Object.assign(val, DEF);
+      ids.forEach(id => $(id).value = Math.round(DEF[id] * 100));
+      update();
+    });
+    update();
+  })();
+})();
+</script>
+
+<script>
+  // המשולש מחזיר לרשימת הנושאים של הסטטיסטיקה.
+  window.waytoseeParentOverride = "statistika/statistika.html";
+</script>
+<script src="../waytosee.js"></script>
+</body>
+</html>

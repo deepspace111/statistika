@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FTM28BMBXC"></script>
+<script src="../waytosee-analytics.js"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>תחנת חשיבה: למה תוצאה חיובית יכולה להטעות? | WayToSee</title>
+<meta name="description" content="כשל שיעור הבסיס: בדיקה עם שיעור זיהוי של 95% ושיעור תוצאות חיוביות שגויות של 5%, למצב נדיר. מתוך 590 תוצאות חיוביות, רק 95 מעידות על המצב.">
+
+<link rel="stylesheet" href="../waytosee.css">
+
+<style>
+/* תחנת חשיבה: בהירה או כהה לפי מפתח הפה, כמו בשאר האתר. */
+
+@font-face {
+  font-family: "WTS Math";
+  src: url("math-font.woff") format("woff");
+}
+math { font-family: "WTS Math", "Latin Modern Math", "Cambria Math", "STIX Two Math", math; }
+
+body { min-height: 100svh; margin: 0; }
+:root { --hl: #c2410c; }
+body.learning-mode { --hl: var(--accent-2); }
+
+.room { position: relative; z-index: 5; max-width: 640px; margin: 0 auto; padding: 0 22px 90px; }
+.room-head { text-align: center; padding: 70px 0 10px; }
+.room-head .kicker { font-size: 14px; letter-spacing: 0.12em; opacity: 0.55; }
+.room-head h1 { font-size: 30px; font-weight: 300; margin: 8px 0 0; }
+
+.step { padding: 26px 0; border-top: 1px solid var(--panel-border); }
+.step h2 { font-size: 20px; font-weight: 700; margin: 0 0 6px; }
+.step p { font-size: 17px; line-height: 1.65; margin: 0 0 8px; text-align: justify; }
+.ltr { direction: ltr; unicode-bidi: isolate; display: inline-block; }
+p math { font-size: 1.1em; }
+
+.btns { display: flex; gap: 8px; justify-content: center; margin: 12px 0 6px; flex-wrap: wrap; }
+.btns button {
+  font: inherit; font-size: 15px; color: var(--text);
+  background: var(--panel); border: 1px solid var(--panel-border);
+  border-radius: 999px; padding: 4px 16px; cursor: pointer;
+}
+.btns button:hover { border-color: var(--accent); }
+.btns button.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--panel)); }
+.out { text-align: center; font-size: 16px; min-height: 3.4em; line-height: 1.7; }
+.cnt { font-family: 'JetBrains Mono', monospace; color: var(--num); }
+
+.ex {
+  margin: 10px 0; padding: 10px 12px; border-radius: 10px;
+  background: var(--code-bg); text-align: center; font-size: 16px; line-height: 1.9;
+}
+.ex .num { font-family: 'JetBrains Mono', monospace; color: var(--num); }
+.formula { text-align: center; font-size: 26px; margin: 12px 0; }
+.formula.hl { color: var(--hl); }
+
+/* ===== פס התוצאות החיוביות ===== */
+:root { --sick: #8a9a5b; --healthy: #b8963e; }
+body.learning-mode { --sick: #7cc0ff; --healthy: #2b4f86; }
+.pos { display: flex; height: 26px; border-radius: 8px; overflow: hidden; margin: 12px 0 4px; direction: ltr;
+  background: color-mix(in srgb, var(--text) 8%, transparent); }
+.pos span { display: block; height: 100%; transition: width 0.5s ease; }
+.pos .s { background: var(--sick); }
+.pos .h { background: var(--healthy); }
+.legend { display: flex; justify-content: center; gap: 16px; font-size: 14px; opacity: 0.85; }
+.legend b { display: inline-block; width: 12px; height: 10px; border-radius: 2px; margin-inline-end: 5px; vertical-align: middle; }
+.legend .ls { background: var(--sick); } .legend .lh { background: var(--healthy); }
+ul.facts { font-size: 17px; line-height: 1.65; margin: 6px 0 10px; padding-inline-start: 20px; }
+ul.facts li { margin: 4px 0; }
+span[dir="ltr"], .ltr { white-space: nowrap; }
+
+.end { border-top: 1px solid var(--panel-border); padding-top: 26px; text-align: center; }
+.end p { font-size: 18px; line-height: 1.7; }
+
+@media (max-width: 600px) {
+  .room { padding: 0 16px 70px; }
+  .room-head { padding-top: 60px; }
+  .room-head h1 { font-size: 25px; }
+  .step p { font-size: 16px; }
+  .formula { font-size: 21px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="rain" id="rain"></div>
+
+<main class="room">
+
+  <header class="room-head">
+    <div class="kicker">תחנת חשיבה</div>
+    <h1>ולמה תוצאה חיובית יכולה להטעות?</h1>
+  </header>
+
+  <section class="step">
+    <h2>10,000 אנשים</h2>
+    <p>דוגמה היפותטית. בודקים <span class="ltr" dir="ltr">10,000</span> אנשים, כדי לגלות מצב נדיר: יש אותו ל־100 מהם, ול־<span class="ltr" dir="ltr">9,900</span> אין.</p>
+    <p>על הבדיקה ידועים שני מספרים, וכל אחד מהם עונה על שאלה אחרת:</p>
+    <ul class="facts">
+      <li><strong>שיעור הזיהוי:</strong> מבין מי שיש לו המצב, אצל כמה הבדיקה יוצאת חיובית? אצל 95 מתוך ה־100, כלומר 95%.</li>
+      <li><strong>שיעור התוצאות החיוביות השגויות:</strong> מבין מי שאין לו המצב, אצל כמה הבדיקה יוצאת חיובית בכל זאת? אצל 495 מתוך ה־<span class="ltr" dir="ltr">9,900</span>, כלומר 5%.</li>
+    </ul>
+    <p>המשפט ״הבדיקה מדויקת ב־95%״ לא מספיק, כי הוא לא אומר על איזה משני המספרים מדובר.</p>
+  </section>
+
+  <section class="step">
+    <h2>מי קיבל תוצאה חיובית?</h2>
+    <p>אוספים את כל מי שהבדיקה שלו יצאה חיובית, משתי הקבוצות:</p>
+    <div class="pos" id="posBar"><span class="s" id="posS"></span><span class="h" id="posH"></span></div>
+    <div class="legend"><span><b class="ls"></b>יש המצב</span><span><b class="lh"></b>אין המצב</span></div>
+    <div class="btns" id="posBtns">
+      <button type="button" data-k="s">יש המצב: 95</button>
+      <button type="button" data-k="h">אין המצב: 495</button>
+    </div>
+    <div class="out" id="outPos"></div>
+  </section>
+
+  <section class="step">
+    <h2>התשובה</h2>
+    <p>מבין 590 התוצאות החיוביות, רק 95 מעידות על המצב:</p>
+    <div class="formula"><math display="block" dir="ltr"><mfrac><mn>95</mn><mn>590</mn></mfrac><mo>≈</mo><mn>16.1</mn><mo>%</mo></math></div>
+    <p>זה בדיוק חוק בייס. <span class="ltr" dir="ltr">P(D)</span> הוא הסיכוי שיש המצב, ו־<span class="ltr" dir="ltr">+</span> היא תוצאה חיובית:</p>
+    <div class="formula"><math display="block" dir="ltr"><mi>P</mi><mo stretchy="false">(</mo><mi>D</mi><mo stretchy="false">|</mo><mo>+</mo><mo stretchy="false">)</mo><mo>=</mo><mfrac><mrow><mn>0.01</mn><mo>×</mo><mn>0.95</mn></mrow><mrow><mn>0.01</mn><mo>×</mo><mn>0.95</mn><mo>+</mo><mn>0.99</mn><mo>×</mo><mn>0.05</mn></mrow></mfrac><mo>≈</mo><mn>0.161</mn></math></div>
+    <p>הקבוצה בלי המצב גדולה פי 99 מהקבוצה עם המצב. לכן 5% ממנה, 495 אנשים, הם יותר מ־95% מהקבוצה הקטנה, 95 אנשים.</p>
+  </section>
+
+  <section class="step">
+    <h2>אותה בדיקה, שיעור בסיס אחר</h2>
+    <p>משאירים את שני המספרים של הבדיקה כמו שהם, ומשנים רק את החלק באוכלוסייה שיש לו המצב:</p>
+    <div class="btns" id="baseBtns">
+      <button type="button" data-b="0.01" class="on">1%</button>
+      <button type="button" data-b="0.1">10%</button>
+      <button type="button" data-b="0.5">50%</button>
+    </div>
+    <div class="pos" id="baseBar"><span class="s" id="baseS"></span><span class="h" id="baseH"></span></div>
+    <div class="out" id="outBase"></div>
+    <p>ככל שהמצב נדיר יותר, תוצאה חיובית מעידה עליו פחות.</p>
+  </section>
+
+  <div class="end">
+    <p>התעלמות מהשאלה כמה המצב נפוץ מלכתחילה נקראת <strong>כשל שיעור הבסיס</strong>. בחוק בייס היא חלק מהחישוב, דרך <span class="ltr" dir="ltr">P(D)</span>.</p>
+  </div>
+
+</main>
+
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const num = n => '<span class="cnt">' + n + "</span>";
+  const ltr = s => '<span dir="ltr">' + s + "</span>";
+  const fmt = n => Math.round(n).toLocaleString("en-US");
+
+  // ===== מי קיבל תוצאה חיובית =====
+  (function () {
+    const on = { s: false, h: false };
+    const btns = [...$("posBtns").querySelectorAll("button")];
+    function render() {
+      $("posS").style.width = on.s ? (100 * 95 / 590) + "%" : "0";
+      $("posH").style.width = on.h ? (100 * 495 / 590) + "%" : "0";
+      let t = "";
+      if (on.s && on.h) t = "בסך הכול " + ltr(num("95 + 495 = 590")) + " תוצאות חיוביות.";
+      else if (on.s) t = "95 תוצאות חיוביות של מי שיש לו המצב.";
+      else if (on.h) t = "495 תוצאות חיוביות של מי שאין לו המצב.";
+      $("outPos").innerHTML = t;
+    }
+    btns.forEach(b => b.addEventListener("click", () => {
+      on[b.dataset.k] = !on[b.dataset.k];
+      b.classList.toggle("on", on[b.dataset.k]);
+      render();
+    }));
+    render();
+  })();
+
+  // ===== שיעור בסיס אחר =====
+  (function () {
+    const btns = [...$("baseBtns").querySelectorAll("button")];
+    function show(base) {
+      const sick = 10000 * base, healthy = 10000 - sick;
+      const tp = sick * 0.95, fp = healthy * 0.05, all = tp + fp;
+      $("baseS").style.width = (100 * tp / all) + "%";
+      $("baseH").style.width = (100 * fp / all) + "%";
+      $("outBase").innerHTML =
+        "יש המצב: " + ltr(num(fmt(sick))) + ". תוצאות חיוביות: " + ltr(num(fmt(tp) + " + " + fmt(fp) + " = " + fmt(all))) + "<br>" +
+        "מתוכן מעידות על המצב: " + ltr(num(fmt(tp) + " ÷ " + fmt(all) + " ≈ " + (Math.round(1000 * tp / all) / 10) + "%"));
+    }
+    btns.forEach(b => b.addEventListener("click", () => {
+      btns.forEach(x => x.classList.toggle("on", x === b));
+      show(+b.dataset.b);
+    }));
+    show(0.01);
+  })();
+})();
+</script>
+
+<script>
+  // המשולש מחזיר לעמוד חוק בייס.
+  window.waytoseeParentOverride = "statistika/statistika-bayes.html";
+</script>
+<script src="../waytosee.js"></script>
+
+</body>
+</html>
