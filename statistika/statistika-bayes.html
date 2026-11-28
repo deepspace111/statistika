@@ -197,10 +197,6 @@ body.learning-mode { --setA: #7cc0ff; --setB: #2b4f86; }
     <p class="calm-link"><a href="statistika-thinking-baserate.html">ולמה תוצאה חיובית בבדיקה טובה יכולה להטעות?</a></p>
   </div>
 
-</div>
-
-<div class="col">
-
   <div class="section">
     <h2>לפני ואחרי</h2>
     <p>לפני הרמז, הסיכוי שהסטודנט לומד פסיכולוגיה הוא <span class="ltr" dir="ltr">7 ÷ 12 ≈ 58.3%</span>. אחרי הרמז הוא <span class="ltr" dir="ltr">½ = 50%</span>.</p>
@@ -209,6 +205,30 @@ body.learning-mode { --setA: #7cc0ff; --setB: #2b4f86; }
       <div class="row"><span class="bl">אחרי</span><span class="track"><span class="fill" id="barPost"></span></span><span class="bv cnt" id="vPost"></span></div>
     </div>
     <p>ההסתברות שלפני המידע נקראת <strong>הסתברות אפריורית</strong>, וזו שאחריו נקראת <strong>הסתברות אפוסטריורית</strong>. חוק בייס הוא הכלל שמעדכן את הראשונה לשנייה.</p>
+  </div>
+
+</div>
+
+<div class="col">
+
+  <div class="section">
+    <h2>ואם הרמז הפוך?</h2>
+    <p>הפעם הרמז הוא: <strong>״הסטודנט שיצא לא לומד סוציולוגיה.״</strong> העובדות לא השתנו, ולכן גם העץ לא משתנה. רק העלים שמסמנים השתנו.</p>
+    <p>שני מסלולים מגיעים ל״לא סוציולוגיה״: דרך פסיכולוגיה, <span class="ltr" dir="ltr">4 ÷ 12</span>, ודרך לא פסיכולוגיה, <span class="ltr" dir="ltr">2 ÷ 12</span>. יחד, <span class="ltr" dir="ltr"><math><mi>P</mi><mo>(</mo><msup><mi>B</mi><mi>c</mi></msup><mo>)</mo></math></span> הוא <span class="ltr" dir="ltr">6 ÷ 12</span>.</p>
+    <div class="calc"><math display="block"><mi>P</mi><mo stretchy="false">(</mo><mi>A</mi><mo stretchy="false">|</mo><msup><mi>B</mi><mi>c</mi></msup><mo stretchy="false">)</mo><mo>=</mo><mfrac><mn>4</mn><mn>12</mn></mfrac><mo>÷</mo><mfrac><mn>6</mn><mn>12</mn></mfrac><mo>=</mo><mstyle mathvariant="bold"><mfrac><mn>2</mn><mn>3</mn></mfrac></mstyle><mo>≈</mo><mn>66.7</mn><mo>%</mo></math></div>
+    <p>זה המספר שיצא בספירה בעמוד ההסתברות המותנית. אותו עץ עונה על שני הרמזים: רמז אחד הוריד את הסיכוי ל־50%, והרמז ההפוך העלה אותו ל־66.7%.</p>
+  </div>
+
+  <div class="section">
+    <h2>הבלבול בין הכיוונים</h2>
+    <p>טעות נפוצה היא להחליף בין שני הכיוונים, כאילו <span class="ltr" dir="ltr"><math><mi>P</mi><mo>(</mo><mi>B</mi><mo>|</mo><mi>A</mi><mo>)</mo></math></span> ו־<span class="ltr" dir="ltr"><math><mi>P</mi><mo>(</mo><mi>A</mi><mo>|</mo><mi>B</mi><mo>)</mo></math></span> הם אותו מספר. בכיתה שלנו:</p>
+    <ul>
+      <li><span class="ltr" dir="ltr"><math><mi>P</mi><mo>(</mo><mi>B</mi><mo>|</mo><mi>A</mi><mo>)</mo></math></span>: מבין לומדי הפסיכולוגיה, <span class="ltr" dir="ltr">3 ÷ 7 ≈ 42.9%</span> לומדים סוציולוגיה.</li>
+      <li><span class="ltr" dir="ltr"><math><mi>P</mi><mo>(</mo><mi>A</mi><mo>|</mo><mi>B</mi><mo>)</mo></math></span>: מבין לומדי הסוציולוגיה, <span class="ltr" dir="ltr">½ = 50%</span> לומדים פסיכולוגיה.</li>
+    </ul>
+    <p>חוק בייס מראה מה מחבר ביניהם: היחס בין <span class="ltr" dir="ltr"><math><mi>P</mi><mo>(</mo><mi>A</mi><mo>)</mo></math></span> ל־<span class="ltr" dir="ltr"><math><mi>P</mi><mo>(</mo><mi>B</mi><mo>)</mo></math></span>.</p>
+    <div class="calc"><math display="block"><mi>P</mi><mo stretchy="false">(</mo><mi>A</mi><mo stretchy="false">|</mo><mi>B</mi><mo stretchy="false">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false">(</mo><mi>B</mi><mo stretchy="false">|</mo><mi>A</mi><mo stretchy="false">)</mo><mo>×</mo><mfrac><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>A</mi><mo stretchy="false">)</mo></mrow><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>B</mi><mo stretchy="false">)</mo></mrow></mfrac><mo>=</mo><mfrac><mn>3</mn><mn>7</mn></mfrac><mo>×</mo><mfrac><mn>7</mn><mn>6</mn></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></math></div>
+    <p>שני הכיוונים שווים רק כש־<span class="ltr" dir="ltr"><math><mi>P</mi><mo>(</mo><mi>A</mi><mo>)</mo></math></span> ו־<span class="ltr" dir="ltr"><math><mi>P</mi><mo>(</mo><mi>B</mi><mo>)</mo></math></span> שווים. בתחנת החשיבה הפער גדול הרבה יותר: שיעור הזיהוי הוא 95%, אבל הסיכוי שיש המצב אחרי תוצאה חיובית הוא רק בערך 16.1%.</p>
   </div>
 
   <div class="section">
